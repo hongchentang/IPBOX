@@ -58,7 +58,7 @@
 		<xbean-spring.version>3.17</xbean-spring.version>
 		<xmlsec.version>1.5.6</xmlsec.version>
 
-		<shiro.version>1.2.2</shiro.version>
+		<shiro.version>1.5.2</shiro.version>
 		<cxf.version>2.7.5</cxf.version>
 		<activemq.version>5.7.0</activemq.version>
 		<quartz.version>2.2.2</quartz.version>
