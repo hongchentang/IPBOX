@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcis.ipr.train.register.mapper.TrainRegisterMapper" >
+  <resultMap id="BaseResultMap" type="com.hcis.ipr.train.register.entity.TrainRegister" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="TRAIN_ID" property="trainId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="DEPT_ID" property="deptId" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="AUDIT_USER" property="auditUser" jdbcType="VARCHAR" />
+    <result column="AUDIT_DEPT" property="auditDept" jdbcType="VARCHAR" />
+    <result column="AUDIT_TIME" property="auditTime" jdbcType="TIMESTAMP" />
+    <result column="AUDIT_CONTENT" property="auditContent" jdbcType="VARCHAR" />
+    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="CHAR" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+    <result column="IS_ROOM" property="isRoom" jdbcType="VARCHAR" />
+    <result column="ROOM_START_TIME" property="roomStartTime" jdbcType="TIMESTAMP" />
+    <result column="ROOM_END_TIME" property="roomEndTime" jdbcType="TIMESTAMP" /> 
+  </resultMap>
+   <resultMap type="java.util.Map" id="userInfo" extends="BaseResultMap">
+  	<result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="REAL_NAME" property="realName" jdbcType="VARCHAR" />
+    <result column="DEPT_NAME" property="deptName" jdbcType="VARCHAR" />
+    <result column="TRAIN_NAME" property="trainName" jdbcType="VARCHAR" />
+    <result column="PROJECT_NAME" property="projectName" jdbcType="VARCHAR" />
+    <result column="PAPERWORK_NO" property="paperWorkNo" jdbcType="VARCHAR" />
+    <result column="COURSE_EVALUA_COUNT" property="courseEvaluaCount" jdbcType="DECIMAL" />
+    <result column="TEACHING_EVALUA_COUNT" property="teachingEvaluaCount" jdbcType="DECIMAL" />
+    <result column="START_TIME" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="END_TIME" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="BELONG_DEPT_NAME" property="belongDeptName" jdbcType="VARCHAR" />
+    <result column="MOBILE_PHONE" property="mobilePhone" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+   	<result column="IS_ROOM" property="isRoom" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, TRAIN_ID, USER_ID, DEPT_ID, STATUS, AUDIT_USER, AUDIT_DEPT, AUDIT_TIME, AUDIT_CONTENT, 
+    CREATOR, CREATE_TIME, UPDATEDBY, UPDATE_TIME, IS_DELETED, VERSION,IS_ROOM,ROOM_START_TIME,ROOM_END_TIME
+  </sql>
+  
+   <select id="selectBySearchParam" resultMap="userInfo" parameterType="searchParam" >
+   select IU.USER_NAME,IU.REAL_NAME,IDE.DEPT_NAME,IU.PAPERWORK_NO,IU.BELONG_DEPT_NAME,IU.MOBILE_PHONE,IU.EMAIL,it.train_name,ip.project_name, t.*,
+   		it.START_TIME,it.END_TIME,
+   		(select count(ICEE.ID) from IPR_COURSE_EFFECT_EVALUA ICEE where it.id=ICEE.train_ID) COURSE_EVALUA_COUNT,
+   		(select count(ITE.ID) from IPR_TEACHING_EVALUA ITE where it.id=ITE.train_ID) TEACHING_EVALUA_COUNT
+       from IPR_TRAIN_register t 
+       	  join IPANTHER_USER IU on t.user_id=IU.id and IU.IS_DELETED = 'N'
+          JOIN IPANTHER_USER_DEPT IUD ON IU.ID = IUD.USER_ID AND IUD.IS_DELETED = 'N' 
+          JOIN IPANTHER_DEPARTMENT IDE ON IDE.ID = IUD.DEPT_ID AND IDE.IS_DELETED = 'N'
+          JOIN Ipanther_Admin_Regions IR ON IR.REGIONS_CODE = IDE.REGIONS_CODE AND IR.IS_DELETED = 'N'
+	      join ipr_train it on it.id=t.train_id and it.is_deleted='N'
+	      join ipbox_project ip on ip.id=it.project_id and ip.status='02'
+      where t.is_deleted='N'
+    	<if test="paramMap.trainId != null and paramMap.trainId!=''" >
+	       and t.TRAIN_ID =  #{paramMap.trainId,jdbcType=VARCHAR}
+	     </if>
+	     <if test="paramMap.isRoom != null and paramMap.isRoom!=''" >
+	       and t.IS_ROOM =  #{paramMap.isRoom,jdbcType=VARCHAR}
+	     </if>
+	     <if test="paramMap.trainName != null and paramMap.trainName!=''" >
+	       and it.train_name LIKE CONCAT('%',#{paramMap.trainName,jdbcType=VARCHAR},'%')
+	     </if>
+	     <if test="paramMap.status != null and paramMap.status!=''" >
+	       and t.STATUS =  #{paramMap.status,jdbcType=VARCHAR}
+	     </if>
+	     <if test="paramMap.realName != null and paramMap.realName!=''" >
+	       and uv.real_name like  CONCAT('%',#{paramMap.realName,jdbcType=VARCHAR},'%')
+	     </if>
+	     <if test="paramMap.userId != null and paramMap.userId!=''" >
+	       and t.USER_ID =#{paramMap.userId,jdbcType=VARCHAR} and t.STATUS!='02'
+	     </if>
+	      <if test="paramMap.studentId != null and paramMap.studentId!=''" >
+	       and t.USER_ID =#{paramMap.studentId,jdbcType=VARCHAR} 
+	     </if>
+	     <choose>
+	     <when test="paramMap.status != null and paramMap.status=='01'">
+				     order by t.update_time desc
+	     </when>
+	     <otherwise>
+		     order by t.create_time desc
+	     </otherwise>
+	     </choose>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from IPR_TRAIN_REGISTER
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from IPR_TRAIN_REGISTER
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hcis.ipr.train.register.entity.TrainRegister" >
+    insert into IPR_TRAIN_REGISTER (ID, TRAIN_ID, USER_ID, 
+      DEPT_ID, STATUS, AUDIT_USER, 
+      AUDIT_DEPT, AUDIT_TIME, AUDIT_CONTENT, 
+      CREATOR, CREATE_TIME, UPDATEDBY, 
+      UPDATE_TIME, IS_DELETED, VERSION,IS_ROOM,ROOM_START_TIME,ROOM_END_TIME
+      )
+    values (#{id,jdbcType=VARCHAR}, #{trainId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
+      #{deptId,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, #{auditUser,jdbcType=VARCHAR}, 
+      #{auditDept,jdbcType=VARCHAR}, #{auditTime,jdbcType=TIMESTAMP}, #{auditContent,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updatedby,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=CHAR}, #{version,jdbcType=DECIMAL},#{isRoom,jdbcType=VARCHAR},#{roomStartTime,jdbcType=TIMESTAMP},#{roomEndTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hcis.ipr.train.register.entity.TrainRegister" >
+    insert into IPR_TRAIN_REGISTER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="trainId != null" >
+        TRAIN_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="deptId != null" >
+        DEPT_ID,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="auditUser != null" >
+        AUDIT_USER,
+      </if>
+      <if test="auditDept != null" >
+        AUDIT_DEPT,
+      </if>
+      <if test="auditTime != null" >
+        AUDIT_TIME,
+      </if>
+      <if test="auditContent != null" >
+        AUDIT_CONTENT,
+      </if>
+      <if test="creator != null" >
+        CREATOR,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+      <if test="isRoom != null" >
+        IS_ROOM,
+      </if>
+      <if test="roomStartTime != null" >
+        ROOM_START_TIME,
+      </if>
+       <if test="roomEndTime != null" >
+        ROOM_END_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="trainId != null" >
+        #{trainId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="deptId != null" >
+        #{deptId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="auditUser != null" >
+        #{auditUser,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDept != null" >
+        #{auditDept,jdbcType=VARCHAR},
+      </if>
+      <if test="auditTime != null" >
+        #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditContent != null" >
+        #{auditContent,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=CHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+      <if test="isRoom != null" >
+        #{isRoom,jdbcType=VARCHAR},
+      </if>
+      <if test="roomStartTime != null" >
+        #{roomStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="roomEndTime != null" >
+        #{roomEndTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hcis.ipr.train.register.entity.TrainRegister" >
+    update IPR_TRAIN_REGISTER
+    <set >
+      <if test="trainId != null" >
+        TRAIN_ID = #{trainId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="deptId != null" >
+        DEPT_ID = #{deptId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="auditUser != null" >
+        AUDIT_USER = #{auditUser,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDept != null" >
+        AUDIT_DEPT = #{auditDept,jdbcType=VARCHAR},
+      </if>
+      <if test="auditTime != null" >
+        AUDIT_TIME = #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditContent != null" >
+        AUDIT_CONTENT = #{auditContent,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      </if>
+      IS_ROOM = #{isRoom,jdbcType=VARCHAR},
+      ROOM_START_TIME = #{roomStartTime,jdbcType=TIMESTAMP},
+      ROOM_END_TIME = #{roomEndTime,jdbcType=TIMESTAMP},
+      VERSION = VERSION+1,
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByIds" parameterType="searchParam" >
+    update IPR_TRAIN_REGISTER
+    <set >
+      <if test="paramMap.auditStatus != null" >
+        STATUS = #{paramMap.auditStatus,jdbcType=CHAR},
+      </if>
+      <if test="paramMap.auditUser != null" >
+        AUDIT_USER = #{paramMap.auditUser,jdbcType=VARCHAR},
+      </if>
+      <if test="paramMap.auditDept != null" >
+        AUDIT_DEPT = #{paramMap.auditDept,jdbcType=VARCHAR},
+      </if>
+      <if test="paramMap.auditTime != null" >
+        AUDIT_TIME = #{paramMap.auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paramMap.auditContent != null" >
+        AUDIT_CONTENT = #{paramMap.auditContent,jdbcType=VARCHAR},
+      </if>
+      <if test="paramMap.updatedby != null" >
+        UPDATEDBY = #{paramMap.updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="paramMap.updateTime != null" >
+        UPDATE_TIME = #{paramMap.updateTime,jdbcType=TIMESTAMP},
+      </if>
+        VERSION = VERSION+1,
+    </set>
+    where ID in (${paramMap.auditId})
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hcis.ipr.train.register.entity.TrainRegister" >
+    update IPR_TRAIN_REGISTER
+    set TRAIN_ID = #{trainId,jdbcType=VARCHAR},
+      USER_ID = #{userId,jdbcType=VARCHAR},
+      DEPT_ID = #{deptId,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=CHAR},
+      AUDIT_USER = #{auditUser,jdbcType=VARCHAR},
+      AUDIT_DEPT = #{auditDept,jdbcType=VARCHAR},
+      AUDIT_TIME = #{auditTime,jdbcType=TIMESTAMP},
+      AUDIT_CONTENT = #{auditContent,jdbcType=VARCHAR},
+      CREATOR = #{creator,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      IS_DELETED = #{isDeleted,jdbcType=CHAR},
+       IS_ROOM = #{isRoom,jdbcType=VARCHAR},
+      ROOM_START_TIME = #{roomStartTime,jdbcType=TIMESTAMP},
+      ROOM_END_TIME = #{roomEndTime,jdbcType=TIMESTAMP},
+      VERSION = VERSION+1
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="batchDelete" parameterType="searchParam" >
+    update IPR_TRAIN_REGISTER
+    <set >
+      <if test="paramMap.updatedby != null" >
+        UPDATEDBY = #{paramMap.updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="paramMap.updateTime != null" >
+        UPDATE_TIME = #{paramMap.updateTime,jdbcType=TIMESTAMP},
+      </if>
+        IS_DELETED = 'Y',
+        VERSION = VERSION+1,
+    </set>
+    where  TRAIN_ID = #{paramMap.trainId,jdbcType=VARCHAR} and USER_ID in (${paramMap.ids})
+  </update>
+  <select id="selectCountRegister" resultType="java.util.Map" parameterType="java.util.Map">
+  	SELECT  count(ITR.USER_ID) SUM_COUNT,MONTH_TEM.MONTH
+		FROM  IPR_TRAIN_REGISTER ITR  
+  		  JOIN IPR_TRAIN IT ON ITR.TRAIN_ID = IT.ID  AND IT.IS_DELETED = 'N' AND ITR.Status='02' AND ITR.IS_DELETED = 'N'
+  		  JOIN ipbox_project IP ON IP.ID = IT.PROJECT_ID AND IP.IS_DELETED = 'N' 
+  		  <if test="year != null and year!=''" >
+	        AND IP.year = #{year,jdbcType=DECIMAL}
+	      </if>
+	      <if test="deptId != null and deptId!=''" >
+	        AND IP.DECLARE_DEPT = #{deptId,jdbcType=VARCHAR}
+	      </if>
+		RIGHT JOIN 
+		<foreach collection="months" open="(" close=")" separator="UNION ALL" item="trainMonth">
+			SELECT #{trainMonth,jdbcType=DECIMAL} MONTH FROM DUAL
+		</foreach>
+<!-- 		MONTH_TEM  ON MONTH_TEM.MONTH= to_char(ITR.CREATE_TIME,'mm') -->
+		MONTH_TEM  ON MONTH_TEM.MONTH= date_format(ITR.CREATE_TIME,'mm')
+		 GROUP BY ITR.USER_ID,MONTH_TEM.MONTH
+		 ORDER BY MONTH_TEM.MONTH
+  </select>
+</mapper>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcis.ipr.intellectual.call.mapper.ProcedureMapper">   
+    <resultMap id="BaseResultMap" type="com.hcis.ipr.intellectual.call.entity.PatentType">
+        <result column="years" property="year" jdbcType="VARCHAR"/>
+        <result column="invent " property="invent" jdbcType="VARCHAR"/>
+        <result column="appearance " property="appearance" jdbcType="VARCHAR"/>
+        <result column="utility" property="utility" jdbcType="VARCHAR"/>
+     
+     
+    </resultMap >
+    
+        <resultMap id="maps" type="com.hcis.ipr.intellectual.call.entity.PatentCost">
+        <result column="COMPANY_ID" property="companyID" jdbcType="VARCHAR"/>
+        <result column="years " property="years" jdbcType="VARCHAR"/>
+        <result column="agency " property="agency" jdbcType="VARCHAR"/>
+        <result column="officialfees" property="officialfees" jdbcType="VARCHAR"/>
+        <result column="annualfee" property="annualfee" jdbcType="VARCHAR"/>
+        <result column="Otherfee" property="Otherfee" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    
+    <resultMap id="invent" type="com.hcis.ipr.intellectual.call.entity.PatentInvent">
+        <result column="FIRST_INVENTOR" property="invent" jdbcType="VARCHAR"/>
+        <result column="sum" property="count" jdbcType="INTEGER"/>
+     </resultMap >
+     
+        <resultMap id="applyer" type="com.hcis.ipr.intellectual.call.entity.PatentApplyer">
+        <result column="APPLYER" property="applyer" jdbcType="VARCHAR"/>
+        <result column="sum" property="count" jdbcType="INTEGER"/>
+       </resultMap >
+       
+     <resultMap id="ipics" type="com.hcis.ipr.intellectual.call.entity.PatentIpic">
+        <result column="years" property="years" jdbcType="VARCHAR"/>
+        <result column="transfer" property="transfer" jdbcType="VARCHAR"/>
+        <result column="permission" property="permission" jdbcType="VARCHAR"/>
+        <result column="pledge" property="pledge" jdbcType="VARCHAR"/>
+        <result column="shares" property="shares" jdbcType="VARCHAR"/>
+      </resultMap > 
+      
+         <resultMap id="dept" type="com.hcis.ipr.intellectual.call.entity.PatentApplyer">
+        <result column="deptname" property="applyer" jdbcType="VARCHAR"/>
+        <result column="sum" property="count" jdbcType="INTEGER"/>
+       </resultMap >
+                                               
+    <select id ="getPatentType" parameterType="java.lang.String" statementType="CALLABLE"  resultMap="BaseResultMap">
+                                                       
+         call patentType(#{ID},'index')
+<!--  	    <if test="paramMap.searchUserId != null and paramMap.searchUserId !=''">
+          call patentTypekids( #{paramMap.ID},'index')
+           </if>  -->
+           
+           
+<!--        <if test="paramMap.searchUserId !='' and paramMap.deptIds != null and paramMap.deptIds.size > 0 ">
+          call patentType( #{paramMap.ID},'index') 
+          </if>  -->
+
+
+   </select >
+   
+       <select id ="getPatentTypekids" parameterType="java.lang.String" statementType="CALLABLE"  resultMap="BaseResultMap">
+                                                       
+         call patentTypekids(#{ID},'index')
+
+
+
+   </select >
+   <select id ="getPatentTypeList" parameterType="java.lang.String" statementType="CALLABLE"  resultMap="BaseResultMap">
+                                                         
+    
+                 call patentType(#{ID},'')
+ 
+   </select >
+ 
+     <select id ="getPatentInvent" parameterType="java.lang.String" resultMap="invent">
+                                                         
+                 SELECT FIRST_INVENTOR,count(*) as sum FROM ipbox.ipanther_patent where 1=1  and COMPANY_ID=#{ID} and is_deleted='N'  group by FIRST_INVENTOR order by sum DESC limit 0,10
+
+     </select > 
+
+
+   <select id ="getPatentCost" parameterType="java.lang.String" statementType="CALLABLE"  resultMap="maps">
+
+                  call patentCost(#{ID})
+ 
+    </select >
+
+      <select id ="getPatentApplyer" parameterType="java.lang.String" resultMap="applyer">
+                                                          
+                 SELECT APPLYER,COUNT(*) as sum FROM ipbox.ipanther_patent where 1=1 and COMPANY_ID=#{ID} and is_deleted='N'  group by APPLYER order by sum desc limit 0,10 ;
+   
+      </select >  
+          <select id ="getPatentIpic" parameterType="java.lang.String" statementType="CALLABLE"  resultMap="ipics">
+                                                         
+                  call ipic(#{companyId}) 
+ 
+          </select > 
+          <select id ="getPatentDept" parameterType="java.lang.String" resultMap="dept">
+                                                         
+                 select count(*) as sum ,DEPT_NAME as deptname from ipanther_patent p inner join ipanther_department d on p.DEP_ID=d.ID and COMPANY_ID=#{ID} and p.is_deleted='N'   group by d.DEPT_NAME ;
+
+          </select > 
+             <select id ="getindexCost" parameterType="java.lang.String" resultType="java.lang.String">
+                                                         
+				select sum(FEE_PAYABLE) from ipbox.ipanther_patent_cost where COMPANY_ID=#{ID} and cost_type !='0'  group by  cost_type
+          </select > 
+                  <select id ="getindexCostkids" parameterType="java.lang.String" resultType="java.lang.String">
+                                                         
+				select sum(FEE_PAYABLE) from ipbox.ipanther_patent_cost where CREATOR=#{ID} and cost_type !='0'  group by  cost_type
+          </select >
+</mapper>

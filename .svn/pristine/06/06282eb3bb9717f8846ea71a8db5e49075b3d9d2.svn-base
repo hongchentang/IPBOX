@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>广东省知识产权人才信息化管理</title>
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<!--start #g-tp 顶部 -->
+	<div id="g-tp">
+		<div class="g-tpc clearfix">
+			<div class="m-welcomes">欢迎来到广东省知识产权人才信息化管理门户！</div>
+			<div class="m-lr">
+				<a href="#" class="log" id="u-log-btn">登录</a>	
+				<span>|</span>
+				<a href="#" class="reg" id="u-reg-btn">注册</a>
+			</div>
+		</div>
+	</div>
+	<!--end #g-tp 顶部 -->
+	<!--start #g-hd 头部 -->
+	<div id="g-hd">
+		<div class="g-hdc clearfix">
+			<h1 id="logo"><a href="index.html">广东省知识产权人才信息化管理</a></h1>
+			<div class="m-sch">
+				<input type="text" placeholder="搜索" class="u-input u-input-full">
+				<button type="submit" class="u-sch-btn">
+					<i class="ico"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+	<!--end #g-hd 头部 -->
+	<!--start #g-menu 导航 -->
+	<div id="g-menu">
+		<div class="g-nvc clearfix">
+			<a href="index.html">首页</a>
+			<a href="informList.html">通知要闻</a>
+			<a href="dynamicList.html">培训动态</a>
+			<a href="talents.html">人才培训系统</a>
+			<a href="teacher.html">培训师资系统</a>
+			<a href="javascript:void(0);">人才评估系统</a>
+			<a href="contactUs.html" class="z-crt">联系我们</a>
+		</div>
+	</div>
+	<!--end #g-menu 导航 -->
+	<!--start #g-bd 中间 -->
+	<div id="g-bd">
+		<!--start #courseDetail 课程详情 -->
+		<div id="courseDetail">
+			<div class="g-page-wrap">
+				<div class="g-page-box">
+					<div class="m-tt2">
+						<div class="m-crm">
+							<span class="c-txt">您的位置：</span>
+							<a href="index.html">首页</a>
+							<span class="line">&gt;</span>
+							<span class="z-crt">最新知识产权人才培训课程</span>
+						</div>
+					</div><!--end .m-tt2-->	
+					<div class="m-page-dt">
+						<div class="g-cd-box">
+							<div class="g-figure-panel">
+								<div class="t-img">
+									<img src="images/courseImg.jpg" alt="">
+									<a href="#" class="u-play">观看视频简介</a>
+								</div>
+								<div class="m-figure-info">
+									<strong class="u-figure-title">最新知识产权人才培训</strong>
+									<div class="m-opa2">
+										<span class="u-view">
+											<i class="ico"></i>30分钟
+										</span>
+										<span class="u-num">
+											<i class="ico"></i>333人
+										</span>
+									</div>
+									<p class="intor">知识产权课程将系统地从知识产权分类入手，课程主讲人会利用其在知识产权界的丰富经验向我们讲授专利权、著作权、商标权等相关知识，知识细化到专利义务、专利权属的标准、知识产权作为商业战略的应用、专利文献搜索等内容。 </p>
+									<ul class="m-img-lst" style="margin-top: 5px; border-top: 1px solid #e8e8e8">
+										<li class="item">
+											<a href="#" class="img"><img src="images/headImg19.jpg" alt=""></a>
+											<strong class="name"><a href="#">李婧老师</a></strong>
+											<p class="txt"><span>华南师范大学</span><span>工商管理学院</span><span>副教授</span></p>
+										</li>
+									</ul>
+								</div>
+							</div><!--end .g-figure-panel -->
+							<div class="g-frame f-cb">
+								<div class="g-frame-main">
+									<div class="g-frame-mod">
+										<div class="m-frame-tt">
+											<h3><span class="b"></span>课程报名</h3>
+										</div>
+										<div class="g-table">
+											<table width="100%" border="0" cellspacing="1" cellpadding="1" class="m-table">
+												<thead>
+												    <tr>
+												      <th>项目</th>
+												      <th>培训班</th>
+												      <th>已报名人数</th>
+												      <th>选课开始时间</th>
+												      <th>选课结束时间</th>
+												      <th>报名</th>
+												    </tr>
+												  </thead>
+												  <tfoot>
+												    <tr align="right">
+												      <td colspan="2">总记录条数：<em>56</em>条</td>
+												      <td colspan="2">总页数：<em>5</em>页</td>
+												      <td colspan="2">
+												      	<div class="m-jumpPage1">
+												      		<a href="javascript:void(0);" class="z-crt">1</a>
+												      		<a href="javascript:void(0);">2</a>
+												      		<a href="javascript:void(0);">3</a>
+												      		<span>…</span>
+												      		<a href="javascript:void(0);">下一页</a>
+												      		<a href="javascript:void(0);">末页</a>
+												      	</div>
+												      </td>
+												      </tr>
+												  </tfoot>
+												  <tbody>
+												    <tr>
+												      <td>项目1</td>
+												      <td>知识产权人才培训1班</td>
+												      <td>110人</td>
+												      <td>2015-3-3</td>
+												      <td>2015-3-25</td>
+												      <td><input type="button" value="+加入课程" class="u-btn u-btn1"></td>
+												    </tr>
+												    <tr>
+												      <td>项目1</td>
+												      <td>知识产权人才培训1班</td>
+												      <td>110人</td>
+												      <td>2015-3-3</td>
+												      <td>2015-3-25</td>
+												      <td><input type="button" value="+加入课程" class="u-btn u-btn1"></td>
+												    </tr>
+												    <tr>
+												      <td>项目1</td>
+												      <td>知识产权人才培训1班</td>
+												      <td>110人</td>
+												      <td>2015-3-3</td>
+												      <td>2015-3-25</td>
+												      <td><input type="button" value="+加入课程" class="u-btn u-btn1"></td>
+												    </tr>
+												    <tr>
+												      <td>项目1</td>
+												      <td>知识产权人才培训1班</td>
+												      <td>110人</td>
+												      <td>2015-3-3</td>
+												      <td>2015-3-25</td>
+												      <td><input type="button" value="+加入课程" disabled="disabled" class="u-btn u-btn1 disabled"></td>
+												    </tr>
+												    <tr>
+												      <td>项目1</td>
+												      <td>知识产权人才培训1班</td>
+												      <td>110人</td>
+												      <td>2015-3-3</td>
+												      <td>2015-3-25</td>
+												      <td><input type="button" value="+加入课程" disabled="disabled" class="u-btn u-btn1 disabled"></td>
+												    </tr>
+												  </tbody>
+											</table>
+										</div>
+									</div><!--end .g-frame-mod -->
+									<div class="g-frame-mod">
+										<div class="m-frame-tt">
+											<h3><span class="b"></span>课程概述</h3>
+										</div>
+										<div class="m-text">
+											<p>知识产权是一种民事权利，是和财产所有权、债权、人身权相并列的一类民事权利。知识产权指人们对智力创造成果和工商业标记依法享有的权利。那么知识产权和其他三类民事权利比较，特殊在什么地方？区别在哪里？就在于它的保护对象即客体是特殊的。知识产权的客体是人的创造性智力成果以及用于工商业的识别性标记，我们可以将它们统称为知识产品。知识产品与一般物质产品的不同之处就在于，它是无形的，是人类智力活动、思想、情感的外在表现形式，它创造难而传播容易。正是因为客体的特殊性，决定了知识产权成为财产所有权之外一种独立的权利类型。 </p>
+										</div>
+									</div><!--end .g-frame-mod -->
+									<div class="g-frame-mod">
+										<div class="m-frame-tt">
+											<h3><span class="b"></span>授课大纲</h3>
+										</div>
+										<div class="g-catalog">
+											<ul class="m-catalog">
+												<li class="item">
+													<h4 class="tt">第一节课：知识经济时代的知识产权</h4>
+													<p class="txt">知识产权是一种民事权利，是和财产所有权、债权、人身权相并列的一类民事权利。知识产权指人们对智力创造成果和工商业标记享有的权利。</p>
+												</li>
+												<li class="item">
+													<h4 class="tt">第二节课：专利法律制度基础 </h4>
+													<p class="txt">知识产权是一种民事权利，是和财产所有权、债权、人身权相并列的一类民事权利。知识产权指人们对智力创造成果和工商业标记享有的权利。</p>
+												</li>
+												<li class="item">
+													<h4 class="tt">第三节课：专利战略与技术创新 </h4>
+													<p class="txt">知识产权是一种民事权利，是和财产所有权、债权、人身权相并列的一类民事权利。知识产权指人们对智力创造成果和工商业标记享有的权利。</p>
+												</li>
+												<li class="item">
+													<h4 class="tt">第四节课：商标法律制度基础</h4>
+													<p class="txt">知识产权是一种民事权利，是和财产所有权、债权、人身权相并列的一类民事权利。知识产权指人们对智力创造成果和工商业标记享有的权利。</p>
+												</li>
+												<li class="item">
+													<h4 class="tt">第五节课：企业商标战略及策略运用</h4>
+													<p class="txt">知识产权是一种民事权利，是和财产所有权、债权、人身权相并列的一类民事权利。知识产权指人们对智力创造成果和工商业标记享有的权利。</p>
+												</li>
+												<li class="item">
+													<h4 class="tt">第六节课：著作权法律制度基础 </h4>
+													<p class="txt">知识产权是一种民事权利，是和财产所有权、债权、人身权相并列的一类民事权利。知识产权指人们对智力创造成果和工商业标记享有的权利。</p>
+												</li>
+											</ul>
+										</div>
+									</div><!--end .g-frame-mod -->
+								</div><!--end .g-frame-main -->
+								<div class="g-frame-side">
+									<div class="g-frame-mod">
+										<div class="m-frame-tt">
+											<h3><span class="b"></span>课程概述</h3>
+										</div>
+										<ul class="m-img-lst m-img-lst1">
+											<li class="item">
+												<a href="#" class="img"><img src="images/headImg19.jpg" alt=""></a>
+												<strong class="name"><a href="#">李婧老师</a></strong>
+												<p class="txt"><span>华南师范大学</span></p>
+											</li>
+											<li class="item">
+												<a href="#" class="img"><img src="images/headImg30.jpg" alt=""></a>
+												<strong class="name"><a href="#">李婧老师</a></strong>
+												<p class="txt"><span>华南师范大学</span></p>
+											</li>
+											<li class="item">
+												<a href="#" class="img"><img src="images/headImg31.jpg" alt=""></a>
+												<strong class="name"><a href="#">李婧老师</a></strong>
+												<p class="txt"><span>华南师范大学</span></p>
+											</li>
+											<li class="item">
+												<a href="#" class="img"><img src="images/headImg32.jpg" alt=""></a>
+												<strong class="name"><a href="#">李婧老师</a></strong>
+												<p class="txt"><span>华南师范大学</span></p>
+											</li>
+											<li class="item">
+												<a href="#" class="img"><img src="images/headImg33.jpg" alt=""></a>
+												<strong class="name"><a href="#">李婧老师</a></strong>
+												<p class="txt"><span>华南师范大学</span></p>
+											</li>
+											<li class="item">
+												<a href="#" class="img"><img src="images/headImg34.jpg" alt=""></a>
+												<strong class="name"><a href="#">李婧老师</a></strong>
+												<p class="txt"><span>华南师范大学</span></p>
+											</li>
+										</ul>
+									</div><!--end .g-frame-mod -->
+								</div><!--end .g-frame-side -->
+							</div><!--end .g-frame -->
+							<div class="g-frame-mod">
+								<div class="m-frame-tt">
+									<h3><span class="b"></span>相关课程</h3>
+								</div>
+								<ul class="m-figure-lst f-cb">
+									<li class="c-item">
+										<div class="turn-before">
+											<a href="courseDetail.html" target="_blank" class="img">
+												<img src="images/figure-img1.jpg" alt="">
+											</a>
+											<strong class="u-figure-title"><a href="courseDetail.html" target="_blank" title="最新知识产权人才培训">最新知识产权人才培训</a></strong>
+											<p class="c-site">来源：华南理工大学</p>
+											<div class="m-opa2">
+												<a href="#" class="u-view">
+													<i class="ico"></i>30分钟
+												</a>
+												<a href="#" class="u-num">
+													<i class="ico"></i>333人
+												</a>
+											</div>
+											<div class="m-mt1">
+												<span class="u-type u-type2">即将报名</span>
+											</div>	
+										</div>
+										<div class="turn-after">
+											<div class="c-pd">
+												<ul class="m-img-lst">
+													<li class="item">
+														<a href="#" class="img"><img src="images/headImg19.jpg" alt=""></a>
+														<strong class="name"><a href="#">李婧老师</a></strong>
+														<p class="txt"><span>华南师范大学</span></p>
+													</li>
+												</ul>
+												<p class="c-ex">本课程讲述知识产权是一种民事权利，是和财产所有权、债权、人身权相并列的一类民事权利。</p>
+												<a href="courseDetail.html" class="u-turn"><span>最新知识产权人才培训</span> <i class="ico"></i></a>	
+											</div>
+										</div>
+									</li>
+									<li class="c-item">
+										<div class="turn-before">
+											<a href="courseDetail.html" target="_blank" class="img">
+												<img src="images/figure-img2.jpg" alt="">
+											</a>
+											<strong class="u-figure-title"><a href="courseDetail.html" target="_blank" title="最新知识产权人才培训">最新知识产权人才培训</a></strong>
+											<p class="c-site">来源：华南理工大学</p>
+											<div class="m-opa2">
+												<a href="#" class="u-view">
+													<i class="ico"></i>30分钟
+												</a>
+												<a href="#" class="u-num">
+													<i class="ico"></i>333人
+												</a>
+											</div>
+											<div class="m-mt1">
+												<span class="u-type u-type3">报名进行中</span>
+											</div>	
+										</div>
+										<div class="turn-after">
+											<div class="c-pd">
+												<ul class="m-img-lst">
+													<li class="item">
+														<a href="#" class="img"><img src="images/headImg30.jpg" alt=""></a>
+														<strong class="name"><a href="#">李婧老师</a></strong>
+														<p class="txt"><span>华南师范大学</span></p>
+													</li>
+												</ul>
+												<p class="c-ex">本课程讲述知识产权是一种民事权利，是和财产所有权、债权、人身权相并列的一类民事权利。</p>
+												<a href="courseDetail.html" class="u-turn"><span>最新知识产权人才培训</span> <i class="ico"></i></a>	
+											</div>
+										</div>
+									</li>
+									<li class="c-item">
+										<div class="turn-before">
+											<a href="courseDetail.html" target="_blank" class="img">
+												<img src="images/figure-img3.jpg" alt="">
+											</a>
+											<strong class="u-figure-title"><a href="courseDetail.html" target="_blank" title="最新知识产权人才培训">最新知识产权人才培训</a></strong>
+											<p class="c-site">来源：华南理工大学</p>
+											<div class="m-opa2">
+												<a href="#" class="u-view">
+													<i class="ico"></i>30分钟
+												</a>
+												<a href="#" class="u-num">
+													<i class="ico"></i>333人
+												</a>
+											</div>
+											<div class="m-mt1">
+												<span class="u-type u-typ1">尚未开班</span>
+											</div>	
+										</div>
+										<div class="turn-after">
+											<div class="c-pd">
+												<ul class="m-img-lst">
+													<li class="item">
+														<a href="#" class="img"><img src="images/headImg31.jpg" alt=""></a>
+														<strong class="name"><a href="#">李婧老师</a></strong>
+														<p class="txt"><span>华南师范大学</span></p>
+													</li>
+												</ul>
+												<p class="c-ex">本课程讲述知识产权是一种民事权利，是和财产所有权、债权、人身权相并列的一类民事权利。</p>
+												<a href="courseDetail.html" class="u-turn"><span>最新知识产权人才培训</span> <i class="ico"></i></a>	
+											</div>
+										</div>
+									</li>
+									<li class="c-item">
+										<div class="turn-before">
+											<a href="courseDetail.html" target="_blank" class="img">
+												<img src="images/figure-img4.jpg" alt="">
+											</a>
+											<strong class="u-figure-title"><a href="courseDetail.html" target="_blank" title="最新知识产权人才培训">最新知识产权人才培训</a></strong>
+											<p class="c-site">来源：华南理工大学</p>
+											<div class="m-opa2">
+												<a href="#" class="u-view">
+													<i class="ico"></i>30分钟
+												</a>
+												<a href="#" class="u-num">
+													<i class="ico"></i>333人
+												</a>
+											</div>
+											<div class="m-mt1">
+												<span class="u-type u-type2">即将报名</span>
+											</div>	
+										</div>
+										<div class="turn-after">
+											<div class="c-pd">
+												<ul class="m-img-lst">
+													<li class="item">
+														<a href="#" class="img"><img src="images/headImg32.jpg" alt=""></a>
+														<strong class="name"><a href="#">李婧老师</a></strong>
+														<p class="txt"><span>华南师范大学</span></p>
+													</li>
+												</ul>
+												<p class="c-ex">本课程讲述知识产权是一种民事权利，是和财产所有权、债权、人身权相并列的一类民事权利。</p>
+												<a href="courseDetail.html" class="u-turn"><span>最新知识产权人才培训</span> <i class="ico"></i></a>	
+											</div>
+										</div>
+									</li>
+								</ul><!--end .m-figure-lst-->
+							</div><!--end .g-frame-mod -->
+						</div><!--end .g-cd-box-->
+					</div><!--end .m-page-dt-->
+				</div><!--end .g-page-box -->
+			</div>
+		</div>
+		<!--end #courseDetail 课程详情 -->
+	</div>
+	<!--end #g-bd 中间 -->
+	<!--start #g-ft 底部 -->
+	<div id="g-ft">
+		<div class="g-ftc">
+			<p class="c-txt">主办单位：广东省知识产权局</p>
+			<p class="c-txt">地址：中国广东省广州市先烈中路100号大院高科技中心大楼9-12楼 (邮编：510070)</p>
+			<p class="c-txt">局总机：8620-87682346&nbsp;&nbsp;投诉电话：87680604</p>
+			<p class="c-txt">Copyright <em>©</em> 2015. All rights reserved</p>
+		</div>
+	</div>
+	<!--end #g-ft 底部 -->
+	<div class="m-blackbg"></div>
+	<!--start .m-log-layer 登录弹出框-->
+	<div class="m-log-layer m-layer">
+		<div class="layer-c">
+			<h4 id="showText">登录</h4>
+			<div class="m-logreg">
+				<div class="m-lr-scroll" id="mTfScroll">
+					<div class="m-log">
+						<form action="">
+							<label class="u-ipttxt">
+								<i class="user-icon"></i>
+								<input type="text" value="" class="c-ipt">
+								<span class="ph-txt">用户名或邮箱</span>
+							</label>
+	 						<label class="u-ipttxt">
+								<i class="lock-icon"></i>
+								<input type="text" value="" class="c-ipt">
+								<span class="ph-txt">密码</span>
+							</label>
+							<div class="u-iptopa f-cb">
+								<div class="c-op">
+									<a href="#">忘记密码？</a>
+								</div>
+								<input type="submit" value="登录" class="c-btn">
+							</div>
+							<div class="no-user">没有账号？<a href="javascript:void(0);" id="u-tf-log">注册</a></div>
+						</form>
+					</div><!--end .m-log 登录-->
+					<div class="m-reg">
+						<form action="">
+							<label class="u-ipttxt">
+								<i class="user-icon"></i>
+								<input type="text" value="" class="c-ipt">
+								<span class="ph-txt">用户名 仅英文或者数字</span>
+							</label>
+							<label class="u-ipttxt">
+								<i class="email-icon"></i>
+								<input type="text" value="" class="c-ipt">
+								<span class="ph-txt">邮箱</span>
+							</label>
+							<label class="u-ipttxt">
+								<i class="lock-icon"></i>
+								<input type="text" value="" class="c-ipt">
+								<span class="ph-txt">密码</span>
+							</label>
+							<div class="u-iptopa f-cb">
+								<div class="c-op">
+									<span>已有账号？<a href="javascript:void(0);" id="u-tf-reg">登录</a></span>
+								</div>
+								<input type="submit" value="注册" class="c-btn">
+							</div>
+						</form>
+					</div>
+				</div><!--end .m-reg 注册-->	
+			</div><!--end .m-lr-scroll -->
+		</div>
+	</div>
+	<!--end .m-log-layer 登录弹出框-->
+	<!--start m-layer -->
+	<div class="m-layer m-joinCourse-layer">
+		<div class="m-layer-hd">
+			<h3>加入课程</h3>
+			<a href="javascript:void(0);" class="u-close-btn">×</a>
+		</div>
+		<div class="m-layer-bd">
+			<div class="m-infor-item1">
+				<div class="c-txt">
+					<span>邮箱地址：</span>
+				</div>
+				<div class="m-input">
+					<input type="text" class="u-input">
+				</div>
+			</div><!--end .m-infor-item -->
+		</div>
+		<div class="m-layer-ft">
+			<button type="button" class="u-confirm-btn u-btn">提交</button>
+			<button type="button" class="u-cancel-btn u-btn">取消</button>
+		</div>
+	</div>
+	<!--end .m-layer -->
+</body>
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="js/function.js"></script>
+<script type="text/javascript">
+$(function(){
+	oJumpLayer($(".u-btn1"),$(".m-joinCourse-layer"));
+	turns($(".m-figure-lst .c-item"),218,100);
+})
+</script>
+</html>

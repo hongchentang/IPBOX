@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcis.ipr.evalua.effect.mapper.ProjectPerformanceTargetMapper" >
+  <resultMap id="BaseResultMap" type="com.hcis.ipr.evalua.effect.entity.ProjectPerformanceTarget" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="COURSE_ID" property="courseId" jdbcType="VARCHAR" />
+    <result column="TRAIN_ID" property="trainId" jdbcType="VARCHAR" />
+    <result column="PROJECT_ID" property="projectId" jdbcType="VARCHAR" />
+    <result column="OVERALL_GOAL" property="overallGoal" jdbcType="VARCHAR" />
+    <result column="ANNUAL_TARGET" property="annualTarget" jdbcType="VARCHAR" />
+    <result column="TRAIN_COMPLETION_RATE" property="trainCompletionRate" jdbcType="VARCHAR" />
+    <result column="TRIAIN_REMARK" property="triainRemark" jdbcType="VARCHAR" />
+    <result column="TRAIN_ACTUAL_COMPLETION_RATE" property="trainActualCompletionRate" jdbcType="VARCHAR" />
+    <result column="HOURS_COMPLETION_RATE" property="hoursCompletionRate" jdbcType="VARCHAR" />
+    <result column="HOURS_REMARK" property="hoursRemark" jdbcType="VARCHAR" />
+    <result column="HOURS_ACTUAL_COMPLETION_RATE" property="hoursActualCompletionRate" jdbcType="VARCHAR" />
+    <result column="WORK_COMPLETION_RATE" property="workCompletionRate" jdbcType="VARCHAR" />
+    <result column="WORK_REMARK" property="workRemark" jdbcType="VARCHAR" />
+    <result column="WORK_ACTUAL_COMPLETION_RATE" property="workActualCompletionRate" jdbcType="VARCHAR" />
+    <result column="PRODUCE_COMPLETION_RATE" property="produceCompletionRate" jdbcType="VARCHAR" />
+    <result column="PRODUCE_REMARK" property="produceRemark" jdbcType="VARCHAR" />
+    <result column="PRODUCE_ACTUAL_COMPLETION_RATE" property="produceActualCompletionRate" jdbcType="VARCHAR" />
+    <result column="SATISFACTION_DEGREE" property="satisfactionDegree" jdbcType="VARCHAR" />
+    <result column="SATISFACTION_DEGREE_REMARK" property="satisfactionDegreeRemark" jdbcType="VARCHAR" />
+    <result column="ACTUAL_SATISFACTION" property="actualSatisfaction" jdbcType="VARCHAR" />
+    <result column="BENEFIT_REMARK" property="benefitRemark" jdbcType="VARCHAR" />
+    <result column="ACTUAL_BENEFIT" property="actualBenefit" jdbcType="VARCHAR" />
+    <result column="BENEFIT" property="benefit" jdbcType="VARCHAR" />
+    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="CHAR" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+    <result column="PERFORMANCE_EVALUATION" property="performanceEvaluation" jdbcType="VARCHAR" />
+    <result column="ATTACHMENT" property="attachment" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap type="java.util.Map" id="ResultMap" extends="BaseResultMap">
+	<result column="TRAIN_NUM" property="trainNum" jdbcType="DECIMAL" />
+    <result column="PLAN_HOURS" property="planHours" jdbcType="DECIMAL" />
+    <result column="CXRS" property="cxrs" jdbcType="DECIMAL" />
+    <result column="WCXSS" property="wcxss" jdbcType="DECIMAL" />
+    <result column="ZPTJRS" property="zptjrs" jdbcType="DECIMAL" />
+    <result column="SJCXRS" property="sjcxrs" jdbcType="DECIMAL" />
+    <result column="TGRS" property="tgrs" jdbcType="DECIMAL" />
+    <result column="REGIONS_CODE" property="regionsCode" jdbcType="VARCHAR" />
+    <result column="REGIONS_LEVEL" property="regionsLevel" jdbcType="DECIMAL" />
+    <result column="PARENT_CODE" property="parentCode" jdbcType="VARCHAR" />
+    <result column="REGIONS_NAME" property="regionsName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ID, USER_ID, COURSE_ID, TRAIN_ID, PROJECT_ID, OVERALL_GOAL, ANNUAL_TARGET, TRAIN_COMPLETION_RATE, 
+    TRIAIN_REMARK, TRAIN_ACTUAL_COMPLETION_RATE, HOURS_COMPLETION_RATE, HOURS_REMARK, 
+    HOURS_ACTUAL_COMPLETION_RATE, WORK_COMPLETION_RATE, WORK_REMARK, WORK_ACTUAL_COMPLETION_RATE, 
+    PRODUCE_COMPLETION_RATE, PRODUCE_REMARK, PRODUCE_ACTUAL_COMPLETION_RATE, SATISFACTION_DEGREE, 
+    SATISFACTION_DEGREE_REMARK, ACTUAL_SATISFACTION, BENEFIT_REMARK, ACTUAL_BENEFIT, 
+    BENEFIT, CREATOR, CREATE_TIME, UPDATEDBY, UPDATE_TIME, IS_DELETED, VERSION,
+    PERFORMANCE_EVALUATION,ATTACHMENT
+  </sql>
+   <sql id="Column_List" >
+    T.ID, T.USER_ID, T.COURSE_ID, T.TRAIN_ID, T.PROJECT_ID, T.OVERALL_GOAL, T.ANNUAL_TARGET, 
+    T.TRAIN_COMPLETION_RATE,T.TRIAIN_REMARK, T.TRAIN_ACTUAL_COMPLETION_RATE, T.HOURS_COMPLETION_RATE,
+    T.HOURS_REMARK,T.HOURS_ACTUAL_COMPLETION_RATE, T.WORK_COMPLETION_RATE, T.WORK_REMARK, 
+    T.WORK_ACTUAL_COMPLETION_RATE,T.PRODUCE_COMPLETION_RATE, T.PRODUCE_REMARK,T.PRODUCE_ACTUAL_COMPLETION_RATE,
+    T.SATISFACTION_DEGREE,T.SATISFACTION_DEGREE_REMARK,T.ACTUAL_SATISFACTION,T.BENEFIT_REMARK,
+    T.ACTUAL_BENEFIT,T.BENEFIT,T.CREATOR,T.CREATE_TIME,T.UPDATEDBY,T.UPDATE_TIME,T.IS_DELETED,T.VERSION,
+    T.PERFORMANCE_EVALUATION,T.ATTACHMENT
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ipbox_project_PERFORMANCE_TARGET
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ipbox_project_PERFORMANCE_TARGET
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hcis.ipr.evalua.effect.entity.ProjectPerformanceTarget" >
+    insert into ipbox_project_PERFORMANCE_TARGET (ID, USER_ID, COURSE_ID, 
+      TRAIN_ID, PROJECT_ID, OVERALL_GOAL, 
+      ANNUAL_TARGET, TRAIN_COMPLETION_RATE, TRIAIN_REMARK, 
+      TRAIN_ACTUAL_COMPLETION_RATE, HOURS_COMPLETION_RATE, 
+      HOURS_REMARK, HOURS_ACTUAL_COMPLETION_RATE, 
+      WORK_COMPLETION_RATE, WORK_REMARK, WORK_ACTUAL_COMPLETION_RATE, 
+      PRODUCE_COMPLETION_RATE, PRODUCE_REMARK, PRODUCE_ACTUAL_COMPLETION_RATE, 
+      SATISFACTION_DEGREE, SATISFACTION_DEGREE_REMARK, 
+      ACTUAL_SATISFACTION, BENEFIT_REMARK, ACTUAL_BENEFIT, 
+      BENEFIT, CREATOR, CREATE_TIME, 
+      UPDATEDBY, UPDATE_TIME, IS_DELETED, 
+      VERSION,PERFORMANCE_EVALUATION,ATTACHMENT)
+    values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{courseId,jdbcType=VARCHAR}, 
+      #{trainId,jdbcType=VARCHAR}, #{projectId,jdbcType=VARCHAR}, #{overallGoal,jdbcType=VARCHAR}, 
+      #{annualTarget,jdbcType=VARCHAR}, #{trainCompletionRate,jdbcType=VARCHAR}, #{triainRemark,jdbcType=VARCHAR}, 
+      #{trainActualCompletionRate,jdbcType=VARCHAR}, #{hoursCompletionRate,jdbcType=VARCHAR}, 
+      #{hoursRemark,jdbcType=VARCHAR}, #{hoursActualCompletionRate,jdbcType=VARCHAR}, 
+      #{workCompletionRate,jdbcType=VARCHAR}, #{workRemark,jdbcType=VARCHAR}, #{workActualCompletionRate,jdbcType=VARCHAR}, 
+      #{produceCompletionRate,jdbcType=VARCHAR}, #{produceRemark,jdbcType=VARCHAR}, #{produceActualCompletionRate,jdbcType=VARCHAR}, 
+      #{satisfactionDegree,jdbcType=VARCHAR}, #{satisfactionDegreeRemark,jdbcType=VARCHAR}, 
+      #{actualSatisfaction,jdbcType=VARCHAR}, #{benefitRemark,jdbcType=VARCHAR}, #{actualBenefit,jdbcType=VARCHAR}, 
+      #{benefit,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updatedby,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=CHAR}, 
+      #{version,jdbcType=DECIMAL},#{performanceEvaluation,jdbcType=VARCHAR},
+      #{attachment,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hcis.ipr.evalua.effect.entity.ProjectPerformanceTarget" >
+    insert into ipbox_project_PERFORMANCE_TARGET
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="courseId != null" >
+        COURSE_ID,
+      </if>
+      <if test="trainId != null" >
+        TRAIN_ID,
+      </if>
+      <if test="projectId != null" >
+        PROJECT_ID,
+      </if>
+      <if test="overallGoal != null" >
+        OVERALL_GOAL,
+      </if>
+      <if test="annualTarget != null" >
+        ANNUAL_TARGET,
+      </if>
+      <if test="trainCompletionRate != null" >
+        TRAIN_COMPLETION_RATE,
+      </if>
+      <if test="triainRemark != null" >
+        TRIAIN_REMARK,
+      </if>
+      <if test="trainActualCompletionRate != null" >
+        TRAIN_ACTUAL_COMPLETION_RATE,
+      </if>
+      <if test="hoursCompletionRate != null" >
+        HOURS_COMPLETION_RATE,
+      </if>
+      <if test="hoursRemark != null" >
+        HOURS_REMARK,
+      </if>
+      <if test="hoursActualCompletionRate != null" >
+        HOURS_ACTUAL_COMPLETION_RATE,
+      </if>
+      <if test="workCompletionRate != null" >
+        WORK_COMPLETION_RATE,
+      </if>
+      <if test="workRemark != null" >
+        WORK_REMARK,
+      </if>
+      <if test="workActualCompletionRate != null" >
+        WORK_ACTUAL_COMPLETION_RATE,
+      </if>
+      <if test="produceCompletionRate != null" >
+        PRODUCE_COMPLETION_RATE,
+      </if>
+      <if test="produceRemark != null" >
+        PRODUCE_REMARK,
+      </if>
+      <if test="produceActualCompletionRate != null" >
+        PRODUCE_ACTUAL_COMPLETION_RATE,
+      </if>
+      <if test="satisfactionDegree != null" >
+        SATISFACTION_DEGREE,
+      </if>
+      <if test="satisfactionDegreeRemark != null" >
+        SATISFACTION_DEGREE_REMARK,
+      </if>
+      <if test="actualSatisfaction != null" >
+        ACTUAL_SATISFACTION,
+      </if>
+      <if test="benefitRemark != null" >
+        BENEFIT_REMARK,
+      </if>
+      <if test="actualBenefit != null" >
+        ACTUAL_BENEFIT,
+      </if>
+      <if test="benefit != null" >
+        BENEFIT,
+      </if>
+      <if test="creator != null" >
+        CREATOR,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+      <if test="performanceEvaluation != null" >
+        PERFORMANCE_EVALUATION,
+      </if> 
+      <if test="attachment != null" >
+        ATTACHMENT,
+      </if> 
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="courseId != null" >
+        #{courseId,jdbcType=VARCHAR},
+      </if>
+      <if test="trainId != null" >
+        #{trainId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="overallGoal != null" >
+        #{overallGoal,jdbcType=VARCHAR},
+      </if>
+      <if test="annualTarget != null" >
+        #{annualTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="trainCompletionRate != null" >
+        #{trainCompletionRate,jdbcType=VARCHAR},
+      </if>
+      <if test="triainRemark != null" >
+        #{triainRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="trainActualCompletionRate != null" >
+        #{trainActualCompletionRate,jdbcType=VARCHAR},
+      </if>
+      <if test="hoursCompletionRate != null" >
+        #{hoursCompletionRate,jdbcType=VARCHAR},
+      </if>
+      <if test="hoursRemark != null" >
+        #{hoursRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="hoursActualCompletionRate != null" >
+        #{hoursActualCompletionRate,jdbcType=VARCHAR},
+      </if>
+      <if test="workCompletionRate != null" >
+        #{workCompletionRate,jdbcType=VARCHAR},
+      </if>
+      <if test="workRemark != null" >
+        #{workRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="workActualCompletionRate != null" >
+        #{workActualCompletionRate,jdbcType=VARCHAR},
+      </if>
+      <if test="produceCompletionRate != null" >
+        #{produceCompletionRate,jdbcType=VARCHAR},
+      </if>
+      <if test="produceRemark != null" >
+        #{produceRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="produceActualCompletionRate != null" >
+        #{produceActualCompletionRate,jdbcType=VARCHAR},
+      </if>
+      <if test="satisfactionDegree != null" >
+        #{satisfactionDegree,jdbcType=VARCHAR},
+      </if>
+      <if test="satisfactionDegreeRemark != null" >
+        #{satisfactionDegreeRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="actualSatisfaction != null" >
+        #{actualSatisfaction,jdbcType=VARCHAR},
+      </if>
+      <if test="benefitRemark != null" >
+        #{benefitRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="actualBenefit != null" >
+        #{actualBenefit,jdbcType=VARCHAR},
+      </if>
+      <if test="benefit != null" >
+        #{benefit,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=CHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+      <if test="performanceEvaluation != null" >
+        #{performanceEvaluation,jdbcType=VARCHAR},
+      </if> 
+      <if test="attachment != null" >
+        #{attachment,jdbcType=VARCHAR},
+      </if> 
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hcis.ipr.evalua.effect.entity.ProjectPerformanceTarget" >
+    update ipbox_project_PERFORMANCE_TARGET
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="courseId != null" >
+        COURSE_ID = #{courseId,jdbcType=VARCHAR},
+      </if>
+      <if test="trainId != null" >
+        TRAIN_ID = #{trainId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null" >
+        PROJECT_ID = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="overallGoal != null" >
+        OVERALL_GOAL = #{overallGoal,jdbcType=VARCHAR},
+      </if>
+      <if test="annualTarget != null" >
+        ANNUAL_TARGET = #{annualTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="trainCompletionRate != null" >
+        TRAIN_COMPLETION_RATE = #{trainCompletionRate,jdbcType=VARCHAR},
+      </if>
+      <if test="triainRemark != null" >
+        TRIAIN_REMARK = #{triainRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="trainActualCompletionRate != null" >
+        TRAIN_ACTUAL_COMPLETION_RATE = #{trainActualCompletionRate,jdbcType=VARCHAR},
+      </if>
+      <if test="hoursCompletionRate != null" >
+        HOURS_COMPLETION_RATE = #{hoursCompletionRate,jdbcType=VARCHAR},
+      </if>
+      <if test="hoursRemark != null" >
+        HOURS_REMARK = #{hoursRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="hoursActualCompletionRate != null" >
+        HOURS_ACTUAL_COMPLETION_RATE = #{hoursActualCompletionRate,jdbcType=VARCHAR},
+      </if>
+      <if test="workCompletionRate != null" >
+        WORK_COMPLETION_RATE = #{workCompletionRate,jdbcType=VARCHAR},
+      </if>
+      <if test="workRemark != null" >
+        WORK_REMARK = #{workRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="workActualCompletionRate != null" >
+        WORK_ACTUAL_COMPLETION_RATE = #{workActualCompletionRate,jdbcType=VARCHAR},
+      </if>
+      <if test="produceCompletionRate != null" >
+        PRODUCE_COMPLETION_RATE = #{produceCompletionRate,jdbcType=VARCHAR},
+      </if>
+      <if test="produceRemark != null" >
+        PRODUCE_REMARK = #{produceRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="produceActualCompletionRate != null" >
+        PRODUCE_ACTUAL_COMPLETION_RATE = #{produceActualCompletionRate,jdbcType=VARCHAR},
+      </if>
+      <if test="satisfactionDegree != null" >
+        SATISFACTION_DEGREE = #{satisfactionDegree,jdbcType=VARCHAR},
+      </if>
+      <if test="satisfactionDegreeRemark != null" >
+        SATISFACTION_DEGREE_REMARK = #{satisfactionDegreeRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="actualSatisfaction != null" >
+        ACTUAL_SATISFACTION = #{actualSatisfaction,jdbcType=VARCHAR},
+      </if>
+      <if test="benefitRemark != null" >
+        BENEFIT_REMARK = #{benefitRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="actualBenefit != null" >
+        ACTUAL_BENEFIT = #{actualBenefit,jdbcType=VARCHAR},
+      </if>
+      <if test="benefit != null" >
+        BENEFIT = #{benefit,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      </if>
+        VERSION = VERSION+1,
+      <if test="performanceEvaluation != null" >
+        PERFORMANCE_EVALUATION=#{performanceEvaluation,jdbcType=VARCHAR},
+      </if> 
+      <if test="attachment != null" >
+        ATTACHMENT = #{attachment,jdbcType=VARCHAR},
+      </if> 
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hcis.ipr.evalua.effect.entity.ProjectPerformanceTarget" >
+    update ipbox_project_PERFORMANCE_TARGET
+    set USER_ID = #{userId,jdbcType=VARCHAR},
+      COURSE_ID = #{courseId,jdbcType=VARCHAR},
+      TRAIN_ID = #{trainId,jdbcType=VARCHAR},
+      PROJECT_ID = #{projectId,jdbcType=VARCHAR},
+      OVERALL_GOAL = #{overallGoal,jdbcType=VARCHAR},
+      ANNUAL_TARGET = #{annualTarget,jdbcType=VARCHAR},
+      TRAIN_COMPLETION_RATE = #{trainCompletionRate,jdbcType=VARCHAR},
+      TRIAIN_REMARK = #{triainRemark,jdbcType=VARCHAR},
+      TRAIN_ACTUAL_COMPLETION_RATE = #{trainActualCompletionRate,jdbcType=VARCHAR},
+      HOURS_COMPLETION_RATE = #{hoursCompletionRate,jdbcType=VARCHAR},
+      HOURS_REMARK = #{hoursRemark,jdbcType=VARCHAR},
+      HOURS_ACTUAL_COMPLETION_RATE = #{hoursActualCompletionRate,jdbcType=VARCHAR},
+      WORK_COMPLETION_RATE = #{workCompletionRate,jdbcType=VARCHAR},
+      WORK_REMARK = #{workRemark,jdbcType=VARCHAR},
+      WORK_ACTUAL_COMPLETION_RATE = #{workActualCompletionRate,jdbcType=VARCHAR},
+      PRODUCE_COMPLETION_RATE = #{produceCompletionRate,jdbcType=VARCHAR},
+      PRODUCE_REMARK = #{produceRemark,jdbcType=VARCHAR},
+      PRODUCE_ACTUAL_COMPLETION_RATE = #{produceActualCompletionRate,jdbcType=VARCHAR},
+      SATISFACTION_DEGREE = #{satisfactionDegree,jdbcType=VARCHAR},
+      SATISFACTION_DEGREE_REMARK = #{satisfactionDegreeRemark,jdbcType=VARCHAR},
+      ACTUAL_SATISFACTION = #{actualSatisfaction,jdbcType=VARCHAR},
+      BENEFIT_REMARK = #{benefitRemark,jdbcType=VARCHAR},
+      ACTUAL_BENEFIT = #{actualBenefit,jdbcType=VARCHAR},
+      BENEFIT = #{benefit,jdbcType=VARCHAR},
+      CREATOR = #{creator,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      VERSION = VERSION+1,
+      PERFORMANCE_EVALUATION=#{performanceEvaluation,jdbcType=VARCHAR},
+      ATTACHMENT = #{attachment,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectBySearchParam" resultMap="BaseResultMap" parameterType="searchParam" >
+    select 
+    <include refid="Column_List" />
+    from ipbox_project_PERFORMANCE_TARGET T
+    where T.IS_DELETED='N'
+    ORDER BY T.CREATE_TIME,T.ID DESC
+  </select>
+  <delete id="deleteByLogic" parameterType="com.hcis.ipr.evalua.effect.entity.ProjectPerformanceTarget">
+  	update ipbox_project_PERFORMANCE_TARGET
+    <set>
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+        VERSION = VERSION+1,
+        IS_DELETED='Y',
+    </set>
+  	WHERE ID=#{id,jdbcType=VARCHAR}
+  	AND　IS_DELETED='N'
+  </delete>
+  <select id="selectPerformanceTargetById" resultMap="ResultMap" parameterType="java.lang.String">
+    SELECT  IP.TRAIN_NUM,IP.PLAN_HOURS,
+          (SELECT COUNT(ITR.USER_ID)  FROM IPR_TRAIN_REGISTER 
+          ITR WHERE ITR.TRAIN_ID= IT.ID AND ITR.STATUS='02') CXRS,
+           (SELECT SUM(IC.STUDY_HOURS)  FROM IPR_COURSE  IC
+              JOIN  IPR_COURSE_REGISTER ICR ON ICR.COURSE_ID=IC.ID
+            WHERE ICR.TRAIN_ID = IT.ID ) WCXSS,
+          ( SELECT COUNT(ICEE.ID)  FROM IPR_COURSE_EFFECT_EVALUA ICEE  WHERE 
+          	ICEE.TRAINING_SUMMARY IS NOT NULL AND ICEE.TRAIN_ID=IT.ID) ZPTJRS,
+          (SELECT COUNT(ICR.USER_ID) FROM IPR_COURSE_REGISTER ICR WHERE 
+          	ICR.TRAIN_ID=IT.ID AND ICR.SCORE IS NOT NULL) SJCXRS,
+          (SELECT COUNT(ICR.USER_ID) FROM IPR_COURSE_REGISTER ICR 
+          WHERE ICR.TRAIN_ID=IT.ID AND ICR.RESULT='1') TGRS,
+          (select IPPT.ATTACHMENT from ipbox_project_PERFORMANCE_TARGET IPPT 
+          	where IPPT.PROJECT_ID=IP.ID AND IPPT.IS_DELETED='N') ATTACHMENT
+    FROM ipbox_project IP 
+    LEFT JOIN IPR_TRAIN IT ON IP.ID=IT.PROJECT_ID
+    WHERE IP.IS_DELETED='N'
+    AND IP.ID=#{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectRegionsCodeList" resultMap="ResultMap" parameterType="java.lang.String">
+    SELECT  UV.REGIONS_CODE  REGIONS_CODE,
+    (SELECT IAR.REGIONS_LEVEL FROM ipanther_admin_regions  IAR
+    	WHERE  IAR.REGIONS_CODE=UV.REGIONS_CODE) REGIONS_LEVEL,
+    (SELECT IAR.PARENT_CODE FROM ipanther_admin_regions  IAR 
+    	WHERE  IAR.REGIONS_CODE=UV.REGIONS_CODE ) PARENT_CODE,
+    (SELECT IAR.REGIONS_NAME FROM ipanther_admin_regions  IAR 
+    	WHERE  IAR.REGIONS_CODE=UV.REGIONS_CODE ) REGIONS_NAME  
+    FROM ipbox_project IP 
+    JOIN IPR_TRAIN IT ON IP.ID=IT.PROJECT_ID
+    JOIN IPR_COURSE_REGISTER ICR ON   ICR.TRAIN_ID=IT.ID AND ICR.SCORE IS NOT NULL
+    JOIN USERVIEW UV ON UV.ID=ICR.USER_ID
+    WHERE IP.IS_DELETED='N'
+    AND IP.ID=#{id,jdbcType=VARCHAR}
+    GROUP BY UV.REGIONS_CODE
+  </select>
+  <delete id="deleteFileByPid" parameterType="com.hcis.ipr.evalua.effect.entity.ProjectPerformanceTarget">
+  	update ipbox_project_PERFORMANCE_TARGET
+    <set>
+        VERSION = VERSION+1,
+        IS_DELETED='Y',
+    </set>
+  	WHERE PROJECT_ID=#{id,jdbcType=VARCHAR}
+  	AND IS_DELETED='N'
+  </delete>
+</mapper>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>ipbox_project</artifactId>
+  <packaging>pom</packaging>
+  <name>ipbox_project</name>
+  <parent>
+    <groupId>com.hcis</groupId>
+    <artifactId>ipbox_parent</artifactId>
+    <version>20150209</version>
+    <relativePath>ipbox_parent</relativePath>
+  </parent>
+  <modules>
+    <module>ipr_common</module>
+    <module>ipbox_web</module>
+  </modules>
+</project>

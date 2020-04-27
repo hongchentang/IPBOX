@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 2.0//EN" "http://getahead.org/dwr//dwr20.dtd">
+<dwr>  
+    <allow> 
+    	<!-- <convert match="com.hcis.icourse.course.vo.TermCourse" javascript="TermCourse" converter="bean" />  
+    	
+        <create creator="spring" javascript="termCourseService">  
+            <param name="beanName" value="termCourseService"/>  
+            <include method="getTermCourseByTermAndCourse"/>	
+        </create>
+        <convert match="com.hcis.itlms.course.vo.Course" javascript="Course" converter="bean">
+        	<param name="include" value="id,courseName"/> 
+        </convert>   
+        -->
+        <create creator="spring" javascript="regionsUtil">  
+            <param name="beanName" value="regionsUtil"/>
+            <include method="getProvinceOptions"/>	  
+            <include method="getProvinceOptionsSelected"/>
+            <include method="getCityOptions"/>	  
+            <include method="getCityOptionsSelected"/>		
+            <include method="getCountiesOptions"/>	  
+            <include method="getCountiesOptionsSelected"/>	
+        </create>
+    </allow>  
+</dwr>  

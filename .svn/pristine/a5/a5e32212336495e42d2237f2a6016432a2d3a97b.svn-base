@@ -1,0 +1,174 @@
+package com.hcis.ipanther.common.dict.utils;
+
+import com.hcis.ipanther.common.dict.dao.DictEntryDao;
+import com.hcis.ipanther.common.dict.dao.DictTypeDao;
+import com.hcis.ipanther.common.dict.vo.DictEntry;
+import com.hcis.ipanther.core.page.Pagination;
+import com.hcis.ipanther.core.web.vo.SearchParam;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
+
+public class CopyOfDictionaryUtils
+{
+  private static List<DictEntry> dictEntryList;
+  private static Map<String, Map<String, DictEntry>> dictionaryMap;
+  private static Map<String, List<DictEntry>> dictionaryListMap;
+  private DictEntryDao dictEntryDao;
+  private DictTypeDao dictTypeDao;
+
+  public static List<DictEntry> getDictEntryList()
+  {
+    return dictEntryList;
+  }
+
+  public DictEntryDao getDictEntryDao()
+  {
+    return this.dictEntryDao;
+  }
+
+  public void setDictEntryDao(DictEntryDao dictEntryDao) {
+    this.dictEntryDao = dictEntryDao;
+  }
+
+  public DictTypeDao getDictTypeDao() {
+    return this.dictTypeDao;
+  }
+
+  public void setDictTypeDao(DictTypeDao dictTypeDao) {
+    this.dictTypeDao = dictTypeDao;
+  }
+
+  public void init() {
+    SearchParam searchParam = new SearchParam();
+    searchParam.setPagination(new Pagination());
+    searchParam.setPageAvailable(false);
+    dictionaryMap = new HashMap();
+    dictionaryListMap = new HashMap();
+    dictEntryList = this.dictEntryDao.selectAll(searchParam);
+    if ((dictEntryList != null) && (!dictEntryList.isEmpty()))
+      for (DictEntry dictEntry : dictEntryList) {
+        String dictTypeCode = dictEntry.getDictTypeCode();
+        if (!dictionaryMap.containsKey(dictTypeCode)) {
+          Map dictEntryMap = new HashMap();
+          dictEntryMap.put("dictValue:" + dictEntry.getDictValue(), dictEntry);
+          dictEntryMap.put("dictName:" + dictEntry.getDictName(), dictEntry);
+          dictionaryMap.put(dictTypeCode, dictEntryMap);
+          List entryList = new ArrayList();
+          entryList.add(dictEntry);
+          dictionaryListMap.put(dictTypeCode, entryList);
+        } else {
+          Map dictEntryMap = (Map)dictionaryMap.get(dictTypeCode);
+          dictEntryMap.put("dictValue:" + dictEntry.getDictValue(), dictEntry);
+          dictEntryMap.put("dictName:" + dictEntry.getDictName(), dictEntry);
+          List entryList = (List)dictionaryListMap.get(dictTypeCode);
+          entryList.add(dictEntry);
+        }
+      }
+  }
+
+  public static String getEntryOptions(String dictTypeCode)
+  {
+    if ((!StringUtils.isEmpty(dictTypeCode)) && (dictionaryListMap != null) && (dictionaryListMap.containsKey(dictTypeCode))) {
+      List entryList = (List)dictionaryListMap.get(dictTypeCode);
+      StringBuffer entryOptions = new StringBuffer();
+      for (DictEntry entry : entryList) {
+        if (!ObjectUtils.toString(entry.getIsHidden()).equals("Y")) {
+          entryOptions.append("<option value='").append(entry.getDictValue()).append("'>");
+          entryOptions.append(entry.getDictName()).append("</option>");
+        }
+      }
+      return entryOptions.toString();
+    }
+    return null;
+  }
+
+  public static String getEntryOptions(String dictTypeCode, String defaultValue)
+  {
+    if ((!StringUtils.isEmpty(dictTypeCode)) && (dictionaryMap != null) && (dictionaryMap.containsKey(dictTypeCode))) {
+      List entryList = (List)dictionaryListMap.get(dictTypeCode);
+      StringBuffer entryOptions = new StringBuffer();
+      for (DictEntry entry : entryList) {
+        if (!ObjectUtils.toString(entry.getIsHidden()).equals("Y")) {
+          entryOptions.append("<option value='").append(entry.getDictValue()).append("'");
+          if (entry.getDictValue().equals(defaultValue)) {
+            entryOptions.append(" selected ");
+          }
+          entryOptions.append(">").append(entry.getDictName()).append("</option>");
+        }
+      }
+      return entryOptions.toString();
+    }
+    return null;
+  }
+
+  public static String getEntryName(String dictTypeCode, String dictEntryValue) {
+    if ((!StringUtils.isEmpty(dictTypeCode)) && (dictionaryMap != null) && (dictionaryMap.containsKey(dictTypeCode))) {
+      Map dictEntryMap = (Map)dictionaryMap.get(dictTypeCode);
+      return dictEntryMap.get("dictValue:" + dictEntryValue) != null ? ((DictEntry)dictEntryMap.get("dictValue:" + dictEntryValue)).getDictName() : null;
+    }
+    return null;
+  }
+  public static String getEntryValue(String dictTypeCode, String dictEntryName) {
+    if ((!StringUtils.isEmpty(dictTypeCode)) && (dictionaryMap != null) && (dictionaryMap.containsKey(dictTypeCode))) {
+      Map dictEntryMap = (Map)dictionaryMap.get(dictTypeCode);
+      return dictEntryMap.get("dictName:" + dictEntryName) != null ? ((DictEntry)dictEntryMap.get("dictName:" + dictEntryName)).getDictValue() : null;
+    }
+    return null;
+  }
+
+  public static List<DictEntry> getEntryList(String dictTypeCode)
+  {
+    if ((!StringUtils.isEmpty(dictTypeCode)) && (dictionaryListMap != null) && (dictionaryListMap.containsKey(dictTypeCode))) {
+      return (List)dictionaryListMap.get(dictTypeCode);
+    }
+    return null;
+  }
+
+  public static String[] getEntryValueArray(String dictTypeCode)
+  {
+    if ((dictionaryMap != null) && (dictionaryMap.containsKey(dictTypeCode))) {
+      Map dictEntryMap = (Map)dictionaryMap.get(dictTypeCode);
+      List dictEntryList = new ArrayList();
+      for (Iterator iter = dictEntryMap.entrySet().iterator(); iter.hasNext(); ) {
+        Map.Entry entry = (Map.Entry)iter.next();
+        if (StringUtils.contains((CharSequence)entry.getKey(), "dictValue:")) {
+          DictEntry de = (DictEntry)entry.getValue();
+          dictEntryList.add(de);
+        }
+      }
+      Collections.sort(dictEntryList);
+      String[] array = new String[dictEntryList.size()];
+      for (int i = 0; i < dictEntryList.size(); i++) {
+        array[i] = ((DictEntry)dictEntryList.get(i)).getDictValue();
+      }
+      return array;
+    }
+    return null;
+  }
+
+  public static DictEntry getEntry(String dictTypeCode, String dictValue) {
+    Map map = (Map)dictionaryMap.get(dictTypeCode);
+    if (map != null) {
+      return (DictEntry)map.get("dictValue:" + dictValue);
+    }
+    return null;
+  }
+
+  public static String getAllParentName(String dictTypeCode, String dictValue) {
+    DictEntry dictEntry = getEntry(dictTypeCode, dictValue);
+    StringBuilder parentNameSum = new StringBuilder();
+    while ((dictEntry != null) && (StringUtils.isNotEmpty(dictEntry.getParentValue()))) {
+      parentNameSum.append(getEntryName(dictEntry.getParentCode(), dictEntry.getParentValue()) + ",");
+      dictEntry = getEntry(dictEntry.getParentCode(), dictEntry.getParentValue());
+    }
+    return StringUtils.removeEnd(parentNameSum.toString(), ",");
+  }
+}

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcis.ipanther.common.privilege.mapper.UserRoleMapper" >
+  <resultMap id="RoleMap" type="com.hcis.ipanther.common.privilege.entity.Role" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+     <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="CHAR" />
+    <result column="VERSION" property="version" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap type="com.hcis.ipanther.common.privilege.entity.UserRole" id="UserRoleMap">
+  	 <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+  	 <result column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectRoleByUserId" resultMap="RoleMap" parameterType="java.lang.String" >
+    select 
+    ID, NAME,CODE, DESCRIPTION, IS_DELETED, VERSION
+    from IPANTHER_ROLE
+    where IS_DELETED='N'
+    AND ID  IN(SELECT ROLE_ID FROM IPANTHER_USER_ROLE WHERE USER_ID=#{userId,jdbcType=VARCHAR})
+  </select>
+  <select id="selectUserRole" resultMap="UserRoleMap"  parameterType="com.hcis.ipanther.common.privilege.entity.UserRole">
+  	SELECT USER_ID,ROLE_ID
+  	FROM IPANTHER_USER_ROLE
+  	<trim prefix="WHERE" prefixOverrides="AND|OR">  
+  		<if test="userId!=null">
+  			AND USER_ID=#{userId,jdbcType=VARCHAR}	
+  		</if>
+  		<if test="roleId!=null">
+  			AND ROLE_ID=#{roleId,jdbcType=VARCHAR}	
+  		</if>
+  	</trim>
+  </select>
+  <insert id="insert" parameterType="com.hcis.ipanther.common.privilege.entity.UserRole" >
+    insert into IPANTHER_USER_ROLE(USER_ID,ROLE_ID)
+    values (#{userId,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR})
+  </insert> 
+  <insert id="insertUserRoles" parameterType="java.util.Map" >
+    insert into IPANTHER_USER_ROLE(USER_ID,ROLE_ID)
+    SELECT #{userId,jdbcType=VARCHAR},ID
+    FROM IPANTHER_ROLE IR
+    WHERE IS_DELETED='N'
+    AND ID IN
+    <foreach collection="roles" item="role" separator="," open="(" close=")">
+    	#{role}
+    </foreach> 
+    AND NOT EXISTS
+    (
+    SELECT 1 FROM IPANTHER_USER_ROLE IUR 
+    WHERE USER_ID=#{userId,jdbcType=VARCHAR} 
+    AND IUR.ROLE_ID = IR.ID
+    )	
+  </insert>
+  <insert id="insertUsersRole" parameterType="java.util.Map" >
+  	insert into IPANTHER_USER_ROLE(USER_ID,ROLE_ID)
+  	SELECT ID,#{roleId,jdbcType=VARCHAR}
+  	FROM IPANTHER_USER_VIEW IUV
+  	WHERE ID IN
+  	 <foreach collection="users" item="user" separator="," open="(" close=")">
+    	#{user}
+     </foreach> 
+    AND NOT EXISTS
+    (
+    SELECT 1 FROM IPANTHER_USER_ROLE IUR 
+    WHERE ROLE_ID=#{roleId,jdbcType=VARCHAR} 
+    AND IUR.USER_ID = IUV.ID
+    ) 
+  </insert>
+  <delete id="deleteByPhysics" parameterType="com.hcis.ipanther.common.privilege.entity.UserRole">
+  	delete FROM IPANTHER_USER_ROLE 
+  	WHERE USER_ID=#{userId,jdbcType=VARCHAR}
+  	AND ROLE_ID=#{roleId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteUserRoles" parameterType="java.util.Map">
+  	DELETE FROM IPANTHER_USER_ROLE 
+  	WHERE USER_ID=#{userId,jdbcType=VARCHAR}
+  	<if test="roles!=null">
+  	AND ROLE_ID 
+  	<if test="type!=null and type!='' and type=='exclusion'">
+  		NOT
+  	</if>
+  	IN
+  	<foreach collection="roles" item="role" separator="," open="(" close=")">
+    	#{role}
+    </foreach>
+    </if> 
+  </delete> 
+  <delete id="deleteUsersRole" parameterType="java.util.Map">
+  	DELETE FROM IPANTHER_USER_ROLE
+  	WHERE ROLE_ID=#{roleId,jdbcType=VARCHAR}
+  	AND USER_ID 
+  	<if test="type!=null and type!='' and type=='exclusion'">
+  		NOT
+  	</if>
+  	IN
+  	<foreach collection="users" item="user" separator="," open="(" close=")">
+    	#{user}
+     </foreach> 
+  </delete>   
+</mapper>

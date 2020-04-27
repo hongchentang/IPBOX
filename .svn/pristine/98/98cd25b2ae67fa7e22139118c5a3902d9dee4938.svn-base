@@ -1,0 +1,2184 @@
+@import 'function.less';
+iframe{margin-bottom: -3px;}
+.btn
+{
+	padding: 0 12px;
+	height: 28px; 
+	line-height: 28px; 
+	.fs-12;
+	.radius(0);
+}
+h1, h2, h3, h4, h5
+{
+	.fm-yh;
+}
+.string
+{
+	margin: 0 3px;
+	color: #e5e5e5;
+}
+.cmnt-ico
+{
+	.dpib;
+	.po-relative;
+	top: 3px;
+	*margin-right: 4px;
+	background: url(../images/bgimg/indexBg.png) no-repeat;
+}
+.auto
+{
+	width: 1000px; 
+	margin: 0 auto;
+}
+body
+{
+	.fs-12;
+	.fm-st;
+	color: #84868c;
+	a
+	{
+		color: #84868c;
+		&:hover
+		{
+			color: @skin-color-h;
+		}
+	}
+}
+/*----start---------comnunity社区------start-----*/
+
+//#comnunity-top 社区顶部
+#comnunity-top
+{
+	height: 70px; 
+	.bg(@skin-color3);
+	.community-logo
+	{
+		.fl;
+		padding-top: 20px;
+		height: 30px;
+
+	}
+	h1
+	{
+		.dpn;
+	}
+	.community-nav
+	{
+		.fl;
+		margin-left: 30px;
+		.fm-yh;
+		a
+		{
+			.dpb;
+			.fl;
+			padding: 0 20px;
+			height: 70px;
+			line-height: 70px;
+			font-size: 15px;
+			color: #fff;
+			&:hover, &.inIs
+			{
+				background-color: @skin-color4;
+			}
+		}
+	}
+	.community-top-r
+	{
+		.fr;
+		padding-top: 14px;
+		height: 42px;
+	}
+	.headImg
+	{
+		.fr;
+		&, .this_hdImg img
+		{
+			width: 42px;
+			height: 42px;
+		}
+	}
+	.community-message
+	{
+		.fr;
+		margin-right: 20px;
+		.comnunity-message-top
+		{
+			.dpb;
+			.po-relative;
+			width: 42px;
+			height: 42px;
+			&:hover
+			{
+				background-color: @skin-color4;
+			}
+			.img
+			{
+				.dpb;
+				width: 100%;
+				height: 42px;
+				background: url(../images/bgimg/comnunity-message-top.png) no-repeat;
+			}
+			.number
+			{
+				.po-absolute;
+				top: 0;
+				right: 0;
+				z-index: 1;
+				padding: 0 5px;
+				height: 15px;
+				line-height: 15px;
+				background-color: #f14e22;
+				.fs-12;
+				color: #fff;
+			}			
+		}
+	}
+}
+//#comnunity-top 社区content
+#community-content
+{
+	padding-bottom: 50px;
+}
+
+
+/*---start---spaceIndex-content个人空间首页---start---*/
+.spaceIndex-content
+{
+	padding-top: 50px;
+	.l-frame
+	{
+		.fl;
+		width: 670px;
+	}
+	.r-frame
+	{
+		.fr;
+		width: 300px;
+	}
+}
+//cmnt-tit社区标题样式
+.cmnt-tit, .rFrame-tit
+{
+	background: url(../images/bgimg/cmnt-tit.png) center left no-repeat;
+}
+.cmnt-tit
+{
+	padding-left: 20px;
+	height: 40px;
+	line-height: 40px;
+	.border-b(#c3c6ce);	
+	.title
+	{
+		.fl;
+		margin-right: 25px;
+		font-size: 20px;
+		.fm-yh;
+		.fw-none;
+		color: #283040;
+	}
+	.cmnt-tit-r
+	{
+		.fr;
+	}
+	.more
+	{
+		.fs-12;
+		&:hover
+		{
+			span
+			{
+				color: @skin-color-h;
+			}
+		}
+		span
+		{
+			.po-relative;
+			top: 1px;
+			margin-left: 3px;
+			color: #ccc;			
+		}
+	}
+}
+//spaceIndex-mod个人学习空间首页模块
+.spaceIndex-mod
+{
+	margin-bottom: 35px;
+	.spaceIndex-cont
+	{
+		padding: 25px 0 20px 0;
+		.no-content
+		{
+			padding: 20px 0;
+			.text
+			{
+				line-height: 25px;
+				.tac;
+				.fs-14;
+				a
+				{
+					margin: 0 5px;
+					color: @skin-color5;
+					&:hover
+					{
+						color: @skin-color-h;
+					}
+				}
+			}
+		}
+	}
+}
+//.spaceIndex-study 个人空间在学课程
+.spaceIndex-study
+{
+	.study-list
+	{
+		margin-top: -25px;
+		.line
+		{
+			margin-top: 25px;
+		}
+		.block
+		{
+			.po-relative;
+			padding-left: 160px;
+			min-height: 100px;
+			.img
+			{
+				.po-absolute;
+				top: 0;
+				left: 0;
+				.of-hd;
+				&, img
+				{
+					width: 140px;
+					height: 100px;
+				}
+				img
+				{
+					.transition;
+					&:hover
+					{
+						.trans-scale;
+					}
+				}
+			}
+			.infor
+			{
+				line-height: 30px;
+				h4
+				{
+					.fs-14;
+					a
+					{
+						.toe;
+						max-width: 90%;
+						color: #283040;
+						&:hover
+						{
+							color: @skin-color-h;
+						}
+					}	
+				} 
+				.sche-text
+				{
+					margin-bottom: 10px;
+					strong
+					{
+						margin: 0 3px;
+						color: @orange1;
+					}
+				}
+				.study-btn
+				{
+					.blue1-btn;
+					&:hover
+					{
+						.blue1-btn-h;
+					}
+					&:active
+					{
+						.blue1-btn-a;
+					}
+				}
+			}
+		}
+	}
+}
+//.spaceIndex-journal 个人空间我的日志
+.spaceIndex-journal
+{
+	.cmnt-tit
+	{
+		.i-myPrivate-journal
+		{
+			.fl;
+		}	
+	}
+}
+//.spaceIndex-resource 个人空间我的资源
+//.spaceIndex-studyRecord 个人空间我的学习记录
+.spaceIndex-studyRecord
+{
+	.i-studyRecord-list
+	{
+		padding-left: 85px;
+		.list
+		{
+			.border-l(#c8cad1);
+			.line
+			{
+				.po-relative;
+				z-index: 1;
+				padding: 10px 20px;
+				height: 15px;
+				line-height: 15px;
+				.fs-12;
+				.fm-st;
+				.text
+				{
+					color: #283040;
+					a
+					{
+						margin-left: 5px;
+						color: @skin-color5;
+						&:hover
+						{
+							color:@skin-color-h;
+						}
+					}
+				}
+				.time
+				{
+					.po-absolute;
+					top: 10px;
+					left: -83px;
+					height: 15px;
+					line-height: 15px;
+					.bg(#fff;);
+					span
+					{
+						.fl;
+						width: 65px;
+						margin-right: 10px;
+					}
+					.cmnt-ico
+					{
+						top: 1px;
+						.fl;
+						width: 14px;
+						height: 14px;
+						background-position: -18px -27px;
+					}
+				}
+			}
+		}
+	}
+}
+//.spaceIndex-newNotice 个人空间最新动态
+.spaceIndex-resource
+{
+	.cmnt-tit
+	{			
+		.i-newNotice-tab
+		{
+			.fl;
+		}
+	}
+}
+//.spaceIndex-remind 个人空间事件提醒
+.spaceIndex-remind
+{
+	.po-relative;
+	padding: 15px 10px;
+	background: #fffbe1 url(../images/bgimg/indexSpace-remindBg.png) left top repeat-x;
+	.border-b(#e5e0c2);
+	.i-remind-list
+	{
+		.line
+		{
+			height: 25px;
+			line-height: 25px;
+			.time
+			{
+				.fl;
+				.cmnt-ico
+				{
+					top: 3px;
+					margin-right: 3px;
+					width: 14px;
+					height: 14px;
+					background-position: -2px -28px;
+				}
+			}
+			.text
+			{
+				.fl;
+				margin-left: 10px;
+				max-width: 200px;
+				height: 25px;
+				.toe;
+				color: #283040;
+				&:hover
+				{
+					color: @skin-color-h;
+				}
+			}
+		}
+	}
+	.btnDiv
+	{
+		margin: 15px 0;
+		.tar;
+		.add-btn
+		{
+			padding: 0 8px;
+			height: 18px;
+			line-height: 18px;
+			border-color: @skin-color5 + #222;
+			color: @skin-color5;
+			&:hover
+			{
+				border-color: @skin-color-h;
+				color: @skin-color-h;
+			}
+		}
+	}
+	.sh-btn
+	{
+		.dpb;
+		.po-absolute;
+		bottom: 0;
+		left: 50%;
+		margin-left: -33px;
+		width: 65px;
+		height: 14px;
+		.border(#e5e0c2);
+		border-bottom: 0;
+		background-color: #fffceb;
+		.linear(#fffefb,#fffbe3);
+		.tac;
+		.cmnt-ico
+		{
+			top: 1px;
+			*top: 3px;
+			width: 8px;
+			height: 8px;
+			background-position: -78px 0;
+		}
+		&:hover
+		{
+			background-color: #fffbe3;
+			.linear(#fffbe3,#fffefb);
+		}
+		&:active
+		{
+			background-color: #f8f4dc;
+			.linear(#f8f4dc,#f8f4dc);
+		}
+		&.inIs
+		{
+			.cmnt-ico
+			{
+				background-position: -88px 0;
+			}
+		}
+	}
+}
+.r-frameBg
+{
+	margin-top: 15px;
+	padding: 10px;
+	.bg(#f4f5f8);
+}
+//.spaceRight-mod 个人空间右边title
+.spaceRight-mod
+{
+	margin-bottom: 25px;
+	.rFrame-tit
+	{
+		margin: 0 0 5px -10px;
+		padding-left: 15px;
+		height: 25px;
+		line-height: 25px;
+		.title
+		{
+			font-size: 15px;
+			color: #283040;
+			.fm-yh;
+		}
+		.title
+		{
+			.fl;
+			
+		}
+		.string
+		{
+			margin: 0 5px;
+			color: #c8cad1;
+		}
+	}	
+}
+
+
+
+
+/*--start--个人空间发表日志--start--*/
+#publishJournal-content
+{
+	padding-top: 20px;
+	.new_journal_top
+	{
+		margin-top: 20px;
+		.po-relative;
+		padding-left: 23px;
+		height: 30px;
+		line-height: 30px;
+		.block
+		{
+			.dpb;
+			.po-absolute;
+			top: 6px;
+			left: 0;
+			width: 10px;
+			height: 18px;
+			background-color: @skin-color1;
+		}
+		h3
+		{
+			font-size: 20px;
+			font-weight: normal;
+			color: #333;
+		}
+	}
+}
+.publishCon
+{
+	margin-top: 30px;
+	padding-right: 300px;
+	.edit-mod
+	{
+		.textarea-input
+		{
+			textarea
+			{
+				height: 250px;
+			}
+		}
+	}
+}
+.editBlock-tag
+{
+	.tag-list
+	{
+		.po-relative;
+		margin-top: 10px;
+		padding-left: 60px;
+		line-height: 22px;
+		.text
+		{
+			.po-absolute;
+			top: 0;
+			left: 0;
+		}
+		.list
+		{
+			a
+			{
+				padding: 2px 5px;
+				color: @skin-color5;
+				&:hover
+				{
+					.bg(@skin-color1);
+					color: #fff;
+				}
+			}
+		}
+	}	
+}
+.editBlock-button
+{
+	.btn
+	{
+		padding: 0;
+		margin-right: 6px;
+		width: 80px;
+	}
+	.publist-btn
+	{
+		.blue1-btn;
+		&:hover
+		{
+			.blue1-btn-h;
+		}
+		&:active
+		{
+			.blue1-btn-a;
+		}
+	}
+	.draft-btn
+	{
+		.gray3-btn;
+		&:hover
+		{
+			.gray3-btn-h;
+		}
+		&:active
+		{
+			.gray3-btn-a;
+		}
+	}
+}
+/*--end--个人空间发表日志--end--*/
+
+/*--start--个人学习空间日志列表--start--*/
+#journalList-content
+{
+	margin-top: 30px;
+	.clearfix;
+	&:after
+	{
+		.clearfixAfter;
+	}
+}
+.spacePage-cont, .spacePage-side
+{
+	padding: 15px;
+	.border;
+}
+.spacePage-cont
+{
+	.fl;
+	width: 675px;
+}
+.spacePage-side
+{
+	.fr;
+	width: 235px;
+}
+.myjournal-btn
+{
+	.cmnt-ico
+	{
+		width: 18px;
+		height: 15px;
+		background-position: -85px -28px;
+	}
+	&:hover, &.inIs
+	{
+		.cmnt-ico
+		{
+			background-position: -105px -28px;
+		}
+	}
+}
+.PrivateJournal-btn
+{
+	.cmnt-ico
+	{
+		width: 15px;
+		height: 17px;
+		top: 4px;
+		*top: 2px;
+		background-position: -126px -28px;
+	}
+	&:hover, &.inIs
+	{
+		.cmnt-ico
+		{
+			background-position: -142px -28px;
+		}
+	}
+}
+.draftsJournal-btn
+{
+	.cmnt-ico
+	{
+		width: 14px;
+		height: 14px;
+		background-position: -57px -12px;
+	}
+	&:hover, &.inIs
+	{
+		.cmnt-ico
+		{
+			background-position: -73px -12px;
+		}
+	}
+}
+.publishJournal-btn
+{
+	.cmnt-ico
+	{
+		width: 14px;
+		height: 14px;
+		background-position: -25px -13px;
+	}
+	&:hover, &.inIs
+	{
+		.cmnt-ico
+		{
+			background-position: -41px -13px;
+		}
+	}
+}
+.uploadResource-btn
+{
+	.cmnt-ico
+	{
+		top: 2px;
+		*top: 0;
+		width: 11px;
+		height: 14px;
+		background-position: -89px -11px;
+	}
+	&:hover, &.inIs
+	{
+		.cmnt-ico
+		{
+			background-position: -102px -11px;
+		}
+	}
+}
+.journal-type
+{
+	.cmnt-ico
+	{
+		top: 4px;
+		*top: 2px;
+		width: 20px;
+		height: 16px;
+		background-position: -159px -28px;
+	}
+	&:hover, &.inIs
+	{
+		.cmnt-ico
+		{
+			background-position: -180px -28px;
+		}
+	}
+}
+.jnList-tit
+{
+	margin-top: 10px;
+	padding-bottom: 5px;
+	height: 30px;
+	line-height: 31px;
+	.border-b(@skin-color6,3px);
+	.tabLi
+	{
+		a
+		{
+			.dpib;
+			padding:0 5px 2px 5px;
+			margin-right: 50px;
+			.fw-bold;
+			&.inIs
+			{
+				.border-b(@skin-color3,6px);
+				color: @skin-color-h;
+			}
+		}
+	}
+}
+.journal-list
+{
+	margin-top: 10px;
+	.jn-list
+	{
+		.line
+		{
+			padding: 15px;
+			.border-b(#d2d2d2,2px);
+			&:hover
+			{
+				.bg(#f9f9f9);
+			}
+			.space-opa-mod
+			{
+				.title
+				{
+					h4
+					{
+						.fw-none;
+					}
+				}
+			}
+		}
+	}
+}
+.journalType
+{
+	padding-top: 20px;
+	min-height: 300px;
+	.jnList-tit
+	{
+		.journal-type
+		{
+			.dpib;
+			height: 30px;
+			padding: 0 5px 3px 5px;
+			.fw-bold;
+			color: @skin-color-h;
+			.border-b(@skin-color3,6px);
+		}
+	}
+	.jnTag-list
+	{
+		margin-top: 20px;
+		margin-right: -8px;
+		a
+		{
+			.dpib;
+			padding: 0 5px;
+			margin-bottom: 6px;
+			height: 20px;
+			line-height: 20px;
+			.bg(#eee);
+			color: #999;
+			&:hover
+			{
+				.bg(#999);
+				color: #fff;
+			}
+			&.inIs
+			{
+				.bg(@skin-color3);
+				color: #fff;
+			}
+		}
+	}
+}
+
+
+
+/*--end--个人学习空间日志列表--end--*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//.spaceIndex-workshop 个人空间工作坊
+.spaceIndex-workshop
+{
+	.rFrame-tit
+	{
+		.found-workshop-btn
+		{
+			.fr;
+			color: @skin-color5;
+			&:hover
+			{
+				color: @skin-color-h;
+			}
+		}
+	}
+}
+.spaceIndex-workshop, .spaceIndex-circle
+{
+	.this-list
+	{
+		.line
+		{
+			height: 36px;
+			line-height: 36px;
+			border-bottom: 1px dashed #c8cad1;
+			&:last-child
+			{
+				border-bottom: 0;
+			}
+			a
+			{
+				max-width: 90%;
+				.toe;
+			}
+		}
+	}
+}
+//.spaceIndex-attention 个人空间关注
+.spaceIndex-attention
+{
+	.rFrame-tit
+	{
+		.i-attention-tab
+		{
+			font-size: 13px;
+			.fm-yh;
+			a
+			{
+				&:hover
+				{
+					color: #283040;
+				}
+				&.inIs
+				{
+					color: #283040;
+					font-size: 15px;
+				}	
+			}		
+		}
+	}
+	.i-attention-con
+	{
+		.list
+		{
+			margin-right: -8px;
+			a
+			{
+				margin: 8px 8px 0 0;
+				.fl;
+				&, img
+				{
+					.dpib;
+					width: 40px;
+					height: 40px;
+				}
+			}
+			.more
+			{
+				.dpib;
+				.fl;
+				margin-top: 8px;
+				height: 40px;
+				line-height: 40px;
+				a
+				{
+					margin: 0;
+					width: 38px;
+					height: 38px;
+					.border(#f4f5f8);
+					&:hover
+					{
+						.border(@skin-color3);
+					}					
+					.cmnt-ico
+					{
+						top: 1px;
+						*top: 14px;
+						left: 11px;
+						width: 15px;
+						height: 10px;
+						background-position: -35px -31px;
+					}	
+				}
+				
+			}
+		}
+	}
+}
+//.spaceIndex-suggest 个人空间意见反馈
+.spaceIndex-suggest
+{
+	.i-suggest-cont
+	{
+		margin-top: 15px;
+		.textarea-input
+		{
+			border-color: #c8c9cb;
+			textarea
+			{
+				height: 80px;
+				color: #b2b2b2;
+			}
+		}
+		.btnDiv
+		{
+			margin-top: 12px;
+			.submit-btn
+			{
+				padding: 0 15px;
+				.blue1-btn;
+				*border: 0;
+				&:hover
+				{
+					.blue1-btn-h;
+				}
+				&:active
+				{
+					.blue1-btn-a;
+				}
+			}
+		}
+	}
+}
+.space-opa-list
+{
+	.this_list
+	{
+		.line
+		{
+			margin-bottom: 15px;
+			padding-bottom: 10px;
+			border-bottom: 1px dashed #dbdde2;
+		}
+	}
+	.more-list
+	{
+		width: 100%;
+		a
+		{
+			.dpb;
+			width: 100%;
+			height: 26px;
+			line-height: 26px;
+			.bg(#f4f5f8);
+			.tac;
+			.fs-12;
+			.fm-st;
+			.cmnt-ico
+			{
+				top: -1px;
+				width: 9px;
+				height: 6px;
+				background-position: -120px 0;
+			}
+			&:hover
+			{
+				.bg(#f4f5f8 - #050505);
+				.cmnt-ico
+				{
+					background-position: -131px 0;
+				}	
+			}
+		}		
+	}
+}
+//.space-opa-mod 日志、资源列表模块
+.space-opa-mod
+{
+	.title
+	{
+		line-height: 22px;
+		font-size: 14px;
+		a
+		{
+			color: #283040;
+			&:hover
+			{
+				color: @skin-color-h;
+			}
+		}
+	}
+	.opa-line
+	{
+		margin-top: 5px;
+		line-height: 22px;
+		.fs-12;
+		.fm-st;
+		.opa-left
+		{
+			.fl;
+			width: 100px;
+		}
+		.opa
+		{
+			.fl;
+			a
+			{
+				color: @skin-color5;
+				&.delete-btn
+				{
+					color: @orange1;
+				}
+				&:hover
+				{
+					color: @skin-color-h;
+				}
+			}
+			.string
+			{
+				margin: 0 1px;
+				color: #c8cad1;
+			}
+		}
+	}
+	.comments
+	{
+		.po-relative;
+		bottom: -11px;
+		padding: 10px 0;
+		.border;
+		a
+		{
+			color: @skin-color5;
+			&:hover
+			{
+				text-decoration: underline;
+			}
+		}
+		.triangle, .triangle1
+		{
+			.po-absolute;
+			top: -8px;
+			left: 190px;
+			border-left: 6px solid transparent;
+			border-right: 6px solid transparent;
+			border-bottom: 8px solid #ccc;
+		}
+		.triangle1
+		{
+			top: -7px;
+			border-bottom-color: #fff;
+		}
+		.commens-detail
+		{
+			line-height: 20px;
+			color: #283040;
+		}
+		.name
+		{
+			color: @skin-color5;
+		}
+		.comments-opa
+		{
+			line-height: 18px;
+			.comment-this
+			{
+				.dpn;
+				.cmnt-ico
+				{
+					top: 4px;
+					width: 13px;
+					height: 13px;
+					background-position: -54px -28px;
+				}
+			}
+		}
+		.comment-detail-text:hover
+		{
+			.comment-this
+			{
+				.dpib;
+			}
+		}
+		.look-comments
+		{
+			padding: 0 15px;
+			line-height: 15px;
+			a
+			{
+				color: @skin-color5;
+				&:hover
+				{
+					text-decoration: underline;
+				}
+			}
+			.cmnt-ico
+			{
+				top: -1px;
+				*top: -4px;
+				width: 10px;
+				height: 6px;
+				background-position: -97px 0;
+			}
+			&.inIs
+			{
+				.cmnt-ico
+				{
+					background-position: -109px 0;
+				}
+			}
+		}
+		.comments-frame
+		{
+			margin-top: 7px;
+		}
+		.comments-list
+		{
+			.conments-block
+			{
+				.po-relative;
+				padding: 7px 15px 7px 60px;
+				.border-b;
+				&:last-child
+				{
+					border-bottom: 0;
+				}
+				.user-img
+				{
+					.po-absolute;
+					top: 10px;
+					left: 15px;
+					&, img
+					{
+						width: 32px;
+						height: 32px;
+					}
+				}
+			}
+		}
+		.reply-frame
+		{
+			padding: 10px 0;
+			.reply-list
+			{
+				.reply-block
+				{
+					padding: 7px 0;
+					.border-t(#e5e5e5,1px,dashed);
+				}
+				
+			}
+		}
+		.comments-box, .reply-box
+		{
+			margin-top: 7px;
+			.textarea-input
+			{
+				textarea
+				{
+					height: 35px;
+				}
+			}
+			.btnDiv
+			{
+				margin-top: 10px;
+				.tar;
+				.comment-btn
+				{
+					padding: 0 20px;
+					.blue1-btn;
+					&:hover
+					{
+						.blue1-btn-h;
+					}
+					&:active
+					{
+						.blue1-btn-a;
+					}
+				}
+			}
+		}
+		.reply-box
+		{
+			.dpn;
+		}
+		.comments-box
+		{
+			padding: 0 15px;
+			.textarea-input
+			{
+				background-color: #f9f9f9;
+				textarea
+				{
+					height: 15px;
+					background-color: #f9f9f9;
+				}
+			}
+			.btnDiv
+			{
+				.dpn;
+			}
+		}
+	}
+}
+
+.space-alter-title
+{
+	.alter-box
+	{
+		.dpn;
+		margin: 5px 0;
+		.text-input
+		{
+			.fl;
+			margin-right: 10px;
+			width: 60%;
+		}
+		.bntDiv
+		{
+			.confirm-btn
+			{
+				.blue1-btn;
+				&:hover
+				{
+					.blue1-btn-h;
+				}
+				&:active
+				{
+					.blue1-btn-a;
+				}
+			}
+			.cancel-btn
+			{
+				.gray1-btn;
+				&:hover
+				{
+					.gray1-btn-h;
+				}
+				&:active
+				{
+					.gray1-btn-a;
+				}
+			}
+		}	
+	}
+}
+
+.uploading-layer
+{
+	width: 400px;
+	margin-left: -200px;
+	.upload-layer-cont
+	{
+		padding: 15px;
+		max-height: 185px;
+		overflow: auto;
+		.border-b;
+		.file-input
+		{
+			line-height: 28px;
+			.file-show-btn
+			{
+				.fl;
+				padding: 0;
+				width: 88px;
+				background-color: #f9f9f9;
+				color: #666;
+				border-color: #ccc;
+				.cmnt-ico
+				{
+					top: 2px;
+					margin-right: 3px;
+					width: 11px;
+					height: 14px;
+					background-position: -89px -11px;
+				}
+			}
+			.file-explain
+			{
+				.fl;
+				margin-left: 10px;
+			}
+		}
+	}
+	.yet-upload-list
+	{
+		padding-top: 5px;
+		.list
+		{
+			li
+			{
+				height: 30px;
+				line-height: 30px;
+				border-bottom: 1px dashed #ebebeb;
+				.clearfix;
+				&:after
+				{
+					.clearfixAfter;
+				}
+				&:last-child
+				{
+					border-bottom: 0;
+				}
+				.text
+				{
+					.fl;
+				}
+				.opa
+				{
+					.fr;
+					a
+					{
+						margin-left: 5px;
+						color: @skin-color5;
+						&:hover
+						{
+							color: @skin-color-h;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+.file-ico
+{
+	.dpib;
+	.po-relative;
+	top: 4px;
+	width: 15px; 
+	height: 15px;
+	background: url(../images/bgimg/file.png) no-repeat;
+}
+.file-text-ico
+{
+	background-position: 0 0;
+}
+.file-music-ico
+{
+	background-position: -15px 0;
+}
+.file-vedio-ico
+{
+	background-position: -30px 0;
+}
+.download-ico
+{
+	top: 5px;
+	width: 18px;
+	height: 18px;
+	background-position: -115px -10px;
+}
+.delete-ico
+{
+	width: 13px;
+	height: 14px;
+	background-position: -135px -12px;
+}
+/*--end--spaceIndex-content个人空间首页--end--*/
+
+
+
+
+
+
+
+
+/*--start--workshop工作坊首页 --start--*/
+.ws-type
+{
+	.dpib;
+	.po-relative;
+	padding: 0 5px 0 3px;
+	height: 15px;
+	line-height: 15px;
+	.fs-12;
+	color: #fff;
+}
+.ws-type.orange-type
+{
+	background: #f7a412 url(../images/bgimg/orange-type.gif) right top no-repeat;
+}
+.ws-type.green-type
+{
+	background: #51c060 url(../images/bgimg/green-type.gif) right top no-repeat;
+}
+.ws-type.purple-type
+{
+	background: #939bd8 url(../images/bgimg/purple-type.gif) right top no-repeat;
+}
+.ws-type.red-type
+{
+	background: #fd775c url(../images/bgimg/red-type.gif) right top no-repeat;
+}
+.subject-select
+{
+	padding: 10px 0 2px 0;
+	.bg(#f2f5f6);
+	.list
+	{
+		a
+		{
+			
+			.dpib;
+			padding: 0 5px;
+			margin: 0 10px 10px 0;
+			height: 20px;
+			line-height: 20px;
+			color: #555;
+			&:hover
+			{
+				color: @skin-color-h;
+			}
+			&.inIs
+			{
+				.bg(@skin-color3);
+				color: #fff;
+			}
+		}
+	}
+}
+
+#workshop-content
+{
+	margin-top: 30px;
+}
+//wsIndex-mod 工作坊首页模块
+.wsIndex-mod
+{
+	margin-bottom: 30px;
+	.cont
+	{
+		.po-relative;
+		padding: 35px 35px 5px;
+		.clearfix;
+		&:after
+		{
+			.clearfixAfter;
+		}
+		.left,.right
+		{
+			padding: 0 30px;
+			width: 405px;
+		}
+		.left
+		{
+			.fl;
+		}
+		.right
+		{
+			.fr;
+		}
+		.l-move-btn, .r-move-btn
+		{
+			.dpb;
+			.po-absolute;
+			top: 68px;
+			width: 25px;
+			height: 35px;
+			background: url(../images/bgimg/leftRight.png);
+		}
+		.l-move-btn
+		{
+			left: 0;
+			background-position: 0 0;
+			&:hover
+			{
+				background-position: -25px 0;
+			}
+		}
+		.r-move-btn
+		{
+			right: 0;
+			background-position: -50px 0;
+			&:hover
+			{
+				background-position: -75px 0;
+			}
+		}
+	}
+	.wsList-hide
+	{
+		width: 100%;
+		height: 145px;
+		.of-hd;
+		.wsIndex-list
+		{
+			width: 2000px;
+			.block
+			{
+				.fl;
+				padding: 0 30px;
+				width: 405px;
+			}
+		}
+	}
+}
+//wsIndex-block 工作坊首页块
+.wsIndex-block
+{
+	.po-relative;
+	padding-left: 115px;
+	.img
+	{
+		.po-absolute;
+		top: 0;
+		left: 0;
+		overflow: hidden;
+		&,img
+		{
+			width: 100px;
+			height: 100px;
+			img
+			{
+				.transition;
+			}
+			a:hover
+			{
+				img
+				{
+					.trans-scale;
+				}
+			}
+		}
+	}
+	.infor
+	{
+		.title
+		{
+			margin-bottom: 6px;
+			font-size: 16px;
+			line-height: 15px;
+			 font-weight: normal; 
+			a
+			{
+				color: #283040;
+				&:hover
+				{
+					color: @skin-color-h;
+				}
+			}
+		}
+		.line
+		{
+			padding: 4px 0;
+			line-height: 1.6;
+			max-height: 36px;
+			overflow: hidden;
+			border-bottom: 1px dotted #dadada;
+			.fs-12;
+			color: #525559;
+			.clearfix;
+			&:after
+			{
+				.clearfixAfter;
+			}
+			&:last-child
+			{
+				border-bottom: 0;
+			}
+			.text
+			{
+				color: #525559;
+				&:hover
+				{
+					color: @skin-color-h;
+				}
+			}
+		}
+		.btnDiv
+		{
+			margin-top: 5px;
+			.look-more
+			{
+				padding: 0 6px;
+				height: 24px;
+				line-height: 24px;
+				.blue1-btn;
+				&:hover
+				{
+					.blue1-btn-h;
+				}
+				&:active
+				{
+					.blue1-btn-a;
+				}
+			}
+		}
+	}
+}
+
+.ws-detail-layer
+{
+	margin-left: -330px;
+	margin-top: -175px;
+	width: 660px;
+	.cont
+	{
+		padding-top: 30px;
+		.po-relative;
+		.enter-btn
+		{
+			.po-absolute;
+			top: 20px;
+			right: 10px;
+			.blue1-btn;
+			border: 0;
+			&:hover
+			{
+				.blue1-btn-h;
+			}
+			&:active
+			{
+				.blue1-btn-a;
+			}
+		}
+	}
+	.wsDetail-layer-tab
+	{
+		.tabLi
+		{
+			padding-left: 20px;
+			height: 28px;
+			.border-b(#dcddde);
+			box-shadow: 0px 1px 29px 0px rgba(0, 0, 0, 0.031);
+			a
+			{
+				.dpib;
+				padding: 0 10px;
+				min-width: 70px;
+				height: 27px;
+				line-height: 27px;
+				background-color: #f7f7f7;
+				.linear(#fcfcfc,#f4f4f4);
+				.border(#dcddde);
+				.tac;
+				color: #858585;
+				&:hover
+				{
+					background-color: #fff;
+					.linear(#f9f9f9,#f9f9f9);
+					color: #525559;
+				}
+				&.inIs
+				{
+					background-color: #f6f6f6;
+					.linear(#f6f6f6,#f6f6f6);
+					.border-t(@skin-color3);
+					.border-b(#f3f4f4);
+					font-weight: bold;
+					color: #525559;
+				}
+			}
+		}
+		.tabCon
+		{
+			.tabList
+			{
+				.dpn;
+				padding: 10px 25px;
+				height: 234px;
+				.of-at;
+
+				&:first-child
+				{
+					.dpb;
+				}
+			}
+			.wsDetail-layer-plan
+			{
+				.text
+				{
+					margin-bottom: 10px;
+					line-height: 24px;
+					text-indent: 2em;
+					color: #525559;
+				}
+			}
+			.thisTab-list
+			{
+				.line
+				{
+					height: 38px;
+					line-height: 38px;
+					border-bottom: 1px dotted  #dadada;
+					.ws-type
+					{
+						.fl;
+						top: 12px;
+						margin-right: 10px;
+					}
+					.text
+					{
+						.fl;
+						color: #525559;
+						width: 85%;
+						.toe;
+						.dpib;
+						&:hover
+						{
+							color: @skin-color-h;
+						}
+					}
+					.this-type.cmnt-ico
+					{
+						top: 3px;
+						width: 14px;
+						height: 14px;
+						background-position: -57px -12px;
+					}
+				}
+			}
+		}
+	}
+}
+
+/*--end--sworkshop工作坊首页--end--*/
+
+
+.wsList-mod
+{
+	.cont
+	{
+		padding: 10px 25px 100px 25px;
+	}
+	.workshop-list
+	{
+		.this-line
+		{
+			padding: 25px 0;
+			border-bottom: 1px dashed #d8d8d8;
+			.clearfix;
+			&:after
+			{
+				.clearfixAfter;
+			}
+			.block
+			{
+				.fl;
+				margin-right: 40px;
+				width: 435px;
+				&:last-child
+				{
+					.fr;
+					margin-right: 0;
+				}
+			}
+		}
+	}
+}
+.ws-jump-page
+{
+	margin: 20px 0;
+	.fs-14;
+	font-family: arial;
+	a
+	{
+		.dpib;
+		padding: 0 6px;
+		margin-right: 6px;
+		height: 20px;
+		line-height: 20px;
+		color: #525559;
+		&:hover,&.inIs
+		{
+			background-color: @skin-color3;
+			color: #fff;
+		}
+	}
+	span
+	{
+		.dpib;
+		margin-right: 6px;
+	}
+	.prev-page, .last-page
+	{
+		font-size: 16px;
+		font-weight: bold;
+		.fm-st;
+	}
+}
+
+
+
+
+
+/*--end--workshop工作坊首页 --end--*/
+
+
+
+
+
+
+/*--start--area区域社区首页 --start--*/
+#areaIndex-content
+{
+	margin-top: 30px;
+}
+.areaIndex-same
+{
+	margin-bottom: 25px;
+	.cmnt-tit
+	{
+		margin-bottom: 10px;
+		border-bottom: 0;
+	}
+}
+.areaIndex-mod, .areaIndex-same .areaIndex-cont
+{
+	padding: 15px;
+	.border;
+}
+.aiSpecial-detail
+{
+	.bg(#fbfbfb);
+	.aiSpecial-detailBg
+	{
+		.po-relative;
+		padding-left: 590px;
+		.bg(white);
+		min-height: 300px;
+		.img
+		{
+			.po-absolute;
+			top: 0;
+			left: 0;
+			.defaultImg;
+			&, img
+			{
+				width: 570px;
+				height: 300px;
+			}
+		}
+		.infor
+		{
+			.aiSpecial-list
+			{
+				.block
+				{
+					margin-bottom: 10px;
+				}
+				.title
+				{
+					line-height: 22px;
+					.fw-none;
+					font-size: 14px;
+					.type
+					{
+						.dpib;
+						padding: 0 3px;
+						*margin-right: 3px;
+						height: 22px;
+						.bg(@skin-color1);
+						color: white;
+					}
+					.tt
+					{
+						color: #333;
+						&:hover
+						{
+							color: @skin-color-h;
+						}
+					}
+				}
+				.text
+				{
+					margin-top: 5px;
+					line-height: 20px;
+				}
+			}
+		}
+	}
+}
+.aiExpert-list
+{
+	margin-right: -16px;
+	.block
+	{
+		.fl;
+		margin-right: 16px;
+		width: 148px;
+		height: ;
+		.tac;
+		.name
+		{
+			.dpb;
+			margin: 12px 0 3px;
+		}
+		&:hover
+		{
+			.name
+			{
+				color: @skin-color-h;
+			}
+		}
+	}
+	.imgCase
+	{
+		.dpib;
+		padding: 3px;
+		.border;
+
+		.dfHeadImg
+		{
+			width: 140px;
+			height: 110px;
+			.transition;
+			&:hover
+			{
+				.trans-scale;
+			}
+
+			img
+			{
+				max-width: 140px;
+				_width: 140px;
+			}
+		}
+	}
+}
+.pieceDiv
+{
+	.piece-left
+	{
+		.fl;
+		width: 730px;
+	}
+	.piece-right
+	{
+		.fr;
+		width: 250px;
+	}
+}
+.aiActivity-detail
+{
+	padding: 10px 0;
+	margin-right: -20px;
+	.this-block
+	{
+		.fl;
+		margin-right: 20px;
+		width: 338px;
+	}
+}
+.aiAct-block
+{
+	padding-left: 100px;
+	min-height: 55px;
+	.img
+	{
+		width: 85px;
+		height: 55px;
+		.radius(10px);
+		.transition;
+		&:hover
+		{
+			.trans-scale;
+		}
+		.defaultImg
+		{
+			height: 55px;
+		}
+		img
+		{
+			width: 100%;
+		}
+	}
+	.infor
+	{
+		.title
+		{
+			margin-bottom: 5px;
+			font-size: 16px;
+			line-height: 16px;
+			.fw-none;
+			a
+			{
+				.toe;
+				max-width: 100%;
+				color: @skin-color3;
+				&:hover
+				{
+					color: @skin-color-h;
+				}
+			}
+		}
+		.infor-text
+		{
+			font-size: 12px;
+			line-height: 25px;
+			height: 125px;
+			.of-hd;
+		}
+		.btnDiv
+		{
+			margin-top: 15px;
+			.act-btn
+			{
+				.blue1-btn;
+				&:hover
+				{
+					.blue1-btn-h;
+				}
+				&:active
+				{
+					.blue1-btn-a;
+				}
+			}
+		}
+	}
+}
+.areaIndex-resource
+{
+	.areaIndex-cont
+	{
+		.bg(#fbfbfb);
+	}
+}
+.aiResource-list{
+	font-size: 14px;
+	max-height: 219px;
+	.of-hd;
+	.infoList
+	{
+		padding: 1px 0;
+		li
+		{
+			line-height: 31px;
+		}
+	}
+}
+.areaIndex-workshop
+{
+	.aiWorkshop-detail
+	{
+		margin-right: -50px;
+		padding: 10px 0;
+		.this-block
+		{
+			.fl;
+			margin-right: 50px;
+			width: 450px;
+		}
+	}
+}
+.aiSchool
+{
+	.aischool-select
+	{
+		.more-btn
+		{
+			color: @skin-color3;
+			&:hover
+			{
+				color: @skin-color-h;
+			}
+		}
+		.list
+		{
+			.dpib;
+			a
+			{
+				.dpib;
+				padding: 0 5px;
+				margin: 0 5px 8px 0;
+				height: 22px;
+				line-height: 22px;
+				&.inIs
+				{
+					color: #fff;
+					.bg(@skin-color3);
+				}
+			}
+		}
+	}
+	.aischool-detail
+	{
+		padding-top: 15px;
+		.aischool-block
+		{
+			a
+			{
+				.dpib;
+				.fl;
+				margin: 0 12px 12px 0;
+				padding: 0 12px;
+				height: 30px;
+				line-height: 30px;
+				.bg(#eee);
+				color: #444;
+				&:hover, &.inIs
+				{
+					.bg(#888);
+					color: #fff;
+				}
+			}
+		}
+	}
+}
+/*--end--area区域社区首页 --end--*/
+

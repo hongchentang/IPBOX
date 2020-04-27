@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcis.ipanther.common.privilege.mapper.PrivilegeMapper" >
+  <resultMap id="PermissionMap" type="com.hcis.ipanther.common.privilege.entity.Permission" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
+    <result column="DISPLAY" property="display" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="PARENT_ID" property="parentId" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, NAME,DESCRIPTION,CODE,URL,TYPE,PARENT_ID,SEQUENCE,DISPLAY, IS_DELETED, VERSION
+  </sql>
+  <select id="selectPermissionByUserId" resultMap="PermissionMap" parameterType="java.lang.String" >
+    select ID, NAME,CODE,URL,TYPE,DISPLAY,PARENT_ID
+    from IPANTHER_PERMISSION
+    where IS_DELETED='N'
+    AND ID IN
+    (
+    SELECT IRP.PERMISSION_ID FROM IPANTHER_ROLE_PERMISSION IRP
+    JOIN IPANTHER_USER_ROLE IUR
+    ON IRP.ROLE_ID = IUR.ROLE_ID
+    WHERE IUR.USER_ID=#{userId,jdbcType=VARCHAR}
+    )
+  </select>
+   <select id="selectPermissionByRole" resultMap="PermissionMap"  parameterType="java.lang.String" >
+    select IP.ID, IP.CODE,IP.URL
+    from IPANTHER_ROLE_PERMISSION IRP
+    JOIN IPANTHER_PERMISSION IP
+    ON IRP.PERMISSION_ID = IP.ID
+    AND IP.IS_DELETED='N'
+    where IRP.ROLE_ID=#{roleId,jdbcType=VARCHAR}
+  </select>
+</mapper>

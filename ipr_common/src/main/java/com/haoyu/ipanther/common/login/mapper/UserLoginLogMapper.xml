@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.haoyu.ipanther.common.login.mapper.UserLoginLogMapper" >
+  <resultMap id="UserLoginLogMap" type="com.haoyu.ipanther.common.login.entity.UserLoginLog" >
+      <id column="ID" property="id" jdbcType="VARCHAR" />
+      <result column="ACCOUNT_ID" property="accountId" jdbcType="VARCHAR" />
+      <result column="LOGIN_TIME" property="loginTime" jdbcType="TIMESTAMP" />
+      <result column="LOGOUT_TIME" property="logoutTime" jdbcType="TIMESTAMP" />
+      <result column="SESSION_ID" property="sessionId" jdbcType="VARCHAR" />
+      <result column="IP_ADDR" property="ipAddr" jdbcType="VARCHAR" />
+      <result column="USER_AGENT" property="userAgent" jdbcType="VARCHAR" />
+      <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+      <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+      <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+      <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+      <result column="VERSION" property="version" jdbcType="BIGINT" />
+      <result column="IS_DELETED" property="isDeleted" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+      ID, ACCOUNT_ID, LOGIN_TIME, LOGOUT_TIME, SESSION_ID, IP_ADDR, USER_AGENT, CREATOR,
+    CREATE_TIME, UPDATEDBY, UPDATE_TIME, VERSION, IS_DELETED
+  </sql>
+  <insert id="insert" parameterType="com.haoyu.ipanther.common.login.entity.UserLoginLog">
+      insert into user_login_log (ID, ACCOUNT_ID, LOGIN_TIME,
+                                  LOGOUT_TIME, SESSION_ID, IP_ADDR,
+                                  USER_AGENT, CREATOR, CREATE_TIME,
+                                  UPDATEDBY, UPDATE_TIME, VERSION,
+                                  IS_DELETED)
+      values (#{id,jdbcType=VARCHAR}, #{accountId,jdbcType=VARCHAR}, #{loginTime,jdbcType=TIMESTAMP},
+              #{logoutTime,jdbcType=TIMESTAMP}, #{sessionId,jdbcType=VARCHAR}, #{ipAddr,jdbcType=VARCHAR},
+              #{userAgent,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+              #{updatedby,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{version,jdbcType=BIGINT},
+              #{isDeleted,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateLogoutTime" parameterType="com.haoyu.ipanther.common.login.entity.UserLoginLog">
+  	UPDATE USER_LOGIN_LOG
+  	SET LOGOUT_TIME=#{logoutTime,jdbcType=TIMESTAMP}
+  	WHERE ACCOUNT_ID=#{accountId,jdbcType=VARCHAR}
+  	AND	SESSION_ID=#{sessionId,jdbcType=VARCHAR}
+  	<if test="id!=null and id!=''">
+  		AND ID=#{id,jdbcType=VARCHAR}
+  	</if>
+  </update>
+  
+  <select id="selectBySearchParam" resultMap="UserLoginLogMap" parameterType="searchParam" >
+  	SELECT t.ID, t.ACCOUNT_ID,t.LOGIN_TIME,t.LOGOUT_TIME,t.SESSION_ID,t.IP_ADDR,t.USER_AGENT FROM USER_LOGIN_LOG t
+  	LEFT JOIN ipanther_user AS u ON u.ID = t.CREATOR
+  	LEFT JOIN ipanther_user_dept AS ut ON ut.USER_ID = u.ID
+    WHERE 1=1
+    <if test="paramMap.accountId != null">
+    	ACCOUNT_ID = = #{paramMap.accountId,jdbcType=VARCHAR}
+    </if>
+      <if test="paramMap.searchUserId != null and paramMap.searchUserId != ''">
+          AND #{pararmMap.searchUserId, jdbcType=VARCHAR}
+      </if>
+      <if test="paramMap.deptIds != null and paramMap.deptIds.size > 0">
+          AND ut.DEPT_ID IN
+          <foreach collection="paramMap.deptIds" item="deptId" open="(" close=")" separator=",">
+              #{deptId,jdbcType=VARCHAR}
+          </foreach>
+      </if>
+  </select>
+</mapper>

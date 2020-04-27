@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<models>
+
+	<!-- 人才、学员 -->
+	<model id="studentUserModel" class="com.hcis.ipanther.common.user.excelmodel.UserModel" titleRownum="2" maxColnum="31">
+		<property name="realName" column="1" excelTitleName="姓名" dataType="String" maxLength="300" required="true"  fixity="" codeTableName="" default=""/>
+		<property name="sex" column="2" excelTitleName="性别" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="userName" column="3" excelTitleName="用户名/账号/学号" dataType="String" maxLength="300" required="true"  fixity="" codeTableName="" default=""/>
+		<property name="userType" column="4" excelTitleName="人才分类" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="politicsRole" column="5" excelTitleName="政治面貌" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="paperworkType" column="6" excelTitleName="证件类型" dataType="String" maxLength="300" required="true"  fixity="" codeTableName="" default=""/>
+		<property name="paperworkNo" column="7" excelTitleName="证件号" dataType="String" maxLength="300" required="true"  fixity="" codeTableName="" default=""/>
+		<property name="bornDate" column="8" excelTitleName="出生日期" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="workDate_" column="9" excelTitleName="参加工作时间" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="job" column="10" excelTitleName="职务" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="expertType" column="11" excelTitleName="专家类别" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="expertLevel" column="12" excelTitleName="专家级别" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="researchField" column="13" excelTitleName="研究领域" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="researchSpecial" column="14" excelTitleName="研究专长" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="highDiploma" column="15" excelTitleName="学历" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="highSubject" column="16" excelTitleName="所学专业" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="highDegree" column="17" excelTitleName="学位" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="highDegreeUnit" column="18" excelTitleName="授予学位单位名称" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="highDegreeDt_" column="19" excelTitleName="获学位日期" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="highDt_" column="20" excelTitleName="毕业时间" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="highCollege" column="21" excelTitleName="毕肄业学校或单位" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="officePhone" column="22" excelTitleName="办公电话" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="mobilePhone" column="23" excelTitleName="移动电话" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="email" column="24" excelTitleName="电子信箱" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="foreignLanguages" column="25" excelTitleName="外国语种" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="foreignDegree" column="26" excelTitleName="外国语种熟练程度" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="computerLevel" column="27" excelTitleName="计算机水平" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="proName" column="28" excelTitleName="最高专业技术资格名称" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="proDt_" column="29" excelTitleName="评定日期" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="proJob" column="30" excelTitleName="现聘专业技术职务" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="introduce" column="31" excelTitleName="个人简介" dataType="String" maxLength="500" required="false"  fixity="" codeTableName="" default=""/>
+	</model>
+	
+	<!-- 教师 -->
+	<model id="teacherUserModel" class="com.hcis.ipanther.common.user.excelmodel.UserModel" titleRownum="2" maxColnum="38">
+		<property name="realName" column="1" excelTitleName="姓名" dataType="String" maxLength="300" required="true"  fixity="" codeTableName="" default=""/>
+		<property name="sex" column="2" excelTitleName="性别" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="userName" column="3" excelTitleName="用户名/账号/学号" dataType="String" maxLength="300" required="true"  fixity="" codeTableName="" default=""/>
+		<property name="userType" column="4" excelTitleName="人才分类" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="politicsRole" column="5" excelTitleName="政治面貌" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="paperworkType" column="6" excelTitleName="证件类型" dataType="String" maxLength="300" required="true"  fixity="" codeTableName="" default=""/>
+		<property name="paperworkNo" column="7" excelTitleName="证件号" dataType="String" maxLength="300" required="true"  fixity="" codeTableName="" default=""/>
+		<property name="bornDate" column="8" excelTitleName="出生日期" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="workDate_" column="9" excelTitleName="参加工作时间" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="job" column="10" excelTitleName="职务" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="expertType" column="11" excelTitleName="专家类别" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="expertLevel" column="12" excelTitleName="专家级别" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="researchField" column="13" excelTitleName="研究领域" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="researchSpecial" column="14" excelTitleName="研究专长" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="title" column="15" excelTitleName="职称" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="highDiploma" column="16" excelTitleName="学历" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="highSubject" column="17" excelTitleName="所学专业" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="highDegree" column="18" excelTitleName="学位" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="highDegreeUnit" column="19" excelTitleName="授予学位单位名称" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="highDegreeDt_" column="20" excelTitleName="获学位日期" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="highDt_" column="21" excelTitleName="毕业时间" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="highCollege" column="22" excelTitleName="毕肄业学校或单位" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="officePhone" column="23" excelTitleName="办公电话" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="mobilePhone" column="24" excelTitleName="移动电话" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="email" column="25" excelTitleName="电子信箱" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="foreignLanguages" column="26" excelTitleName="外国语种" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="foreignDegree" column="27" excelTitleName="外国语种熟练程度" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="computerLevel" column="28" excelTitleName="计算机水平" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="proName" column="29" excelTitleName="最高专业技术资格名称" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="proDt_" column="30" excelTitleName="评定日期" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="proJob" column="31" excelTitleName="现聘专业技术职务" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="trainDomain" column="32" excelTitleName="培训领域" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="trainDirection" column="33" excelTitleName="培训方向" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="haveExp" column="34" excelTitleName="主要学术著作及论文" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="expDesc" column="35" excelTitleName="收款账号" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="mainThesis" column="36" excelTitleName="是否有知识产权教学或实务工作经验" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="bankAccount" column="37" excelTitleName="从事知识产权教学或授课的相关经历" dataType="String" maxLength="300" required="false"  fixity="" codeTableName="" default=""/>
+		<property name="introduce" column="38" excelTitleName="个人简介" dataType="String" maxLength="500" required="false"  fixity="" codeTableName="" default=""/>
+	</model>
+	<!-- 成绩导入 -->
+	<model id="CourseRegisterModel" class="com.hcis.ipr.train.register.model.CourseRegisterModel" titleRownum="0" maxColnum="6">
+		<property name="courseRegisterId" column="1" excelTitleName="编码" dataType="String" maxLength="" required="true"  fixity="" codeTableName="" default=""/>
+		<property name="studentName" column="3" excelTitleName="学员姓名" dataType="String" maxLength="" required=""  fixity="" codeTableName="" default=""/>
+		<property name="deptName" column="2" excelTitleName="部门" dataType="String" maxLength="" required=""  fixity="" codeTableName="" default=""/>
+		<property name="courseName" column="4" excelTitleName="课程名称" dataType="String" maxLength="" required=""  fixity="" codeTableName="" default=""/>
+		<property name="score" column="5" excelTitleName="分数" dataType="Numeric" maxLength="" required=""  fixity="" codeTableName="" default=""/>
+		<property name="result" column="6" excelTitleName="结果" dataType="String" maxLength="" required=""  fixity="" codeTableName="" default=""/>
+	</model>
+</models>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd"
+	default-lazy-init="true">
+
+	<description>Shiro安全配置</description>
+
+	<!-- Shiro's main business-tier object for web-enabled applications -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<!-- <property name="sessionManager" ref="defaultWebSessionManager" /> -->
+		<property name="realm" ref="shiroDbRealm" />
+		<property name="cacheManager" ref="shiroCacheManager" />
+	</bean>
+
+	<bean id="defaultWebSessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+	    <property name="globalSessionTimeout" value="1200000" />
+	</bean>
+
+	<!-- 項目自定义的Realm -->
+	<bean id="shiroDbRealm" class="com.hcis.ipanther.common.security.realm.AuthenticationRealm">
+		<property name="userRoleService" ref="userRoleService" />
+	</bean>
+	 <bean id="userLoginAttemptService" class="com.haoyu.ipanther.common.login.service.impl.UserLoginAttemptServiceImpl">
+    	<property name="maxAttempts" value="10"/>
+    </bean>
+	<!-- Shiro Filter -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<!-- 安全管理器 -->
+		<property name="securityManager" ref="securityManager" />
+		<!-- 默认的登陆访问url -->
+		<property name="loginUrl" value="/login.do" />
+		<!-- 登陆成功后跳转的url -->
+		<property name="successUrl" value="/index.do" />
+		<!-- 没有权限跳转的url -->
+		<property name="unauthorizedUrl" value="/login.do" />
+		<!-- 访问地址的过滤规则,从上至下的优先级,如果有匹配的规则,就会返回,不会再进行匹配 -->
+		<property name="filterChainDefinitions">
+			<value>
+				/ = anon
+				/*.txt = anon
+				/favicon.ico = anon
+				/default.jsp = anon
+				/jsp/common/403.jsp = anon
+				/jsp/common/404.jsp = anon
+				/jsp/common/exception.jsp = anon
+				/cms/** = anon
+				/templet/** = anon
+				/site/** = anon
+				/attachment/** = anon
+				/loginV2.do = anon
+				/oauth/token.do = anon
+				/oauth/authorize.do = anon
+				/oauth/test.do = anon
+				/index.do = authc
+				/login.do = authc
+				/common/validate/** = anon<!-- 验证码获取与发送 -->
+				/wechat/** = anon
+				<!-- /logout.do = concurrentAccessLogout -->
+				/unauth.do = anon
+				/themes/** = anon
+				/js/** = anon
+				/css/** =  anon
+				/upload/** = anon
+				/kaptcha = anon
+				/jsp/common/concurrentAccess.jsp = anon
+				/jsp/common/top.jsp = anon
+				/common/captcha/generateImage.do = anon
+				/common/regions/getNextRegionsByCode.do = anon <!-- 注册页面获取机构信息 -->
+				/common/regions/getOnlyChildRegions.do = anon <!--获取师资区域信息  -->
+				/train/talentTrain/** = anon <!-- 前端人才培训系统模块 -->
+				/common/attachment/** = anon<!-- 前端头像 -->
+				/activate.do = anon<!-- 用户确认信息 -->
+				/** = authc,frameperms<!-- ,concurrentAccess -->
+			</value>
+		</property>
+		<!-- 声明自定义的过滤器 -->
+		<property name="filters">
+			<map>
+				<entry key="authc" value-ref="captchaFormAuthenticationFilter"/>
+				<!-- 并发访问控制,如果不需要控制，去掉即可  -->
+				<!-- <entry key="concurrentAccessLogout" value-ref="concurrentAccessLogoutFilter"/>	 -->
+				<entry key="frameperms" value-ref="frameperms"/>
+				<!-- <entry key="concurrentAccess" value-ref="concurrentAccessFilter"/> -->
+			</map>
+		</property>
+	</bean>
+	<bean id="userLoginLogService" class="com.haoyu.ipanther.common.login.service.impl.UserLoginLogServiceImpl"/>
+	<bean id="captchaFormAuthenticationFilter"
+   				class="com.hcis.ipanther.common.privilege.shiro.captcha.CaptchaFormAuthenticationFilter">
+   			<property name="shiroLoginService" ref="shiroLoginService"/>
+   			<property name="userLoginLogService" ref="userLoginLogService"/>
+   			<property name="universalCaptcha" value="1"/>
+   			<!-- <property name="concurrentAccessService" ref="concurrentAccessService"/> -->
+   			<property name="validateCaptcha" value="true"/>
+   	</bean>
+	
+   	<bean id="shiroLoginService" class="com.hcis.ipanther.common.login.service.impl.ShiroLoginServiceImpl"/>
+
+	<bean id="shiroCacheManager" class="org.springrain.frame.shiro.ShiroRedisCacheManager">
+		<property name="cached" ref="redisCached" />
+	</bean>
+
+
+	<!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+</beans>

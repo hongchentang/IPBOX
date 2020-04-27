@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib>
+	<tlib-version>1.1.2</tlib-version>
+	<jsp-version>2.0</jsp-version>
+	<short-name>dict</short-name>
+	<uri>http://dictionary.hcis.com</uri>
+	<description>IPanther Core Function lib</description>
+	<function>
+		<name>getEntryName</name>
+		<function-class>com.hcis.ipanther.common.dict.utils.DictionaryUtils</function-class>
+		<function-signature>java.lang.String getEntryName(java.lang.String,java.lang.String)</function-signature>
+	</function>
+	<function>
+		<name>getEntryValue</name>
+		<function-class>com.hcis.ipanther.common.dict.utils.DictionaryUtils</function-class>
+		<function-signature>java.lang.String getEntryValue(java.lang.String,java.lang.String)</function-signature>
+	</function>
+	<function>
+		<name>getEntry</name>
+		<function-class>com.hcis.ipanther.common.dict.utils.DictionaryUtils</function-class>
+		<function-signature>com.hcis.ipanther.common.dict.vo.DictEntry getEntry(java.lang.String,java.lang.String)</function-signature>
+	</function>
+	<function>
+		<name>getAllParentName</name>
+		<function-class>com.hcis.ipanther.common.dict.utils.DictionaryUtils</function-class>
+		<function-signature>java.lang.String getAllParentName(java.lang.String,java.lang.String)</function-signature>
+	</function>
+	<function>
+		<name>getEntryMap</name>
+		<function-class>com.hcis.ipanther.common.dict.utils.DictionaryUtils</function-class>
+		<function-signature>java.util.Map getEntryMap(java.lang.String)</function-signature>
+	</function>
+	<function>
+		<name>getEntryMapNotParent</name>
+		<function-class>com.hcis.ipanther.common.dict.utils.DictionaryUtils</function-class>
+		<function-signature>java.util.Map getEntryMapNotParent(java.lang.String)</function-signature>
+	</function>
+	<function>
+		<name>getEntryMapByParentValue</name>
+		<function-class>com.hcis.ipanther.common.dict.utils.DictionaryUtils</function-class>
+		<function-signature>java.util.Map getEntryMap(java.lang.String,java.lang.String)</function-signature>
+	</function>
+	<function>
+		<name>getEntryList</name>
+		<function-class>com.hcis.ipanther.common.dict.utils.DictionaryUtils</function-class>
+		<function-signature>java.util.List getEntryList(java.lang.String)</function-signature>
+	</function>
+	<function>
+		<name>getEntryListNotParent</name>
+		<function-class>com.hcis.ipanther.common.dict.utils.DictionaryUtils</function-class>
+		<function-signature>java.util.List getEntryListNotParent(java.lang.String)</function-signature>
+	</function>
+	<function>
+		<name>getEntryListByParentValue</name>
+		<function-class>com.hcis.ipanther.common.dict.utils.DictionaryUtils</function-class>
+		<function-signature>java.util.List getEntryList(java.lang.String,java.lang.String)</function-signature>
+	</function>
+	<function>
+		<name>getEntryOptions</name>
+		<function-class>com.hcis.ipanther.common.dict.utils.DictionaryUtils</function-class>
+		<function-signature>java.lang.String getEntryOptions(java.lang.String)</function-signature>
+	</function>
+	<function>
+		<name>getEntryOptionsNotParent</name>
+		<function-class>com.hcis.ipanther.common.dict.utils.DictionaryUtils</function-class>
+		<function-signature>java.lang.String getEntryOptionsNotParent(java.lang.String)</function-signature>
+	</function>
+	<function>
+		<name>getEntryOptionsByParentValue</name>
+		<function-class>com.hcis.ipanther.common.dict.utils.DictionaryUtils</function-class>
+		<function-signature>java.lang.String getEntryOptions(java.lang.String,java.lang.String)</function-signature>
+	</function>
+	<function>
+		<name>getEntryOptionsSelected</name>
+		<function-class>com.hcis.ipanther.common.dict.utils.DictionaryUtils</function-class>
+		<function-signature>java.lang.String getEntryOptionsSelected(java.lang.String,java.lang.String)</function-signature>
+	</function>
+	<function>
+		<name>getEntryOptionsSelectedNotParent</name>
+		<function-class>com.hcis.ipanther.common.dict.utils.DictionaryUtils</function-class>
+		<function-signature>java.lang.String getEntryOptionsSelectedNotParent(java.lang.String,java.lang.String)</function-signature>
+	</function>
+	<function>
+		<name>getEntryOptionsSelectedByParentValue</name>
+		<function-class>com.hcis.ipanther.common.dict.utils.DictionaryUtils</function-class>
+		<function-signature>java.lang.String getEntryOptionsSelected(java.lang.String,java.lang.String,java.lang.String)</function-signature>
+	</function>
+	
+	<!-- 扩展方法 DictUtils -->
+	<function>
+		<name>getEntryNameMulti</name>
+		<function-class>com.hcis.ipanther.common.dict.utils.DictUtils</function-class>
+		<function-signature>java.lang.String getEntryNameMulti(java.lang.String,java.lang.String)</function-signature>
+	</function>
+	<function>
+		<name>getEntryNameByJson</name>
+		<function-class>com.hcis.ipanther.common.dict.utils.DictUtils</function-class>
+		<function-signature>java.lang.String getEntryNameByJson(java.lang.String,java.lang.String)</function-signature>
+	</function>
+	<function>
+		<name>getEntryListJson</name>
+		<function-class>com.hcis.ipanther.common.dict.utils.DictUtils</function-class>
+		<function-signature>java.lang.String getEntryListJson(java.lang.String)</function-signature>
+	</function>
+	<function>
+		<name>getAllParentValueJson</name>
+		<function-class>com.hcis.ipanther.common.dict.utils.DictUtils</function-class>
+		<function-signature>java.lang.String getAllParentValueJson(java.lang.String,java.lang.String)</function-signature>
+	</function>
+	<function>
+		<name>getEntryListJsonOpen</name>
+		<function-class>com.hcis.ipanther.common.dict.utils.DictUtils</function-class>
+		<function-signature>java.lang.String getEntryListJsonOpen(java.lang.String,java.lang.String)</function-signature>
+	</function>
+	<function>
+		<name>getEntryListName</name>
+		<function-class>com.hcis.ipanther.common.dict.utils.DictUtils</function-class>
+		<function-signature>java.lang.String getEntryListName(java.lang.String,java.lang.String)</function-signature>
+	</function>
+	<function>
+		<name>getNOParentCodeValueJson</name>
+		<function-class>com.hcis.ipanther.common.dict.utils.DictUtils</function-class>
+		<function-signature>java.lang.String getNOParentCodeValueJson(java.lang.String)</function-signature>
+	</function>
+
+	<function>
+		<name>resolve</name>
+		<function-class>com.hcis.ipr.oauth.utils.ResolveUtils</function-class>
+		<function-signature>java.lang.String resolve(java.lang.String,java.lang.String,java.lang.Integer)</function-signature>
+	</function>
+</taglib>

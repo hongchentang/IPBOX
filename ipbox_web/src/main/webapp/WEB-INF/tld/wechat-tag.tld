@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib>
+	<tlib-version>1.0</tlib-version>
+	<jsp-version>2.0</jsp-version>
+	<short-name>wechat</short-name>
+	<uri>http://wechat.haoyuinfo.com</uri>
+	<description>wechat Function lib</description>
+	
+	<!-- 获得JsSDK的配置信息 -->
+	<function>
+		<name>getJsSDKConfig</name>
+		<function-class>com.hcis.ipr.wechat.utils.WechatUtils</function-class>
+		<function-signature>com.github.sd4324530.fastweixin.api.response.GetSignatureResponse getJsSDKConfig(javax.servlet.http.HttpServletRequest)</function-signature>
+	</function>
+	
+	<!-- 加载单选/多选框的数据 -->
+	<function>
+		<name>getWeUIEntryList</name>
+		<function-class>com.hcis.ipr.wechat.utils.WeUiUtil</function-class>
+		<function-signature>java.lang.String getWeUIEntryList(java.lang.String)</function-signature>
+	</function>
+	
+	<!-- 用于单选/多选框的数据回显 -->
+	<function>
+		<name>getDataValue</name>
+		<function-class>com.hcis.ipr.wechat.utils.WeUiUtil</function-class>
+		<function-signature>java.lang.String getDataValue(java.lang.String,java.lang.String,java.lang.String)</function-signature>
+	</function>
+	
+</taglib>

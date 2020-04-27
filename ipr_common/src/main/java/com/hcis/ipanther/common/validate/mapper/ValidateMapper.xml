@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.hcis.ipanther.common.validate.mapper.ValidateMapper" >
+  <resultMap id="BaseResultMap" type="com.hcis.ipanther.common.validate.entity.Validate" >
+   
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR"/>
+    <result column="PHONE" property="phone" jdbcType="VARCHAR"/>
+    <result column="CODE" property="code" jdbcType="VARCHAR"/>
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR"/>
+    <result column="START_TIME" property="startTime" jdbcType="VARCHAR" />
+    <result column="END_TIME" property="endTime" jdbcType="VARCHAR" />
+    
+    
+    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="CHAR" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+    
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ID,CREATOR,CREATE_TIME,UPDATEDBY,UPDATE_TIME,IS_DELETED,VERSION,
+    EMAIL,PHONE,CODE,USER_ID,START_TIME,END_TIME
+  </sql>
+  
+ 
+  <insert id="insertSelective" parameterType="com.hcis.ipanther.common.validate.entity.Validate">
+		<!--插入前返回uuid赋值给entity 
+		<selectKey keyProperty="id" resultType="String" order="BEFORE">
+        	select REPLACE(UUID(),'-','')
+    	</selectKey>
+    	 -->
+		insert into ipanther_validate 
+		<trim prefix=" (" suffix=") " suffixOverrides=","> 
+			<if test="id != null and id != ''">ID,</if>
+			<if test="creator != null and creator != ''">CREATOR,</if>
+			<if test="createTime != null and createTime != ''">CREATE_TIME,</if>
+			<if test="updatedby != null and updatedby != ''">UPDATEDBY,</if>
+			<if test="updateTime != null and updateTime != ''">UPDATE_TIME,</if>
+			<if test="isDeleted != null and isDeleted != ''">IS_DELETED,</if>
+			<if test="version != null and version != ''">VERSION,</if>
+			
+			
+			<if test="email != null and email != ''">EMAIL,</if>
+			<if test="phone != null and phone != ''">PHONE,</if>
+			<if test="code != null and code != ''">CODE,</if>
+			<if test="userId != null and userId != ''">USER_ID,</if>
+			<if test="startTime != null and startTime != ''">START_TIME,</if>
+			<if test="endTime != null and endTime != ''">END_TIME</if>
+		</trim>
+		<trim prefix="VALUES (" suffix=") " suffixOverrides=","> 
+			<if test="id != null and id != ''">#{id,jdbcType=VARCHAR},</if>
+			<if test="creator != null and creator != ''">#{creator,jdbcType=VARCHAR},</if>
+			<if test="createTime != null and createTime != ''">#{createTime,jdbcType=DATE},</if>
+			<if test="updatedby != null and updatedby != ''">#{updatedby,jdbcType=VARCHAR},</if>
+			<if test="updateTime != null and updateTime != ''">#{updateTime,jdbcType=DATE},</if>
+			<if test="isDeleted != null and isDeleted != ''">#{isDeleted,jdbcType=CHAR},</if>
+			<if test="version != null and version != ''">#{version,jdbcType=DECIMAL},</if>
+			
+			
+			<if test="email != null and email != ''">#{email,jdbcType=VARCHAR},</if>
+			<if test="phone != null and phone != ''">#{phone,jdbcType=VARCHAR},</if>
+			<if test="code != null and code != ''">#{code,jdbcType=VARCHAR},</if>
+			<if test="userId != null and userId != ''">#{userId,jdbcType=VARCHAR},</if>
+			<if test="startTime != null and startTime != ''">#{startTime,jdbcType=VARCHAR},</if>
+			<if test="endTime != null and endTime != ''">#{endTime,jdbcType=VARCHAR}</if>
+		</trim>
+	</insert>
+	
+	<!-- 根据传入的email或phone查出 时间最新的验证码数据 -->
+	<select id="selectByMap" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select 
+		<include refid="Base_Column_List"/>
+		from ipanther_validate
+		where IS_DELETED='N'
+		<if test="email!=null and email!=''">
+			and EMAIL = #{email,jdbcType=VARCHAR}
+		</if>
+		<if test="phone!=null and phone!=''">
+			and PHONE = #{phone,jdbcType=VARCHAR}
+		</if>
+		order by
+			START_TIME desc
+		
+	</select>
+	
+   <!-- 根据email或者phone逻辑删除 -->	 
+   <update id="deleteByLogic" parameterType="com.hcis.ipanther.common.validate.entity.Validate" >
+    update ipanther_validate 
+    <set >
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR}, 
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}, 
+      </if>
+      <if test="endTime != null">
+      	END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+        IS_DELETED ='Y',
+        VERSION = VERSION+1
+    </set>
+    <where>
+    	<if test="email!=null">
+    		EMAIL = #{email,jdbcType=VARCHAR}
+    	</if>
+    	<if test="phone!=null">
+    		and PHONE = #{phone,jdbcType=VARCHAR}
+    	</if>
+    </where> 
+  </update>
+	
+  
+</mapper>

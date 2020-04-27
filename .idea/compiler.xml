@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="ipr_common" />
+        <module name="ipbox_web" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ipbox_project" target="1.5" />
+      <module name="ipbox_web" target="1.7" />
+      <module name="ipr_common" target="1.7" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="ipbox_web" options="-verbose -bootclasspath &quot;C:/Program Files/Java/jdk1.8.0_121/jre\lib\rt.jar;C:/Program Files/Java/jdk1.8.0_121/jre\lib\jce.jar&quot;" />
+      <module name="ipr_common" options="-verbose -bootclasspath &quot;C:/Program Files/Java/jdk1.8.0_121/jre\lib\rt.jar;C:/Program Files/Java/jdk1.8.0_121/jre\lib\jce.jar&quot;" />
+    </option>
+  </component>
+</project>

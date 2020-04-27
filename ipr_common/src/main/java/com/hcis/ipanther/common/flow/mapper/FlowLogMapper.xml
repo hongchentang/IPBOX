@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcis.ipanther.common.flow.mapper.FlowLogMapper" >
+  <resultMap id="BaseResultMap" type="com.hcis.ipanther.common.flow.entity.FlowLog" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="BUSINESS_ID" property="businessId" jdbcType="VARCHAR" />
+    <result column="TASK_NAME" property="taskName" jdbcType="VARCHAR" />
+    <result column="TASK_ID" property="taskId" jdbcType="VARCHAR" />
+    <result column="AUDIT_DEPT" property="auditDept" jdbcType="VARCHAR" />
+    <result column="AUDIT_TIME" property="auditTime" jdbcType="TIMESTAMP" />
+    <result column="AUDIT_USER" property="auditUser" jdbcType="VARCHAR" />
+    <result column="AUDIT_RESULT" property="auditResult" jdbcType="VARCHAR" />
+    <result column="AUDIT_CONTENT" property="auditContent" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="CHAR" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+    
+    <result column="AUDIT_USER_NAME" property="auditUserName" jdbcType="VARCHAR" />
+    <result column="AUDIT_DEPT_NAME" property="auditDeptName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, ${paramMap.businessColumnName} AS BUSINESS_ID, TASK_NAME, TASK_ID, AUDIT_DEPT, AUDIT_TIME, AUDIT_USER, AUDIT_RESULT, 
+    AUDIT_CONTENT, STATUS, CREATOR, CREATE_TIME, UPDATEDBY, UPDATE_TIME, IS_DELETED, 
+    VERSION
+  </sql>
+  
+  <sql id="Base_Column_List_Prefix" >
+    T.ID, T.${paramMap.businessColumnName} AS BUSINESS_ID, T.TASK_NAME, T.TASK_ID, T.AUDIT_DEPT, T.AUDIT_TIME, T.AUDIT_USER, T.AUDIT_RESULT, 
+    T.AUDIT_CONTENT, T.STATUS, T.CREATOR, T.CREATE_TIME, T.UPDATEDBY, T.UPDATE_TIME, T.IS_DELETED, 
+    T.VERSION
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ${tableName}
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ${tableName}
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hcis.ipanther.common.flow.entity.FlowLog" >
+    insert into ${tableName} (ID, ${businessColumnName}, TASK_NAME, 
+      TASK_ID, AUDIT_DEPT, AUDIT_TIME, 
+      AUDIT_USER, AUDIT_RESULT, AUDIT_CONTENT, 
+      STATUS, CREATOR, CREATE_TIME, 
+      UPDATEDBY, UPDATE_TIME, IS_DELETED, 
+      VERSION)
+    values (#{id,jdbcType=VARCHAR}, #{businessId,jdbcType=VARCHAR}, #{taskName,jdbcType=VARCHAR}, 
+      #{taskId,jdbcType=VARCHAR}, #{auditDept,jdbcType=VARCHAR}, #{auditTime,jdbcType=TIMESTAMP}, 
+      #{auditUser,jdbcType=VARCHAR}, #{auditResult,jdbcType=VARCHAR}, #{auditContent,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updatedby,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=CHAR}, 
+      #{version,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hcis.ipanther.common.flow.entity.FlowLog" >
+    insert into ${tableName}
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="businessId != null" >
+        ${businessColumnName},
+      </if>
+      <if test="taskName != null" >
+        TASK_NAME,
+      </if>
+      <if test="taskId != null" >
+        TASK_ID,
+      </if>
+      <if test="auditDept != null" >
+        AUDIT_DEPT,
+      </if>
+      <if test="auditTime != null" >
+        AUDIT_TIME,
+      </if>
+      <if test="auditUser != null" >
+        AUDIT_USER,
+      </if>
+      <if test="auditResult != null" >
+        AUDIT_RESULT,
+      </if>
+      <if test="auditContent != null" >
+        AUDIT_CONTENT,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="creator != null" >
+        CREATOR,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="businessId != null" >
+        #{businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="taskName != null" >
+        #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskId != null" >
+        #{taskId,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDept != null" >
+        #{auditDept,jdbcType=VARCHAR},
+      </if>
+      <if test="auditTime != null" >
+        #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditUser != null" >
+        #{auditUser,jdbcType=VARCHAR},
+      </if>
+      <if test="auditResult != null" >
+        #{auditResult,jdbcType=VARCHAR},
+      </if>
+      <if test="auditContent != null" >
+        #{auditContent,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=CHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hcis.ipanther.common.flow.entity.FlowLog" >
+    update ${tableName}
+    <set >
+      <if test="businessId != null" >
+        ${businessColumnName} = #{businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="taskName != null" >
+        TASK_NAME = #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskId != null" >
+        TASK_ID = #{taskId,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDept != null" >
+        AUDIT_DEPT = #{auditDept,jdbcType=VARCHAR},
+      </if>
+      <if test="auditTime != null" >
+        AUDIT_TIME = #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditUser != null" >
+        AUDIT_USER = #{auditUser,jdbcType=VARCHAR},
+      </if>
+      <if test="auditResult != null" >
+        AUDIT_RESULT = #{auditResult,jdbcType=VARCHAR},
+      </if>
+      <if test="auditContent != null" >
+        AUDIT_CONTENT = #{auditContent,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      </if>
+      VERSION = VERSION+1,
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hcis.ipanther.common.flow.entity.FlowLog" >
+    update ${tableName}
+    set ${businessColumnName} = #{businessId,jdbcType=VARCHAR},
+      TASK_NAME = #{taskName,jdbcType=VARCHAR},
+      TASK_ID = #{taskId,jdbcType=VARCHAR},
+      AUDIT_DEPT = #{auditDept,jdbcType=VARCHAR},
+      AUDIT_TIME = #{auditTime,jdbcType=TIMESTAMP},
+      AUDIT_USER = #{auditUser,jdbcType=VARCHAR},
+      AUDIT_RESULT = #{auditResult,jdbcType=VARCHAR},
+      AUDIT_CONTENT = #{auditContent,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      CREATOR = #{creator,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      VERSION = VERSION+1
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  
+  <select id="selectBySearchParam" resultMap="BaseResultMap" parameterType="searchParam" >
+    select <include refid="Base_Column_List_Prefix" />,A.REAL_NAME AS AUDIT_USER_NAME,B.DEPT_NAME AS AUDIT_DEPT_NAME
+    from ${paramMap.tableName} T
+    JOIN IPANTHER_USER A ON T.AUDIT_USER = A.ID
+    JOIN IPANTHER_DEPARTMENT B ON T.AUDIT_DEPT = B.ID
+    where T.${paramMap.businessColumnName} = #{paramMap.businessId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="getLastFlowLog" resultMap="BaseResultMap" parameterType="searchParam" >
+    SELECT * FROM 
+	(
+	 SELECT <include refid="Base_Column_List" />
+	  FROM ${paramMap.tableName}
+	 WHERE ${paramMap.businessColumnName} = #{paramMap.businessId,jdbcType=VARCHAR}
+	 ORDER BY AUDIT_TIME DESC
+	) WHERE ROWNUM = 1
+  </select>
+  
+</mapper>

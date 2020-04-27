@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hcis.ipanther.common.user.mapper.UserRegionsMapper">
+  <resultMap id="BaseResultMap" type="com.hcis.ipanther.common.user.entity.UserRegions">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="MODULE" jdbcType="VARCHAR" property="module" />
+    <result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+    <result column="REGIONS_CODE" jdbcType="VARCHAR" property="regionsCode" />
+    <result column="HAS_CHILD" jdbcType="CHAR" property="hasChild" />
+    <result column="NOTE" jdbcType="VARCHAR" property="note" />
+    <result column="CREATOR" jdbcType="VARCHAR" property="creator" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATEDBY" jdbcType="VARCHAR" property="updatedby" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="IS_DELETED" jdbcType="CHAR" property="isDeleted" />
+    <result column="VERSION" jdbcType="DECIMAL" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, MODULE, USER_ID, REGIONS_CODE, HAS_CHILD, NOTE, CREATOR, CREATE_TIME, UPDATEDBY, 
+    UPDATE_TIME, IS_DELETED, VERSION
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from IPANTHER_USER_REGIONS
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from IPANTHER_USER_REGIONS
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hcis.ipanther.common.user.entity.UserRegions">
+    insert into IPANTHER_USER_REGIONS (ID, MODULE, USER_ID, 
+      REGIONS_CODE, HAS_CHILD, NOTE, 
+      CREATOR, CREATE_TIME, UPDATEDBY, 
+      UPDATE_TIME, IS_DELETED, VERSION
+      )
+    values (#{id,jdbcType=VARCHAR}, #{module,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
+      #{regionsCode,jdbcType=VARCHAR}, #{hasChild,jdbcType=CHAR}, #{note,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updatedby,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=CHAR}, #{version,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hcis.ipanther.common.user.entity.UserRegions">
+    insert into IPANTHER_USER_REGIONS
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="module != null">
+        MODULE,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="regionsCode != null">
+        REGIONS_CODE,
+      </if>
+      <if test="hasChild != null">
+        HAS_CHILD,
+      </if>
+      <if test="note != null">
+        NOTE,
+      </if>
+      <if test="creator != null">
+        CREATOR,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="updatedby != null">
+        UPDATEDBY,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+      <if test="isDeleted != null">
+        IS_DELETED,
+      </if>
+      <if test="version != null">
+        VERSION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="module != null">
+        #{module,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="regionsCode != null">
+        #{regionsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="hasChild != null">
+        #{hasChild,jdbcType=CHAR},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null">
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null">
+        #{isDeleted,jdbcType=CHAR},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hcis.ipanther.common.user.entity.UserRegions">
+    update IPANTHER_USER_REGIONS
+    <set>
+      <if test="module != null">
+        MODULE = #{module,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="regionsCode != null">
+        REGIONS_CODE = #{regionsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="hasChild != null">
+        HAS_CHILD = #{hasChild,jdbcType=CHAR},
+      </if>
+      <if test="note != null">
+        NOTE = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null">
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null">
+        IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      </if>
+      VERSION = VERSION+1,
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hcis.ipanther.common.user.entity.UserRegions">
+    update IPANTHER_USER_REGIONS
+    set MODULE = #{module,jdbcType=VARCHAR},
+      USER_ID = #{userId,jdbcType=VARCHAR},
+      REGIONS_CODE = #{regionsCode,jdbcType=VARCHAR},
+      HAS_CHILD = #{hasChild,jdbcType=CHAR},
+      NOTE = #{note,jdbcType=VARCHAR},
+      CREATOR = #{creator,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      VERSION = VERSION+1
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="deleteByLogic" parameterType="com.hcis.ipanther.common.user.entity.UserRegions">
+    update IPANTHER_USER_REGIONS
+    set IS_DELETED='Y',
+    UPDATEDBY=#{updatedby,jdbcType=VARCHAR},
+    UPDATE_TIME=#{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="deleteByUserId" parameterType="com.hcis.ipanther.common.user.entity.UserRegions">
+    update IPANTHER_USER_REGIONS
+    set IS_DELETED='Y',
+    UPDATEDBY=#{updatedby,jdbcType=VARCHAR},
+    UPDATE_TIME=#{updateTime,jdbcType=TIMESTAMP}
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectBySearchParam" parameterType="searchParam" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from IPANTHER_USER_REGIONS
+    where IS_DELETED='N'
+    <if test="paramMap.userId!=null and paramMap.userId!=''">
+    	and user_id=#{paramMap.userId,jdbcType=VARCHAR}
+    </if>
+  </select>
+  
+</mapper>

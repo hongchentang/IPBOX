@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcis.items.mapper.ItemsExpertMapper" >
+  <resultMap  id="BaseResultMap" type="com.hcis.items.entity.ItemsExpert">
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="PROJECT_SOURCE_CODE" property="projectSourceCode" jdbcType="VARCHAR"/>
+    <result column="PROJECT_CODE" property="projectCode" jdbcType="VARCHAR" />
+    <result column="PROJECT_NAME" property="projectName" jdbcType="VARCHAR" />
+    <result column="EXPERT_USER_CODE" property="expertUserCode" jdbcType="VARCHAR" />
+    <result column="EXPERT_USER_NAME" property="expertUserName" jdbcType="VARCHAR" />
+    <result column="EXPERT_CHECK" 	  property="expertCheck" 		jdbcType="VARCHAR" />
+    <result column="EXPERT_CHECK_DATE" property="expertCheckDate" jdbcType="TIMESTAMP" />
+    <result column="EXPERT_CHECK_NOTES"		  property="expertCheckNotes"		jdbcType="VARCHAR" />
+    <result column="EXPERT_CHECK_FILE" 	  property="expertCheckFile" 	jdbcType="VARCHAR" />
+  	<result column="EXPERT_CHECK_STATUS"  property="expertCheckStatus"  jdbcType="VARCHAR" />
+	<result column="CREATOR" 			  property="creator"            jdbcType="VARCHAR" />
+    <result column="CREATE_TIME"          property="createTime"         jdbcType="TIMESTAMP" />
+    <result column="UPDATEDBY"            property="updatedby"          jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME"          property="updateTime"         jdbcType="TIMESTAMP" />
+    <result column="IS_DELETED"           property="isDeleted"          jdbcType="CHAR" />
+    <result column="VERSION"              property="version"            jdbcType="DECIMAL" />
+  </resultMap>
+
+
+  
+<!--   <resultMap id="selectExpert" type="com.hcis.items.entity.ItemsExpert"> -->
+<!--   	<id column="ID" property="id"/> -->
+<!--   	<result column="PROJECT_SOURCE_CODE" property="projectSourceCode" jdbcType="VARCHAR" /> -->
+<!--   	<result column="PROJECT_CODE" property="projectCode" jdbcType="VARCHAR" /> -->
+<!--     <result column="PROJECT_NAME" property="projectName" jdbcType="VARCHAR" /> -->
+<!--     <result column="EXPERT_USER_CODE" property="expertUserCode" jdbcType="VARCHAR" /> -->
+<!--     <result column="EXPERT_USER_NAME" property="expertUserName" jdbcType="VARCHAR" /> -->
+<!--     <result column="EXPERT_CHECK" property="expertCheck" jdbcType="VARCHAR" /> -->
+<!--     <result column="EXPERT_CHECK_DATE" property="expertCheckDate" jdbcType="TIMESTAMP" /> -->
+<!--     <result column="EXPERT_CHECK_NOTES"  property="expertCheckNotes" jdbcType="VARCHAR"/> -->
+<!--     <result column="EXPERT_CHECK_FILE" 	  property="expertCheckFile" jdbcType="VARCHAR"/>  -->
+<!--     <result column="EXPERT_CHECK_STATUS" 	  property="expertCheckStatus" jdbcType="VARCHAR"/>  -->
+<!--     <result column="CREATOR" 			  property="creator"            jdbcType="VARCHAR" /> -->
+<!--     <result column="CREATE_TIME"          property="createTime"         jdbcType="TIMESTAMP" /> -->
+<!--     <result column="UPDATEDBY"            property="updatedby"          jdbcType="VARCHAR" /> -->
+<!--     <result column="UPDATE_TIME"          property="updateTime"         jdbcType="TIMESTAMP" /> -->
+<!--     <result column="IS_DELETED"           property="isDeleted"          jdbcType="CHAR" /> -->
+<!--     <result column="VERSION"              property="version"            jdbcType="DECIMAL" />  -->
+<!-- 	<association property="itemsManager" javaType="com.hcis.items.entity.ItemsManager"> -->
+<!-- 		 <id column="ID" property="id"/> -->
+<!-- 		 <result column="PROJECT_TYPE" property="projectType"/> -->
+<!-- 		 <result column="PROJECT_RULE_FILE" property="projectRuleFile"/> -->
+<!-- 		 <result column="PROJECT_ATTACHER_FILE" property="projectAttacherFile"/> -->
+<!-- 	</association> -->
+<!--   </resultMap> -->
+  
+  <sql id="Base_Column_List" >
+     ID,PROJECT_SOURCE_CODE,PROJECT_Code,PROJECT_NAME,EXPERT_USER_CODE,EXPERT_USER_NAME,EXPERT_CHECK,EXPERT_CHECK_DATE,EXPERT_CHECK_NOTES,EXPERT_CHECK_FILE,EXPERT_CHECK_STATUS
+  </sql>
+  
+<!--   <select id="queryeItems" resultMap="selectExpert" parameterType="searchParam"> -->
+<!--   	select m.ID,m.PROJECT_CODE,m.PROJECT_NAME,m.EXPERT_USER_CODE,m.EXPERT_USER_NAME,m.EXPERT_CHECK,m.EXPERT_CHECK_DATE, -->
+<!--   	m.EXPERT_CHECK_NOTES,m.EXPERT_CHECK_FILE,n.PROJECT_RULE_FILE,n.PROJECT_ATTACHER_FILE,n.PROJECT_TYPE from -->
+<!--   	ipbox_project_assinted m ,ipbox_project_MANAGER n  -->
+<!--   	where m.PROJECT_SOURCE_CODE = n.ID  -->
+<!--   	<if test="creator !=null "> -->
+<!--    		and m.creator =#{creator,jdbcType=VARCHAR}  -->
+<!--   	</if> -->
+<!--   </select> -->
+  
+  <select id="listLibrary" resultMap="BaseResultMap" parameterType="searchParam" >
+  	SELECT ID,
+  	PROJECT_SOURCE_CODE,
+    PROJECT_CODE,
+    PROJECT_NAME,
+    EXPERT_USER_CODE,
+    EXPERT_USER_NAME,
+    EXPERT_CHECK,
+    EXPERT_CHECK_DATE,
+    EXPERT_CHECK_NOTES,
+    EXPERT_CHECK_FILE,
+    EXPERT_CHECK_STATUS,
+    CREATOR,
+    CREATE_TIME,
+    UPDATEDBY,
+    UPDATE_TIME,
+    IS_DELETED,
+    VERSION
+	FROM ipbox_project_assinted;
+	WHERE IS_DELETED='N'
+	<if test="paramMap.creator != null and paramMap.creator!=''" >
+		     	and creator =#{paramMap.creator,jdbcType=VARCHAR}
+	</if>
+	<if test="paramMap.projectName !=null and paramMap.projectName !=''">
+		      	and project_name=#{paramMap.projectName,jdbcType=VARCHAR}
+	</if>
+	 ORDER BY CREATE_TIME DESC
+  </select>
+  
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="String" >
+  	SELECT ID,
+  	PROJECT_SOURCE_CODE,
+    PROJECT_CODE,
+    PROJECT_NAME,
+    EXPERT_USER_CODE,
+    EXPERT_USER_NAME,
+    EXPERT_CHECK,
+    EXPERT_CHECK_DATE,
+    EXPERT_CHECK_NOTES,
+    EXPERT_CHECK_FILE,
+    EXPERT_CHECK_STATUS,
+    CREATOR,
+    CREATE_TIME,
+    UPDATEDBY,
+    UPDATE_TIME,
+    IS_DELETED,
+    VERSION
+	FROM ipbox_project_assinted
+	WHERE IS_DELETED='N'
+	and ID = #{primaryKey,jdbcType=VARCHAR}
+<!-- 	<if test="paramMap.creator != null and paramMap.creator!=''" > -->
+<!-- 		     	and creator =#{paramMap.creator,jdbcType=VARCHAR} -->
+<!-- 	</if> -->
+<!-- 	<if test="paramMap.projectName !=null and paramMap.projectName !=''"> -->
+<!-- 		      	and project_name=#{paramMap.projectName,jdbcType=VARCHAR} -->
+<!-- 	</if> -->
+	 ORDER BY CREATE_TIME DESC
+	 </select>
+
+	 
+	 <update id="updateByPrimaryKeySelective"  parameterType="com.hcis.items.entity.ItemsExpert">
+	 	 update ipbox_project_assinted
+    <set >
+      <if test="expertCheck != null" >
+        EXPERT_CHECK = #{expertCheck,jdbcType=VARCHAR},
+      </if>
+      <if test="expertCheckDate != null" >
+        EXPERT_CHECK_DATE = #{expertCheckDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expertCheckNotes != null" >
+        EXPERT_CHECK_NOTES = #{expertCheckNotes,jdbcType=VARCHAR},
+      </if>
+      <if test="expertCheckFile != null" >
+        EXPERT_CHECK_FILE = #{expertCheckFile,jdbcType=VARCHAR},
+      </if> 
+      <if test="expertCheckStatus != null" >
+        EXPERT_CHECK_STATUS = #{expertCheckStatus,jdbcType=VARCHAR},
+      </if> 
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+        VERSION = VERSION+1,
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      </if>
+    </set>
+    where IS_DELETED ='N'
+    	<if test="id !=null ">
+    		AND ID = #{id,jdbcType=VARCHAR}
+    	</if>
+    	<if test="projectSourceCode !=null ">
+    		AND PROJECT_SOURCE_CODE = #{projectSourceCode,jdbcType=VARCHAR
+    	</if>
+    	<if test="creator !=null ">
+    		AND creator = #{creator,jdbcType=VARCHAR}
+    	</if>	    	
+	 </update>
+	 
+	 
+	 <update id="deleteByLogic" parameterType="com.hcis.items.entity.ItemsExpert">
+	 	update ipbox_project_assinted
+    <set >
+    	<if test ="paramMap.id != null">
+    		IS_DELETED ='Y',
+    	</if>
+<!--     	<if test ="updatedby != null"> -->
+<!--         	UPDATEDBY = #{updatedby,jdbcType=VARCHAR}, -->
+<!--       	</if> -->
+<!--       	<if test="updateTime != null" > -->
+<!--         	UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}, -->
+<!--       	</if> -->
+        VERSION = VERSION+1,
+     </set>
+     where PROJECT_SOURCE_CODE =#{paramMap.id,jdbcType=VARCHAR}
+	 </update>	
+	 
+	<insert id="insertSelective" parameterType="com.hcis.items.entity.ItemsExpert" >
+    insert into ipbox_project_assinted
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null">
+      	Id,
+      </if>
+       <if test="projectSourceCode != null" >
+        PROJECT_SOURCE_CODE,
+      </if>
+      <if test="projectCode != null" >
+        PROJECT_CODE,
+      </if>
+      <if test="projectName != null" >
+        PROJECT_NAME,
+      </if>
+      <if test="expertUserCode !=null">
+      	EXPERT_USER_CODE,
+      </if>
+      <if test="expertUserName !=null">
+      	EXPERT_USER_NAME,
+      </if>
+      <if test="expertCheckDate !=null">
+      	EXPERT_CHECK_DATE,
+      </if>
+      <if test="expertCheckNotes !=null">
+      	EXPERT_CHECK_NOTES,
+      </if>
+      <if test="expertCheckFile !=null">
+      	EXPERT_CHECK_FILE,
+      </if>
+      <if test="creator != null" >
+        CREATOR,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null">
+      	#{id,jdbcType=VARCHAR},
+      </if>
+       <if test="projectSourceCode != null" >
+        #{projectSourceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="projectCode != null" >
+         #{projectCode,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null" >
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="expertUserCode !=null">
+      	#{expertUserCode,jdbcType=VARCHAR},
+      </if>
+      <if test="expertUserName !=null">
+      	#{expertUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="expertCheckDate !=null">
+      	#{expertCheckDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expertCheckNotes !=null">
+      	#{expertCheckNotes,jdbcType=VARCHAR},
+      </if>
+      <if test="expertCheckFile !=null">
+      	#{expertCheckFile,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=NUMERIC},
+      </if>
+    </trim>
+  </insert>							  
+</mapper>

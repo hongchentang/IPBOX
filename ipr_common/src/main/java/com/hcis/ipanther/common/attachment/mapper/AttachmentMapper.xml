@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcis.ipanther.common.attachment.mapper.AttachmentMapper" >
+  <resultMap id="BaseResultMap" type="com.hcis.ipanther.common.attachment.entity.Attachment" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="FILE_NAME" property="fileName" jdbcType="VARCHAR" />
+    <result column="FILE_PATH" property="filePath" jdbcType="VARCHAR" />
+    <result column="TEMP_FILE_NAME" property="tempFileName" jdbcType="VARCHAR" />
+    <result column="TEMP_FILE_PATH" property="tempFilePath" jdbcType="VARCHAR" />
+    <result column="BILL_ID" property="billId" jdbcType="VARCHAR" />
+    <result column="FILE_SIZE" property="fileSize" jdbcType="DECIMAL" />
+    <result column="TEMP_FILE_SIZE" property="tempFileSize" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+     <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ID, FILE_NAME, FILE_PATH, TEMP_FILE_NAME, TEMP_FILE_PATH, BILL_ID, FILE_SIZE, TEMP_FILE_SIZE, 
+    STATUS,CREATOR,CREATE_TIME
+  </sql>
+  <select id="selectBySearchParam" resultMap="BaseResultMap" parameterType="searchParam" >
+    select t.* from IPANTHER_ATTACHMENT t
+	    where t.is_deleted='N' 
+	    <if test="paramMap.courseId!=null and paramMap.courseId!=''">
+	        and exists (select 1 from ipr_course ic where ic.is_deleted='N' and ic.status='02' 
+					        								and instr(ic.expert_attachment,t.id)>0 
+					        								and ic.id=#{paramMap.courseId,jdbcType=VARCHAR} )
+    	</if>
+    	<if test="paramMap.trainCourseId!=null and paramMap.trainCourseId!=''">
+	        and exists (select 1 from IPR_TRAIN_COURSE tt where tt.id=#{paramMap.trainCourseId,jdbcType=VARCHAR}
+	        													 and tt.is_deleted='N' and instr(tt.attachment,t.id)>0)
+    	</if>
+    	
+    	<if test="paramMap.attachmentName!=null and paramMap.attachmentName!=''">
+    		and t.FILE_NAME like CONCAT('%',#{paramMap.attachmentName,jdbcType=VARCHAR},'%')
+    	</if>
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from IPANTHER_ATTACHMENT
+    where ID = #{id,jdbcType=VARCHAR}
+    AND IS_DELETED = 'N'
+  </select>
+   <update id="deleteByLogic" parameterType="com.hcis.ipanther.common.attachment.entity.Attachment" >
+    update IPANTHER_ATTACHMENT
+    <set >
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+        IS_DELETED = 'Y',
+    	VERSION = VERSION+1
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+    AND IS_DELETED = 'N'
+  </update>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from IPANTHER_ATTACHMENT
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hcis.ipanther.common.attachment.entity.Attachment" >
+    insert into IPANTHER_ATTACHMENT (ID, FILE_NAME, FILE_PATH, 
+      TEMP_FILE_NAME, TEMP_FILE_PATH, BILL_ID, 
+      FILE_SIZE, TEMP_FILE_SIZE, STATUS, 
+      CREATOR, CREATE_TIME, UPDATEDBY, 
+      UPDATE_TIME, IS_DELETED, VERSION
+      )
+    values (#{id,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, #{filePath,jdbcType=VARCHAR}, 
+      #{tempFileName,jdbcType=VARCHAR}, #{tempFilePath,jdbcType=VARCHAR}, #{billId,jdbcType=VARCHAR}, 
+      #{fileSize,jdbcType=DECIMAL}, #{tempFileSize,jdbcType=DECIMAL}, #{status,jdbcType=CHAR}, 
+      #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updatedby,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=CHAR}, #{version,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hcis.ipanther.common.attachment.entity.Attachment" >
+    insert into IPANTHER_ATTACHMENT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="fileName != null" >
+        FILE_NAME,
+      </if>
+      <if test="filePath != null" >
+        FILE_PATH,
+      </if>
+      <if test="tempFileName != null" >
+        TEMP_FILE_NAME,
+      </if>
+      <if test="tempFilePath != null" >
+        TEMP_FILE_PATH,
+      </if>
+      <if test="billId != null" >
+        BILL_ID,
+      </if>
+      <if test="fileSize != null" >
+        FILE_SIZE,
+      </if>
+      <if test="tempFileSize != null" >
+        TEMP_FILE_SIZE,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="creator != null" >
+        CREATOR,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null" >
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="filePath != null" >
+        #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="tempFileName != null" >
+        #{tempFileName,jdbcType=VARCHAR},
+      </if>
+      <if test="tempFilePath != null" >
+        #{tempFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="billId != null" >
+        #{billId,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSize != null" >
+        #{fileSize,jdbcType=DECIMAL},
+      </if>
+      <if test="tempFileSize != null" >
+        #{tempFileSize,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=CHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hcis.ipanther.common.attachment.entity.Attachment" >
+    update IPANTHER_ATTACHMENT
+    <set >
+      <if test="fileName != null" >
+        FILE_NAME = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="filePath != null" >
+        FILE_PATH = #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="tempFileName != null" >
+        TEMP_FILE_NAME = #{tempFileName,jdbcType=VARCHAR},
+      </if>
+      <if test="tempFilePath != null" >
+        TEMP_FILE_PATH = #{tempFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="billId != null" >
+        BILL_ID = #{billId,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSize != null" >
+        FILE_SIZE = #{fileSize,jdbcType=DECIMAL},
+      </if>
+      <if test="tempFileSize != null" >
+        TEMP_FILE_SIZE = #{tempFileSize,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      </if>
+    	VERSION = VERSION+1
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hcis.ipanther.common.attachment.entity.Attachment" >
+    update IPANTHER_ATTACHMENT
+    set FILE_NAME = #{fileName,jdbcType=VARCHAR},
+      FILE_PATH = #{filePath,jdbcType=VARCHAR},
+      TEMP_FILE_NAME = #{tempFileName,jdbcType=VARCHAR},
+      TEMP_FILE_PATH = #{tempFilePath,jdbcType=VARCHAR},
+      BILL_ID = #{billId,jdbcType=VARCHAR},
+      FILE_SIZE = #{fileSize,jdbcType=DECIMAL},
+      TEMP_FILE_SIZE = #{tempFileSize,jdbcType=DECIMAL},
+      STATUS = #{status,jdbcType=CHAR},
+      UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      VERSION = VERSION+1
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+<!--   <update id="updateValid" parameterType="java.util.Map">
+  	update IPANTHER_ATTACHMENT
+  	set STATUS='1',
+  	UPDATE_TIME  = #{updateTime},
+  	UPDATEDBY = #{updatedby}
+  	WHERE ID IN
+  	<foreach collection="attachmentIdList" item="item" open="(" close=")" separator=",">
+  		#{item}
+  	</foreach>
+  </update> -->
+  <update id="updateValid" parameterType="com.hcis.ipanther.common.attachment.entity.Attachment">
+  	update IPANTHER_ATTACHMENT
+  	SET FILE_NAME=TEMP_FILE_NAME,
+  	FILE_PATH = TEMP_FILE_PATH,
+  	TEMP_FILE_NAME=NULL,
+  	TEMP_FILE_PATH=NULL,
+  	UPDATE_TIME=#{updateTime,jdbcType=VARCHAR},
+  	UPDATEDBY=#{updatedby,jdbcType=VARCHAR},
+  	VERSION=VERSION+1
+  	WHERE ID = #{id,jdbcType=VARCHAR}  	
+  </update>
+  <update id="updateTempFile" parameterType="com.hcis.ipanther.common.attachment.entity.Attachment">
+  	update IPANTHER_ATTACHMENT
+  	TEMP_FILE_NAME=#{tempFileName,jdbcType=VARCHAR},
+  	TEMP_FILE_PATH=#{tempFilePath,jdbcType=VARCHAR},
+  	UPDATE_TIME=#{updateTime,jdbcType=VARCHAR},
+  	<if test="updatedby!=null and updatedby!=''">
+  		UPDATEDBY=#{updatedby,jdbcType=VARCHAR},
+  	</if>
+  	VERSION=VERSION+1
+  	WHERE ID = #{id,jdbcType=VARCHAR}  	
+  </update>
+  <select id="selectByFileDirectory" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select ID,FILE_NAME,FILE_PATH,CREATOR
+  	FROM IPANTHER_ATTACHMENT
+  	WHERE IS_DELETED='N'
+  	AND FILE_PATH like #{fileDirectory}
+  </select>
+</mapper>

@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcis.ipanther.common.user.mapper.UserTransferMapper" >
+  <resultMap id="BaseResultMap" type="com.hcis.ipanther.common.user.entity.UserTransfer" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="OUT_DEPT_ID" property="outDeptId" jdbcType="VARCHAR" />
+    <result column="OUT_TIME" property="outTime" jdbcType="TIMESTAMP" />
+    <result column="OUT_OPERATOR" property="outOperator" jdbcType="VARCHAR" />
+    <result column="OUT_COMMENT" property="outComment" jdbcType="VARCHAR" />
+    <result column="IN_DEPT_ID" property="inDeptId" jdbcType="VARCHAR" />
+    <result column="IN_TIME" property="inTime" jdbcType="TIMESTAMP" />
+    <result column="IN_COMMENT" property="inComment" jdbcType="VARCHAR" />
+    <result column="IN_OPERATOR" property="inOperator" jdbcType="VARCHAR" />
+    <result column="IS_TRANSFERED" property="isTransfered" jdbcType="CHAR" />
+    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="CHAR" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, USER_ID, OUT_DEPT_ID, OUT_TIME, OUT_OPERATOR, OUT_COMMENT, IN_DEPT_ID, IN_TIME, 
+    IN_COMMENT, IN_OPERATOR, IS_TRANSFERED, CREATOR, CREATE_TIME, UPDATEDBY, UPDATE_TIME, 
+    IS_DELETED, VERSION
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from IPANTHER_USER_TRANSFER
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from IPANTHER_USER_TRANSFER
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <update id="deleteByLogic" parameterType="com.hcis.ipanther.common.user.entity.UserTransfer" >
+    update IPANTHER_USER_TRANSFER
+  	set IS_DELETED='Y',
+  	UPDATEDBY=#{updatedby,jdbcType=VARCHAR},
+  	UPDATE_TIME=#{updateTime,jdbcType=TIMESTAMP},
+  	VERSION = VERSION+1
+  	WHERE ID=#{id,jdbcType=VARCHAR}
+  </update>
+  <insert id="insert" parameterType="com.hcis.ipanther.common.user.entity.UserTransfer" >
+    insert into IPANTHER_USER_TRANSFER (ID, USER_ID, OUT_DEPT_ID, 
+      OUT_TIME, OUT_OPERATOR, OUT_COMMENT, 
+      IN_DEPT_ID, IN_TIME, IN_COMMENT, 
+      IN_OPERATOR, IS_TRANSFERED, CREATOR, 
+      CREATE_TIME, UPDATEDBY, UPDATE_TIME, 
+      IS_DELETED, VERSION)
+    values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{outDeptId,jdbcType=VARCHAR}, 
+      #{outTime,jdbcType=TIMESTAMP}, #{outOperator,jdbcType=VARCHAR}, #{outComment,jdbcType=VARCHAR}, 
+      #{inDeptId,jdbcType=VARCHAR}, #{inTime,jdbcType=TIMESTAMP}, #{inComment,jdbcType=VARCHAR}, 
+      #{inOperator,jdbcType=VARCHAR}, #{isTransfered,jdbcType=CHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updatedby,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{isDeleted,jdbcType=CHAR}, #{version,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hcis.ipanther.common.user.entity.UserTransfer" >
+    insert into IPANTHER_USER_TRANSFER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="outDeptId != null" >
+        OUT_DEPT_ID,
+      </if>
+      <if test="outTime != null" >
+        OUT_TIME,
+      </if>
+      <if test="outOperator != null" >
+        OUT_OPERATOR,
+      </if>
+      <if test="outComment != null" >
+        OUT_COMMENT,
+      </if>
+      <if test="inDeptId != null" >
+        IN_DEPT_ID,
+      </if>
+      <if test="inTime != null" >
+        IN_TIME,
+      </if>
+      <if test="inComment != null" >
+        IN_COMMENT,
+      </if>
+      <if test="inOperator != null" >
+        IN_OPERATOR,
+      </if>
+      <if test="isTransfered != null" >
+        IS_TRANSFERED,
+      </if>
+      <if test="creator != null" >
+        CREATOR,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="outDeptId != null" >
+        #{outDeptId,jdbcType=VARCHAR},
+      </if>
+      <if test="outTime != null" >
+        #{outTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="outOperator != null" >
+        #{outOperator,jdbcType=VARCHAR},
+      </if>
+      <if test="outComment != null" >
+        #{outComment,jdbcType=VARCHAR},
+      </if>
+      <if test="inDeptId != null" >
+        #{inDeptId,jdbcType=VARCHAR},
+      </if>
+      <if test="inTime != null" >
+        #{inTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inComment != null" >
+        #{inComment,jdbcType=VARCHAR},
+      </if>
+      <if test="inOperator != null" >
+        #{inOperator,jdbcType=VARCHAR},
+      </if>
+      <if test="isTransfered != null" >
+        #{isTransfered,jdbcType=CHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=CHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hcis.ipanther.common.user.entity.UserTransfer" >
+    update IPANTHER_USER_TRANSFER
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="outDeptId != null" >
+        OUT_DEPT_ID = #{outDeptId,jdbcType=VARCHAR},
+      </if>
+      <if test="outTime != null" >
+        OUT_TIME = #{outTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="outOperator != null" >
+        OUT_OPERATOR = #{outOperator,jdbcType=VARCHAR},
+      </if>
+      <if test="outComment != null" >
+        OUT_COMMENT = #{outComment,jdbcType=VARCHAR},
+      </if>
+      <if test="inDeptId != null" >
+        IN_DEPT_ID = #{inDeptId,jdbcType=VARCHAR},
+      </if>
+      <if test="inTime != null" >
+        IN_TIME = #{inTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inComment != null" >
+        IN_COMMENT = #{inComment,jdbcType=VARCHAR},
+      </if>
+      <if test="inOperator != null" >
+        IN_OPERATOR = #{inOperator,jdbcType=VARCHAR},
+      </if>
+      <if test="isTransfered != null" >
+        IS_TRANSFERED = #{isTransfered,jdbcType=CHAR},
+      </if>
+      <if test="creator != null" >
+        CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      </if>
+        VERSION = VERSION + 1
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hcis.ipanther.common.user.entity.UserTransfer" >
+    update IPANTHER_USER_TRANSFER
+    set USER_ID = #{userId,jdbcType=VARCHAR},
+      OUT_DEPT_ID = #{outDeptId,jdbcType=VARCHAR},
+      OUT_TIME = #{outTime,jdbcType=TIMESTAMP},
+      OUT_OPERATOR = #{outOperator,jdbcType=VARCHAR},
+      OUT_COMMENT = #{outComment,jdbcType=VARCHAR},
+      IN_DEPT_ID = #{inDeptId,jdbcType=VARCHAR},
+      IN_TIME = #{inTime,jdbcType=TIMESTAMP},
+      IN_COMMENT = #{inComment,jdbcType=VARCHAR},
+      IN_OPERATOR = #{inOperator,jdbcType=VARCHAR},
+      IS_TRANSFERED = #{isTransfered,jdbcType=CHAR},
+      CREATOR = #{creator,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      IS_DELETED = #{isDeleted,jdbcType=CHAR},
+  	  VERSION = VERSION+1
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcis.ipr.intellectual.agency.mapper.AgencyMapper">
+  <resultMap id="BaseResultMap" type="com.hcis.ipr.intellectual.agency.entity.Agency">
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="AGENCY_NAME" property="agencyName" jdbcType="VARCHAR" />
+    <result column="AGENCY_CODE" property="agencyCode" jdbcType="VARCHAR" />
+    <result column="AGENCY_EMAIL" property="agencyEmail" jdbcType="VARCHAR" />
+    <result column="AGENCY_ADDRESS" property="agencyAddress" jdbcType="VARCHAR" />
+    <result column="AGENCY_MOBILE" property="agencyMobile" jdbcType="VARCHAR" />
+    <result column="AGENCYER" property="agencyer" jdbcType="VARCHAR" />
+    <result column="AGENCYER_MOBILE" property="agencyerMobile" jdbcType="VARCHAR" />
+    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="CHAR" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ID, AGENCY_NAME, AGENCY_CODE, AGENCY_ADDRESS, AGENCY_MOBILE, AGENCYER, AGENCYER_MOBILE, 
+    CREATOR, CREATE_TIME, UPDATEDBY, UPDATE_TIME, IS_DELETED, VERSION,AGENCY_EMAIL
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ipanther_agency
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <insert id="insert" parameterType="com.hcis.ipr.intellectual.agency.entity.Agency" >
+    insert into ipanther_agency (ID, AGENCY_NAME, AGENCY_CODE, 
+      AGENCY_ADDRESS, AGENCY_MOBILE, AGENCYER, 
+      AGENCYER_MOBILE, CREATOR, CREATE_TIME, 
+      UPDATEDBY, UPDATE_TIME, IS_DELETED, 
+      VERSION,AGENCY_EMAIL)
+    values (#{id,jdbcType=VARCHAR}, #{agencyName,jdbcType=VARCHAR}, #{agencyCode,jdbcType=VARCHAR}, 
+      #{agencyAddress,jdbcType=VARCHAR}, #{agencyMobile,jdbcType=VARCHAR}, #{agencyer,jdbcType=VARCHAR}, 
+      #{agencyerMobile,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updatedby,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=CHAR}, 
+      #{version,jdbcType=DECIMAL},#{agencyEmail,jdbcType=VARCHAR})
+  </insert>
+  
+  <update id="updateByPrimaryKey" parameterType="com.hcis.ipr.intellectual.agency.entity.Agency" >
+    update ipanther_agency
+    set AGENCY_NAME = #{agencyName,jdbcType=VARCHAR},
+      AGENCY_CODE = #{agencyCode,jdbcType=VARCHAR},
+      AGENCY_EMAIL = #{agencyEmail,jdbcType=VARCHAR},
+      AGENCY_ADDRESS = #{agencyAddress,jdbcType=VARCHAR},
+      AGENCY_MOBILE = #{agencyMobile,jdbcType=VARCHAR},
+      AGENCYER = #{agencyer,jdbcType=VARCHAR},
+      AGENCYER_MOBILE = #{agencyerMobile,jdbcType=VARCHAR},
+      UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      VERSION = #{version,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectBySearchParam" resultMap="BaseResultMap" parameterType="searchParam">
+    select
+        <include refid="Base_Column_List"/>
+    from
+        ipanther_agency
+    WHERE
+        IS_DELETED = 'N'
+  </select>
+
+  <update id="deleteFaker" parameterType="com.hcis.ipr.intellectual.agency.entity.Agency">
+    UPDATE ipanther_agency set IS_DELETED = 'Y', UPDATEDBY = #{updatedby, jdbcType=VARCHAR}, UPDATE_TIME = now() where ID = #{id, jdbcType= VARCHAR}
+  </update>
+</mapper>

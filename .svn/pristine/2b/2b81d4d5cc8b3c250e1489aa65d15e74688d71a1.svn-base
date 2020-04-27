@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.haoyu.ipanther.common.login.mapper.UserLoginAttemptMapper" >
+  <resultMap id="UserLoginAttemptMap" type="com.haoyu.ipanther.common.login.entity.UserLoginAttempt" >
+    <result column="ACCOUNT_ID" property="accountId" jdbcType="VARCHAR" />
+    <result column="LOGIN_PERIOD_START_TIME" property="loginPeriodStartTime" jdbcType="TIMESTAMP" />
+    <result column="LAST_LOGIN_ATTEMPT_TIME" property="lastLoginAttemptTime" jdbcType="TIMESTAMP" />
+    <result column="LOGIN_ATTEMPT_COUNT" property="loginAttemptCount" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+   ACCOUNT_ID,LOGIN_PERIOD_START_TIME,LAST_LOGIN_ATTEMPT_TIME,LOGIN_ATTEMPT_COUNT
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="UserLoginAttemptMap">
+  	SELECT 
+  	<include refid="Base_Column_List"/>
+  	FROM USER_LOGIN_ATTEMPT
+  	WHERE ACCOUNT_ID=#{accountId,jdbcType=VARCHAR}
+  </select>
+  <insert id="insert" parameterType="com.haoyu.ipanther.common.login.entity.UserLoginLog">
+  	INSERT INTO USER_LOGIN_ATTEMPT(ACCOUNT_ID,LOGIN_PERIOD_START_TIME,LAST_LOGIN_ATTEMPT_TIME,LOGIN_ATTEMPT_COUNT)
+  	VALUES(#{accountId,jdbcType=VARCHAR},#{loginPeriodStartTime,jdbcType=TIMESTAMP},#{lastLoginAttemptTime,jdbcType=TIMESTAMP},
+  			#{loginAttemptCount,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.haoyu.ipanther.common.login.entity.UserLoginLog">
+  	UPDATE USER_LOGIN_ATTEMPT
+  	SET LAST_LOGIN_ATTEMPT_TIME=#{lastLoginAttemptTime,jdbcType=VARCHAR},
+  	LOGIN_ATTEMPT_COUNT = LOGIN_ATTEMPT_COUNT+1
+  	WHERE ACCOUNT_ID=#{accountId,jdbcType=VARCHAR}
+  </update>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+  	DELETE FROM USER_LOGIN_ATTEMPT WHERE ACCOUNT_ID=#{accountId,jdbcType=VARCHAR}
+  </delete>
+</mapper>

@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcis.ipr.intellectual.cost.mapper.PatentCostMapper">
+    <resultMap id="BaseResultMap" type="com.hcis.ipr.intellectual.cost.entity.PatentCost">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="COMPANY_ID" property="companyId" jdbcType="VARCHAR"/>
+        <result column="PATENT_ID" property="patentId" jdbcType="VARCHAR"/>
+        <result column="COST_NAME" property="costName" jdbcType="VARCHAR"/>
+        <result column="COST_TYPE" property="costType" jdbcType="INTEGER"/>
+        <result column="COST_GOVERNMENT_TYPE" property="costGovernmentType" jdbcType="INTEGER"/>
+        <result column="COST_ANNUAL_TYPE" property="costAnnualType" jdbcType="INTEGER"/>
+        <result column="COST_STATUS" property="costStatus" jdbcType="BIT"/>
+        <result column="COST_AREA" property="costArea" jdbcType="VARCHAR"/>
+        <result column="FEE_PAYABLE" property="feePayable" jdbcType="DECIMAL"/>
+        <result column="FEE_PAYABLE_DATE" property="feePayableDate" jdbcType="TIMESTAMP"/>
+        <result column="COST_REMARK" property="costRemark" jdbcType="VARCHAR"/>
+        <result column="RECEIPT_NUMBER" property="receiptNumber" jdbcType="VARCHAR"/>
+        <result column="RECEIPT_DATE" property="receiptDate" jdbcType="TIMESTAMP"/>
+        <result column="PAYOR" property="payor" jdbcType="VARCHAR"/>
+        <result column="ATTACHMENT" property="attachment" jdbcType="VARCHAR"/>
+        <result column="PAYMENT_AMOUNT" property="paymentAmount" jdbcType="DECIMAL"/>
+        <result column="PAYMENT_DATE" property="paymentDate" jdbcType="TIMESTAMP"/>
+        <result column="MITIGATION_RATIO" property="mitigationRatio" jdbcType="DECIMAL"/>
+        <result column="STANDARD_AMOUNT" property="standardAmount" jdbcType="DECIMAL"/>
+        <result column="STANDARD_DATE" property="standardDate" jdbcType="TIMESTAMP"/>
+        <result column="CREATOR" property="creator" jdbcType="VARCHAR"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR"/>
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="IS_DELETED" property="isDeleted" jdbcType="CHAR"/>
+        <result column="VERSION" property="version" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ID, PATENT_ID, COST_NAME, COST_TYPE, COST_GOVERNMENT_TYPE, COST_STATUS, COST_AREA,
+        FEE_PAYABLE, FEE_PAYABLE_DATE, COST_REMARK, RECEIPT_NUMBER, RECEIPT_DATE, PAYOR,
+        MITIGATION_RATIO,STANDARD_AMOUNT,COST_ANNUAL_TYPE,STANDARD_DATE,COMPANY_ID,
+        PAYMENT_AMOUNT, CREATOR, CREATE_TIME, UPDATEDBY, UPDATE_TIME, IS_DELETED, VERSION
+    </sql>
+
+    <select id="selectBySearchParam" parameterType="searchParam" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from ipanther_patent_cost
+        where
+        1=1
+    </select>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from ipanther_patent_cost
+        where ID = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete
+        from ipanther_patent_cost
+        where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.hcis.ipr.intellectual.cost.entity.PatentCost">
+        insert into ipanther_patent_cost (ID, PATENT_ID, COST_NAME, PAYMENTER,
+                                          COST_TYPE, COST_GOVERNMENT_TYPE, COST_STATUS,
+                                          COST_AREA, FEE_PAYABLE, FEE_PAYABLE_DATE,
+                                          COST_REMARK, RECEIPT_NUMBER, RECEIPT_DATE,
+                                          PAYOR, PAYMENT_AMOUNT, PAYMENT_DATE,
+                                          ATTACHMENT, MITIGATION_RATIO, CREATOR,
+                                          STANDARD_AMOUNT, COST_ANNUAL_TYPE,
+                                          CREATE_TIME, UPDATEDBY, UPDATE_TIME,
+                                          IS_DELETED, VERSION, STANDARD_DATE,
+                                          COMPANY_ID)
+        values (#{id,jdbcType=VARCHAR}, #{patentId,jdbcType=VARCHAR}, #{costName,jdbcType=VARCHAR},
+                #{paymenter, jdbcType=VARCHAR}, #{costType,jdbcType=INTEGER}, #{costGovernmentType,jdbcType=INTEGER},
+                #{costStatus,jdbcType=BIT}, #{costArea,jdbcType=VARCHAR}, #{feePayable,jdbcType=DECIMAL},
+                #{feePayableDate,jdbcType=TIMESTAMP},
+                #{costRemark,jdbcType=VARCHAR}, #{receiptNumber,jdbcType=VARCHAR}, #{receiptDate,jdbcType=TIMESTAMP},
+                #{payor,jdbcType=VARCHAR}, #{paymentAmount,jdbcType=DECIMAL}, #{paymentDate,jdbcType=TIMESTAMP},
+                #{attachment, jdbcType=VARCHAR}, #{mitigationRatio,jdbcType=DECIMAL}, #{creator,jdbcType=VARCHAR},
+                #{standardAmount,jdbcType=DECIMAL}, #{costAnnualType,jdbcType=INTEGER},#{createTime,jdbcType=TIMESTAMP},
+                #{updatedby,jdbcType=VARCHAR},#{updateTime,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=TIMESTAMP},
+                #{version,jdbcType=BIGINT}, #{standardDate,jdbcType=TIMESTAMP},#{companyId,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.hcis.ipr.intellectual.cost.entity.PatentCost">
+        update ipanther_patent_cost
+        <set>
+            PATENT_ID            = #{patentId,jdbcType=VARCHAR},
+            COST_NAME            = #{costName,jdbcType=VARCHAR},
+            COST_TYPE            = #{costType,jdbcType=INTEGER},
+            COST_GOVERNMENT_TYPE = #{costGovernmentType,jdbcType=INTEGER},
+            COST_ANNUAL_TYPE     = #{costAnnualType,jdbcType=INTEGER},
+            COST_STATUS          = #{costStatus,jdbcType=BIT},
+            COST_AREA            = #{costArea,jdbcType=VARCHAR},
+            FEE_PAYABLE          = #{feePayable,jdbcType=DECIMAL},
+            FEE_PAYABLE_DATE     = #{feePayableDate,jdbcType=TIMESTAMP},
+            COST_REMARK          = #{costRemark,jdbcType=VARCHAR},
+            RECEIPT_NUMBER       = #{receiptNumber,jdbcType=VARCHAR},
+            RECEIPT_DATE         = #{receiptDate,jdbcType=TIMESTAMP},
+            PAYOR                = #{payor,jdbcType=VARCHAR},
+
+            /* 如果是删除了附件才进行修改附件字段 */
+            <if test='attachmentDeleted != null and attachmentDeleted == "Y" '>
+                ATTACHMENT       = #{attachment,jdbcType=VARCHAR},
+            </if>
+
+            PAYMENTER            = #{paymenter,jdbcType=VARCHAR},
+            PAYMENT_AMOUNT       = #{paymentAmount,jdbcType=DECIMAL},
+            PAYMENT_DATE         = #{paymentDate,jdbcType=TIMESTAMP},
+            MITIGATION_RATIO     = #{mitigationRatio,jdbcType=DECIMAL},
+            STANDARD_AMOUNT      = #{standardAmount,jdbcType=DECIMAL},
+            STANDARD_DATE        = #{standardDate,jdbcType=TIMESTAMP},
+            UPDATEDBY            = #{updatedby,jdbcType=VARCHAR},
+            UPDATE_TIME          = #{updateTime,jdbcType=TIMESTAMP}
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectList" resultType="com.hcis.ipr.intellectual.cost.dto.PatentCostListDto" parameterType="searchParam">
+        SELECT po.id AS id,
+        po.COMPANY_ID AS companyId,
+        (to_days(po.STANDARD_DATE) - to_days(now())) AS dueDate,
+        po.COST_TYPE AS type,
+        po.COST_GOVERNMENT_TYPE AS governmentType,
+        po.COST_ANNUAL_TYPE AS annualType,
+        po.COST_STATUS AS status,
+        po.COST_NAME AS costName,
+        po.FEE_PAYABLE AS feePayAble,
+        po.FEE_PAYABLE_DATE AS feePayableDate,
+        po.PAYMENT_AMOUNT AS payment,
+        po.PAYMENTER AS paymenter,
+        po.PAYMENT_DATE AS paymentDate,
+        po.PAYOR AS payor,
+        po.MITIGATION_RATIO AS mitigationRatio,
+        po.STANDARD_AMOUNT AS standardAmount,
+        po.STANDARD_DATE AS standardDate,
+        ip.APP_NUMBER AS appNUmber,
+        ip.PATENT_TYPE AS patentType,
+        ip.PATENT_NAME AS patentName,
+        ip.INVENTOR AS inventor,
+        ip.APPLYER AS applyer,
+        ip.AGENCY AS agencyer
+        FROM ipanther_patent_cost AS po
+        LEFT JOIN ipanther_patent AS ip ON ip.ID = po.PATENT_ID
+        WHERE
+        po.COMPANY_ID = #{paramMap.companyId,jdbcType=VARCHAR}
+        AND ip.IS_DELETED = 'N'
+        AND po.IS_DELETED = 'N'
+        <if test="paramMap.types != null and paramMap.size > 0">
+            AND po.COST_TYPE IN
+            <foreach collection="paramMap.types" item="type" separator="," open="(" close=")">
+                #{type,jdbcType=INTEGER}
+            </foreach>
+        </if>
+        <if test="paramMap.excludeIds != null and paramMap.excludeIds.size > 0">
+            AND po.ID NOT IN
+            <foreach collection="paramMap.excludeIds" separator="," open="(" close=")" item="costId">
+                #{costId, jdbcType=VARCHAR}
+            </foreach>
+        </if>
+        <if test="paramMap.status != null and paramMap.status != -1">
+            AND po.COST_STATUS = #{paramMap.status, jdbcType=INTEGER}
+        </if>
+        <if test="paramMap.patentName != null and paramMap.patentName != '' ">
+            AND ip.PATENT_NAME LIKE CONCAT('%', #{paramMap.patentName, jdbcType=VARCHAR}, '%')
+        </if>
+        <if test="paramMap.appNumber != null and paramMap.appNumber != '' ">
+            AND ip.APP_NUMBER LIKE CONCAT('%', #{paramMap.appNumber, jdbcType=VARCHAR}, '%')
+        </if>
+        <if test="paramMap.applyer != null and paramMap.applyer != '' ">
+            AND ip.APPLYER LIKE CONCAT('%', #{paramMap.applyer, jdbcType=VARCHAR}, '%')
+        </if>
+        /* 未缴费太多数据限制出现 */
+        <if test="paramMap.existAf">
+          <if test="paramMap.status == 0 or paramMap.status == -1">
+              AND NOT EXISTS ( SELECT ID FROM ipanther_patent_cost WHERE ID = po.ID AND COST_TYPE = 1
+              AND COST_STATUS = 0
+              AND ( STANDARD_DATE &lt; #{paramMap.minDate} OR FEE_PAYABLE_DATE &gt;= #{paramMap.maxDate} ) )
+          </if>
+        </if>
+        /*权限相关限制*/
+        <if test="paramMap.deptIds != null and paramMap.deptIds.size > 0">
+            and ip.DEP_ID IN
+            <foreach collection="paramMap.deptIds" item="deptId" open="(" close=")" separator=",">
+                #{deptId, jdbcType=VARCHAR}
+            </foreach>
+        </if>
+        <if test="paramMap.searchUserId != null and paramMap.searchUser != ''">
+            and ip.CREATOR = #{paramMap.searchUserId}
+        </if>
+        order by po.update_time desc,po.create_time desc
+    </select>
+
+    <select id="selectDetail" resultType="com.hcis.ipr.intellectual.cost.dto.PatentCostDetailDto" parameterType="java.lang.String">
+        SELECT
+            po.id AS id,
+            po.COMPANY_ID AS companyId,
+            po.COST_TYPE AS costType,
+            po.COST_NAME AS costName,
+            po.COST_ANNUAL_TYPE AS costAnnualType,
+            po.COST_GOVERNMENT_TYPE AS costGovernmentType,
+            po.PAYMENTER AS paymenter,
+            po.PATENT_ID AS patentId,
+            po.COST_STATUS AS costStatus,
+            po.COST_AREA AS costArea,
+            po.FEE_PAYABLE AS feePayAble,
+            po.FEE_PAYABLE_DATE AS feePayAbleDate,
+            po.COST_REMARK AS costRemark,
+            po.PAYMENT_AMOUNT AS paymentAmount,
+            po.PAYMENT_DATE AS paymentDate,
+            po.PAYOR AS payor,
+            po.RECEIPT_NUMBER AS receiptNumber,
+            po.RECEIPT_DATE AS receiptDate,
+            po.ATTACHMENT AS attachment,
+            po.MITIGATION_RATIO AS mitigationRatio,
+            po.STANDARD_AMOUNT AS standardAmount,
+            po.STANDARD_DATE AS standardDate,
+            ip.PATENT_NAME AS patentName,
+            ip.APP_NUMBER AS appNumber,
+            ip.applyer AS applyer,
+            ip.inventor AS inventor
+        FROM
+            ipanther_patent_cost AS po
+                LEFT JOIN ipanther_patent AS ip ON ip.id = po.PATENT_ID
+                LEFT JOIN ipanther_attachment AS ia ON ia.id = po.ATTACHMENT
+        WHERE
+            po.ID = #{id, jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectListNeedMonitor" parameterType="java.util.Map"
+            resultType="com.hcis.ipr.intellectual.cost.entity.PatentCost">
+        SELECT
+        pc.ID AS id,
+        pc.CREATOR AS creator,
+        pc.COMPANY_ID AS companyId
+        FROM
+        ipanther_patent_cost AS pc
+        WHERE 1=1
+        <if test="parameter != null and parameter != ''">
+            AND pc.COMPANY_ID = #{parameter, jdbcType=VARCHAR}
+        </if>
+
+        AND COST_STATUS = 0
+        AND cost_type IN (1,2)
+        AND NOT EXISTS (SELECT ID FROM ipanther_patent_cost_monitor WHERE PATENT_COST_ID = pc.ID)
+        AND NOT EXISTS ( SELECT ID FROM ipanther_patent_cost WHERE ID = pc.ID AND COST_TYPE = 1
+        AND COST_STATUS = 0
+        AND ( STANDARD_DATE &lt; #{minDate} OR STANDARD_DATE &gt;= #{maxDate} ) )
+    </select >
+    
+    
+    <select id="getPatentId" parameterType="java.lang.String" resultType="com.hcis.ipr.intellectual.cost.entity.PatentCost" >
+      SELECT
+        pi.id AS id
+      FROM
+         ipanther_patent_cost AS pi
+      WHERE
+        1=1
+      AND
+        PATENT_ID=#{patentId}
+    </select>
+
+    <select id="get4Email" parameterType="java.lang.String" resultType="com.hcis.ipr.intellectual.cost.dto.PatentCostMonitorDto">
+        SELECT
+            ( to_days( pc.STANDARD_DATE ) - to_days( now( ) ) ) AS deadNumber,
+            ip.APP_NUMBER AS appNumber,
+            ip.PATENT_NAME AS patentName,
+            pc.COST_NAME AS costName,
+            pc.FEE_PAYABLE AS feepayable,
+            pc.STANDARD_DATE AS standardDate,
+            u.EMAIL AS email
+        FROM
+            ipanther_patent_cost AS pc
+        LEFT JOIN ipanther_patent AS ip ON ip.ID = pc.PATENT_ID
+        LEFT JOIN ipanther_user AS u ON u.ID = pc.CREATOR
+        WHERE
+            pc.ID = #{_id, jdbcType=VARCHAR}
+        AND pc.COST_STATUS = 0
+        AND pc.IS_DELETED = 'N'
+    </select>
+
+</mapper>

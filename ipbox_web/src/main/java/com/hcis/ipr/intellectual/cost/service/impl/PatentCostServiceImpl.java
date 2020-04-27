@@ -1,0 +1,431 @@
+package com.hcis.ipr.intellectual.cost.service.impl;
+
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
+import com.hcis.ipanther.core.page.Pagination;
+import com.hcis.ipr.intellectual.cost.dao.PatentCostMonitorDao;
+import com.hcis.ipr.intellectual.cost.entity.WarnTimeLine;
+import com.hcis.ipr.intellectual.cost.service.WarnTimeLineService;
+import org.apache.commons.lang.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
+
+import com.hcis.ipanther.common.customers.entity.CustomersEmail;
+import com.hcis.ipanther.common.customers.service.CustomersService;
+import com.hcis.ipanther.common.login.vo.LoginUser;
+import com.hcis.ipanther.common.user.service.IUserService;
+import com.hcis.ipanther.core.persistence.dao.MyBatisDao;
+import com.hcis.ipanther.core.service.impl.mybatis.BaseServiceImpl;
+import com.hcis.ipanther.core.utils.AppConfig;
+import com.hcis.ipanther.core.utils.DateUtils;
+import com.hcis.ipanther.core.utils.JSONUtils;
+import com.hcis.ipanther.core.utils.JsonUtil;
+import com.hcis.ipanther.core.utils.UUIDUtils;
+import com.hcis.ipanther.core.web.vo.SearchParam;
+import com.hcis.ipr.intellectual.cost.dao.MailConfigDao;
+import com.hcis.ipr.intellectual.cost.dao.PatentCostDao;
+import com.hcis.ipr.intellectual.cost.dao.PatentCostPaymentDao;
+import com.hcis.ipr.intellectual.cost.dto.PatentCostDetailDto;
+import com.hcis.ipr.intellectual.cost.dto.PatentCostListDto;
+import com.hcis.ipr.intellectual.cost.dto.PatentCostMonitorDto;
+import com.hcis.ipr.intellectual.cost.entity.PatentCost;
+import com.hcis.ipr.intellectual.cost.entity.PatentCostPayment;
+import com.hcis.ipr.intellectual.cost.enumeration.AnnualType;
+import com.hcis.ipr.intellectual.cost.enumeration.CostType;
+import com.hcis.ipr.intellectual.cost.enumeration.GovernmentType;
+import com.hcis.ipr.intellectual.cost.service.MailService;
+import com.hcis.ipr.intellectual.cost.service.PatentCostService;
+import com.hcis.items.service.ItemsLibraryService;
+
+import freemarker.template.Template;
+
+/**
+ * @author zhw
+ */
+@Service("patentCostService")
+public class PatentCostServiceImpl extends BaseServiceImpl<PatentCost> implements PatentCostService {
+
+	@Autowired
+	private PatentCostDao patentCostDao;
+
+	@Autowired
+	private ItemsLibraryService itemsLibraryService;
+
+	@Autowired
+	private PatentCostPaymentDao patentCostPaymentDao;
+
+	@Autowired
+	private MailConfigDao mailConfigDao;
+
+	@Autowired
+	private MailService mailService;
+
+	@Autowired
+	private IUserService userService;
+
+	@Autowired
+	private JavaMailSenderImpl mailSender;
+
+	@Resource(name = "mailFreeMarkerConfigurer")
+	private FreeMarkerConfigurer mailFreeMarkerConfigurer;
+
+	@Override
+	public MyBatisDao getBaseDao() {
+		return patentCostDao;
+	}
+
+	@Autowired
+	private PatentCostMonitorDao patentCostMonitorDao;
+
+	@Autowired
+	private CustomersService customersService;
+
+	@Autowired
+	private WarnTimeLineService warnTimeLineService;
+
+	@Override
+	public List<PatentCostListDto> selectList(SearchParam searchParam) {
+		LoginUser loginUser = (LoginUser)SecurityUtils.getSubject().getPrincipal();
+		Integer costType = Integer.valueOf(searchParam.getParamMap().get("type").toString());
+		int costStatus = Integer.parseInt(searchParam.getParamMap().get("status").toString());
+		if (costType != null) {
+			List<Integer> costTypes = new ArrayList<>();
+			costTypes.add(costType);
+			Date date = new Date();
+			Date nextYear = DateUtils.addYears(date, 1);
+			Date lastYear = DateUtils.addYears(date, -1);
+
+			if (costType == CostType.ANNUAL_FEE.getType()) {
+				costTypes.add(CostType.GOVERNMENT_FEE.getType());
+				searchParam.getParamMap().put("existAf", true);
+				searchParam.getParamMap().put("maxDate", nextYear);
+				searchParam.getParamMap().put("minDate", lastYear);
+			} else if (costType == CostType.GOVERNMENT_FEE.getType()) {
+				costTypes.add(CostType.ANNUAL_FEE.getType());
+				searchParam.getParamMap().put("existAf", true);
+				searchParam.getParamMap().put("maxDate", nextYear);
+				searchParam.getParamMap().put("minDate", lastYear);
+			}
+			searchParam.getParamMap().put("types", costTypes);
+		}
+
+		if(costStatus == 0){
+			//如果是代缴单，还要查询出排除的数据
+			List<String> excludeIds = new ArrayList<>();
+
+			SearchParam searchParamMonitory = new SearchParam();
+			searchParamMonitory.setPagination(new Pagination());
+			searchParamMonitory.getPagination().setCurrentPage(1);
+			searchParamMonitory.getPagination().setPageSize(Integer.MAX_VALUE);
+			searchParamMonitory.getParamMap().put("companyId", loginUser.getCompanyId());
+			WarnTimeLine warnTimeLine = warnTimeLineService.getByCompanyId(loginUser.getCompanyId());
+			searchParamMonitory.getParamMap().put("status",1);
+			searchParamMonitory.getParamMap().put("patentName", searchParam.getParamMap().get("patentName"));
+			searchParamMonitory.getParamMap().put("appNumber", searchParam.getParamMap().get("appNumber"));
+			searchParamMonitory.getParamMap().put("applyer", searchParam.getParamMap().get("applyer"));
+
+			//查年费
+			searchParamMonitory.getParamMap().put("type", 1);
+			searchParamMonitory.getParamMap().put("maxTime", warnTimeLine.getOneTimeLine());
+			searchParamMonitory.getParamMap().put("monitorMaxDay", -180);
+			excludeIds.addAll(patentCostMonitorDao.getListCostId(searchParamMonitory));
+
+			//查官费
+			searchParamMonitory.getParamMap().put("type", 2);
+			searchParamMonitory.getParamMap().put("maxTime", warnTimeLine.getThreeTimeLine());
+			searchParamMonitory.getParamMap().put("monitorMaxDay", -30);
+			excludeIds.addAll(patentCostMonitorDao.getListCostId(searchParamMonitory));
+
+			//写入
+			searchParam.getParamMap().put("excludeIds", excludeIds);
+		}
+
+		searchParam.getParamMap().put("companyId", loginUser.getCompanyId());
+		searchParam.getParamMap().put("deptIds", userService.getDeptIdsByUserId());
+		searchParam.getParamMap().put("searchUserId", userService.getRoleUserId());
+		List<PatentCostListDto> list = patentCostDao.selectList(searchParam);
+		for (PatentCostListDto dto : list) {
+			Integer type = dto.getType();
+			Integer status = dto.getStatus();
+			CostType ct = CostType.valueOf(type);
+			if (ct != null) {
+				dto.setTypeName(ct.getTypeName());
+			}
+			if (status != null) {
+				if (status == 1) {
+					dto.setCostStatus("已缴费");
+				} else if (status == 0) {
+					dto.setCostStatus("未缴费");
+				}
+			}
+		}
+
+
+		return list;
+	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public void addCost(PatentCost patentCost, MultipartFile file) throws IOException {
+
+		//
+		Integer type = patentCost.getCostType();
+		patentCost.setId(UUIDUtils.getUUId());
+		patentCost.setDefaultValue();
+
+		if (type == CostType.ANNUAL_FEE.getType() || type == CostType.GOVERNMENT_FEE.getType()) {
+			// 缴费金额和标准缴费金额
+			BigDecimal feePayable = patentCost.getStandardAmount();
+			if (patentCost.getMitigationRatio() != null) {
+				BigDecimal mitigationRatio = patentCost.getMitigationRatio().divide(new BigDecimal(100),
+						BigDecimal.ROUND_HALF_UP, 2);
+				feePayable = feePayable.subtract(feePayable.multiply(mitigationRatio));
+			}
+			patentCost.setFeePayable(feePayable);
+
+		}
+
+		if(type == CostType.OTHER_FEE.getType()){
+			patentCost.setStandardAmount(patentCost.getFeePayable());
+			patentCost.setStandardDate(patentCost.getStandardDate());
+		}
+
+		patentCost.setCostName(getPatentCostName(type, patentCost));
+
+		// 保存附件
+		Map<String, String> map = new HashMap<>();
+		String reStr = itemsLibraryService.saveFile(map, file, "attachment.default.fileTypes.image",
+				"patent/cost/file");
+		if (StringUtils.isBlank(reStr) && map.size() > 0) {
+			patentCost.setAttachment(JsonUtil.toJson(map));
+		}
+
+		patentCostDao.insert(patentCost);
+	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public void addCostFee(PatentCost patentCost) throws IOException {
+
+		//
+		Integer type = patentCost.getCostType();
+		patentCost.setId(UUIDUtils.getUUId());
+		patentCost.setDefaultValue();
+
+		patentCostDao.insert(patentCost);
+	}
+
+	@Override
+	public void deleteByIds(String id) {
+		patentCostDao.deleteByPrimaryKey(id);
+	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public void updateCost(PatentCost patentCost, MultipartFile file) throws IOException {
+		//
+		Integer type = patentCost.getCostType();
+		patentCost.setCostName(getPatentCostName(type, patentCost));
+
+		if (type == CostType.ANNUAL_FEE.getType() || type == CostType.GOVERNMENT_FEE.getType()) {
+			// 缴费金额和标准缴费金额
+			BigDecimal feePayable = patentCost.getStandardAmount();
+			if (patentCost.getMitigationRatio() != null) {
+				BigDecimal mitigationRatio = patentCost.getMitigationRatio().divide(new BigDecimal(100),
+						BigDecimal.ROUND_HALF_UP, 2);
+				feePayable = feePayable.subtract(feePayable.multiply(mitigationRatio));
+			}
+			patentCost.setFeePayable(feePayable);
+
+		}
+
+		// 保存附件
+		Map<String, String> map = new HashMap<>();
+		String reStr = itemsLibraryService.saveFile(map, file, "attachment.default.fileTypes.image",
+				"patent/cost/file");
+		if (StringUtils.isBlank(reStr) && map.size() > 0) {
+			patentCost.setAttachmentDeleted("Y");
+			patentCost.setAttachment(JsonUtil.toJson(map));
+		}
+
+		patentCost.setUpdateTime(new Date());
+		patentCostDao.updateByPrimaryKey(patentCost);
+	}
+
+	@Override
+	public PatentCostDetailDto getPatentDetail(String id) {
+		PatentCostDetailDto patentCost = patentCostDao.getPatentDetail(id);
+
+		if (patentCost.getCostType() == CostType.GOVERNMENT_FEE.getType()) {
+			patentCost.setCostGovernmentType(patentCost.getCostGovernmentType() + 20);
+		}
+
+		String attachment = patentCost.getAttachment();
+		if (attachment != null) {
+			Map map = JSONUtils.getJSONMap(attachment);
+			String attachmentId = (String) map.get("attachmentId");
+			String name = (String) map.get("attachmentName");
+			String path = (String) map.get("downloadUrl");
+			patentCost.setAttachmentName(name);
+			patentCost.setAttachmentPath(path);
+			patentCost.setAttachmentId(attachmentId);
+		}
+		return patentCost;
+	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public void payable(PatentCostPayment patentCostPayment) {
+		String costId = patentCostPayment.getPatentCostId();
+		PatentCost patentCost = patentCostDao.selectByPrimaryKey(costId);
+		if (patentCost == null) {
+			throw new IllegalArgumentException("找不到该费用单");
+		}
+
+		BigDecimal paymentAmount = patentCost.getPaymentAmount() == null ? BigDecimal.ZERO
+				: patentCost.getPaymentAmount();
+		BigDecimal paymentPay = patentCostPayment.getPaymentAmount() == null ? BigDecimal.ZERO
+				: patentCostPayment.getPaymentAmount();
+		patentCost.setPaymentAmount(paymentAmount.add(paymentPay));
+		patentCost.setPaymentDate(patentCostPayment.getPaymentDate());
+		patentCost.setPaymenter(patentCostPayment.getPaymenter());
+		patentCost.setUpdateTime(new Date());
+		patentCost.setUpdatedby(patentCostPayment.getCreator());
+		double feePayable = patentCost.getFeePayable() == null ? 0 : patentCost.getFeePayable().doubleValue();
+		if (patentCost.getPaymentAmount().doubleValue() >= feePayable) {
+			patentCost.setCostStatus(1);
+
+		}
+		patentCostPayment.setId(UUIDUtils.getUUId());
+		patentCostPayment.setDefaultValue();
+
+		patentCostDao.updateByPrimaryKey(patentCost);
+		patentCostPaymentDao.insert(patentCostPayment);
+	}
+
+	// 拿到具体类型名称
+	private String getPatentCostName(Integer type, PatentCost patentCost) {
+		if (type == CostType.AGENCY_FEE.getType()) {
+			return CostType.AGENCY_FEE.getTypeName();
+		} else if (type == CostType.ANNUAL_FEE.getType()) {
+			Integer annualType = Integer.valueOf(patentCost.getCostName());
+			patentCost.setCostAnnualType(annualType);
+			return AnnualType.valueOf(annualType).getTypeName();
+		} else if (type == CostType.GOVERNMENT_FEE.getType()) {
+			// 做了+20的处理，需要修改回去
+			Integer governmentType = Integer.valueOf(patentCost.getCostName());
+			governmentType = governmentType - 20;
+			patentCost.setCostGovernmentType(governmentType);
+			return GovernmentType.valueOf(governmentType).getGovernmentTypeName();
+		} else {
+			return patentCost.getCostName();
+		}
+	}
+
+	@Override
+	public List<PatentCost> getPatentId(String id) {
+		// TODO Auto-generated method stub
+		return patentCostDao.getPatentId(id);
+	}
+
+	@Override
+	public void sendEmail(String id, String recipient, String theme, String text) throws Exception {
+		if (StringUtils.isNotBlank(id)) {
+			PatentCostMonitorDto monitor = patentCostDao.get4Email(id);
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			if (monitor != null) {
+				// 邮箱模板的信息
+				String email = monitor.getEmail();
+				try {
+					MimeMessage mailMsg = mailSender.createMimeMessage();
+					MimeMessageHelper messageHelper = new MimeMessageHelper(mailMsg, true, "UTF-8");
+					// 接收邮箱
+					messageHelper.setTo(recipient);
+					// 设置自定义发件人昵称
+					String nickname = javax.mail.internet.MimeUtility
+							.encodeText(AppConfig.getProperty("common", "mail.nickname"));
+					String username = mailSender.getUsername();
+					// 发送邮箱
+					messageHelper.setFrom(new InternetAddress(nickname + " <" + username + ">"));
+					// 邮件标题
+					if (theme.equals("")) {
+						messageHelper.setSubject("专利费用缴费提醒信息");
+					} else {
+						messageHelper.setSubject(theme);
+					}
+
+					// 内容模板
+					Template tpl = this.mailFreeMarkerConfigurer.getConfiguration()
+							.getTemplate("sendEmailCostWarn.ftl");
+					Map<String, Object> args = new HashMap<String, Object>();
+					Calendar cal = Calendar.getInstance();
+					args.put("patentName", monitor.getPatentName());
+					args.put("appNumber", monitor.getAppNumber());
+					args.put("costName", monitor.getCostName());
+					args.put("standardDate", format.format(monitor.getStandardDate()));
+					String html = FreeMarkerTemplateUtils.processTemplateIntoString(tpl, args);
+					// 邮件内容,true 表示启动HTML格式的邮件
+					if (text.trim().equals("")) {
+						messageHelper.setText(html, true);
+					} else {
+						messageHelper.setText(text, false);
+					}
+
+					// 发送
+					mailSender.send(mailMsg);
+					SearchParam searchParam = new SearchParam();
+					Map<String, Object> paramMap = searchParam.getParamMap();
+					paramMap.put("userEmail", recipient);
+					LoginUser loginUser = (LoginUser) SecurityUtils.getSubject().getPrincipal();
+					paramMap.put("userId", loginUser.getId());
+					List<CustomersEmail> costomersList = customersService.list(searchParam);
+					for (int i = 0; i < costomersList.size(); i++) {
+						CustomersEmail customersEmail = costomersList.get(i);
+						customersEmail.setStatus("Y");
+						SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+						String totime = df.format(new Date());
+						customersEmail.setToTime(totime);
+						customersService.updateByAll(customersEmail);
+					}
+
+				} catch (Exception e) {
+					logger.error(e.getMessage(), e);
+				}
+			} else {
+				throw new IllegalArgumentException("找不到费用，请刷新后重试!");
+			}
+		} else {
+			throw new IllegalArgumentException("请选择费用!");
+		}
+	}
+
+	@Override
+	public List<PatentCost> selectListByPatentId(SearchParam searchParam) {
+		return patentCostDao.selectListByPatentId(searchParam);
+	}
+
+	@Override
+	public int deletByPatentId(PatentCost patentCost) {
+	return patentCostDao.deletByPatentId(patentCost);
+	}
+
+}

@@ -1,0 +1,112 @@
+/*-------------------------------------
+zTree Style
+
+version:	3.5.17
+author:		Hunter.z
+email:		hunter.z@263.net
+website:	http://code.google.com/p/jquerytree/
+
+-------------------------------------*/
+
+.ztree * {padding:0; margin:0; font-family: Verdana, Arial, Helvetica, AppleGothic, sans-serif, "\5b8b\4f53"; color: #fff;}
+.ztree {margin:0; padding:10px; color:#333}
+.ztree li{position: relative; padding:0; margin:0 0 10px; background: #3cb17e url(img/ztreeBlock-bg.png) right center no-repeat; list-style:none; line-height:14px; text-align:left; white-space:nowrap; outline:0}
+.ztree li ul{ margin:0; padding:0; border: 1px solid #45a51f; border-top: 0; background-color: #fff;}
+.ztree li ul li {margin-bottom: 0; background: #fff; border-bottom: 1px dashed #dbdde6;}
+.ztree li ul li:last-child {border-bottom: none;}
+.ztree li ul a{ border-top: none; padding: 0; height: 48px; line-height: 48px; color: #777685; font-weight: 300;}
+.ztree li ul a.curSelectedNode {background-color:#e9eaf0;}
+.ztree li ul a.curSelectedNode span {color: #3cb17f; font-size: 14px;}
+.ztree li ul a.curSelectedNode span.button.ico_docu{background-image: url(img/z-tree-c.png);}
+.ztree li ul a span {color: #777685; font-size: 12px;}
+.ztree li.ztree-open {background-color: #c2a73d; background-image: url(img/ztreeBlock-bg-c.png); background-position: 0 0;  background-repeat: no-repeat;}
+.ztree li.ztree-open ul {border-color: #d2a900;}
+.ztree li a {width: 100%; padding-top: 5px; padding-bottom: 5px; font-size:14px; margin:0; cursor:pointer; height:40px; font-size: 14px; line-height: 40px; color:#333; font-weight: 700; background-color: transparent;
+	text-decoration:none; vertical-align:top; display: inline-block}
+.ztree li a .button {margin-left: 15px!important;}
+.ztree li a:hover {}
+.ztree li ul a.curSelectedNode {display: inline-block; width: 100%; color:black; height:50px;}
+.ztree li a.curSelectedNode_Edit {padding-top:0px; background-color:#FFE6B0; color:black; height:16px; border:1px #FFB951 solid; opacity:0.8;}
+.ztree li a.tmpTargetNode_inner {padding-top:0px; background-color:#316AC5; color:white; height:16px; border:1px #316AC5 solid;
+	opacity:0.8; filter:alpha(opacity=80)}
+.ztree li a.tmpTargetNode_prev {}
+.ztree li a.tmpTargetNode_next {}
+.ztree li a input.rename {height:14px; width:80px; padding:0; margin:0;
+	font-size:12px; border:1px #7EC4CC solid; *border:0px}
+.ztree li span {line-height:16px; margin-right:2px}
+.ztree li span.button {line-height:0; margin:0; margin-right: 6px; width:16px; height:16px; display: inline-block; vertical-align:middle;
+	border:0 none; cursor: pointer;outline:none;
+	background-color:transparent; background-repeat:no-repeat; background-attachment: scroll;
+	background-image:url("./img/zTreeStandard.png"); *background-image:url("./img/zTreeStandard.gif")}
+
+.ztree li span.button.chk {width:13px; height:13px; margin:0 3px 0 0; cursor: auto}
+.ztree li span.button.chk.checkbox_false_full {background-position:0 0}
+.ztree li span.button.chk.checkbox_false_full_focus {background-position:0 -14px}
+.ztree li span.button.chk.checkbox_false_part {background-position:0 -28px}
+.ztree li span.button.chk.checkbox_false_part_focus {background-position:0 -42px}
+.ztree li span.button.chk.checkbox_false_disable {background-position:0 -56px}
+.ztree li span.button.chk.checkbox_true_full {background-position:-14px 0}
+.ztree li span.button.chk.checkbox_true_full_focus {background-position:-14px -14px}
+.ztree li span.button.chk.checkbox_true_part {background-position:-14px -28px}
+.ztree li span.button.chk.checkbox_true_part_focus {background-position:-14px -42px}
+.ztree li span.button.chk.checkbox_true_disable {background-position:-14px -56px}
+.ztree li span.button.chk.radio_false_full {background-position:-28px 0}
+.ztree li span.button.chk.radio_false_full_focus {background-position:-28px -14px}
+.ztree li span.button.chk.radio_false_part {background-position:-28px -28px}
+.ztree li span.button.chk.radio_false_part_focus {background-position:-28px -42px}
+.ztree li span.button.chk.radio_false_disable {background-position:-28px -56px}
+.ztree li span.button.chk.radio_true_full {background-position:-42px 0}
+.ztree li span.button.chk.radio_true_full_focus {background-position:-42px -14px}
+.ztree li span.button.chk.radio_true_part {background-position:-42px -28px}
+.ztree li span.button.chk.radio_true_part_focus {background-position:-42px -42px}
+.ztree li span.button.chk.radio_true_disable {background-position:-42px -56px}
+
+.ztree li span.button.switch {position: absolute; right: 0px; top: 5px; width:30px; height:40px; background: url('img/ztree-switch.png') no-repeat;}
+.ztree li span.button.root_open{background-position: right center;}
+.ztree li span.button.root_close{background-position:-74px -54px}
+.ztree li span.button.roots_open{background-position: right center;}
+.ztree li span.button.roots_close{background-position: left center;}
+.ztree li span.button.center_open{background-position: right center;}
+.ztree li span.button.center_close{background-position: left center;}
+.ztree li span.button.bottom_open{background-position: right center;}
+.ztree li span.button.bottom_close{background-position: left center;}
+.ztree li span.button.noline_open{background-position: right center;}
+.ztree li span.button.noline_close{background-position: left center;}
+.ztree li span.button.root_docu{ background:none;}
+.ztree li span.button.roots_docu{background-position:-56px 0}
+.ztree li span.button.center_docu{display: none; background-position:-56px -18px}
+.ztree li span.button.bottom_docu{display: none; background-position:-56px -36px}
+.ztree li span.button.noline_docu{ background:none;}
+
+.ztree li span.button.ico_open, .ztree li span.button.ico_close {background: url('img/tree-big-ico.png') no-repeat; background-position: left -32px; margin-right:8px; width: 32px; height: 32px;  vertical-align:middle; *vertical-align:middle}
+.ztree li span.d_tree_tab1.ico_open, .ztree li span.d_tree_tab1.ico_close{background-position: 0 0;}
+.ztree li span.d_tree_tab2.ico_open, .ztree li span.d_tree_tab2.ico_close{background-position: 0 -32px;}
+.ztree li span.d_tree_tab3.ico_open, .ztree li span.d_tree_tab3.ico_close{background-position: 0 -64px;}
+.ztree li span.d_tree_tab4.ico_open, .ztree li span.d_tree_tab4.ico_close{background-position: 0 -96px;}
+.ztree li span.d_tree_tab5.ico_open, .ztree li span.d_tree_tab5.ico_close{background-position: 0 -128px;}
+.ztree li span.d_tree_tab6.ico_open, .ztree li span.d_tree_tab6.ico_close{background-position: 0 -160px;}
+
+
+.ztree li span.button.ico_docu{width: 6px; margin-left: 65px!important; background: url('img/z-tree.png') left center no-repeat;}
+.ztree li span.button.edit {margin-right:2px; background-position:-110px -48px; vertical-align:top; *vertical-align:middle}
+.ztree li span.button.remove {margin-right:2px; background-position:-110px -64px; vertical-align:top; *vertical-align:middle}
+
+.ztree li span.button.ico_loading{margin-right:2px; background:url(./img/loading.gif) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+
+ul.tmpTargetzTree {background-color:#FFE6B0; opacity:0.8; filter:alpha(opacity=80)}
+
+span.tmpzTreeMove_arrow {width:16px; height:16px; display: inline-block; padding:0; margin:2px 0 0 1px; border:0 none; position:absolute;
+	background-color:transparent; background-repeat:no-repeat; background-attachment: scroll;
+	background-position:-110px -80px; background-image:url("./img/zTreeStandard.png"); *background-image:url("./img/zTreeStandard.gif")}
+
+ul.ztree.zTreeDragUL {margin:0; padding:0; position:absolute; width:auto; height:auto;overflow:hidden; background-color:#cfcfcf; border:1px #00B83F dotted; opacity:0.8; filter:alpha(opacity=80)}
+.zTreeMask {z-index:10000; background-color:#cfcfcf; opacity:0.0; filter:alpha(opacity=0); position:absolute}
+
+/* level style*/
+/*.ztree li span.button.level0 {
+	display:none;
+}
+.ztree li ul.level0 {
+	padding:0;
+	background:none;
+}*/

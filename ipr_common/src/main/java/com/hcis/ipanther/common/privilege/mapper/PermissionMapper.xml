@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcis.ipanther.common.privilege.mapper.PermissionMapper" >
+  <resultMap id="PermissionMap" type="com.hcis.ipanther.common.privilege.entity.Permission" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="PARENT_ID" property="parentId" jdbcType="VARCHAR" />
+    <result column="DISPLAY" property="display" jdbcType="VARCHAR" />
+    <result column="SEQUENCE" property="sequence" jdbcType="INTEGER" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="CHAR" />
+    <result column="VERSION" property="version" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, NAME,DESCRIPTION,CODE,URL,TYPE,PARENT_ID,SEQUENCE,DISPLAY, IS_DELETED, VERSION
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="PermissionMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from IPANTHER_PERMISSION
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByCode" resultMap="PermissionMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from IPANTHER_PERMISSION
+    where CODE = #{code,jdbcType=VARCHAR}
+  </select>
+  <select id="selectPermission" resultMap="PermissionMap" parameterType="com.hcis.ipanther.common.privilege.entity.Permission" >
+    select 
+    <include refid="Base_Column_List" />
+    from IPANTHER_PERMISSION
+    <trim prefix="WHERE" prefixOverrides="AND|OR">  	
+    	 <if test="name != null" >
+        	AND NAME = #{name,jdbcType=VARCHAR}
+      	 </if>
+      	 <if test="description != null" >
+	        AND  DESCRIPTION LIKE  '%${description}%'
+	     </if>
+	     <if test="code != null" >
+        	AND CODE = #{code,jdbcType=VARCHAR}
+      	 </if>
+      	 <if test="url != null" >
+        	AND URL LIKE  '${url}%'
+      	 </if>
+      	 <if test="type != null" >
+        	AND TYPE = #{type,jdbcType=VARCHAR}
+      	 </if>
+      	 <if test="parentId != null" >
+        	AND PARENT_ID = #{parentId,jdbcType=VARCHAR}
+      	 </if>
+      	 <if test="display != null" >
+        	AND DISPLAY = #{display,jdbcType=VARCHAR}
+      	 </if>
+	     <if test="isDeleted!=null">
+	     	AND IS_DELETED=#{isDeleted,jdbcType=VARCHAR}
+	     </if>
+    </trim>
+    ORDER BY SEQUENCE
+  </select>
+  <select id="selectPermissionBySearchParam" resultMap="PermissionMap" parameterType="com.hcis.ipanther.core.web.vo.SearchParam" >
+    select 
+    <include refid="Base_Column_List" />
+    from IPANTHER_PERMISSION
+    <trim prefix="WHERE" prefixOverrides="AND|OR">  	
+    	 <if test="paramMap.permission.name != null" >
+        	AND NAME = #{paramMap.permission.name,jdbcType=VARCHAR}
+      	 </if>
+      	 <if test="paramMap.permission.description != null" >
+	        AND  DESCRIPTION LIKE  '%${paramMap.permission.description}%'
+	     </if>
+	     <if test="paramMap.permission.code != null" >
+        	AND CODE = #{paramMap.permission.code,jdbcType=VARCHAR}
+      	 </if>
+      	 <if test="paramMap.permission.url != null" >
+        	AND URL LIKE  '${paramMap.permission.url}%'
+      	 </if>
+      	 <if test="paramMap.permission.type != null" >
+        	AND TYPE = #{paramMap.permission.type,jdbcType=VARCHAR}
+      	 </if>
+      	 <if test="paramMap.permission.parentId != null" >
+        	AND PARENT_ID = #{paramMap.permission.parentId,jdbcType=VARCHAR}
+      	 </if>
+      	 <if test="paramMap.permission.display != null" >
+        	AND DISPLAY = #{paramMap.permission.display,jdbcType=VARCHAR}
+      	 </if>
+	     <if test="paramMap.permission.isDeleted!=null">
+	     	AND IS_DELETED=#{paramMap.permission.isDeleted,jdbcType=VARCHAR}
+	     </if>
+    </trim>
+  </select>
+  <insert id="insert" parameterType="com.hcis.ipanther.common.privilege.entity.Permission" >
+    insert into IPANTHER_PERMISSION(ID, NAME, DESCRIPTION,DISPLAY,
+      CODE,URL,TYPE,PARENT_ID,SEQUENCE, 
+      CREATOR, CREATE_TIME, UPDATEDBY, 
+      UPDATE_TIME, IS_DELETED, VERSION
+      )
+      values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},#{display,jdbcType=VARCHAR},
+      #{code,jdbcType=VARCHAR},#{url,jdbcType=VARCHAR},#{type,jdbcType=VARCHAR},#{parentId,jdbcType=VARCHAR},#{sequence,jdbcType=INTEGER},
+      #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updatedby,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=CHAR}, #{version,jdbcType=INTEGER}
+      )
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hcis.ipanther.common.privilege.entity.Permission" >
+    update IPANTHER_PERMISSION
+    <set >
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        URL = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        PRENT_ID = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sequence != null" >
+        SEQUENCE = #{sequence,jdbcType=INTEGER},
+      </if>
+      <if test="display != null" >
+        DISPLAY = #{display,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      </if>
+      <if test="version != null" >
+        VERSION = #{version,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <delete id="deleteByPhysics" parameterType="java.lang.String">
+  	delete FROM IPANTHER_PERMISSION WHERE ID=#{id,jdbcType=VARCHAR}
+  </delete>
+  <update id="deleteByLogic" parameterType="com.hcis.ipanther.common.privilege.entity.Permission">
+  	update IPANTHER_PERMISSION
+  	SET IS_DELETED='Y',
+  	UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+  	UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+  	VERSION = VERSION+1
+  	WHERE ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="retreive" parameterType="com.hcis.ipanther.common.privilege.entity.Permission">
+  	update IPANTHER_PERMISSION
+  	SET IS_DELETED='N',
+  	UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+  	UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+  	VERSION = VERSION+1
+  	WHERE ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

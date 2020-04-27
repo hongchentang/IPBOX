@@ -1,0 +1,879 @@
+<%--
+  User: zhw
+  Date: 2019/8/22
+  Time: 18:27
+--%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="/jsp/common/include/taglib.jsp"%>
+
+
+<c:set value="${ipanthercore:getProperty('attachment.default.fileTypes.image')}" var="fileTypes"/>
+<c:set value="${ipanthercore:getProperty('attachment.default.fileMaxSize')}" var="fileMaxSize"/>
+
+<div id="addPatentCost" style="padding:10px;" class="easyui-panel" data-options="region:'center'">
+    <form id="addPatentCostForm" name="addPatentCostForm" method="post" action="${ctx}/intellectual/patent/cost/add.do" enctype="multipart/form-data">
+        <table  cellpadding="4" cellspacing="4" class="alter-table-h" style="font-size: 12px;width: 90%;">
+            <tr>
+                <c:if test="${type eq 0}">
+                    <td>费用填报人*</td>
+                    <td>
+                        <input id='paymenter' name='paymenter' type="text" title="费用填报人" class="easyui-textbox"  data-options="required:true" value='' />
+                    </td>
+                    <td></td>
+                    <td></td>
+                </c:if>
+                <c:if test="${type eq 1 or type eq 2}">
+                    <td>费用名称*</td>
+                    <td><input id='costName' name='costName' type="text" title="费用名称" class="easyui-combobox"  data-options="required:true,limitToList:true" value='' /></td>
+                    <td>费用填报人*</td>
+                    <td>
+                        <input id='paymenter' name='paymenter' type="text" title="费用填报人" class="easyui-textbox"  data-options="required:true" value='' />
+                    </td>
+                </c:if>
+                <c:if test="${type eq 3}">
+                    <td>费用名称*</td>
+                    <td><input id='costName' name='costName' type="text" title="费用名称" class="easyui-textbox"  data-options="required:true,limitToList:true" value='' /></td>
+                    <td>费用填报人*</td>
+                    <td>
+                        <input id='paymenter' name='paymenter' type="text" title="费用填报人" class="easyui-textbox"  data-options="required:true" value='' />
+                    </td>
+                </c:if>
+            </tr>
+
+            <tr>
+                <td>专利名称*</td>
+                <td>
+                    <input id='patentName' name='patentName' onclick="" type="text" title="专利名称" class="easyui-combobox"
+                    data-options="required:true,
+                    prompt:'输入专利名称进行搜索',
+                    loader: loadPatentName,
+                    mode: 'remote',
+                    valueField: 'id',
+                    textField: 'name',
+                    labelPosition: 'top',
+                    limitToList:true
+                    " value='' />
+
+                    <input id='id' name='id' type="text" title="" style="display: none">
+                    <input id='patentId' name='patentId' type="text" title="" style="display: none">
+                    <input id='costType' name='costType' type="text" title="" style="display: none">
+                    <input id='attachmentDeleted' name='attachmentDeleted' type="text" title="" style="display: none">
+                </td>
+                <td>专利号*</td>
+                <td>
+                    <input id='appNumber' name='appNumber' type="text" title="专利号" class="easyui-textbox"  data-options="" value='' />
+                </td>
+            </tr>
+            <tr>
+                <td>缴费状态*</td>
+                <td>
+                    <select class="easyui-combobox" id="costStatus" name="costStatus" labelPosition="top" data-options="panelHeight:'50px'" style="width: 167px;">
+                        <option value="0">未缴费</option>
+                        <option value="1">已缴费</option>
+                    </select>
+                </td>
+                <c:if test="${type eq 2}">
+                    <td>标准缴费金额(元)*</td>
+                    <td>
+                        <input id='standardAmount' name='standardAmount' type="text" title="标准缴费金额" class="easyui-textbox" autoWrite="0" data-options="required:true" value='' />
+                    </td>
+                </c:if>
+                <c:if test="${type != 2}">
+                    <td>缴费区域*</td>
+                    <td>
+                        <input id='costArea' name='costArea' type="select" title="缴费区域" class="easyui-textbox"  data-options="required:true" value='' />
+                    </td>
+                </c:if>
+            </tr>
+            <tr>
+                <c:if test="${type eq 0 or type eq 3}">
+                    <td>应缴金额（元）*</td>
+                    <td>
+                        <input id='feePayable' name='feePayable' type="text" title="应缴金额" class="easyui-textbox checkNumber"  data-options="required:true" value='' />
+                    </td>
+                </c:if>
+                <c:if test="${type eq 1}">
+                    <td>标准缴费金额(元)*</td>
+                    <td>
+                        <input id='standardAmount' name='standardAmount' type="text" title="标准缴费金额" class="easyui-textbox checkNumber" autoWrite="0"  data-options="required:true" value='' />
+                    </td>
+                </c:if>
+                <c:if test="${type eq 2}">
+                    <td>实缴金额（元）</td>
+                    <td>
+                        <input id='paymentAmount' name='paymentAmount' type="text" title="实缴金额" class="easyui-textbox checkNumber"  data-options="" value='' />
+                    </td>
+                </c:if>
+                <td>应缴费日期*</td>
+                <td>
+                    <input id='feePayableDate' name='feePayableDate' type="text" onkeyup="feePayableDateChange()" onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd', onpicked: feePayableDateChange});"
+                           class="easyui-validatebox Wdate" data-options="required:true" title="应缴费日期" autoWrite="0" value='' autocomplete="off" />
+                </td>
+            </tr>
+
+            <c:if test="${type eq 1 or type eq 2}">
+                <tr>
+                    <td>缴费绝限日期</td>
+                    <td>
+                        <input id='standardDate' name='standardDate' type="text" onkeyup="standardDateChange()" onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd', onpicked: standardDateChange});"
+                               class="easyui-validatebox Wdate" data-options="required:true" title="缴费绝限日期" autoWrite="0" value='' autocomplete="off" />
+                    </td>
+                </tr>
+            </c:if>
+
+            <c:if test="${type eq 1}">
+                <tr>
+                    <td>专利权人</td>
+                    <td><input id='applyer' name='applyer' type="text" title="专利权人" class="easyui-textbox"  data-options="" value='' /></td>
+                    <td>发明人</td>
+                    <td><input id='inventor' name='inventor' type="text" title="发明人" class="easyui-textbox"  data-options="" value='' /></td>
+                </tr>
+            </c:if>
+
+            <tr>
+                <td>费用说明</td>
+                <td colspan="3" style="text-align: initial; ">
+                   <%-- <input id='costRemark' name='costRemark' type="text" title="费用说明" class="easyui-textbox"  data-options="" value='' />--%>
+                    <div style="padding-left:24px;">
+                        <textarea id="costRemark" name="costRemark" style="width: 550px;"></textarea>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>缴费发票</td>
+                <td colspan="3" style="text-align: initial; ">
+                    <div id="invoiceFileDiv" style="padding-left: 24px;">
+                        <input id='invoiceFile' name='invoiceFile' type="file" title="缴费发票"  data-options="" value='' />
+                        <div>
+                            允许上传的文件类型：${fileTypes}<br/>
+                            允许上传文件的大小：${fileMaxSize}KB
+                        </div>
+                    </div>
+                    <div id="invoiceFileDeleteDiv" style="padding-left: 24px;">
+                        <c:set var="attachment" value="${cost.attachment}" />
+                        <span id=""><a href="${ctx}${cost.attachmentPath}" target="download">${cost.attachmentName}(点击下载)</a></span>
+                        <a onclick="deleteFile('invoiceFileDiv','invoiceFileDeleteDiv','Y')"
+                           href="javascript:void(0)" class="easyui-linkbutton">
+                            <i class="fa fa-minus"></i> 删除</a>
+                    </div>
+                </td>
+            </tr>
+            <c:if test="${type != 2}">
+                <tr>
+                    <c:if test="${type eq 0 or type eq 3}">
+                        <td>代理机构</td>
+                        <td>
+                            <input id='agencyName' name='agencyName' type="text" title="代理机构" class="easyui-textbox"
+                                   data-options="" value=''/>
+                        </td>
+                    </c:if>
+                    <c:if test="${type eq 1}">
+                        <td>费用减缓比例(%)</td>
+                        <td>
+                            <input id='mitigationRatio' name='mitigationRatio' type="text" title="费用减缓比例"
+                                   maxlength="2"    data-options="readonly:true" value=""/>
+
+                        </td>
+                    </c:if>
+
+                    <td>实缴金额（元）</td>
+                    <td>
+                        <input id='paymentAmount' name='paymentAmount' type="text" title="实缴金额" class="easyui-textbox checkNumber"
+                                data-options="" value=''/>
+                    </td>
+                </tr>
+            </c:if>
+            <tr>
+                <td>实缴日期</td>
+                <td>
+                    <input id='paymentDate' name='paymentDate' type="text" onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd'});"
+                           class="easyui-validatebox Wdate" data-options="" title="实缴日期"  value='' autocomplete="off" />
+                </td>
+                <td>缴费人</td>
+                <td>
+                    <input id='payor' name='payor' type="text" title="缴费人" class="easyui-textbox"  data-options="" value='' />
+                </td>
+            </tr>
+            <c:if test="${type != 2}">
+                <tr>
+                    <td>官费回执编号</td>
+                    <td>
+                        <input id='receiptNumber' name='receiptNumber' type="text" title="官费回执编号" class="easyui-textbox"  data-options="" value='' />
+                    </td>
+                    <td>官方回执日期</td>
+                    <td>
+                        <input id='receiptDate' name='receiptDate' type="text" onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd'});"
+                               class="easyui-validatebox Wdate" data-options="" title="官方回执日期"  value='' />
+                    </td>
+                </tr>
+            </c:if>
+        </table>
+
+        <div style="text-align: center;padding-left: 40px;padding-top: 10px; padding-bottom: 5px;">
+            <button type="button" value="确认" id="=subBut" onclick="submitForm()" class="easyui-linkbutton" style="margin-right: 20px;">确认</button>
+            <button type="reset"  value="关闭" id="subClose" class="easyui-linkbutton" onclick="doCloseCostWin()" >关闭</button>
+            <%--<input type="button"  value="测试" id="xx" class="easyui-linkbutton" onclick="test()" />--%>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+
+        if ('${cost.id}' != null && '${cost.id}' !== '') {
+
+            //整理回写的费用名称，1和2是需要单独拿出来的
+            var costName = '${cost.costName}';
+            if('${cost.costType}' == 1){
+                costName = '${cost.costAnnualType}';
+            }else if('${cost.costType}' == 2){
+                setType(2);
+                costName = '${cost.costGovernmentType}';
+            }
+
+            $("#addPatentCostForm").form('load', {
+                id: '${cost.id}',
+                patentId: '${cost.patentId}',
+                patentName: '${cost.patentName}',
+                paymenter: '${cost.paymenter}',
+                appNumber: '${cost.appNumber}',
+                costStatus: '${cost.costStatus}',
+                costArea: '${cost.costArea}',
+                feePayable: '${cost.feePayable}',
+                feePayableDate: '<fmt:formatDate value="${cost.feePayableDate}"  pattern="yyyy-MM-dd"/>',
+                costRemark: '${cost.costRemark}',
+                agencyName: '${cost.agencyName}',
+                paymentAmount: '${cost.paymentAmount}',
+                paymentDate: '<fmt:formatDate value="${cost.paymentDate}"  pattern="yyyy-MM-dd"/>',
+                payor: '${cost.payor}',
+                receiptNumber: '${cost.receiptNumber}',
+                receiptDate: '<fmt:formatDate value="${cost.receiptDate}"  pattern="yyyy-MM-dd"/>',
+                standardDate: '<fmt:formatDate value="${cost.standardDate}"  pattern="yyyy-MM-dd"/>',
+                mitigationRatio: '${cost.mitigationRatio}',
+                standardAmount: '${cost.standardAmount}',
+                costName: costName,
+                applyer: '${cost.applyer}',
+                inventor: '${cost.inventor}'
+            });
+        }
+
+        var attachment = '${cost.attachment}';
+        if (attachment == null || attachment == '') {
+            $("#invoiceFileDeleteDiv").css("display", "none");
+        } else {
+            $("#invoiceFileDiv").css("display", "none");
+        }
+
+        /*缴费区域*/
+        $("#costArea").combobox({
+            url: '${ctx}/common/datadict/getByTypeCode.do?typeCode=IPBOX_PATENT_AUTHOR_COUNTRY',
+            emptyText: '',
+            valueField: 'dictValue',
+            textField: 'dictName',
+            slide: true,
+            valueFieldID: 'authorCountry',
+            limitToList: true,
+            panelHeight: '200'
+        });
+
+        if ('${type}' == 1 || '${type}' == 2) {
+            /*年费*/
+            $("#costName").combobox({
+                url: '${ctx}/intellectual/patent/cost/getCostAllType.do',
+                emptyText: '',
+                valueField: 'dictValue',
+                textField: 'dictName',
+                slide: true,
+                valueFieldID: 'authorCountry',
+                limitToList: true,
+                panelHeight: '200',
+                onChange: function (newVal, oldVal) {
+                    var costType = getType();
+
+                    //设置是否可缓减
+                     debugger
+                    if( 0 <= newVal && newVal <= 22 ){
+
+                        $('#mitigationRatio').textbox({
+                            readonly: false
+                        }) ;
+                    }else {
+                        $('#mitigationRatio').textbox({
+                            readonly: true
+                        }) ;
+                    }
+
+                    clearPay(costType);
+                    if(isNaN(newVal) || newVal == ''){
+                        return;
+                    }
+
+                    if(costType == 1 || costType == 2){
+                        //选择的专利
+                        var id = $('#patentName').combobox('getValue');
+                        var list = $("#patentName").combobox('getData');
+                        var item = getSelectData(list, id);
+                        //费用类型
+                        var costId = $('#costName').combobox('getValue');
+                        var costList = $("#costName").combobox('getData');
+                        var costItem = getSelectDataByValue(costList, costId);
+                        //设置当前类型
+                        if(costItem.dictTypeCode == 'IPBOX_ANNUAL_FEE'){
+                            //设置类型年费
+                            setType(1);
+                            costType = 1;
+                        }else if(costItem.dictTypeCode == 'IPBOX_GOVERNMENT_FEE'){
+                            //设置类型官费
+                            setType(2);
+                            costType = 2;
+                        }
+                        if(item == undefined){
+                            return;
+                        }
+                        //设置金额
+                        var patentType = item.patentType;
+                        var feePayable = getFeePayable(patentType, newVal);
+                        if(feePayable == false || feePayable == undefined){
+                            $('#costName').combobox('clear');
+                        }else if(feePayable != true){
+                            $('#standardAmount').textbox('setValue', feePayable);
+                            changeAutoWriter($('#standardAmount'), 1);
+                        }
+                        //设置日期
+                        if(costType == 1){
+                            setFeePayableDateY(item, newVal, false);
+                        }else if(costType == 2){
+                            //做了处理，需要-20
+                            newVal = newVal - 20;
+                            setFeePayableDateG(item, newVal, false);
+                        }
+
+                    }
+                }
+            });
+        }
+
+    });
+
+    /*提交表单*/
+    function submitForm(message) {
+
+        //进行id赋值
+        var id = "${cost.id}";
+        var type = getType();
+        console.log("type = " + type);
+        $("#id").val(id);
+        $("#costType").val(type);
+        $("#addPatentCostWindow,#editPatentCostWindow").find('#addPatentCostForm').form('submit', {
+            success: function (data) {
+                data = JSON.parse(data);
+                if (data.code == 200) {
+                    $.messager.alert("成功", "数据已修改");
+                    /*刷新列表*/
+                    refreshPatentCost();
+                    /*关闭窗口*/
+                    doCloseCostWin();
+                } else {
+                    $.messager.alert("错误","保存失败" + data.msg);
+                }
+            }
+        });
+    }
+
+    function loadPatentName(param,success,error) {
+        var q = param.q;
+        if(q === undefined){
+            q = '';
+        }
+      
+        $.ajax({
+            url: '${ctx}/intellectual/patent/selectList.do?patentName=' + q,
+            dataType: 'json',
+            success: function(data){
+                data = data.data;
+                var items = $.map(data, function(item){
+                    var agency = item.agency;
+                    var agencyName =  '';
+                    if(agency != null){
+                        agencyName = agency.agencyName;
+                    }
+                    return {
+                        id: item.id,
+                        name: item.patentName,
+                        appNumber: item.appNumber,
+                        agencyName: agencyName,
+                        applyer: item.applyer,
+                        inventor: item.inventor,
+                        appDate: item.appDate,
+                        authorizeDate: item.authorizeDate,
+                        patentType: item.patentType
+                    };
+                });
+              
+                success(items);
+            },
+            error: function(){
+            }
+        });
+    }
+
+    function deleteFile(showDiv, disableDiv, attachmentDeleted) {
+        $("#attachmentDeleted").val(attachmentDeleted);
+        $("#" + disableDiv).css("display","none");
+        $("#" + showDiv).css("display","initial");
+    }
+
+    $("#patentName").combobox({
+        onChange: function (newValue, oldValue) {
+     
+            var costType = getType();
+            clearPay(costType);
+            var list = $("#patentName").combobox('getData');
+            var item = getSelectData(list, newValue);
+            if (item != undefined) {
+                setPatentVal(item.id, item.appNumber, item.agencyName, item.applyer, item.inventor);
+            }
+            if (costType == 1 || costType == 2) {
+                //年费和官费需要设置缴费信息
+                if (item != undefined) {
+                    var patentType = item.patentType;
+                    setPatenCostPay(patentType, costType, item);
+                }
+            }
+        }
+    });
+
+
+    function setPatentVal(id, appNumber, agencyName, applyer, inventor) {
+        $("#patentId").val(id);
+        $('#appNumber').textbox('setValue', appNumber);
+        $('#agencyName').textbox('setValue', agencyName);
+        if('${type}' == 1){
+            $("#applyer").textbox("setValue", applyer);
+            $("#inventor").textbox("setValue", inventor);
+        }
+    }
+
+    function setPatenCostPay(patentType, costType, item) {
+
+        var costSecType = $('#costName').textbox('getValue');
+        if(costSecType == ''){
+            return;
+        }
+
+        //设置金额
+        var feePayable = getFeePayable(patentType, costSecType);
+        if(feePayable == false || feePayable == undefined){
+            $('#patentName').combobox('clear')
+        }else if(feePayable != true) {
+            $('#standardAmount').textbox('setValue', feePayable);
+            changeAutoWriter($('#standardAmount'), 1);
+        }
+        //设置日期
+        if(costType == 1){
+            setFeePayableDateY(item, costSecType, false);
+        }else if(costType == 2){
+            //做了处理，需要-20
+            costSecType = costSecType - 20;
+            setFeePayableDateG(item, costSecType, false);
+        }
+
+    }
+
+    //根据 专利类型 和 费用二级类型 获取应缴金额
+    function getFeePayable(patentType, costSecType){
+        //2,3
+        var costType = getType();
+        var feePayable;
+
+        debugger
+        if(costType == 1){
+            //年费
+            if(patentType == 1){
+                //发明专利
+                if(costSecType < 3){
+                    feePayable = 900;
+                }else if(costSecType < 6){
+                    feePayable = 1200;
+                }else if(costSecType < 9){
+                    feePayable = 2000;
+                }else if(costSecType < 12){
+                    feePayable = 4000;
+                }else if(costSecType < 15){
+                    feePayable = 6000;
+                }else if(costSecType < 20){
+                    feePayable = 8000;
+                }
+            }else if(patentType == 2 || patentType == 3){
+                //实用新型和外观设计
+                if(costSecType < 3){
+                    feePayable = 600;
+                }else if(costSecType < 5){
+                    feePayable = 900;
+                }else if(costSecType < 8){
+                    feePayable = 1200;
+                }else if(costSecType < 10){
+                    feePayable = 2000;
+                }else {
+                    $.messager.alert('错误', '该类型没有此年费');
+                    return false;
+                }
+            }
+        }else if(costType == 2){
+            //做了处理，需要-20
+            costSecType = costSecType - 20;
+
+            //官费
+            if(costSecType == 0){
+                //申请费
+                if(patentType == 1){
+                    feePayable = 900;
+                }else if(patentType == 2 || patentType == 3){
+                    feePayable = 500;
+                }
+            }else if(costSecType == 1){
+                //申请实质审查费
+                if(patentType == 1){
+                    feePayable = 2500;
+                }else {
+                    $.messager.alert('错误', '实用新型和外观设计没有此费用')
+                }
+            }else if(costSecType == 2){
+                //复查费
+                if(patentType == 1){
+                    feePayable = 1000;
+                }else if(patentType == 2 || patentType == 3){
+                    feePayable = 300;
+                }
+            }else if(costSecType == 3){
+                //著录事项变更费-发明人、申请人、专利权人的变更
+                feePayable = 200;
+            }else if(costSecType == 4){
+                //优先权要求费/每项
+                feePayable = 80;
+            }else if(costSecType == 5){
+                //恢复权利请求费
+                feePayable = 1000;
+            }else if(costSecType == 6){
+                //无效宣告请求费
+                if(patentType == 1){
+                    feePayable = 3000;
+                }else if(patentType == 2){
+                    feePayable = 1500;
+                }
+            }else if(costSecType == 7){
+                //强制许可请求费
+                if(patentType == 1){
+                    feePayable = 300;
+                }else if(patentType == 2){
+                    feePayable = 200;
+                }else {
+                    $.messager.alert('错误', '该类型没有此费用');
+                }
+            }else if(costSecType == 8){
+                //强制许可使用裁决请求费
+                feePayable = 300;
+            }else if(costSecType == 9){
+                //印花税
+                feePayable = 5;
+            }else if(costSecType == 10){
+                //附加费
+                //用户填
+                feePayable = true;
+            }else if(costSecType == 11){
+                //专利权评价报告请求费
+                if(patentType == 1){
+                    feePayable = 2400;
+                }else if(patentType == 2){
+                    feePayable = 2400;
+                }else {
+                    $.messager.alert('错误', '该类型没有此费用');
+                }
+            }else if(costSecType == 12){
+                //实用新型专利检索报告费
+                if(patentType == 2){
+                    feePayable = 2400;
+                }else {
+                    $.messager.alert('错误', '该类型没有此费用');
+                }
+            }else if(costSecType == 13){
+                //中止费
+                feePayable = 600;
+            }else if(costSecType == 14){
+                //申请费-公布印刷费
+                if(patentType == 1){
+                    feePayable = 50;
+                }else {
+                    $.messager.alert('错误', '该类型没有此费用');
+                }
+            }
+        }
+
+        return feePayable;
+    }
+
+    //设置官费的关联日期
+    function setFeePayableDateG(selectPatent, costSecType, isInput){
+        if(selectPatent != undefined && costSecType != undefined){
+            var fd = $('#feePayableDate');
+            var sd = $('#standardDate');
+            var appDate = new Date(selectPatent.appDate);
+            var authorizeDate = new Date(selectPatent.authorizeDate);
+            var feePayableDateVal = fd.val();
+            var feePayableDate = new Date(feePayableDateVal);
+            if(isInput){
+                appDate = feePayableDate;
+                authorizeDate = feePayableDate;
+            }
+
+            var reDate;
+            if(costSecType == 0){
+                //申请费
+                if(!isNaN(Date.parse(appDate.toDateString()))){
+                    reDate = dateDealWith(appDate, 0, 2,0);
+                    fd.val(getDateStrYMD(appDate));
+                    sd.val(getDateStrYMD(reDate));
+                    changeAutoWriter(fd, 1);
+                    changeAutoWriter(sd, 1);
+                }
+            }else if(costSecType == 1){
+                //申请实质检查费
+                if(!isNaN(Date.parse(appDate.toDateString()))){
+                    reDate = dateDealWith(appDate, 3, 0, 0);
+                    fd.val(getDateStrYMD(appDate));
+                    sd.val(getDateStrYMD(reDate));
+                    changeAutoWriter(fd, 1);
+                    changeAutoWriter(sd, 1);
+                }
+            }else if(costSecType == 2){
+                //复查费
+                if(!isNaN(Date.parse(feePayableDate.toDateString()))){
+                    reDate = dateDealWith(feePayableDate, 0, 3, 10);
+                    sd.val(getDateStrYMD(reDate));
+                    changeAutoWriter(sd, 1);
+                }
+            }else if(costSecType == 3){
+                //著录事项变更费-发明人、申请人、专利权人的变更
+                if(!isNaN(Date.parse(feePayableDate.toDateString()))){
+                    reDate = dateDealWith(feePayableDate, 0, 1, 0);
+                    sd.val(getDateStrYMD(reDate));
+                    changeAutoWriter(sd, 1);
+                }
+            }else if(costSecType == 4){
+                //优先权要求费/每项
+                //用户输入
+            }else if(costSecType == 5){
+                //恢复权利请求费
+                if(!isNaN(Date.parse(feePayableDate.toDateString()))){
+                    reDate = dateDealWith(feePayableDate, 0, 2, 10);
+                    sd.val(getDateStrYMD(reDate));
+                    changeAutoWriter(sd, 1);
+                }
+            }else if(costSecType == 6){
+                //无效宣告请求费
+                if(!isNaN(Date.parse(feePayableDate.toDateString()))){
+                    reDate = dateDealWith(feePayableDate, 0, 1, 0);
+                    sd.val(getDateStrYMD(reDate));
+                    changeAutoWriter(sd, 1);
+                }
+            }else if(costSecType == 7){
+                //强制许可请求费
+                //用户输入
+            }else if(costSecType == 8){
+                //强制许可使用裁决请求费
+                //用户输入
+            }else if(costSecType == 9){
+                //印花税
+                if(!isNaN(Date.parse(authorizeDate.toDateString()))){
+                    reDate = dateDealWith(authorizeDate, 0, 2, 10);
+                    fd.val(getDateStrYMD(authorizeDate));
+                    sd.val(getDateStrYMD(reDate));
+                    changeAutoWriter(fd, 1);
+                    changeAutoWriter(sd, 1);
+                }
+            }else if(costSecType == 10){
+                //附加费
+                //用户自己输入
+            }else if(costSecType == 11){
+                //专利权评价报告请求费
+                if(!isNaN(Date.parse(feePayableDate.toDateString()))){
+                    reDate = dateDealWith(feePayableDate, 0, 1, 0);
+                    sd.val(getDateStrYMD(reDate));
+                    changeAutoWriter(sd, 1);
+                }
+            }else if(costSecType == 12){
+                //实用新型专利检索报告费
+                //用户自己输入
+            }else if(costSecType == 13){
+                //中止费
+                //用户自己输入
+            }else if(costSecType == 14){
+                //申请费-公布印刷费
+                if(!isNaN(Date.parse(appDate.toDateString()))){
+                    reDate = dateDealWith(appDate, 0, 2, 0);
+                    fd.data(getDateStrYMD(appDate));
+                    sd.val(getDateStrYMD(reDate));
+                    changeAutoWriter(fd, 1);
+                    changeAutoWriter(sd, 1);
+                }
+            }
+        }
+    }
+
+    //设置年费关联的日期
+    function setFeePayableDateY(selectPatent, costSecType, isInput){
+        if(selectPatent != undefined && costSecType != undefined) {
+            var fd = $('#feePayableDate');
+            var sd = $('#standardDate');
+            var appDate = selectPatent.appDate;
+            appDate = new Date(appDate);
+
+            if(isNaN(appDate)){
+                return;
+            }
+            if(isInput){
+                appDate = new Date(fd.val());
+            }
+            costSecType = parseInt(costSecType);
+            var fdDate = dateDealWith(appDate, costSecType, 0, 0);
+            var sdDate = dateDealWith(fdDate, 1, 0, 0);
+            fd.val(getDateStrYMD(fdDate));
+            sd.val(getDateStrYMD(sdDate));
+
+            //设置为自动填写
+            fd.data('autoWrite', 1);
+            sd.data('autoWrite', 1);
+        }
+    }
+
+    $('#standardAmount').textbox({
+        onChange:function (nVal, oVal) {
+            changeAutoWriter($('#standardAmount'), 0);
+        }
+    });
+
+    $('#feePayable').textbox({
+        onChange:function (nVal, oVal) {
+            changeAutoWriter($('#feePayable'), 0);
+        }
+    });
+
+    function feePayableDateChange() {
+        var costType = getType();
+        var feePayableDateEle = $('#feePayableDate');
+        var feePayableDate = feePayableDateEle.val();
+        if(isNaN(Date.parse(feePayableDate))){
+            return;
+        }
+        //手动输入
+        feePayableDateEle.data('autoWrite', 0);
+        var costSecType = $('#costName').combobox('getValue');
+        var id = $('#patentName').combobox('getValue');
+        var list = $("#patentName").combobox('getData');
+        var selectPatent = getSelectData(list, id);
+
+        if(selectPatent == undefined || costSecType == undefined || costSecType == ''){
+            return;
+        }
+
+        if(costType == 1){
+            setFeePayableDateY(selectPatent, costSecType, true);
+        }else if(costType == 2){
+            costSecType = costSecType - 20;
+            setFeePayableDateG(selectPatent, costSecType, true);
+        }
+    }
+
+    function standardDateChange() {
+        $('#standardDate').data('autoWrite', 0);
+    }
+
+    function dateDealWith(date, addYear, addMonth, addDay) {
+        var reDate = new Date(date);
+        reDate.setFullYear(date.getFullYear() + addYear);
+        reDate.setMonth(date.getMonth() + addMonth);
+        reDate.setDate(date.getDate() + addDay);
+        return reDate;
+    }
+    
+    function test() {
+        /*var date = $('#feePayableDate').val();
+        var dt = new Date(date);
+        dt.setMonth(dt.getMonth() + 5);
+        $('#paymentDate').val(getDateStrYMD(dt));
+        $('#costName').combobox('clear');
+        var tt = $('#standardAmount').data('autoWrite');*/
+
+        /*var date = new Date('');
+        //var t1 = dateDealWith(date, 1, 0, 0);
+        //var t2 = dateDealWith(date, 1, 0, 0);
+        if(isNaN(Date.parse(date.toDateString()))){
+            console.log('!!!');
+        }*/
+
+    }
+
+    function getDateStrYMD(date){
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+
+        return year + '-' + month + '-' + day;
+    }
+    //id
+    function getSelectData(list, id) {
+        for (var i = 0; i < list.length; i++) {
+            var item = list[i];
+            var selectValId = item.id;
+            if(selectValId == id){
+                return item;
+            }
+        }
+    }
+    //dictValue
+    function getSelectDataByValue(list, value) {
+        for (var i = 0; i < list.length; i++) {
+            var item = list[i];
+            var dictValue = item.dictValue;
+            if(dictValue == value){
+                return item;
+            }
+        }
+    }
+
+    function clearPay(costType) {
+         //如果是年费和官费而且被自动赋值了，需要清除
+        var fd = $('#feePayableDate');
+        var sd = $("#standardDate");
+        if(costType == 1 || costType == 2){
+            var sa = $('#standardAmount');
+            if(sa.data('autoWrite') == 1){
+                sa.textbox('clear');
+            }
+            if(fd.data('autoWrite') == 1){
+                fd.val('');
+            }
+            if(sd.data('autoWrite') == 1){
+                sd.val('');
+            }
+        }
+    }
+    
+    function changeAutoWriter(obj, status) {
+        obj.data('autoWrite',status);
+    }
+
+    $(".checkNumber").textbox({
+        onChange:function (nVal, oVal) {
+            console.log("输入了" + nVal + "|" + oVal);
+            if(isNaN(nVal)){
+                if(isNaN(oVal)){
+                    $(this).textbox('setText', '');
+                }else {
+                    $(this).textbox('setText', oVal);
+                }
+            }
+        }
+    });
+</script>

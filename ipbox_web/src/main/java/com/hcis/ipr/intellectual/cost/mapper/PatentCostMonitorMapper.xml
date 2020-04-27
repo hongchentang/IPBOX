@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcis.ipr.intellectual.cost.mapper.PatentCostMonitorMapper">
+  <resultMap id="BaseResultMap" type="com.hcis.ipr.intellectual.cost.entity.PatentCostMonitor" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="COMPANY_ID" property="companyId" jdbcType="VARCHAR" />
+    <result column="PATENT_COST_ID" property="patentCostId" jdbcType="VARCHAR" />
+    <result column="DISTANCE_DEAD_DAY" property="distanceDeadDay" jdbcType="INTEGER" />
+    <result column="DEAD_DATE" property="deadDate" jdbcType="TIMESTAMP" />
+    <result column="EXECUTOR" property="executor" jdbcType="VARCHAR" />
+    <result column="EXECUTE_DATE" property="executeDate" jdbcType="TIMESTAMP" />
+    <result column="VERIFICATION" property="verification" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="BIT" />
+    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="CHAR" />
+    <result column="VERSION" property="version" jdbcType="BIGINT" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    ID, PATENT_COST_ID, DEAD_DATE, EXECUTOR, EXECUTE_DATE, VERIFICATION, STATUS, CREATOR, 
+    CREATE_TIME, UPDATEDBY, UPDATE_TIME, IS_DELETED, VERSION, COMPANY_ID
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ipanther_patent_cost_monitor
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ipanther_patent_cost_monitor
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.hcis.ipr.intellectual.cost.entity.PatentCostMonitor" >
+    insert into ipanther_patent_cost_monitor (ID, PATENT_COST_ID, DEAD_DATE,
+      EXECUTOR, EXECUTE_DATE, VERIFICATION, 
+      STATUS, CREATOR, CREATE_TIME, 
+      UPDATEDBY, UPDATE_TIME, IS_DELETED, 
+      VERSION, COMPANY_ID)
+    values (#{id,jdbcType=VARCHAR}, #{patentCostId,jdbcType=VARCHAR}, #{deadDate,jdbcType=TIMESTAMP}, 
+      #{executor,jdbcType=VARCHAR}, #{executeDate,jdbcType=TIMESTAMP}, #{verification,jdbcType=VARCHAR}, 
+      #{status,jdbcType=BIT}, #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updatedby,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=CHAR},
+      #{version,jdbcType=BIGINT}, #{companyId,jdbcType=VARCHAR})
+  </insert>
+
+  <update id="updateByPrimaryKey" parameterType="com.hcis.ipr.intellectual.cost.entity.PatentCostMonitor" >
+    update ipanther_patent_cost_monitor
+    set PATENT_COST_ID = #{patentCostId,jdbcType=VARCHAR},
+      DEAD_DATE = #{deadDate,jdbcType=TIMESTAMP},
+      EXECUTOR = #{executor,jdbcType=VARCHAR},
+      EXECUTE_DATE = #{executeDate,jdbcType=TIMESTAMP},
+      VERIFICATION = #{verification,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=BIT},
+      CREATOR = #{creator,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      VERSION = VERSION + 1
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into ipanther_patent_cost_monitor
+    (ID, PATENT_COST_ID, DEAD_DATE,EXECUTOR, EXECUTE_DATE, VERIFICATION,
+    STATUS, CREATOR, CREATE_TIME,UPDATEDBY, UPDATE_TIME, IS_DELETED,VERSION,COMPANY_ID)
+    values
+    <foreach collection="list" item="monitor" separator=",">
+      (#{monitor.id,jdbcType=VARCHAR}, #{monitor.patentCostId,jdbcType=VARCHAR}, #{monitor.deadDate,jdbcType=TIMESTAMP},
+      #{monitor.executor,jdbcType=VARCHAR}, #{monitor.executeDate,jdbcType=TIMESTAMP}, #{monitor.verification,jdbcType=VARCHAR},
+      #{monitor.status,jdbcType=BIT}, #{monitor.creator,jdbcType=VARCHAR}, #{monitor.createTime,jdbcType=TIMESTAMP},
+      #{monitor.updatedby,jdbcType=VARCHAR}, #{monitor.updateTime,jdbcType=TIMESTAMP}, #{monitor.isDeleted,jdbcType=CHAR},
+      #{monitor.version,jdbcType=BIGINT},#{monitor.companyId,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+
+  <select id="listMonitor" parameterType="searchParam" resultType="com.hcis.ipr.intellectual.cost.dto.PatentCostMonitorListDto">
+    SELECT
+      pcm.id AS id,
+      (to_days(pc.STANDARD_DATE) - to_days(now())) AS deadDays,
+      ip.APP_NUMBER AS appNumber,
+      ip.PATENT_NAME AS patentName,
+      ip.APPLYER AS applyer,
+      ip.APP_DATE AS appDate,
+      pc.COST_NAME AS costName,
+      pc.COST_STATUS AS costStatus,
+      pc.FEE_PAYABLE_DATE AS feepayableDate,
+      pc.STANDARD_DATE AS standardDate,
+      pcm.CREATOR AS creator,
+      pcm.VERIFICATION AS verification,
+      pcm.`STATUS` AS `status`
+    FROM
+    ipanther_patent_cost_monitor AS pcm
+    LEFT JOIN ipanther_patent_cost AS pc ON pc.id = pcm.PATENT_COST_ID
+    LEFT JOIN ipanther_patent AS ip ON ip.ID = pc.PATENT_ID
+    WHERE
+    1=1
+    <if test="paramMap.companyId != null and paramMap.companyId != ''" >
+      AND pcm.COMPANY_ID = #{paramMap.companyId, jdbcType=VARCHAR}
+    </if>
+
+    AND pc.COST_TYPE = #{paramMap.type, jdbcType=INTEGER}
+    AND pc.COST_STATUS = 0
+    AND ip.IS_DELETED = 'N'
+    AND pc.IS_DELETED = 'N'
+    AND
+    (
+        pcm.status = #{paramMap.status, jdbcType=INTEGER}
+        AND (to_days(pc.STANDARD_DATE) - to_days(now())) &lt; #{paramMap.maxTime, jdbcType=INTEGER}
+        AND (to_days(pc.STANDARD_DATE) - to_days(now())) > -300
+        <if test="paramMap.status == 1">
+          OR
+          (
+          pcm.`STATUS` = 0
+          AND  (to_days(pc.STANDARD_DATE) - to_days(now())) &lt; #{paramMap.monitorMaxDay, jdbcType=INTEGER}
+          )
+        </if>
+
+    )
+
+    <if test="paramMap.patentName != null and paramMap.patentName != ''">
+        AND ip.PATENT_NAME LIKE CONCAT('%', #{paramMap.patentName}, '%')
+    </if>
+    <if test="paramMap.appNumber != null and paramMap.appNumber != ''">
+      AND ip.APP_NUMBER LIKE CONCAT('%', #{paramMap.appNumber}, '%')
+    </if>
+    <if test="paramMap.applyer != null and paramMap.applyer != ''">
+      AND ip.APPLYER LIKE CONCAT('%', #{paramMap.applyer}, '%')
+    </if>
+    /*权限相关限制*/
+    <if test="paramMap.deptIds != null and paramMap.deptIds.size > 0">
+      and ip.DEP_ID IN
+      <foreach collection="paramMap.deptIds" item="deptId" open="(" close=")" separator=",">
+        #{deptId, jdbcType=VARCHAR}
+      </foreach>
+    </if>
+    <if test="paramMap.searchUserId != null and paramMap.searchUser != ''">
+      and ip.CREATOR = #{paramMap.searchUserId}
+    </if>
+    ORDER BY
+    (to_days(pc.STANDARD_DATE) - to_days(now())) ASC
+  </select>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.hcis.ipr.intellectual.cost.entity.PatentCostMonitor" >
+    update ipanther_patent_cost_monitor
+    <set >
+      <if test="companyId != null" >
+        COMPANY_ID = #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="patentCostId != null" >
+        PATENT_COST_ID = #{patentCostId,jdbcType=VARCHAR},
+      </if>
+      <if test="deadDate != null" >
+        DEAD_DATE = #{deadDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="executor != null" >
+        EXECUTOR = #{executor,jdbcType=VARCHAR},
+      </if>
+      <if test="executeDate != null" >
+        EXECUTE_DATE = #{executeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="verification != null" >
+        VERIFICATION = #{verification,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=BIT},
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      </if>
+      VERSION = VERSION + 1
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateDeadTime">
+    UPDATE ipanther_patent_cost_monitor SET DISTANCE_DEAD_DAY = DISTANCE_DEAD_DAY - 1
+  </update>
+
+  <select id="findEmails" parameterType="searchParam" resultType="com.hcis.ipr.intellectual.cost.dto.PatentCostMonitorDto">
+    SELECT
+      pcm.id AS id,
+      ( to_days( pc.STANDARD_DATE ) - to_days( now( ) ) ) AS deadNumber,
+      ip.APP_NUMBER AS appNumber,
+      ip.PATENT_NAME AS patentName,
+      pc.COST_NAME AS costName,
+      pc.FEE_PAYABLE AS feepayable,
+      pc.STANDARD_DATE AS standardDate,
+      u.EMAIL AS email
+    FROM
+        ipanther_patent_cost_monitor AS pcm
+    LEFT JOIN ipanther_patent_cost AS pc ON pc.id = pcm.PATENT_COST_ID
+    LEFT JOIN ipanther_patent AS ip ON ip.ID = pc.PATENT_ID
+    LEFT JOIN ipanther_user AS u ON u.ID = pc.CREATOR
+    WHERE
+    pc.COST_STATUS = 0
+    AND pcm.`STATUS` = 0
+    AND pc.IS_DELETED = 'N'
+    AND pc.COST_TYPE = #{paramMap.costType, jdbcType=INTEGER}
+    AND ( to_days( pc.STANDARD_DATE ) - to_days( now( ) ) ) &lt; #{paramMap.max, jdbcType=INTEGER}
+    AND ( to_days( pc.STANDARD_DATE ) - to_days( now( ) ) ) &gt; #{paramMap.min, jdbcType=INTEGER}
+    AND  ip.COMPANY_ID = '213dac4c24084235844359acbaedf2e0'
+  </select>
+
+  <select id="listMonitorCostId" parameterType="searchParam" resultType="java.lang.String">
+    SELECT
+        pc.id
+    FROM
+    ipanther_patent_cost_monitor AS pcm
+    LEFT JOIN ipanther_patent_cost AS pc ON pc.id = pcm.PATENT_COST_ID
+    LEFT JOIN ipanther_patent AS ip ON ip.ID = pc.PATENT_ID
+    WHERE
+    1=1
+    <if test="paramMap.companyId != null and paramMap.companyId != ''" >
+      AND pcm.COMPANY_ID = #{paramMap.companyId, jdbcType=VARCHAR}
+    </if>
+
+    AND pc.COST_TYPE = #{paramMap.type, jdbcType=INTEGER}
+    AND pc.COST_STATUS = 0
+    AND ip.IS_DELETED = 'N'
+    AND pc.IS_DELETED = 'N'
+    AND
+    (
+    pcm.status = #{paramMap.status, jdbcType=INTEGER}
+    AND (to_days(pc.STANDARD_DATE) - to_days(now())) &lt; #{paramMap.maxTime, jdbcType=INTEGER}
+    AND (to_days(pc.STANDARD_DATE) - to_days(now())) > -300
+    <if test="paramMap.status == 1">
+      OR
+      (
+      pcm.`STATUS` = 0
+      AND  (to_days(pc.STANDARD_DATE) - to_days(now())) &lt; #{paramMap.monitorMaxDay, jdbcType=INTEGER}
+      )
+    </if>
+
+    )
+
+    <if test="paramMap.patentName != null and paramMap.patentName != ''">
+      AND ip.PATENT_NAME LIKE CONCAT('%', #{paramMap.patentName}, '%')
+    </if>
+    <if test="paramMap.appNumber != null and paramMap.appNumber != ''">
+      AND ip.APP_NUMBER LIKE CONCAT('%', #{paramMap.appNumber}, '%')
+    </if>
+    <if test="paramMap.applyer != null and paramMap.applyer != ''">
+      AND ip.APPLYER LIKE CONCAT('%', #{paramMap.applyer}, '%')
+    </if>
+  </select>
+
+</mapper>

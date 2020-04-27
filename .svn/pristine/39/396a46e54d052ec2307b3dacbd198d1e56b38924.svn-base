@@ -1,0 +1,88 @@
+package com.hcis.ipanther.common.validate.utils;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.cloopen.rest.sdk.CCPRestSDK;
+import com.hcis.ipanther.core.utils.AppConfig;
+import com.hcis.ipanther.core.utils.JsonUtil;
+
+public class SmsUtil {
+	
+	private static final Logger logger=LoggerFactory.getLogger(SmsUtil.class);
+
+	private static String SERVER_URL=AppConfig.getProperty("sms","SERVER_URL");//初始化服务器地址
+	private static String SERVER_PORT=AppConfig.getProperty("sms","SERVER_PORT");//端口
+	private static String ACCOUNT_SID=AppConfig.getProperty("sms","ACCOUNT_SID");//初始化主帐号名称
+	private static String ACCOUNT_TOKEN=AppConfig.getProperty("sms","ACCOUNT_TOKEN");//主帐号令牌
+	private static String APP_ID=AppConfig.getProperty("sms","APP_ID");//应用ID
+	public static String SMS_TEMPLATE_ID=AppConfig.getProperty("sms","SMS_TEMPLATE_ID");//验证码短信模板ID.测试的时候用1。
+	public static int SMS_CODE_USEFUL_TIME=Integer.valueOf(AppConfig.getProperty("sms","SMS_CODE_USEFUL_TIME"));//默认3分钟内有效
+	
+	/**
+	 * 发送短信
+	 * @param phoneNo
+	 * @param smsTemplateId 
+	 * @param contents 对应短信模板中的参数
+	 * @return
+	 */
+	public static int sendSMS(String phoneNo,String smsTemplateId,String[] contents){
+		int count=0;
+		HashMap<String, Object> result = null;
+		CCPRestSDK restAPI = new CCPRestSDK();
+		restAPI.init(SERVER_URL, SERVER_PORT);// 初始化服务器地址和端口，格式如下，服务器地址不需要写https://
+		restAPI.setAccount(ACCOUNT_SID, ACCOUNT_TOKEN);// 初始化主帐号名称和主帐号令牌
+		restAPI.setAppId(APP_ID);// 初始化应用ID
+		result = restAPI.sendTemplateSMS(phoneNo,smsTemplateId ,contents);
+		System.out.println("SDKTestGetSubAccounts result=" + result);
+		if("000000".equals(result.get("statusCode"))){
+			count++;
+		}else{
+			//异常返回输出错误码和错误信息
+			logger.error(SmsUtil.class.getName(),"错误码=" + result.get("statusCode") +" 错误信息= "+result.get("statusMsg"));
+		}
+		return count;
+	}
+	
+	/**
+	 * 获取已申请的短信模板
+	 * @return
+	 */
+	public static Map<String,Object> querySMSTemplate(){
+		HashMap<String, Object> result = null;
+
+		CCPRestSDK restAPI = new CCPRestSDK();
+		restAPI.init(SERVER_URL, SERVER_PORT);// 初始化服务器地址和端口，格式如下，服务器地址不需要写https://
+		restAPI.setAccount(ACCOUNT_SID, ACCOUNT_TOKEN);// 初始化主帐号名称和主帐号令牌
+		restAPI.setAppId(APP_ID);// 初始化应用ID
+		result = restAPI.QuerySMSTemplate("");
+
+		System.out.println("QuerySMSTemplate result=" + result);
+		
+		if("000000".equals(result.get("statusCode"))){
+			//正常返回输出data包体信息（map）
+			HashMap<String,Object> data = (HashMap<String, Object>) result.get("data");
+			Set<String> keySet = data.keySet();
+			for(String key:keySet){
+				Object object = data.get(key);
+				System.out.println(key +" = "+object);
+			}
+		}else{
+			//异常返回输出错误码和错误信息
+			logger.error(SmsUtil.class.getName(),"错误码=" + result.get("statusCode") +" 错误信息= "+result.get("statusMsg"));
+		}
+		return result;
+	}
+	
+	public static void main(String args[]) throws Exception{
+		Map<String,Object> map=SmsUtil.querySMSTemplate();
+		logger.info("querySMSTemplate="+JsonUtil.toJson(map));
+		int count=SmsUtil.sendSMS("15920508447", SMS_TEMPLATE_ID, new String[]{ValicateCodeUtils.getRandomNumber(),String.valueOf(SMS_CODE_USEFUL_TIME)});
+		logger.info("sendSMS="+count);
+	}
+	
+}

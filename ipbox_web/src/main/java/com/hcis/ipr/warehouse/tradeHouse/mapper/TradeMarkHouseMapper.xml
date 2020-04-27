@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcis.ipr.warehouse.tradeHouse.mapper.TradeMarkHouseMapper" >
+  <resultMap id="BaseResultMap" type="com.hcis.ipr.warehouse.tradeHouse.entity.TradeMarkHouse" >
+    <id     column="ID"                    property="id"            jdbcType="VARCHAR" />
+    <result column="REGISTE_NUMBER"        property="registeNumber" jdbcType="VARCHAR" />  
+    <result column="NAME"                  property="name"          jdbcType="VARCHAR" />  
+    <result column="REGISTE_TYPE"          property="registeType"   jdbcType="VARCHAR" /> 
+    <result column="CLASSFIY"              property="classfiy"      jdbcType="VARCHAR" /> 
+    <result column="IMAGE"                 property="image"         jdbcType="VARCHAR" />
+    <result column="FIRST_PUBLIC_NUMBER"   property="firstPublicNumber" jdbcType="VARCHAR" />  
+    <result column="FIRST_PUBLIC_DATE"     property="firstPublicDate"   jdbcType="TIMESTAMP" /> 
+    <result column="REGISTE_PUBLIC_NUMBER" property="registePublicNumber" jdbcType="VARCHAR" /> 
+    <result column="REGISTE_PUBLIC_DATE"   property="registePublicDate" jdbcType="TIMESTAMP" />
+    <result column="DES_GOODS"             property="desGoods"      jdbcType="VARCHAR" />
+    <result column="AGENCY"                property="agency"        jdbcType="VARCHAR" />
+    <result column="REGISTE_ADDRESS"       property="registeAdress" jdbcType="VARCHAR" />
+    <result column="PROVICE"               property="provice"       jdbcType="VARCHAR" />
+    <result column="CITY" 				   property="city"          jdbcType="VARCHAR" />
+    <result column="CREATOR"               property="creator"       jdbcType="VARCHAR" />
+    <result column="CREATE_TIME"           property="createTime"    jdbcType="TIMESTAMP" />
+    <result column="UPDATEDBY"            property="updatedby"     jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME"           property="updateTime"    jdbcType="TIMESTAMP" />
+    <result column="VERSION"               property="version"       jdbcType="DECIMAL" />
+    <result column="IS_DELETED"            property="isDeleted"     jdbcType="CHAR" /> 
+	<!--   一个商标对应一个注册人          -->
+    <association property="tradeMarkRegisterInfo" javaType="com.hcis.ipr.warehouse.tradeHouse.entity.TradeMarkRegisterInfo">
+    	<id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="CHINESE_NAME" property="chineseName" jdbcType="VARCHAR" />
+        <result column="FOREIGN_NAME" property="foreignName" jdbcType="VARCHAR" />
+        <result column="CHINESE_ADDRESS" property="chineseAddress" jdbcType="VARCHAR" />
+        <result column="FOREIGN_ADDRESS" property="foreignAddress" jdbcType="VARCHAR" />                
+     </association>
+     <!-- 一个商标对应多个商品服务信息 -->
+     <collection property="tradeMarkServiceInfos" ofType="com.hcis.ipr.warehouse.tradeHouse.entity.TradeMarkServiceInfo">
+         <id column="ID" property="id"/>
+         <result column="PRODUCT_NAME"   property="productName" jdbcType="VARCHAR"/>
+         <result column="CLASSFIY_LIKE"  property="classfiyLike" jdbcType="VARCHAR"/>
+         <result column="ORDER"  property="order" jdbcType="VARCHAR"/>
+         <result column="STATES"  property="status" jdbcType="VARCHAR"/>
+     </collection>       
+  </resultMap>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select t1.ID,t1.REGISTE_NUMBER,t1.NAME,t1.REGISTE_TYPE,t1.CLASSFIY,t1.IMAGE,t1.FIRST_PUBLIC_NUMBER,t1.FIRST_PUBLIC_DATE,t1.REGISTE_PUBLIC_NUMBER,t1.REGISTE_PUBLIC_DATE,t1.DES_GOODS,t1.AGENCY,t1.REGISTE_ADDRESS,t1.PROVICE,t1.CITY,
+    t2.CHINESE_NAME,t2.FOREIGN_NAME,t2.CHINESE_ADDRESS,t2.FOREIGN_ADDRESS,t3.PRODUCT_NAME,t3.CLASSFIY_LIKE,t3.ORDER,t3.STATES
+    from trademark_information_base t1
+	left join trademark_register_infomation t2 on t1.REGISTE_NUMBER = t2.REGISTE_NUMBER and t1.CLASSFIY = t2.CLASSFIY 
+  	left join trademark_service_info t3 on t1.REGISTE_NUMBER = t3.REGISTE_NUMBER and t1.CLASSFIY = t3.CLASSFIY 
+    where t1.IS_DELETED='N'
+    and t1.ID = #{id,jdbcType=VARCHAR}     
+  </select> 
+  
+  <select id="selectBySearchParam" resultMap="BaseResultMap" parameterType="searchParam" >
+    select t1.ID,t1.REGISTE_NUMBER,t1.NAME,t1.REGISTE_TYPE,t1.CLASSFIY,t1.IMAGE,t1.FIRST_PUBLIC_NUMBER,t1.FIRST_PUBLIC_DATE,t1.REGISTE_PUBLIC_NUMBER,t1.REGISTE_PUBLIC_DATE,t1.DES_GOODS,t1.AGENCY,t1.REGISTE_ADDRESS,t1.PROVICE,t1.CITY
+    from trademark_information_base t1 
+    where t1.IS_DELETED='N'  
+    <if test="paramMap.registeNumber != null and paramMap.registeNumber != ''" >
+       and t1.REGISTE_NUMBER = #{paramMap.registeNumber,jdbcType=VARCHAR}
+    </if>
+    <if test="paramMap.name != null and paramMap.name != ''" >
+       and t1.NAME = #{paramMap.name,jdbcType=VARCHAR}
+    </if>
+    <if test="paramMap.classfiy != null and paramMap.classfiy != ''" >
+       and t1.CLASSFIY = #{paramMap.classfiy,jdbcType=VARCHAR}
+    </if>
+    <if test="paramMap.firstPublicNumber != null and paramMap.firstPublicNumber != ''" >
+       and t1.FIRST_PUBLIC_NUMBER = #{paramMap.firstPublicNumber,jdbcType=VARCHAR}
+    </if>
+    <if test="paramMap.registePublicNumber != null and paramMap.registePublicNumber != ''" >
+       and t1.REGISTE_PUBLIC_NUMBER = #{paramMap.registePublicNumber,jdbcType=VARCHAR}
+    </if>
+    <if test="paramMap.registePublicDate != null and paramMap.registePublicDate != ''" >
+       and t1.REGISTE_PUBLIC_DATE >= #{paramMap.registePublicDate,jdbcType=TIMESTAMP}
+    </if>
+    ORDER BY t1.CREATE_TIME,t1.ID DESC
+  </select>
+  
+  <update id="deleteByLogic" parameterType="com.hcis.ipr.warehouse.tradeHouse.entity.TradeMarkHouse" >
+    update trademark_information_base 
+  	set IS_DELETED='Y',
+  	UPDATEDBY=#{updatedby,jdbcType=VARCHAR},
+  	UPDATE_TIME=#{updateTime,jdbcType=TIMESTAMP},
+  	VERSION = VERSION+1
+  	WHERE ID=#{id,jdbcType=VARCHAR}
+  </update>
+ 
+ <insert id="insert" parameterType="com.hcis.ipr.warehouse.tradeHouse.entity.TradeMarkHouse" >
+    insert into trademark_information_base (ID,REGISTE_NUMBER,NAME,REGISTE_TYPE,CLASSFIY,IMAGE,FIRST_PUBLIC_NUMBER,
+			FIRST_PUBLIC_DATE,REGISTE_PUBLIC_NUMBER,REGISTE_PUBLIC_DATE,DES_GOODS,AGENCY,REGISTE_ADDRESS,PROVICE,CITY,
+			CREATOR,CREATE_TIME, UPDATEDBY, UPDATE_TIME,IS_DELETED, VERSION)     
+    values (#{id,jdbcType=VARCHAR},#{registeNumber,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{registeType,jdbcType=VARCHAR},
+      #{classfiy,jdbcType=VARCHAR},#{image,jdbcType=VARCHAR},#{firstPublicNumber,jdbcType=VARCHAR},#{firstPublicDate,jdbcType=VARCHAR},
+      #{registePublicNumber,jdbcType=VARCHAR},#{registePublicDate,jdbcType=VARCHAR},#{desGoods,jdbcType=VARCHAR},#{agency,jdbcType=VARCHAR},
+      #{registeAdress,jdbcType=VARCHAR},#{provice,jdbcType=VARCHAR},#{city,jdbcType=VARCHAR},
+      #{creator,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP}, #{updatedby,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{isDeleted,jdbcType=CHAR}, #{version,jdbcType=DECIMAL})
+  </insert>
+</mapper>

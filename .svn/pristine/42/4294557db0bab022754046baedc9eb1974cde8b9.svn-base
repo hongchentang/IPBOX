@@ -1,0 +1,115 @@
+@charset "utf-8";
+/* base css */
+
+//主题颜色
+@font-color: #0d4584;
+@font-color1: #188dd1;
+@font-color-h: #0c7ec0;
+@border-color: #ebecf0;
+@sch-color: #1f96db;
+@nv-color: #188dd1;
+@nv-color-h: #0c7ec0;
+
+
+//宽度
+@auto-width: 1000px;
+@mn-width: 720px;
+@sd-width: 246px;
+
+a {
+	color: #444554;
+}
+a:hover {
+	color: @font-color-h;
+}
+//样式
+.f-cb-lst li, 
+.f-cb {
+	zoom: 1;
+}
+.f-cb-lst li:after, 
+.f-cb:after, .clearfixAfter {
+content: "\0020";
+display: block;
+height: 0;
+clear: both;
+visibility: hidden;
+overflow: hidden;
+}
+.dpb(@value: block) {
+	display: @value;
+}
+.dpib(@value: inline-block) {
+	display: @value;
+}
+.dpn(@value: none) {
+ display: @value;
+}
+.fl(@value: left) {
+	.dpib;
+	float: @value;
+}
+.fr(@value: right) {
+	.dpib;
+	float: @value;
+}
+.fn(@value: none) {
+	.dpib;
+	float: @value;
+}
+.fm-st(@value: "\65B0\5B8B\4F53") {
+	font-family: @value;
+}
+.fm-yh(@value: "\5FAE\8F6F\96C5\9ED1") {
+	font-family: @value;
+}
+.fw-bd(@value: 700) {
+	font-weight: @value;
+}
+.fw-no(@value: 300) {
+	font-weight: @value;
+}
+.tac(@value: center) {
+	text-align: @value;
+}
+.tar(@value: right) {
+	text-align: @value;
+}
+ .ps-rt(@value: relative) {
+	position: @value;
+}
+.ps-ab(@value: absolute) {
+	position: @value;
+}
+.ps-fx(@value: fixed) {
+	position: @value;
+}
+.td-ul(@value: underline) {
+	text-decoration: @value;
+}
+.td-no(@value: none) {
+	text-decoration: @value;
+}
+.of-hd(@value: hidden) {
+	overflow: @value;
+} 
+.of-at(@value: auto) {
+	overflow: @value;
+}
+.of-sr(@value: scroll) {
+	overflow: @value;
+}  
+.radius(@value: 50%) {
+	-webkit-border-radius: @value;
+	   -moz-border-radius: @value;
+	     -o-border-radius: @value;
+	    -ms-border-radius: @value;
+	        border-radius: @value;
+}
+.toe(@display: block, @maxWidth: 100%) {
+	display: @display;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	max-width: @maxWidth;
+}

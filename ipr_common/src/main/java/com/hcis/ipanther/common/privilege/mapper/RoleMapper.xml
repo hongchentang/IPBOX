@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcis.ipanther.common.privilege.mapper.RoleMapper" >
+  <resultMap id="RoleMap" type="com.hcis.ipanther.common.privilege.entity.Role" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+     <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="CHAR" />
+    <result column="VERSION" property="version" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, NAME,CODE, DESCRIPTION, IS_DELETED, VERSION
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="RoleMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from IPANTHER_ROLE
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectRole" resultMap="RoleMap" parameterType="com.hcis.ipanther.common.privilege.entity.Role" >
+    select 
+    <include refid="Base_Column_List" />
+    from IPANTHER_ROLE
+    <trim prefix="WHERE" prefixOverrides="AND|OR">  	
+    	 <if test="name != null and name!=''" >
+        	AND NAME = #{name,jdbcType=VARCHAR}
+      	 </if>
+      	 <if test="code != null and code!=''" >
+        	AND CODE = #{code,jdbcType=VARCHAR}
+      	 </if>
+      	 <if test="description != null and description!=''" >
+	        AND  DESCRIPTION LIKE  '%${description}%'
+	     </if>
+	     <if test="isDeleted!=null and isDeleted!=''">
+	     	AND IS_DELETED=#{isDeleted,jdbcType=VARCHAR}
+	     </if>
+    </trim>
+  </select>
+  <select id="selectRoleBySearchParam" resultMap="RoleMap" parameterType="com.hcis.ipanther.core.web.vo.SearchParam" >
+    select 
+    <include refid="Base_Column_List" />
+    from IPANTHER_ROLE
+    <trim prefix="WHERE" prefixOverrides="AND|OR">  	
+    	 <if test="paramMap.role.name != null" >
+        	AND NAME = #{paramMap.role.name,jdbcType=VARCHAR}
+      	 </if>
+      	 <if test="paramMap.role.code != null" >
+        	AND CODE = #{paramMap.role.code,jdbcType=VARCHAR}
+      	 </if>
+      	 <if test="paramMap.role.description != null" >
+	        AND  DESCRIPTION LIKE  '%${paramMap.role.description}%'
+	     </if>
+	     <if test="paramMap.role.isDeleted!=null">
+	     	AND IS_DELETED=#{paramMap.role.isDeleted,jdbcType=VARCHAR}
+	     </if>
+    </trim>
+  </select>
+  <insert id="insert" parameterType="com.hcis.ipanther.common.privilege.entity.Role" >
+    insert into IPANTHER_ROLE(ID, NAME, CODE,DESCRIPTION, 
+      CREATOR, CREATE_TIME, UPDATEDBY, 
+      UPDATE_TIME, IS_DELETED, VERSION
+      )
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},#{code,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updatedby,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=CHAR}, #{version,jdbcType=INTEGER}
+      )
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hcis.ipanther.common.privilege.entity.Role" >
+    update IPANTHER_ROLE
+    <set >
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      </if>
+      <if test="version != null" >
+        VERSION = #{version,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <delete id="deleteByPhysics" parameterType="java.lang.String">
+  	delete FROM IPANTHER_ROLE WHERE ID=#{id,jdbcType=VARCHAR}
+  </delete>
+  <update id="deleteByLogic" parameterType="com.hcis.ipanther.common.privilege.entity.Role">
+  	update IPANTHER_ROLE
+  	SET IS_DELETED='Y',
+  	UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+  	UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+  	VERSION = VERSION+1
+  	WHERE ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="retreive" parameterType="com.hcis.ipanther.common.privilege.entity.Role">
+  	update IPANTHER_ROLE
+  	SET IS_DELETED='N',
+  	UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+  	UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+  	VERSION = VERSION+1
+  	WHERE ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

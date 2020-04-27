@@ -1,0 +1,973 @@
+package com.hcis.ipr.intellectual.patent.web;
+
+import java.io.OutputStream;
+import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletResponse;
+
+import com.hcis.datas.DbContextHolder;
+import com.hcis.ipr.intellectual.cost.enumeration.AnnualType;
+import com.hcis.ipr.intellectual.patent.dao.PatentDao;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.shiro.SecurityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartRequest;
+import org.springframework.web.multipart.support.DefaultMultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.hcis.ipanther.common.customers.entity.CustomersEmail;
+import com.hcis.ipanther.common.customers.service.CustomersService;
+import com.hcis.ipanther.common.dept.service.IDepartmentService;
+import com.hcis.ipanther.common.dict.service.IDictEntryService;
+import com.hcis.ipanther.common.dict.utils.DictUtils;
+import com.hcis.ipanther.common.dict.vo.DictEntry;
+import com.hcis.ipanther.common.login.vo.LoginUser;
+import com.hcis.ipanther.common.user.service.IUserService;
+import com.hcis.ipanther.core.page.Pagination;
+import com.hcis.ipanther.core.web.controller.BaseController;
+import com.hcis.ipanther.core.web.vo.AjaxReturnObject;
+import com.hcis.ipanther.core.web.vo.SearchParam;
+import com.hcis.ipr.common.utils.ApiCode;
+import com.hcis.ipr.common.utils.BaseApi;
+import com.hcis.ipr.intellectual.cost.entity.PatentCost;
+import com.hcis.ipr.intellectual.cost.service.PatentCostService;
+import com.hcis.ipr.intellectual.patent.entity.Patent;
+import com.hcis.ipr.intellectual.patent.result.FileUploadResult;
+import com.hcis.ipr.intellectual.patent.service.PatentAttachmentService;
+import com.hcis.ipr.intellectual.patent.service.PatentService;
+import com.hcis.ipr.quartz.legal.LegalQuartzJob;
+import com.hcis.items.service.ItemsLibraryService;
+
+@RequestMapping("/intellectual/patent")
+@Controller
+public class PatentController extends BaseController {
+
+	@Autowired
+	private PatentService patentService;
+	@Autowired
+	private ItemsLibraryService itemsLibraryService;
+	@Autowired
+	private PatentAttachmentService patentAttachmentService;
+
+	@Autowired
+	private IDepartmentService departmentService;
+	@Autowired
+	private PatentCostService patentCostService;
+
+	@Autowired
+	private IDictEntryService dictEntryService;
+	@Autowired
+	private CustomersService customersService;
+	@Autowired
+	private IUserService userService;
+
+	@RequestMapping("/test")
+	@ResponseBody
+	public String test() {
+
+		/*LegalQuartzJob legalQuartzJob = new LegalQuartzJob();
+		legalQuartzJob.run4UpdatePatentLegalStatus();*/
+
+		Map map = patentService.test();
+
+		return "ok";
+	}
+
+	/**
+	 * 专利列表
+	 * 
+	 * @param searchParam
+	 * @return
+	 */
+	@RequestMapping("/list")
+	public ModelAndView listPatent(@ModelAttribute("searchParam") SearchParam searchParam) {
+		ModelAndView modelAndView = new ModelAndView("/intellectual/patent/list");
+
+		List<Patent> list = patentService.patentList(searchParam);
+		modelAndView.addObject("listPatent", list);
+		return modelAndView;
+	}
+
+	/**
+	 * 根据Id,对专利数据进行逻辑删除
+	 */
+	@RequestMapping("/deletePatent")
+	@ResponseBody
+	public AjaxReturnObject deletePatent(@ModelAttribute("patent") Patent patent) {
+		LoginUser loginUser = LoginUser.loginUser(request);
+		int statusCode = 200;
+		String msg = "操作成功！";
+		// 删除与该专利相关的其他表
+		// patentService.deleteByPatentCost(patent.getId());
+		// 删除专利基本信息的内容
+		patentService.delete(patent, loginUser.getId());
+		SearchParam searchParam = new SearchParam();
+		searchParam.getParamMap().put("patentId", patent.getId());
+		List<PatentCost> listPatentCost=patentCostService.selectListByPatentId(searchParam);
+		for(PatentCost patentCost:listPatentCost){
+			patentCost.setIsDeleted("Y");
+			patentCostService.deletByPatentId(patentCost);
+		}
+
+		return new AjaxReturnObject(statusCode, msg);
+	}
+
+	// 编辑、新增专利信息
+	@RequestMapping("/goAddPatent")
+	public ModelAndView goAddPatent(Patent patent) {
+		ModelAndView modelAndView = new ModelAndView();
+		LoginUser loginUser = (LoginUser) SecurityUtils.getSubject().getPrincipal();
+		modelAndView.setViewName("/intellectual/patent/addPatent");
+		if (null != patent && StringUtils.isNotBlank(patent.getId())) {
+			patent = patentService.getPatentInfo(patent.getId());
+			modelAndView.addObject("patent", patent);
+		}
+
+		modelAndView.addObject("firstDeptId", loginUser.getFirstDeptId());
+		return modelAndView;
+	}
+
+	// 编导入专利信息
+	@RequestMapping("/goimportPatent")
+	public ModelAndView goimportPatent() {
+		ModelAndView modelAndView = new ModelAndView("/intellectual/patent/importPatent");
+
+		return modelAndView;
+	}
+
+	@RequestMapping("/add")
+	@ResponseBody
+	public BaseApi addPatent(@ModelAttribute("patent") Patent patent, DefaultMultipartHttpServletRequest request) {
+		BaseApi result = new BaseApi();
+
+		try {
+			LoginUser user = LoginUser.loginUser(request);
+			String userId = user.getId();
+			String companyId = user.getCompanyId();
+			MultiValueMap<String, MultipartFile> fileMap = request.getMultiFileMap();
+
+			if (StringUtils.isBlank(patent.getId())) {
+				patent.setCreator(userId);
+				patent.setCompanyId(companyId);
+				patentService.addPatent(patent, fileMap);
+				addPatentFee(patent.getId(), null);
+				patent.setIsCost("Y");
+				patentService.updatePatentisCost(patent);
+			} else {
+				patent.setUpdatedby(userId);
+				patentService.updatePatent(patent, fileMap);
+				patent.setIsCost("Y");
+				patentService.updatePatentisCost(patent);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.setCode(ApiCode.ERROR);
+			result.setMsg(e.getMessage());
+		}
+		return result;
+	}
+
+	@RequestMapping("/delete")
+	public String deleteByIds(List<String> patentIds) {
+		try {
+			patentService.deleteByIds(patentIds);
+		} catch (Exception e) {
+			return "fail";
+		}
+		return "ok";
+	}
+
+	@RequestMapping("/upload")
+	@ResponseBody
+	public FileUploadResult uploadFile(DefaultMultipartHttpServletRequest request) {
+		FileUploadResult result = new FileUploadResult();
+		MultipartFile file = ((MultipartHttpServletRequest) request).getFile("uploadFile");
+
+		Map<String, String> map = new HashMap<>();
+		String reStr = itemsLibraryService.saveFile(map, file, "attachment.default.fileTypes", "patent/file");
+		if (StringUtils.isNotBlank(reStr)) {
+			result.setCode(ApiCode.ERROR);
+			result.setMsg(reStr);
+		} else {
+			result.setData(map);
+		}
+		return result;
+	}
+
+	/**
+	 * 专利详情左边列表
+	 */
+	@RequestMapping("/detail")
+	public ModelAndView detail(String id) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("/intellectual/patent/detail");
+		modelAndView.addObject("id", id);
+
+		return modelAndView;
+	}
+
+	/**
+	 * 专利详情
+	 */
+	@RequestMapping("/detailAgency")
+	public ModelAndView detailAgency(String id) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("/intellectual/patent/detailAgency");
+		modelAndView.addObject("patentDetail", patentService.getPatentInfo(id));
+
+		return modelAndView;
+	}
+
+	/**
+	 * 专利详情
+	 */
+	@RequestMapping("/detailCustomer")
+	public ModelAndView detailCustomer(String id) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("/intellectual/patent/detailCustomer");
+		modelAndView.addObject("patentDetail", patentService.getPatentInfo(id));
+
+		return modelAndView;
+	}
+
+	/**
+	 * 专利详情
+	 */
+	@RequestMapping("/detailInfo")
+	public ModelAndView patentDetailInfo(String id) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("/intellectual/patent/detailInfo");
+		modelAndView.addObject("patentDetail", patentService.getPatentInfo(id));
+
+		return modelAndView;
+	}
+
+	/**
+	 * 专利附件详情
+	 */
+	@RequestMapping("/detailAttachment")
+	public ModelAndView patentDetailAttachments(String id) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("/intellectual/patent/detailAttachment");
+		Patent patent = patentService.read(id);
+		if (patent != null) {
+			modelAndView.addObject("attachments",
+					patentAttachmentService.selectPatentAttachmentsMap(patent.getAppNumber()));
+		}
+		return modelAndView;
+	}
+
+	@RequestMapping("/selectList")
+	@ResponseBody
+	public BaseApi selectByPatentName(String patentName) {
+
+		BaseApi api = new BaseApi();
+		try {
+			SearchParam searchParam = new SearchParam();
+			searchParam.getParamMap().put("patentName", patentName);
+			searchParam.getParamMap().put("deptIds", userService.getDeptIdsByUserId());
+			searchParam.getParamMap().put("searchUserId", userService.getRoleUserId());
+			List<Patent> patents = patentService.list(searchParam);
+			api.setData(patents);
+		} catch (Exception e) {
+
+		}
+		return api;
+	}
+
+	@RequestMapping("/selectUserEmail")
+	@ResponseBody
+	public BaseApi selectUserEmail(String userName) {
+
+		BaseApi api = new BaseApi();
+		try {
+			SearchParam searchParam = new SearchParam();
+			searchParam.getParamMap().put("userName", userName);
+			List<CustomersEmail> customersEmail = customersService.list(searchParam);
+			api.setData(customersEmail);
+		} catch (Exception e) {
+
+		}
+		return api;
+	}
+
+	@RequestMapping("/getPatentByApplyNo")
+	@ResponseBody
+	public Object getPatentById(String ApplyNo) {
+		SearchParam searchParam = new SearchParam();
+		searchParam.getParamMap().put("appNumber", ApplyNo);
+		List<Patent> patents = patentService.list(searchParam);
+		if (null != patents && patents.size() > 0) {
+
+			return patents.get(0);
+
+		} else {
+			return new Patent();
+		}
+	}
+
+	/**
+	 * 根据Id查询，再添加费用
+	 * 
+	 * @throws Exception
+	 */
+	@RequestMapping("/addPatentFee")
+	@ResponseBody
+	public BaseApi addPatentFee(String singleId, @RequestBody List<String> ids) throws Exception {
+
+		BaseApi api = new BaseApi();
+		try {
+			if (CollectionUtils.isEmpty(ids) && StringUtils.isNotEmpty(singleId)) {
+				ids = new ArrayList<>();
+				ids.add(singleId);
+			}
+
+			Map<String, Object> map = new HashMap<>(2);
+			List<String> successPatents = new ArrayList<>();
+			List<String> failPatents = new ArrayList<>();
+			map.put("successPatents", successPatents);
+			map.put("failPatents", failPatents);
+			if (!CollectionUtils.isEmpty(ids)) {
+
+				for (String id : ids) {
+
+					System.out.println("id=" + id);
+					List<DictEntry> list = new ArrayList<>();
+					Patent patent = patentService.read(id);
+
+					List<PatentCost> patentCostlist = patentCostService.getPatentId(patent.getId());
+					if (patentCostlist.size() > 0) {
+						// 已经生成过费用，不能重复生成哇！
+						failPatents.add(patent.getAppNumber());
+						patentService.costedPatent(patent);
+						continue;
+					}
+
+					/*
+					 * list.addAll(dictEntryService.getByTypeCode(
+					 * "IPBOX_ANNUAL_FEE"));
+					 */
+					String feeType = "IPBOX_ANNUAL_FEE";
+					if (patent.getPatentType().equals("2")) {
+						feeType = "IPBOX_ANNUAL_FEE_ONE";
+					} else if (patent.getPatentType().equals("3")) {
+						feeType = "IPBOX_ANNUAL_FEE_TWO";
+					}
+
+					List<DictEntry> dictDictEntryList = dictEntryService.getByTypeCode(feeType);
+					List<DictEntry> gover = dictEntryService.getByTypeCode("IPBOX_GOVERNMENT_FEE");
+					for (int i = 0; i < gover.size(); i++) {
+						dictDictEntryList.add(gover.get(i));
+					}
+
+					LoginUser loginUser = LoginUser.loginUser(request);
+					String companyId = loginUser.getFirstDeptId();
+					int statusCode = 200;
+					String msg = "费用生成完成！";
+
+					Date date = new Date();
+					String nowyear = String.format("%tY", date);
+					String appyear = String.format("%tY", patent.getAppDate());
+					String is = "2";
+					long dayss = 100;
+					Calendar calendarneed2 = Calendar.getInstance();
+					Calendar calendarneed = Calendar.getInstance();
+					Calendar cd = Calendar.getInstance();
+					int now1 = Integer.parseInt(nowyear);
+					int appyear1 = Integer.parseInt(appyear);
+					int Y = now1 - appyear1;
+					String startYear = String.valueOf(Y);
+					System.out.println("授权日期为：" + patent.getAuthorizeDate());
+					startYear = "1";
+					String subauthor = null;
+					String yearstr = null;
+					/*第几年授权年*/
+					Calendar author = Calendar.getInstance();
+					int count=0;
+					int authYeaes=0;
+					String temp=null;
+					String appdata = String.format("%tY", patent.getAppDate());
+
+
+					if (!String.format("%tY", patent.getAuthorizeDate()).equals("")) {
+						subauthor = String.format("%tY", patent.getAuthorizeDate());
+					}
+					if (!String.format("%tY", patent.getAuthorizeDate()).equals("null")) {
+						DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+
+						Date d1 = patent.getAppDate();
+						Date d2 = patent.getAuthorizeDate();
+						long diff = d2.getTime() - d1.getTime();
+						long days = diff / (1000 * 60 * 60 * 24);
+						float flo = days / 365f;
+						dayss = days / 365;
+						if (dayss < flo) {
+							dayss = dayss + 1;
+						}
+
+					}
+					boolean e = false;
+					byte var23;
+					if ("1".equals(patent.getPatentType())) {
+						var23 = 20;
+					} else if ("2".equals(patent.getPatentType())) {
+						var23 = 10;
+					} else {
+						if (!"3".equals(patent.getPatentType())) {
+							var23 = 0;
+						}
+						var23 = 10;
+					}
+
+					for (int i = 0; i < dictDictEntryList.size(); i++) {
+						BigDecimal b = dictDictEntryList.get(i).getSortNo();
+						int year = b.intValue();
+						int years = year + 1;
+						String rowId = UUID.randomUUID().toString().toUpperCase();
+						SimpleDateFormat appNoFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+						SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+						Date paydate1 = null;
+						Date paydate2 = null;
+						paydate2 = patent.getAppDate();
+
+						if (!String.format("%tY", patent.getAuthorizeDate()).equals("")) {
+							paydate1 = patent.getAuthorizeDate();
+						}
+
+						// 获取当前时间
+						Date createdate = new Date();
+						String createTime = appNoFormat.format(createdate); // 转换成相应的格式
+						/* 这里设置官费时间 */
+						if (!String.format("%tY", patent.getAuthorizeDate()).equals("")) {
+							calendarneed.setTime(paydate2);
+							calendarneed.add(Calendar.YEAR, years + 0);
+						}
+
+						if (is.equals("2")) {
+							calendarneed2.setTime(paydate2);
+							calendarneed2.add(Calendar.YEAR, years - 1);
+						} else {
+							calendarneed2.setTime(paydate2);
+							calendarneed2.add(Calendar.YEAR, years - 2);
+						}
+						yearstr = dateFormat.format(calendarneed2.getTime());
+						/* 年费生成 */
+
+						if (dictDictEntryList.get(i).getDictTypeCode().contains("IPBOX_ANNUAL_FEE")
+								&& !String.format("%tY", patent.getAuthorizeDate()).equals("")) {
+							Integer annualType = AnnualType.valueOf(year).getType();
+
+							// 如果是自动生成的年费在缴费绝限日期后则设定为已经完成的缴费
+							Integer costStatus = 0;
+							/* <<<<<<< .mine */
+							/*
+							 * if (cd.getTime().getTime() <
+							 * System.currentTimeMillis()) { ||||||| .r235 if(
+							 * cd.getTime().getTime() <
+							 * System.currentTimeMillis() ){ =======
+							 */
+							if (cd.getTime().getTime() < System.currentTimeMillis()) {
+								Calendar now = Calendar.getInstance();
+
+								Calendar appDate = Calendar.getInstance();
+								now.setTime(new Date(System.currentTimeMillis()));
+								appDate.setTime(patent.getAppDate());
+								appDate.set(Calendar.YEAR, appDate.get(Calendar.YEAR) + year);
+
+								int appYear = appDate.get(Calendar.YEAR);
+								int appMonth = appDate.get(Calendar.MONTH);
+								int appDay = appDate.get(Calendar.DATE);
+
+								int nowYear = now.get(Calendar.YEAR);
+								int nowMonth = now.get(Calendar.MONTH);
+								int nowDay = now.get(Calendar.DATE);
+								int addYear = 1;
+								if (appMonth > nowMonth) {
+									addYear = 2;
+								} else if (appMonth == nowMonth) {
+									if (appDay > nowDay) {
+										addYear = 2;
+									}
+								}
+
+								if (appYear < (nowYear - addYear)) {
+									/* >>>>>>> .r242 */
+									costStatus = 1;
+								}
+
+								if (dayss == years) {
+									if (is.equals("2")) {
+										calendarneed2.setTime(paydate1);
+										Date dat = calendarneed2.getTime();
+
+										cd.setTime(dat);
+										cd.add(cd.MONTH, 2);
+										cd.add(cd.DATE, 10);
+										PatentCost patentCost = new PatentCost();
+										patentCost.setId(rowId);
+										patentCost.setPatentId(patent.getId());
+										patentCost.setCompanyId(loginUser.getFirstDeptId());
+										patentCost.setCostName("第" + years + "年费(授权当年年费)");
+										patentCost.setCostType(1);
+										patentCost.setCostStatus(costStatus);
+										patentCost.setCostAnnualType(annualType);
+										patentCost.setStandardDate(cd.getTime());
+										patentCost.setFeePayable(dictDictEntryList.get(i).getRank());
+										patentCost.setFeePayableDate(calendarneed2.getTime());
+										patentCost.setStandardAmount(dictDictEntryList.get(i).getRank());
+										patentCost.setCreator(loginUser.getId());
+										MultipartFile file = null;
+										patentCostService.addCostFee(patentCost);
+										/*		calendarneed2.add(Calendar.YEAR, 1);*/
+										author.setTime(calendarneed2.getTime());
+										authYeaes=author.get(Calendar.YEAR);
+										/*		temp= String.valueOf(authYeaes).substring(4,temp.length());*/
+										/*	temp=patent.getAppDate();*/
+										SimpleDateFormat appsimp = new SimpleDateFormat("yyyy-MM-dd");
+										String simpDate=appsimp.format(patent.getAppDate());
+										temp=simpDate.substring(4,simpDate.length());
+										authYeaes=authYeaes-1;
+										is = "1";
+									} else if (dayss < years) {
+										Date dat = calendarneed2.getTime();
+										cd.setTime(dat);
+										cd.add(Calendar.YEAR, 1);
+										PatentCost patentCost = new PatentCost();
+										patentCost.setId(rowId);
+										patentCost.setPatentId(patent.getId());
+										patentCost.setCompanyId(loginUser.getFirstDeptId());
+										patentCost.setCostName("第" + years + "年年费");
+										patentCost.setCostType(1);
+										patentCost.setCostStatus(costStatus);
+										patentCost.setCostAnnualType(annualType);
+										patentCost.setStandardDate(cd.getTime());
+										patentCost.setFeePayable(dictDictEntryList.get(i).getRank());
+										patentCost.setFeePayableDate(calendarneed2.getTime());
+										patentCost.setStandardAmount(dictDictEntryList.get(i).getRank());
+										patentCost.setCreator(loginUser.getId());
+
+										patentCostService.addCostFee(patentCost);
+									}
+
+								} else if (dayss < years) {
+									Calendar cal = Calendar.getInstance();
+									String time=authYeaes+temp;
+									System.out.println("最终日期=="+time);
+					/*				StringBuilder sb = new StringBuilder(time);
+									sb.insert(4,"-");
+									sb.insert(6,"-");
+									String s=sb.toString();*/
+									SimpleDateFormat dateFormats = new SimpleDateFormat("yyyy-MM-dd");
+									System.out.println("s时间==="+time);
+									Date dat = dateFormats.parse(time);
+									Calendar end = Calendar.getInstance();
+									cal.setTime(dat);
+									/*cal.add(Calendar.YEAR, author);*/
+									Date dates = author.getTime();
+									end.setTime(dates);
+									end.add(Calendar.YEAR, 1);
+									cd.add(Calendar.YEAR, 1);
+									PatentCost patentCost = new PatentCost();
+									patentCost.setId(rowId);
+									patentCost.setPatentId(patent.getId());
+									patentCost.setCompanyId(loginUser.getFirstDeptId());
+									patentCost.setCostName("第" + years + "年年费");
+									patentCost.setCostType(1);
+									patentCost.setCostStatus(costStatus);
+									patentCost.setCostAnnualType(annualType);
+									patentCost.setStandardDate(end.getTime());
+									patentCost.setFeePayable(dictDictEntryList.get(i).getRank());
+									patentCost.setFeePayableDate(cal.getTime());
+									patentCost.setStandardAmount(dictDictEntryList.get(i).getRank());
+									patentCost.setCreator(loginUser.getId());
+									patentCostService.addCostFee(patentCost);
+									authYeaes=authYeaes+1;
+
+								}
+							} else { // 官费计算
+								if (dictDictEntryList.get(i).getDictTypeCode().equals("IPBOX_GOVERNMENT_FEE")) {
+									if (dictDictEntryList.get(i).getDictValue().equals("0")
+											&& String.format("%tY", patent.getAuthorizeDate()).equals("null")) {
+
+										SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+										Date dat = patent.getAppDate();
+										cd.setTime(dat);
+										cd.add(cd.MONTH, 2);
+										PatentCost patentCost = new PatentCost();
+										patentCost.setId(rowId);
+										patentCost.setPatentId(patent.getId());
+										patentCost.setCompanyId(loginUser.getFirstDeptId());
+										patentCost.setCostName(dictDictEntryList.get(i).getDictName());
+										patentCost.setCostType(2);
+										patentCost.setCostStatus(0);
+										patentCost.setStandardDate(cd.getTime());
+										patentCost.setCostGovernmentType(
+												Integer.valueOf(dictDictEntryList.get(i).getDictValue()).intValue());
+
+										patentCost.setFeePayableDate(patent.getAppDate());
+										if (patent.getPatentType().equals("1")) {
+											patentCost.setFeePayable(new BigDecimal(900));
+											patentCost.setStandardAmount(new BigDecimal(900));
+										} else {
+											patentCost.setFeePayable(new BigDecimal(500));
+											patentCost.setStandardAmount(new BigDecimal(500));
+										}
+
+										patentCost.setCreator(loginUser.getId());
+										patentCostService.addCostFee(patentCost);
+
+									} else if (dictDictEntryList.get(i).getDictValue().equals("1")
+											&& patent.getPatentType().equals("1")
+											&& String.format("%tY", patent.getAuthorizeDate()).equals("null")) {
+										/* 审查费 */
+										SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+										Date dat = patent.getAppDate();
+										cd.setTime(dat);
+										cd.add(cd.YEAR, 3);
+										PatentCost patentCost = new PatentCost();
+										patentCost.setId(rowId);
+										patentCost.setPatentId(patent.getId());
+										patentCost.setCompanyId(loginUser.getFirstDeptId());
+										patentCost.setCostName(dictDictEntryList.get(i).getDictName());
+										patentCost.setCostType(2);
+										patentCost.setCostStatus(0);
+										patentCost.setStandardDate(cd.getTime());
+										patentCost.setFeePayable(dictDictEntryList.get(i).getRank());
+										patentCost.setFeePayableDate(patent.getAppDate());
+										patentCost.setStandardAmount(dictDictEntryList.get(i).getRank());
+										patentCost.setCreator(loginUser.getId());
+
+										patentCost.setCostGovernmentType(
+												Integer.valueOf(dictDictEntryList.get(i).getDictValue()).intValue());
+
+										patentCostService.addCostFee(patentCost);
+
+									} else if (dictDictEntryList.get(i).getDictValue().equals("9")
+											&& !String.format("%tY", patent.getAuthorizeDate()).equals("null")) {
+										/* 印花税 */
+
+										calendarneed2.setTime(paydate1);
+										Date dat = calendarneed2.getTime();
+
+										cd.setTime(dat);
+										cd.add(cd.MONTH, 2);
+										cd.add(cd.DATE, 10);
+
+										/*
+										 * SimpleDateFormat sdf = new
+										 * SimpleDateFormat("yyyy-MM-dd"); Date
+										 * dat = patent.getAppDate();
+										 * cd.setTime(dat); cd.add(cd.MONTH, 2);
+										 * cd.add(cd.DATE, 15);
+										 */
+										PatentCost patentCost = new PatentCost();
+										patentCost.setId(rowId);
+										patentCost.setPatentId(patent.getId());
+										patentCost.setCompanyId(loginUser.getFirstDeptId());
+										patentCost.setCostName(dictDictEntryList.get(i).getDictName());
+										patentCost.setCostType(2);
+										patentCost.setCostStatus(0);
+										patentCost.setStandardDate(cd.getTime());
+										patentCost.setFeePayable(dictDictEntryList.get(i).getRank());
+										patentCost.setFeePayableDate(calendarneed2.getTime());
+										patentCost.setStandardAmount(dictDictEntryList.get(i).getRank());
+										patentCost.setCreator(loginUser.getId());
+										patentCost.setCostGovernmentType(
+												Integer.valueOf(dictDictEntryList.get(i).getDictValue()).intValue());
+
+										patentCostService.addCostFee(patentCost);
+									} else if (dictDictEntryList.get(i).getDictValue().equals("14")
+											&& String.format("%tY", patent.getAuthorizeDate()).equals("null")
+											&& patent.getPatentType().equals("1")) {
+										/* 申请费-公布印刷费 */
+										SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+										Date dat = patent.getAppDate();
+										cd.setTime(dat);
+										cd.add(cd.MONTH, 2);
+										cd.add(cd.DATE, 10);
+										PatentCost patentCost = new PatentCost();
+										patentCost.setId(rowId);
+										patentCost.setPatentId(patent.getId());
+										patentCost.setCompanyId(loginUser.getFirstDeptId());
+										patentCost.setCostName(dictDictEntryList.get(i).getDictName());
+										patentCost.setCostType(2);
+										patentCost.setCostStatus(0);
+										patentCost.setStandardDate(cd.getTime());
+										patentCost.setFeePayable(dictDictEntryList.get(i).getRank());
+										patentCost.setFeePayableDate(patent.getAppDate());
+										patentCost.setStandardAmount(dictDictEntryList.get(i).getRank());
+										patentCost.setCreator(loginUser.getId());
+										patentCost.setCostGovernmentType(
+												Integer.valueOf(dictDictEntryList.get(i).getDictValue()).intValue());
+
+										patentCostService.addCostFee(patentCost);
+									}
+								}
+							}
+						}
+
+						// 成功生成费用
+						successPatents.add(patent.getAppNumber());
+					}
+				}
+
+				api.setData(map);
+			}
+		} catch (Exception e) {
+			api.setMsg(e.getMessage());
+			api.setCode(ApiCode.ERROR);
+		}
+
+		return api;
+	}
+	@RequestMapping("/refreshLegalStatus")
+	@ResponseBody
+	public BaseApi refreshLegalStatus(@RequestBody List<String> ids) {
+		BaseApi api = new BaseApi();
+		try {
+			patentService.refreshLegalStatus(ids);
+		} catch (Exception e) {
+			api.setCode(ApiCode.ERROR);
+			api.setMsg(e.getMessage());
+		}
+		return api;
+	}
+
+	@RequestMapping("/test2")
+	@ResponseBody
+	public BaseApi jsonListTest() {
+		BaseApi api = new BaseApi();
+		try {
+			List<Patent> patents = new ArrayList<>();
+			Patent patent = new Patent();
+			patent.setId("Id1");
+			patent.setPatentName("Name1");
+			Patent patent2 = new Patent();
+			patent2.setId("Id1");
+			patent2.setPatentName("Name2");
+			Patent patent3 = new Patent();
+			patent3.setId("Id3");
+			patent3.setPatentName("Name3");
+			patents.add(patent);
+			patents.add(patent2);
+			patents.add(patent3);
+			api.setData(patents);
+		} catch (Exception e) {
+			api.setCode(ApiCode.ERROR);
+			api.setMsg(e.getMessage());
+		}
+		return api;
+	}
+
+	@RequestMapping("/ipmort")
+	@ResponseBody
+	public BaseApi ipmort(DefaultMultipartHttpServletRequest request, MultipartRequest multipartRequest) {
+		MultiValueMap<String, MultipartFile> fileMap = request.getMultiFileMap();
+
+		MultipartFile file = multipartRequest.getFile("sourceFile");
+
+		String result = patentService.readExcelFile(file);
+		BaseApi api = new BaseApi();
+		return api;
+
+	}
+
+	@RequestMapping("outsub")
+	@ResponseBody
+	public AjaxReturnObject outsub(HttpServletResponse response, SearchParam searchParam) throws Exception {
+		int statusCode = 200;
+		String msg = "操作成功！";
+		String tabName = "专利库";
+		Pagination page = new Pagination();
+		page.setAvailable(false);
+		searchParam.setPagination(page);
+		/* searchParam.getPagination().setAvailable(false); */
+
+		//整理id
+		String idStr = (String) searchParam.getParamMap().get("selectIds");
+		if(StringUtils.isNotBlank(idStr)){
+			String[] ids = idStr.split(",");
+			searchParam.getParamMap().put("searchIds", CollectionUtils.arrayToList(ids));
+		}
+
+		List<Patent> list = patentService.patentList(searchParam);
+		/* List<CmsShop> list = cmsShopService.list(searchParam); */
+		HSSFWorkbook wb = new HSSFWorkbook();// 第一步，创建workbook
+		HSSFSheet sheet = wb.createSheet("专利表");// 第二步，创建sheet
+		String[] titel = { "专利名称", "专利号/申请号", "申请日期", "申请人/专利权人", "发明人", "专利类型", "申请国家", "法律状态" };
+		HSSFRow row = sheet.createRow(0);// 第三步，创建row
+		row.createCell(0).setCellValue("序号");
+		HSSFCellStyle style = wb.createCellStyle();// 第四步，创建单元格类型
+		style.setAlignment(HSSFCellStyle.ALIGN_CENTER); // 创建一个居中格式
+		for (int i = 0; i < titel.length; i++) {
+			// 给列写入数据,创建单元格，写入数据
+			row.createCell(i + 1).setCellValue(titel[i]);
+		}
+		for (int i = 0; i < list.size(); i++) {
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			// 创建行
+			row = sheet.createRow(i + 1);
+			// 序号
+			row.createCell(0).setCellValue(i + 1);
+			// 机构名称
+			row.createCell(1).setCellValue(list.get(i).getPatentName());
+			sheet.autoSizeColumn(1, true);
+			// 所属行业
+			row.createCell(2).setCellValue(list.get(i).getAppNumber());
+			// 注册金额
+			if (list.get(i).getAppDate() == null) {
+				row.createCell(3).setCellValue("");
+			} else {
+				row.createCell(3).setCellValue(formatter.format(list.get(i).getAppDate()));
+
+			}
+
+			// 注册地址
+			if (list.get(i).getApplyer() == "" || list.get(i).getApplyer() == null) {
+				row.createCell(4).setCellValue("");
+
+			} else {
+				row.createCell(4).setCellValue(list.get(i).getApplyer());
+			}
+			// 联系人
+			if (list.get(i).getInventor() == "" || list.get(i).getInventor() == null) {
+				row.createCell(5).setCellValue("");
+
+			} else {
+				row.createCell(5).setCellValue(list.get(i).getInventor());
+			}
+			// 联系电话
+			if (list.get(i).getPatentType() == "" || list.get(i).getPatentType() == null) {
+				row.createCell(6).setCellValue("");
+
+			} else {
+				if (list.get(i).getPatentType().equals("1")) {
+					row.createCell(6).setCellValue("发明专利");
+				} else if (list.get(i).getPatentType().equals("2")) {
+					row.createCell(6).setCellValue("实用新型");
+				} else {
+					row.createCell(6).setCellValue("外观设计");
+				}
+
+			}
+			// 电子邮箱
+			if (list.get(i).getAuthorCountry() == "" || list.get(i).getAuthorCountry() == null) {
+				row.createCell(7).setCellValue("");
+
+			} else {
+
+				if (list.get(i).getAuthorCountry().equals("0")) {
+					row.createCell(7).setCellValue("中国");
+				} else if (list.get(i).getAuthorCountry().equals("1")) {
+					row.createCell(7).setCellValue("美国");
+				} else if (list.get(i).getAuthorCountry().equals("2")) {
+					row.createCell(7).setCellValue("日本");
+				} else if (list.get(i).getAuthorCountry().equals("3")) {
+					row.createCell(7).setCellValue("韩国");
+				} else if (list.get(i).getAuthorCountry().equals("4")) {
+					row.createCell(7).setCellValue("欧洲");
+				} else {
+					row.createCell(7).setCellValue("其他");
+				}
+			}
+
+			// 审批状态
+			if (list.get(i).getLegalStatus() == "" || list.get(i).getLegalStatus() == null) {
+				row.createCell(8).setCellValue("");
+
+			} else {
+				String vue = DictUtils.getEntryNameMulti("IPBOX_LEGAL_STATUS", list.get(i).getLegalStatus());
+				/*
+				 * String vue =
+				 * DictUtils.getEntryValueByName("IPBOX_LEGAL_STATUS",
+				 * list.get(i).getLegalStatus());
+				 */
+
+				row.createCell(8).setCellValue(vue);
+			}
+
+		}
+		int curColWidth = 0;
+		for (int i = 0; i <= titel.length; i++) {
+			// 列自适应宽度，对于中文半角不友好，如果列内包含中文需要对包含中文的重新设置。
+			sheet.autoSizeColumn(i, true);
+			// 为每一列设置一个最小值，方便中文显示
+			curColWidth = sheet.getColumnWidth(i);
+			if (curColWidth < 4000) {
+				sheet.setColumnWidth(i, 4000);
+			}
+			// 第3列文字较多，设置较大点。
+			sheet.setColumnWidth(0, 2000);
+			sheet.setColumnWidth(3, 10000);
+			sheet.setColumnWidth(5, 10000);
+		}
+
+		try {
+			// 第六步，将文件存到指定位置
+
+			/*
+			 * FileOutputStream fout = new FileOutputStream("E:/students2.xls");
+			 */
+
+			String codedFileName = new String(tabName.getBytes("gbk"), "iso-8859-1");
+			response.setHeader("Content-Disposition", "attachment;filename=" + codedFileName + ".xls");
+			// 响应类型,编码
+			response.setContentType("application/octet-stream;charset=UTF-8");
+			// 形成输出流
+
+			OutputStream osOut = response.getOutputStream();
+			// 将指定的字节写入此输出流
+
+			wb.write(osOut);
+			// 刷新此输出流并强制将所有缓冲的输出字节被写出
+			osOut.flush();
+			// 关闭流
+			osOut.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+			statusCode = 300;
+			msg = "导出失败";
+		}
+
+		return new AjaxReturnObject(statusCode, msg);
+
+	}
+
+
+	@RequestMapping("/getAllFile")
+	@ResponseBody
+	public BaseApi patentFiles(String id){
+
+		BaseApi api = new BaseApi();
+		try {
+			List<String> fileUrls = patentService.getPatentFiles(id);
+			api.setData(fileUrls);
+		}catch (Exception e){
+			api.setError(e.getMessage());
+		}
+		return api;
+	}
+}

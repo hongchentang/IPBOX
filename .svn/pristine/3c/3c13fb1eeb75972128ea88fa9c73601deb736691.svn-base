@@ -1,0 +1,727 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcis.ipanther.common.dept.mapper.DepartmentMapper" >
+  <resultMap id="BaseResultMap" type="com.hcis.ipanther.common.dept.entity.Department" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="PARENT_ID" property="parentId" jdbcType="VARCHAR" />
+    <result column="UNIT_ID" property="unitId" jdbcType="VARCHAR" />
+    <result column="DEPT_TYPE" property="deptType" jdbcType="VARCHAR" />
+    <result column="DEPT_NO" property="deptNo" jdbcType="VARCHAR" />
+    <result column="DEPT_NAME" property="deptName" jdbcType="VARCHAR" />
+    <result column="DEPT_ADDRESS" property="deptAddress" jdbcType="VARCHAR" />
+    <result column="POST_CODE" property="postCode" jdbcType="VARCHAR" />
+    <result column="REGIONS_CODE" property="regionsCode" jdbcType="VARCHAR" />
+    <result column="PROVINCE" property="province" jdbcType="VARCHAR" />
+    <result column="CITY" property="city" jdbcType="VARCHAR" />
+    <result column="COUNTIES" property="counties" jdbcType="VARCHAR" />
+    <result column="STREET" property="street" jdbcType="VARCHAR" />
+    <result column="DEPT_CATEGORY" property="deptCategory" jdbcType="VARCHAR" />
+    <result column="DEPT_NATURE" property="deptNature" jdbcType="VARCHAR" />
+    <result column="DEPT_LEVEL" property="deptLevel" jdbcType="DECIMAL" />
+    <result column="DEPT_CODE" property="deptCode" jdbcType="VARCHAR" />
+    <result column="LINK_PHONE" property="linkPhone" jdbcType="VARCHAR" />
+    <result column="LINK_FAX" property="linkFax" jdbcType="VARCHAR" />
+    <result column="LINK_EMAIL" property="linkEmail" jdbcType="VARCHAR" />
+    <result column="HOME_PAGE" property="homePage" jdbcType="VARCHAR" />
+    <result column="LINK_NAME" property="linkName" jdbcType="VARCHAR" />
+    <result column="LINK_ADDRESS" property="linkAddress" jdbcType="VARCHAR" />
+    <result column="LEGAL_NAME" property="legalName" jdbcType="VARCHAR" />
+    <result column="LEGAL_PHONE" property="legalPhone" jdbcType="VARCHAR" />
+    <result column="LEGAL_MOBILE" property="legalMobile" jdbcType="VARCHAR" />
+    <result column="LEGAL_FAX" property="legalFax" jdbcType="VARCHAR" />
+    <result column="LEGAL_EMAIL" property="legalEmail" jdbcType="VARCHAR" />
+    <result column="LEGAL_HOMEPAGE" property="legalHomepage" jdbcType="VARCHAR" />
+    <result column="LEGAL_IM" property="legalIm" jdbcType="VARCHAR" />
+    <result column="ADMIN_NAME" property="adminName" jdbcType="VARCHAR" />
+    <result column="ADMIN_PHONE" property="adminPhone" jdbcType="VARCHAR" />
+    <result column="ADMIN_MOBILE" property="adminMobile" jdbcType="VARCHAR" />
+    <result column="ADMIN_FAX" property="adminFax" jdbcType="VARCHAR" />
+    <result column="ADMIN_EMAIL" property="adminEmail" jdbcType="VARCHAR" />
+    <result column="ADMIN_HOMEPAGE" property="adminHomepage" jdbcType="VARCHAR" />
+    <result column="ADMIN_IM" property="adminIm" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="SEAL_IMG" property="sealImg" jdbcType="VARCHAR" />
+    <result column="SIGN_IMG" property="signImg" jdbcType="VARCHAR" />
+    <result column="SORT_NO" property="sortNo" jdbcType="DECIMAL" />   
+    <result column="TRAIN_ORG_LEVEL" property="trainOrgLevel" jdbcType="VARCHAR" />
+    <result column="TRAIN_ORG_FEATURE" property="trainOrgFeature" jdbcType="VARCHAR" />    
+    <result column="IS_VIRTUAL" property="isVirtual" jdbcType="VARCHAR" />
+    <result column="LOGO" property="logo" jdbcType="VARCHAR" />
+    <result column="INDUSTRY_TYPE" property="industryType" jdbcType="VARCHAR" />
+	<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="CHAR" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />  
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, PARENT_ID, DEPT_TYPE, DEPT_NO, DEPT_NAME, DEPT_ADDRESS, POST_CODE, REGIONS_CODE, 
+    PROVINCE, CITY, COUNTIES, STREET, DEPT_CATEGORY, DEPT_NATURE, DEPT_LEVEL, DEPT_CODE, 
+    LINK_PHONE, LINK_FAX, LINK_EMAIL, HOME_PAGE, LINK_NAME, LINK_ADDRESS, LEGAL_NAME, 
+    LEGAL_PHONE, LEGAL_MOBILE, LEGAL_FAX, LEGAL_EMAIL, LEGAL_HOMEPAGE, LEGAL_IM, ADMIN_NAME, 
+    ADMIN_PHONE, ADMIN_MOBILE, ADMIN_FAX, ADMIN_EMAIL, ADMIN_HOMEPAGE, ADMIN_IM, STATUS, 
+    SEAL_IMG, SIGN_IMG, SORT_NO, REMARK, CREATOR, CREATE_TIME, UPDATEDBY, UPDATE_TIME, 
+    IS_DELETED, VERSION,TRAIN_ORG_LEVEL,TRAIN_ORG_FEATURE,IS_VIRTUAL,LOGO,UNIT_ID
+  </sql>
+  <select id="selectBySearchParam" resultMap="BaseResultMap" parameterType="searchParam" >
+    select 
+    <include refid="Base_Column_List" />
+    from IPANTHER_DEPARTMENT
+    where IS_DELETED='N' 
+    <if test="paramMap.deptName!=null and paramMap.deptName!=''">
+<!--     	AND DEPT_NAME like '%'||#{paramMap.deptName,jdbcType=VARCHAR}||'%' -->
+    	AND DEPT_NAME like '%${paramMap.deptName}%'
+    </if>
+    <if test="paramMap.regionsCode!=null and paramMap.regionsCode!=''">
+    	AND REGIONS_CODE=#{paramMap.regionsCode,jdbcType=VARCHAR}
+    </if>
+    <if test="paramMap.parentId!=null and paramMap.parentId!=''">
+    	AND PARENT_ID=#{paramMap.parentId,jdbcType=VARCHAR}
+    </if>
+    <if test="paramMap.deptLevel!=null and paramMap.deptLevel!=''">
+    	AND DEPT_LEVEL=#{paramMap.deptLevel,jdbcType=DECIMAL}
+    </if>
+    ORDER BY CREATE_TIME DESC,ID
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,INDUSTRY_TYPE
+    from IPANTHER_DEPARTMENT
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from IPANTHER_DEPARTMENT
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hcis.ipanther.common.dept.entity.Department" >
+    insert into IPANTHER_DEPARTMENT (ID, PARENT_ID, DEPT_TYPE, 
+      DEPT_NO, DEPT_NAME, DEPT_ADDRESS, 
+      POST_CODE, REGIONS_CODE, PROVINCE, 
+      CITY, COUNTIES, STREET, 
+      DEPT_CATEGORY, DEPT_NATURE, DEPT_LEVEL, 
+      DEPT_CODE, LINK_PHONE, LINK_FAX, 
+      LINK_EMAIL, HOME_PAGE, LINK_NAME, 
+      LINK_ADDRESS, LEGAL_NAME, LEGAL_PHONE, 
+      LEGAL_MOBILE, LEGAL_FAX, LEGAL_EMAIL, 
+      LEGAL_HOMEPAGE, LEGAL_IM, ADMIN_NAME, 
+      ADMIN_PHONE, ADMIN_MOBILE, ADMIN_FAX, 
+      ADMIN_EMAIL, ADMIN_HOMEPAGE, ADMIN_IM, 
+      STATUS, SEAL_IMG,UNIT_ID,
+      SORT_NO, REMARK, CREATOR, 
+      CREATE_TIME, UPDATEDBY, UPDATE_TIME, 
+      IS_DELETED, VERSION,TRAIN_ORG_LEVEL,TRAIN_ORG_FEATURE,IS_VIRTUAL,LOGO)
+    values (#{id,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR}, #{deptType,jdbcType=VARCHAR}, 
+      #{deptNo,jdbcType=VARCHAR}, #{deptName,jdbcType=VARCHAR}, #{deptAddress,jdbcType=VARCHAR}, 
+      #{postCode,jdbcType=VARCHAR}, #{regionsCode,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR}, #{counties,jdbcType=VARCHAR}, #{street,jdbcType=VARCHAR}, 
+      #{deptCategory,jdbcType=VARCHAR}, #{deptNature,jdbcType=VARCHAR}, #{deptLevel,jdbcType=DECIMAL}, 
+      #{deptCode,jdbcType=VARCHAR}, #{linkPhone,jdbcType=VARCHAR}, #{linkFax,jdbcType=VARCHAR}, 
+      #{linkEmail,jdbcType=VARCHAR}, #{homePage,jdbcType=VARCHAR}, #{linkName,jdbcType=VARCHAR}, 
+      #{linkAddress,jdbcType=VARCHAR}, #{legalName,jdbcType=VARCHAR}, #{legalPhone,jdbcType=VARCHAR}, 
+      #{legalMobile,jdbcType=VARCHAR}, #{legalFax,jdbcType=VARCHAR}, #{legalEmail,jdbcType=VARCHAR}, 
+      #{legalHomepage,jdbcType=VARCHAR}, #{legalIm,jdbcType=VARCHAR}, #{adminName,jdbcType=VARCHAR}, 
+      #{adminPhone,jdbcType=VARCHAR}, #{adminMobile,jdbcType=VARCHAR}, #{adminFax,jdbcType=VARCHAR}, 
+      #{adminEmail,jdbcType=VARCHAR}, #{adminHomepage,jdbcType=VARCHAR}, #{adminIm,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{sealImg,jdbcType=VARCHAR},#{unitId,jdbcType=VARCHAR}, #{signImg,jdbcType=VARCHAR},
+      #{sortNo,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updatedby,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{isDeleted,jdbcType=CHAR}, #{version,jdbcType=DECIMAL},#{trainOrgLevel,jdbcType=VARCHAR},#{trainOrgFeature,jdbcType=VARCHAR}
+      #{isVirtual,jdbcType=VARCHAR},#{logo,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hcis.ipanther.common.dept.entity.Department" >
+    insert into IPANTHER_DEPARTMENT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="parentId != null" >
+        PARENT_ID,
+      </if>
+      <if test="deptType != null" >
+        DEPT_TYPE,
+      </if>
+      <if test="deptNo != null" >
+        DEPT_NO,
+      </if>
+      <if test="deptName != null" >
+        DEPT_NAME,
+      </if>
+      <if test="deptAddress != null" >
+        DEPT_ADDRESS,
+      </if>
+      <if test="postCode != null" >
+        POST_CODE,
+      </if>
+      <if test="regionsCode != null" >
+        REGIONS_CODE,
+      </if>
+      <if test="province != null" >
+        PROVINCE,
+      </if>
+      <if test="city != null" >
+        CITY,
+      </if>
+      <if test="counties != null" >
+        COUNTIES,
+      </if>
+      <if test="street != null" >
+        STREET,
+      </if>
+      <if test="deptCategory != null" >
+        DEPT_CATEGORY,
+      </if>
+      <if test="deptNature != null" >
+        DEPT_NATURE,
+      </if>
+      <if test="deptLevel != null" >
+        DEPT_LEVEL,
+      </if>
+      <if test="deptCode != null" >
+        DEPT_CODE,
+      </if>
+      <if test="linkPhone != null" >
+        LINK_PHONE,
+      </if>
+      <if test="linkFax != null" >
+        LINK_FAX,
+      </if>
+      <if test="linkEmail != null" >
+        LINK_EMAIL,
+      </if>
+      <if test="homePage != null" >
+        HOME_PAGE,
+      </if>
+      <if test="linkName != null" >
+        LINK_NAME,
+      </if>
+      <if test="linkAddress != null" >
+        LINK_ADDRESS,
+      </if>
+      <if test="legalName != null" >
+        LEGAL_NAME,
+      </if>
+      <if test="legalPhone != null" >
+        LEGAL_PHONE,
+      </if>
+      <if test="legalMobile != null" >
+        LEGAL_MOBILE,
+      </if>
+      <if test="legalFax != null" >
+        LEGAL_FAX,
+      </if>
+      <if test="legalEmail != null" >
+        LEGAL_EMAIL,
+      </if>
+      <if test="legalHomepage != null" >
+        LEGAL_HOMEPAGE,
+      </if>
+      <if test="legalIm != null" >
+        LEGAL_IM,
+      </if>
+      <if test="adminName != null" >
+        ADMIN_NAME,
+      </if>
+      <if test="adminPhone != null" >
+        ADMIN_PHONE,
+      </if>
+      <if test="adminMobile != null" >
+        ADMIN_MOBILE,
+      </if>
+      <if test="adminFax != null" >
+        ADMIN_FAX,
+      </if>
+      <if test="adminEmail != null" >
+        ADMIN_EMAIL,
+      </if>
+      <if test="adminHomepage != null" >
+        ADMIN_HOMEPAGE,
+      </if>
+      <if test="adminIm != null" >
+        ADMIN_IM,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="sealImg != null" >
+        SEAL_IMG,
+      </if>
+      <if test="signImg != null" >
+        SIGN_IMG,
+      </if>
+      <if test="sortNo != null" >
+        SORT_NO,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="creator != null" >
+        CREATOR,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+      <if test="trainOrgLevel != null" >
+        TRAIN_ORG_LEVEL,
+      </if>
+      <if test="trainOrgFeature != null" >
+        TRAIN_ORG_FEATURE,
+      </if>
+      <if test="isVirtual != null" >
+        IS_VIRTUAL,
+      </if>
+      <if test="logo != null" >
+        LOGO,
+      </if>
+      <!-- 新增的行业分类 -->
+      <if test="industryType != null" >
+        INDUSTRY_TYPE,
+      </if>
+      <if test="unitId != null" >
+        UNIT_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="deptType != null" >
+        #{deptType,jdbcType=VARCHAR},
+      </if>
+      <if test="deptNo != null" >
+        #{deptNo,jdbcType=VARCHAR},
+      </if>
+      <if test="deptName != null" >
+        #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="deptAddress != null" >
+        #{deptAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null" >
+        #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="regionsCode != null" >
+        #{regionsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="counties != null" >
+        #{counties,jdbcType=VARCHAR},
+      </if>
+      <if test="street != null" >
+        #{street,jdbcType=VARCHAR},
+      </if>
+      <if test="deptCategory != null" >
+        #{deptCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="deptNature != null" >
+        #{deptNature,jdbcType=VARCHAR},
+      </if>
+      <if test="deptLevel != null" >
+        #{deptLevel,jdbcType=DECIMAL},
+      </if>
+      <if test="deptCode != null" >
+        #{deptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="linkPhone != null" >
+        #{linkPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="linkFax != null" >
+        #{linkFax,jdbcType=VARCHAR},
+      </if>
+      <if test="linkEmail != null" >
+        #{linkEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="homePage != null" >
+        #{homePage,jdbcType=VARCHAR},
+      </if>
+      <if test="linkName != null" >
+        #{linkName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkAddress != null" >
+        #{linkAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="legalName != null" >
+        #{legalName,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPhone != null" >
+        #{legalPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="legalMobile != null" >
+        #{legalMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="legalFax != null" >
+        #{legalFax,jdbcType=VARCHAR},
+      </if>
+      <if test="legalEmail != null" >
+        #{legalEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="legalHomepage != null" >
+        #{legalHomepage,jdbcType=VARCHAR},
+      </if>
+      <if test="legalIm != null" >
+        #{legalIm,jdbcType=VARCHAR},
+      </if>
+      <if test="adminName != null" >
+        #{adminName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminPhone != null" >
+        #{adminPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="adminMobile != null" >
+        #{adminMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="adminFax != null" >
+        #{adminFax,jdbcType=VARCHAR},
+      </if>
+      <if test="adminEmail != null" >
+        #{adminEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="adminHomepage != null" >
+        #{adminHomepage,jdbcType=VARCHAR},
+      </if>
+      <if test="adminIm != null" >
+        #{adminIm,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="sealImg != null" >
+        #{sealImg,jdbcType=VARCHAR},
+      </if>
+      <if test="signImg != null" >
+        #{signImg,jdbcType=VARCHAR},
+      </if>
+      <if test="sortNo != null" >
+        #{sortNo,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=CHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+      <if test="trainOrgLevel != null" >
+        #{trainOrgLevel,jdbcType=DECIMAL},
+      </if>
+      <if test="trainOrgFeature != null" >
+        #{trainOrgFeature,jdbcType=DECIMAL},
+      </if>
+      <if test="isVirtual != null" >
+        #{isVirtual,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null" >
+        #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="industryType != null" >
+        #{industryType,jdbcType=VARCHAR},
+      </if>
+      <if test="unitId != null" >
+        #{unitId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hcis.ipanther.common.dept.entity.Department" >
+    update IPANTHER_DEPARTMENT
+    <set >
+      <if test="parentId != null" >
+        PARENT_ID = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="deptType != null" >
+        DEPT_TYPE = #{deptType,jdbcType=VARCHAR},
+      </if>
+      <if test="deptNo != null" >
+        DEPT_NO = #{deptNo,jdbcType=VARCHAR},
+      </if>
+      <if test="deptName != null" >
+        DEPT_NAME = #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="deptAddress != null" >
+        DEPT_ADDRESS = #{deptAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null" >
+        POST_CODE = #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="regionsCode != null" >
+        REGIONS_CODE = #{regionsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        PROVINCE = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        CITY = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="counties != null" >
+        COUNTIES = #{counties,jdbcType=VARCHAR},
+      </if>
+      <if test="street != null" >
+        STREET = #{street,jdbcType=VARCHAR},
+      </if>
+      <if test="deptCategory != null" >
+        DEPT_CATEGORY = #{deptCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="deptNature != null" >
+        DEPT_NATURE = #{deptNature,jdbcType=VARCHAR},
+      </if>
+      <if test="deptLevel != null" >
+        DEPT_LEVEL = #{deptLevel,jdbcType=DECIMAL},
+      </if>
+      <if test="deptCode != null" >
+        DEPT_CODE = #{deptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="linkPhone != null" >
+        LINK_PHONE = #{linkPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="linkFax != null" >
+        LINK_FAX = #{linkFax,jdbcType=VARCHAR},
+      </if>
+      <if test="linkEmail != null" >
+        LINK_EMAIL = #{linkEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="homePage != null" >
+        HOME_PAGE = #{homePage,jdbcType=VARCHAR},
+      </if>
+      <if test="linkName != null" >
+        LINK_NAME = #{linkName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkAddress != null" >
+        LINK_ADDRESS = #{linkAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="legalName != null" >
+        LEGAL_NAME = #{legalName,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPhone != null" >
+        LEGAL_PHONE = #{legalPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="legalMobile != null" >
+        LEGAL_MOBILE = #{legalMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="legalFax != null" >
+        LEGAL_FAX = #{legalFax,jdbcType=VARCHAR},
+      </if>
+      <if test="legalEmail != null" >
+        LEGAL_EMAIL = #{legalEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="legalHomepage != null" >
+        LEGAL_HOMEPAGE = #{legalHomepage,jdbcType=VARCHAR},
+      </if>
+      <if test="legalIm != null" >
+        LEGAL_IM = #{legalIm,jdbcType=VARCHAR},
+      </if>
+      <if test="adminName != null" >
+        ADMIN_NAME = #{adminName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminPhone != null" >
+        ADMIN_PHONE = #{adminPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="adminMobile != null" >
+        ADMIN_MOBILE = #{adminMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="adminFax != null" >
+        ADMIN_FAX = #{adminFax,jdbcType=VARCHAR},
+      </if>
+      <if test="adminEmail != null" >
+        ADMIN_EMAIL = #{adminEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="adminHomepage != null" >
+        ADMIN_HOMEPAGE = #{adminHomepage,jdbcType=VARCHAR},
+      </if>
+      <if test="adminIm != null" >
+        ADMIN_IM = #{adminIm,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="sealImg != null" >
+        SEAL_IMG = #{sealImg,jdbcType=VARCHAR},
+      </if>
+      <if test="signImg != null" >
+        SIGN_IMG = #{signImg,jdbcType=VARCHAR},
+      </if>
+      <if test="sortNo != null" >
+        SORT_NO = #{sortNo,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      </if>
+      	VERSION = VERSION+1,
+      <if test="trainOrgLevel != null" >
+        TRAIN_ORG_LEVEL = #{trainOrgLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="trainOrgFeature != null" >
+        TRAIN_ORG_FEATURE = #{trainOrgFeature,jdbcType=VARCHAR},
+      </if>
+      <if test="isVirtual != null" >
+        IS_VIRTUAL = #{isVirtual,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null" >
+        LOGO = #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="industryType != null" >
+        INDUSTRY_TYPE = #{industryType,jdbcType=VARCHAR},
+      </if>
+      <if test="unitId != null" >
+        UNIT_ID = #{unitId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hcis.ipanther.common.dept.entity.Department" >
+    update IPANTHER_DEPARTMENT
+    set PARENT_ID = #{parentId,jdbcType=VARCHAR},
+      DEPT_TYPE = #{deptType,jdbcType=VARCHAR},
+      DEPT_NO = #{deptNo,jdbcType=VARCHAR},
+      DEPT_NAME = #{deptName,jdbcType=VARCHAR},
+      DEPT_ADDRESS = #{deptAddress,jdbcType=VARCHAR},
+      POST_CODE = #{postCode,jdbcType=VARCHAR},
+      REGIONS_CODE = #{regionsCode,jdbcType=VARCHAR},
+      PROVINCE = #{province,jdbcType=VARCHAR},
+      CITY = #{city,jdbcType=VARCHAR},
+      COUNTIES = #{counties,jdbcType=VARCHAR},
+      STREET = #{street,jdbcType=VARCHAR},
+      DEPT_CATEGORY = #{deptCategory,jdbcType=VARCHAR},
+      DEPT_NATURE = #{deptNature,jdbcType=VARCHAR},
+      DEPT_LEVEL = #{deptLevel,jdbcType=DECIMAL},
+      DEPT_CODE = #{deptCode,jdbcType=VARCHAR},
+      LINK_PHONE = #{linkPhone,jdbcType=VARCHAR},
+      LINK_FAX = #{linkFax,jdbcType=VARCHAR},
+      LINK_EMAIL = #{linkEmail,jdbcType=VARCHAR},
+      HOME_PAGE = #{homePage,jdbcType=VARCHAR},
+      LINK_NAME = #{linkName,jdbcType=VARCHAR},
+      LINK_ADDRESS = #{linkAddress,jdbcType=VARCHAR},
+      LEGAL_NAME = #{legalName,jdbcType=VARCHAR},
+      LEGAL_PHONE = #{legalPhone,jdbcType=VARCHAR},
+      LEGAL_MOBILE = #{legalMobile,jdbcType=VARCHAR},
+      LEGAL_FAX = #{legalFax,jdbcType=VARCHAR},
+      LEGAL_EMAIL = #{legalEmail,jdbcType=VARCHAR},
+      LEGAL_HOMEPAGE = #{legalHomepage,jdbcType=VARCHAR},
+      LEGAL_IM = #{legalIm,jdbcType=VARCHAR},
+      ADMIN_NAME = #{adminName,jdbcType=VARCHAR},
+      ADMIN_PHONE = #{adminPhone,jdbcType=VARCHAR},
+      ADMIN_MOBILE = #{adminMobile,jdbcType=VARCHAR},
+      ADMIN_FAX = #{adminFax,jdbcType=VARCHAR},
+      ADMIN_EMAIL = #{adminEmail,jdbcType=VARCHAR},
+      ADMIN_HOMEPAGE = #{adminHomepage,jdbcType=VARCHAR},
+      ADMIN_IM = #{adminIm,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      SEAL_IMG = #{sealImg,jdbcType=VARCHAR},
+      SIGN_IMG = #{signImg,jdbcType=VARCHAR},
+      SORT_NO = #{sortNo,jdbcType=DECIMAL},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      CREATOR = #{creator,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      VERSION = VERSION+1,
+      TRAIN_ORG_LEVEL = #{trainOrgLevel,jdbcType=VARCHAR},
+      TRAIN_ORG_FEATURE = #{trainOrgFeature,jdbcType=VARCHAR},
+      IS_VIRTUAL = #{isVirtual,jdbcType=VARCHAR},
+      UNIT_ID = #{unitId,jdbcType=VARCHAR},
+      LOGO = #{logo,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <delete id="deleteByLogic" parameterType="com.hcis.ipanther.common.dept.entity.Department">
+  	update IPANTHER_DEPARTMENT
+  	set IS_DELETED='Y',
+  	UPDATEDBY=#{updatedby,jdbcType=VARCHAR},
+  	UPDATE_TIME=#{updateTime,jdbcType=TIMESTAMP},
+  	VERSION = VERSION+1
+  	WHERE ID=#{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <select id="getDeptByRegionsCode" resultMap="BaseResultMap" parameterType="com.hcis.ipanther.common.dept.entity.Department" >
+    select 
+    <include refid="Base_Column_List" />
+    from IPANTHER_DEPARTMENT 
+    WHERE 
+    IS_DELETED = 'N'
+    AND REGIONS_CODE = #{regionsCode,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="getVirtualDeptByRegionsCode" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from IPANTHER_DEPARTMENT 
+    WHERE 
+    IS_DELETED = 'N'
+    AND REGIONS_CODE = #{regionsCode,jdbcType=VARCHAR}
+    AND IS_VIRTUAL = '1'
+  </select>
+
+  <select id="getPatentById" resultMap="BaseResultMap" parameterType="java.lang.String">
+    SELECT ID,PARENT_ID FROM ipanther_department WHERE id = #{_id, jdbcType=VARCHAR}
+  </select>
+
+  <select id="getAllDeptByUnitId" resultMap="BaseResultMap" resultType="java.lang.String">
+    SELECT
+        <include refid="Base_Column_List"/>
+    FROM
+    ipanther_department
+    WHERE
+    UNIT_ID = #{_companyId, jdbcType=VARCHAR}
+    AND IS_DELETED = 'N'
+    ORDER BY CREATE_TIME ASC
+  </select>
+
+  <select id="getUserDeptMap" parameterType="java.util.List" resultType="com.hcis.ipanther.common.user.entity.UserDept">
+    select USER_ID AS userId, DEPT_ID AS deptId from ipanther_user_dept where USER_ID IN
+    <foreach collection="list" item="id" open="(" close=")" separator=",">
+        #{id, jdbcType=VARCHAR}
+    </foreach>
+    and IS_DELETED = 'N'
+  </select>
+</mapper>

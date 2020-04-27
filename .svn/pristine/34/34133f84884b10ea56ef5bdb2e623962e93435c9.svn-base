@@ -1,0 +1,631 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcis.ipr.train.train.mapper.TrainMapper" >
+  <resultMap id="BaseResultMap" type="com.hcis.ipr.train.train.entity.Train" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="PROJECT_ID" property="projectId" jdbcType="VARCHAR" />
+    <result column="TRAIN_NAME" property="trainName" jdbcType="VARCHAR" />
+    <result column="TRAIN_CODE" property="trainCode" jdbcType="VARCHAR" />
+    <result column="TRAIN_INTRO" property="trainIntro" jdbcType="VARCHAR" />
+    <result column="START_TIME" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="END_TIME" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="CASH_START_TIME" property="cashStartTime" jdbcType="TIMESTAMP" />
+    <result column="CASH_END_TIME" property="cashEndTime" jdbcType="TIMESTAMP" />
+    <result column="STUDY_START_TIME" property="studyStartTime" jdbcType="TIMESTAMP" />
+    <result column="STUDY_END_TIME" property="studyEndTime" jdbcType="TIMESTAMP" />
+    <result column="SCORE_TIME" property="scoreTime" jdbcType="TIMESTAMP" />
+    <result column="COUNT_CHOOSE" property="countChoose" jdbcType="DECIMAL" />
+    <result column="COUNT_CASH" property="countCash" jdbcType="DECIMAL" />
+    <result column="COUNT_PASS" property="countPass" jdbcType="DECIMAL" />
+    <result column="RESULT_SCORE" property="resultScore" jdbcType="DECIMAL" />
+    <result column="SATISFY_SCORE" property="satisfyScore" jdbcType="DECIMAL" />
+    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="CHAR" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+    <result column="COURSE_EVALUA_COUNT" property="courseEvaluaCount" jdbcType="DECIMAL" />
+    <result column="TEACHING_EVALUA_COUNT" property="teachingEvaluaCount" jdbcType="DECIMAL" />
+    <result column="IS_STOP_APPLY" property="isStopApply" jdbcType="VARCHAR" />
+    <result column="IS_ROOM" property="isRoom" jdbcType="VARCHAR" />
+    <result column="ROOM_START_TIME" property="roomStartTime" jdbcType="TIMESTAMP" />
+    <result column="ROOM_END_TIME" property="roomEndTime" jdbcType="TIMESTAMP" /> 
+  </resultMap>
+  <resultMap type="java.util.Map" id="trainProjectInfo" extends="BaseResultMap">
+  	<result column="PROJECT_NAME" property="projectName" jdbcType="VARCHAR" />
+  	<result column="REGISTER_COUNT" property="registerCount" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap type="java.util.Map" id="trainByYear" >
+  	<result column="TYPE_F" property="typeF"    jdbcType="VARCHAR" />
+  	<result column="TYPE_R" property="typeR"  jdbcType="VARCHAR" />
+  	<result column="SUM_NUM" property="sumNum" jdbcType="VARCHAR" />
+  	<result column="YEARS" property="years"   jdbcType="VARCHAR" />
+  	<result column="MONTHS" property="months"   jdbcType="VARCHAR" />
+  	
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, PROJECT_ID, TRAIN_NAME, TRAIN_CODE, TRAIN_INTRO, START_TIME, END_TIME, CASH_START_TIME, 
+    CASH_END_TIME, STUDY_START_TIME, STUDY_END_TIME, SCORE_TIME, COUNT_CHOOSE, COUNT_CASH, 
+    COUNT_PASS, RESULT_SCORE, SATISFY_SCORE, CREATOR, CREATE_TIME, UPDATEDBY, UPDATE_TIME, 
+    IS_DELETED, VERSION,IS_STOP_APPLY,IS_ROOM,ROOM_START_TIME,ROOM_END_TIME
+  </sql>
+  <sql id="Base_Column" >
+    t.ID, t.PROJECT_ID, t.TRAIN_NAME, t.TRAIN_CODE, t.TRAIN_INTRO, t.START_TIME, t.END_TIME, t.CASH_START_TIME, 
+    t.CASH_END_TIME, t.STUDY_START_TIME, t.STUDY_END_TIME, t.SCORE_TIME, t.COUNT_CHOOSE, t.COUNT_CASH, 
+    t.COUNT_PASS, t.RESULT_SCORE, t.SATISFY_SCORE, t.CREATOR, t.CREATE_TIME, t.UPDATEDBY, t.UPDATE_TIME, 
+    t.IS_DELETED, t.VERSION,t.IS_STOP_APPLY,IS_ROOM,ROOM_START_TIME,ROOM_END_TIME
+  </sql>
+  <select id="selectBySearchParam" resultMap="trainProjectInfo" parameterType="searchParam" >
+    select 
+    <include refid="Base_Column" />,
+    (select count(ICEE.ID) from IPR_COURSE_EFFECT_EVALUA ICEE where T.id=ICEE.train_ID) COURSE_EVALUA_COUNT,
+    (select count(ITE.ID) from IPR_TEACHING_EVALUA ITE where T.id=ITE.train_ID) TEACHING_EVALUA_COUNT,
+    (select ipro.PROJECT_NAME from ipr_project ipro where t.project_id=ipro.id ) PROJECT_NAME
+    from IPR_TRAIN T where IS_DELETED='N'
+    <if test="paramMap.trainName!=null and paramMap.trainName!=''">
+<!--     	and T.TRAIN_NAME like '%'||#{paramMap.trainName,jdbcType=VARCHAR}||'%' -->
+    	and T.TRAIN_NAME like '%${paramMap.trainName}%'
+    </if>
+    <if test="paramMap.projectId!=null and paramMap.projectId!=''">
+    	and T.PROJECT_ID=#{paramMap.projectId,jdbcType=VARCHAR}
+    </if>
+    <if test="paramMap.declareDept!=null and paramMap.declareDept!=''">
+    	and exists (select 1 from ipr_project IP where IP.id=T.PROJECT_ID AND IP.DECLARE_DEPT =  #{paramMap.declareDept,jdbcType=VARCHAR})
+    </if>
+    order by t.update_time desc,t.create_time desc,t.id
+  </select>
+  <select id="listTrain" resultMap="trainProjectInfo" parameterType="searchParam" >
+    select ipro.project_name ,
+    <include refid="Base_Column" />
+      <if test="paramMap.registerCount!=null and paramMap.registerCount!=''">
+    	,(select count(1) from IPR_TRAIN_REGISTER itr WHERE itr.status='01' and itr.TRAIN_ID=t.id and itr.is_deleted='N') REGISTER_COUNT
+    </if>
+    from IPR_TRAIN t join ipr_project ipro on t.project_id=ipro.id and ipro.IS_DELETED='N'
+    where t.IS_DELETED='N'
+    <if test="paramMap.trainName!=null and paramMap.trainName!=''">
+<!--     	and t.TRAIN_NAME like '%'||#{paramMap.trainName,jdbcType=VARCHAR}||'%' -->
+    	and t.TRAIN_NAME like '%${paramMap.trainName}%'
+    </if>
+    <if test="paramMap.declareDept!=null and paramMap.declareDept!=''">
+    	and ipro.DECLARE_DEPT=#{paramMap.declareDept,jdbcType=VARCHAR}
+    </if>
+     <if test="paramMap.status!=null and paramMap.status!=''">
+    	and ipro.STATUS=#{paramMap.status,jdbcType=VARCHAR}
+    </if>
+    <if test="paramMap.projectName!=null and paramMap.projectName!=''">
+<!--     	and ipro.project_name like '%'||#{paramMap.projectName,jdbcType=VARCHAR}||'%' -->
+    	and ipro.project_name like '%${paramMap.projectName}%'
+    </if>
+    order by t.UPDATE_TIME desc ,t.CREATE_TIME DESC ,T.ID
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from IPR_TRAIN
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from IPR_TRAIN
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hcis.ipr.train.train.entity.Train" >
+    insert into IPR_TRAIN (ID, PROJECT_ID, TRAIN_NAME, 
+      TRAIN_CODE, TRAIN_INTRO, START_TIME, 
+      END_TIME, CASH_START_TIME, CASH_END_TIME, 
+      STUDY_START_TIME, STUDY_END_TIME, SCORE_TIME, 
+      COUNT_CHOOSE, COUNT_CASH, COUNT_PASS, 
+      RESULT_SCORE, SATISFY_SCORE, CREATOR, 
+      CREATE_TIME, UPDATEDBY, UPDATE_TIME, 
+      IS_DELETED, VERSION,IS_ROOM,ROOM_START_TIME,ROOM_END_TIME)
+    values (#{id,jdbcType=VARCHAR}, #{projectId,jdbcType=VARCHAR}, #{trainName,jdbcType=VARCHAR}, 
+      #{trainCode,jdbcType=VARCHAR}, #{trainIntro,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP}, #{cashStartTime,jdbcType=TIMESTAMP}, #{cashEndTime,jdbcType=TIMESTAMP}, 
+      #{studyStartTime,jdbcType=TIMESTAMP}, #{studyEndTime,jdbcType=TIMESTAMP}, #{scoreTime,jdbcType=TIMESTAMP}, 
+      #{countChoose,jdbcType=DECIMAL}, #{countCash,jdbcType=DECIMAL}, #{countPass,jdbcType=DECIMAL}, 
+      #{resultScore,jdbcType=DECIMAL}, #{satisfyScore,jdbcType=DECIMAL}, #{creator,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updatedby,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{isDeleted,jdbcType=CHAR}, #{version,jdbcType=DECIMAL},#{isRoom,jdbcType=VARCHAR},#{roomStartTime,jdbcType=TIMESTAMP},#{roomEndTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hcis.ipr.train.train.entity.Train" >
+    insert into IPR_TRAIN
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="projectId != null" >
+        PROJECT_ID,
+      </if>
+      <if test="trainName != null" >
+        TRAIN_NAME,
+      </if>
+      <if test="trainCode != null" >
+        TRAIN_CODE,
+      </if>
+      <if test="trainIntro != null" >
+        TRAIN_INTRO,
+      </if>
+      <if test="startTime != null" >
+        START_TIME,
+      </if>
+      <if test="endTime != null" >
+        END_TIME,
+      </if>
+      <if test="cashStartTime != null" >
+        CASH_START_TIME,
+      </if>
+      <if test="cashEndTime != null" >
+        CASH_END_TIME,
+      </if>
+      <if test="studyStartTime != null" >
+        STUDY_START_TIME,
+      </if>
+      <if test="studyEndTime != null" >
+        STUDY_END_TIME,
+      </if>
+      <if test="scoreTime != null" >
+        SCORE_TIME,
+      </if>
+      <if test="countChoose != null" >
+        COUNT_CHOOSE,
+      </if>
+      <if test="countCash != null" >
+        COUNT_CASH,
+      </if>
+      <if test="countPass != null" >
+        COUNT_PASS,
+      </if>
+      <if test="resultScore != null" >
+        RESULT_SCORE,
+      </if>
+      <if test="satisfyScore != null" >
+        SATISFY_SCORE,
+      </if>
+      <if test="creator != null" >
+        CREATOR,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+      <if test="isRoom != null" >
+        IS_ROOM,
+      </if>
+      <if test="roomStartTime != null" >
+        ROOM_START_TIME,
+      </if>
+       <if test="roomEndTime != null" >
+        ROOM_END_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="trainName != null" >
+        #{trainName,jdbcType=VARCHAR},
+      </if>
+      <if test="trainCode != null" >
+        #{trainCode,jdbcType=VARCHAR},
+      </if>
+      <if test="trainIntro != null" >
+        #{trainIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cashStartTime != null" >
+        #{cashStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cashEndTime != null" >
+        #{cashEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="studyStartTime != null" >
+        #{studyStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="studyEndTime != null" >
+        #{studyEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="scoreTime != null" >
+        #{scoreTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="countChoose != null" >
+        #{countChoose,jdbcType=DECIMAL},
+      </if>
+      <if test="countCash != null" >
+        #{countCash,jdbcType=DECIMAL},
+      </if>
+      <if test="countPass != null" >
+        #{countPass,jdbcType=DECIMAL},
+      </if>
+      <if test="resultScore != null" >
+        #{resultScore,jdbcType=DECIMAL},
+      </if>
+      <if test="satisfyScore != null" >
+        #{satisfyScore,jdbcType=DECIMAL},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=CHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+      <if test="isRoom != null" >
+        #{isRoom,jdbcType=VARCHAR},
+      </if>
+      <if test="roomStartTime != null" >
+        #{roomStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="roomEndTime != null" >
+        #{roomEndTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hcis.ipr.train.train.entity.Train" >
+    update IPR_TRAIN
+    <set >
+      <if test="projectId != null" >
+        PROJECT_ID = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="trainName != null" >
+        TRAIN_NAME = #{trainName,jdbcType=VARCHAR},
+      </if>
+      <if test="trainCode != null" >
+        TRAIN_CODE = #{trainCode,jdbcType=VARCHAR},
+      </if>
+      <if test="trainIntro != null" >
+        TRAIN_INTRO = #{trainIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cashStartTime != null" >
+        CASH_START_TIME = #{cashStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cashEndTime != null" >
+        CASH_END_TIME = #{cashEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="studyStartTime != null" >
+        STUDY_START_TIME = #{studyStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="studyEndTime != null" >
+        STUDY_END_TIME = #{studyEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="scoreTime != null" >
+        SCORE_TIME = #{scoreTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="countChoose != null" >
+        COUNT_CHOOSE = #{countChoose,jdbcType=DECIMAL},
+      </if>
+      <if test="countCash != null" >
+        COUNT_CASH = #{countCash,jdbcType=DECIMAL},
+      </if>
+      <if test="countPass != null" >
+        COUNT_PASS = #{countPass,jdbcType=DECIMAL},
+      </if>
+      <if test="resultScore != null" >
+        RESULT_SCORE = #{resultScore,jdbcType=DECIMAL},
+      </if>
+      <if test="satisfyScore != null" >
+        SATISFY_SCORE = #{satisfyScore,jdbcType=DECIMAL},
+      </if>
+      <if test="creator != null" >
+        CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      </if>
+      <if test="isStopApply != null" >
+        IS_STOP_APPLY = #{isStopApply,jdbcType=VARCHAR},
+      </if>
+      IS_ROOM = #{isRoom,jdbcType=VARCHAR},
+      ROOM_START_TIME = #{roomStartTime,jdbcType=TIMESTAMP},
+      ROOM_END_TIME = #{roomEndTime,jdbcType=TIMESTAMP},
+      VERSION = VERSION+1,
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hcis.ipr.train.train.entity.Train" >
+    update IPR_TRAIN
+    set PROJECT_ID = #{projectId,jdbcType=VARCHAR},
+      TRAIN_NAME = #{trainName,jdbcType=VARCHAR},
+      TRAIN_CODE = #{trainCode,jdbcType=VARCHAR},
+      TRAIN_INTRO = #{trainIntro,jdbcType=VARCHAR},
+      START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      CASH_START_TIME = #{cashStartTime,jdbcType=TIMESTAMP},
+      CASH_END_TIME = #{cashEndTime,jdbcType=TIMESTAMP},
+      STUDY_START_TIME = #{studyStartTime,jdbcType=TIMESTAMP},
+      STUDY_END_TIME = #{studyEndTime,jdbcType=TIMESTAMP},
+      SCORE_TIME = #{scoreTime,jdbcType=TIMESTAMP},
+      COUNT_CHOOSE = #{countChoose,jdbcType=DECIMAL},
+      COUNT_CASH = #{countCash,jdbcType=DECIMAL},
+      COUNT_PASS = #{countPass,jdbcType=DECIMAL},
+      RESULT_SCORE = #{resultScore,jdbcType=DECIMAL},
+      SATISFY_SCORE = #{satisfyScore,jdbcType=DECIMAL},
+      CREATOR = #{creator,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      IS_STOP_APPLY = #{isStopApply,jdbcType=VARCHAR},
+      IS_ROOM = #{isRoom,jdbcType=VARCHAR},
+      ROOM_START_TIME = #{roomStartTime,jdbcType=TIMESTAMP},
+      ROOM_END_TIME = #{roomEndTime,jdbcType=TIMESTAMP},
+      VERSION = VERSION+1
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="deleteByLogic" parameterType="com.hcis.ipr.train.train.entity.Train" >
+    update IPR_TRAIN
+    <set >
+        IS_DELETED = 'Y',
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- cms首页用到的统计 start -->
+  <select id="selectTrainStatistics" resultType="java.util.Map" parameterType="java.util.Map" >
+    SELECT COUNT(DISTINCT a.id||e.user_id) "studentCount",
+       COUNT(DISTINCT a.id||c.id) "courseCount",
+       COUNT(DISTINCT b.EXPERT_ID) "teacherCount"
+	  FROM ipr_train a
+	  LEFT JOIN ipr_train_course b
+	    ON (a.id = b.train_id AND b.IS_DELETED='N')
+	  LEFT JOIN ipr_course c
+	    ON (b.course_id = c.id AND c.IS_DELETED='N')
+	  LEFT JOIN ipr_train_register e
+	    ON (a.id = e.train_id AND e.status = '01' AND e.IS_DELETED='N' )
+	  JOIN ipr_project f
+	    ON (a.project_id = f.id AND f.IS_DELETED='N')
+	 WHERE f.status = '02'
+	 AND e.user_id IS NOT NULL
+	 AND a.IS_DELETED='N'
+	 <if test="year != null and year!=''" >
+        AND f.year = #{year,jdbcType=VARCHAR}
+      </if>
+  </select>
+  
+  <select id="selectTrainHoursStatistics" resultType="java.util.Map" parameterType="java.util.Map" >
+    SELECT sum(c.study_hours) "studyHoursCount"
+	  FROM ipr_train a
+	  LEFT JOIN ipr_train_course b
+	    ON (a.id = b.train_id AND b.IS_DELETED='N')
+	  LEFT JOIN ipr_course c
+	    ON (b.course_id = c.id AND c.IS_DELETED='N')
+	  JOIN ipr_project f
+	    ON (a.project_id = f.id AND f.IS_DELETED='N')
+	 WHERE f.status = '02'
+	 AND A.IS_DELETED='N'
+	 <if test="year != null and year!=''" >
+        AND f.year = #{year,jdbcType=VARCHAR}
+      </if>
+  </select>
+  
+  <select id="selectTrainStatisticsGroup" resultType="java.util.Map" parameterType="java.util.Map" >
+    SELECT 
+       t.year as "year",
+       COUNT(DISTINCT a.id||e.user_id) "studentCount"
+	  FROM ipr_project t 
+	  LEFT JOIN ipr_train a
+	  	ON (a.project_id = t.id AND a.IS_DELETED='N')
+	  JOIN ipr_train_register e
+	    ON (a.id = e.train_id AND e.status = '01' AND e.IS_DELETED='N')
+	 WHERE t.status = '02'
+	 AND T.IS_DELETED='N'
+	 and t.year >= #{minYear,jdbcType=VARCHAR}
+	 GROUP BY t.year
+  </select>
+  <!-- cms首页用到的统计 end -->
+  
+  <select id="registerStatistics" resultType="java.util.Map" parameterType="java.util.Map" >
+    select t.year, count(1) STUDENT_COUNT From ipr_project t 
+	join IPR_TRAIN it on t.id=it.project_id and it.is_deleted='N'
+	join ipr_train_register itr on itr.train_id=it.id and itr.status='01' and itr.is_deleted='N'
+	JOIN ipr_project IP ON IT.PROJECT_ID = IP.ID AND IP.IS_DELETED='N'
+	where t.is_deleted='N' and t.status='02'
+	and t.year in
+	<foreach collection="years" open="(" close=")" separator="," item="year">
+	#{year,jdbcType=VARCHAR}
+	</foreach>
+	<if test="deptId != null and deptId!=''" >
+       AND IP.DECLARE_DEPT = #{deptId,jdbcType=VARCHAR}
+     </if>
+	and exists (
+	select 1 from ipr_course ic join ipr_train_course itc
+	 on ic.id=itc.course_id and itc.is_deleted='N' and itc.train_id=itc.train_id and ic.train_type=#{trainType,jdbcType=VARCHAR})
+	
+	group by t.year
+  </select>
+  
+  <!-- cms 年度统计情况年度面授培训、远程培训、总培训人数 -->
+  <select id="selectTrainByYear" resultMap="trainByYear" parameterType="java.util.Map">
+ 	SELECT SUM(CASE WHEN IC.TRAIN_TYPE ='01'  THEN 1 
+                            ELSE 0 END) TYPE_F,
+                     SUM(CASE WHEN IC.TRAIN_TYPE ='02'  THEN 1 
+                            ELSE 0 END) TYPE_R,
+                              YEARS_TEM.YEARS
+		FROM IPR_TRAIN IT
+		  JOIN IPR_TRAIN_COURSE ITC  ON ITC.TRAIN_ID = IT.ID   
+		  	AND IT.IS_DELETED = 'N' AND ITC.IS_DELETED = 'N'
+  		  JOIN IPR_COURSE IC ON ITC.COURSE_ID = IC.ID AND IC.IS_DELETED = 'N'
+  		  JOIN IPR_TRAIN_REGISTER ITR ON ITR.TRAIN_ID = IT.ID 
+  		  AND ITR.Status='02' AND ITR.IS_DELETED = 'N'
+  		  JOIN ipr_project IP  ON IP.ID = IT.PROJECT_ID AND IP.IS_DELETED = 'N' 
+  		  <if test="year != null and year!=''" >
+	        AND IP.year = #{year,jdbcType=DECIMAL}
+	      </if>
+	      <if test="deptId != null and deptId!=''" >
+	        AND IP.DECLARE_DEPT = #{deptId,jdbcType=VARCHAR}
+	      </if>
+		RIGHT JOIN 
+		<foreach collection="years" open="(" close=")" separator="UNION ALL" item="trainYear">
+			SELECT #{trainYear,jdbcType=DECIMAL} YEARS FROM DUAL
+		</foreach>
+		YEARS_TEM  ON YEARS_TEM.YEARS=IP.YEAR
+		 GROUP BY IC.TRAIN_TYPE,YEARS_TEM.YEARS
+		 ORDER BY YEARS_TEM.YEARS
+  </select>
+  <!-- cms 月度统计情况年度面授培训、远程培训、总培训人数 -->
+  <select id="selectTrainByMonth" resultMap="trainByYear" parameterType="java.util.Map">
+ 	<!--  SELECT SUM(CASE WHEN IC.TRAIN_TYPE ='01'  THEN 1 
+                            ELSE 0 END) TYPE_F,
+                     SUM(CASE WHEN IC.TRAIN_TYPE ='02'  THEN 1 
+                            ELSE 0 END) TYPE_R,
+                              MONTH_TEM.MONTH MONTHS
+		FROM IPR_TRAIN IT
+		  JOIN IPR_TRAIN_COURSE ITC  ON ITC.TRAIN_ID = IT.ID   
+		  	AND IT.IS_DELETED = 'N' AND　ITC.IS_DELETED = 'N'
+		  	-->
+SELECT SUM(CASE WHEN IC.TRAIN_TYPE ='01'  THEN 1 ELSE 0 END) TYPE_F,SUM(CASE WHEN IC.TRAIN_TYPE ='02'  THEN 1 ELSE 0 END) TYPE_R,MONTH_TEM.MONTH MONTHS   FROM IPR_TRAIN IT  
+   JOIN IPR_TRAIN_COURSE ITC ON ITC.TRAIN_ID = IT.ID AND ITC.IS_DELETED='N' AND IT.IS_DELETED='N' JOIN IPR_COURSE IC ON ITC.COURSE_ID=IC.ID AND IC.IS_DELETED='N' JOIN IPR_TRAIN_REGISTER ITR ON ITR.TRAIN_ID = IT.ID AND ITR.Status='02' AND ITR.IS_DELETED = 'N' JOIN ipr_project IP  ON IP.ID = IT.PROJECT_ID AND IP.IS_DELETED ='N' 
+  		  <if test="year != null and year!=''" >
+	        AND IP.year = #{year,jdbcType=DECIMAL}
+	      </if>
+	      <if test="deptId != null and deptId!=''" >
+	        AND IP.DECLARE_DEPT = #{deptId,jdbcType=VARCHAR}
+	      </if>
+		RIGHT JOIN 
+		<foreach collection="months" open="(" close=")" separator="UNION ALL" item="trainMonth">
+			SELECT #{trainMonth,jdbcType=DECIMAL} MONTH FROM DUAL
+		</foreach>
+<!-- 		MONTH_TEM  ON MONTH_TEM.MONTH= to_char(ITR.CREATE_TIME,'mm') -->
+		MONTH_TEM  ON MONTH_TEM.MONTH= date_format(ITR.CREATE_TIME,'mm')
+		 GROUP BY IC.TRAIN_TYPE,MONTH_TEM.MONTH
+		 ORDER BY MONTH_TEM.MONTH
+  </select>
+  <select id="selectCountByRegions" resultType="java.util.Map" parameterType="java.util.Map">
+       select tme_.USER_COUNT,tme_.USER_TYPE,IAR.REGIONS_CODE ,tme_.YEARS from(select sum(t.USER_COUNT) USER_COUNT ,t.USER_TYPE,
+     (CASE WHEN MAX(T.REGIONS_LEVEL)=1 THEN MAX(T.PROVINCE) 
+           WHEN MAX(T.REGIONS_LEVEL)=2 THEN T.CITY 
+              ELSE NULL END) REGIONS_CODE,
+                T.YEARS
+                FROM (SELECT COUNT(ITR.USER_ID) USER_COUNT,
+       IUS.USER_TYPE, IAR.REGIONS_LEVEL,
+        (CASE WHEN IAR.REGIONS_LEVEL=1  THEN IAR.REGIONS_CODE 
+              WHEN IAR.REGIONS_LEVEL=2  THEN (SELECT T.PARENT_CODE  FROM IPANTHER_ADMIN_REGIONS T 
+                                                     WHERE IAR.REGIONS_CODE =T.REGIONS_CODE)
+              WHEN IAR.REGIONS_LEVEL=3  THEN (SELECT  (SELECT T_.PARENT_CODE FROM IPANTHER_ADMIN_REGIONS T_  WHERE 
+                                                              T_.REGIONS_CODE=T.PARENT_CODE)  FROM IPANTHER_ADMIN_REGIONS T 
+                                                     WHERE IAR.REGIONS_CODE =T.REGIONS_CODE) 
+        ELSE  NULL END 
+                                                     ) PROVINCE,
+        (CASE WHEN IAR.REGIONS_LEVEL=2  THEN IAR.REGIONS_CODE 
+                    WHEN IAR.REGIONS_LEVEL=3  THEN (SELECT  T.PARENT_CODE  FROM IPANTHER_ADMIN_REGIONS T 
+                                                     WHERE IAR.REGIONS_CODE =T.REGIONS_CODE)
+        ELSE  NULL END ) CITY,
+        (CASE WHEN IAR.REGIONS_LEVEL=3  THEN IAR.REGIONS_CODE ELSE  NULL END ) COUNTIES,
+       YSER_TEM.YEARS
+  FROM IPR_TRAIN_REGISTER ITR
+  JOIN IPANTHER_USER IU   ON IU.ID = ITR.USER_ID   AND ITR.IS_DELETED = 'N'   AND ITR.STATUS = '02'   AND IU.IS_DELETED = 'N'
+  JOIN IPANTHER_USER_STAFF IUS   ON IUS.USER_ID = IU.ID  AND IUS.IS_DELETED = 'N'
+  JOIN IPANTHER_USER_DEPT IUD    ON IU.ID = IUD.USER_ID   AND IUD.IS_DELETED = 'N'
+  JOIN IPANTHER_DEPARTMENT IDE    ON IDE.ID = IUD.DEPT_ID   AND IDE.IS_DELETED = 'N'
+  JOIN IPR_TRAIN IT    ON ITR.TRAIN_ID = IT.ID   AND IT.IS_DELETED = 'N'
+  JOIN ipr_project IP    ON IT.PROJECT_ID = IP.ID   AND IP.IS_DELETED = 'N'
+  <if test="deptId != null and deptId!=''" >
+    AND IP.DECLARE_DEPT = #{deptId,jdbcType=VARCHAR}
+  </if>
+  JOIN IPANTHER_ADMIN_REGIONS IAR ON IDE.REGIONS_CODE=IAR.REGIONS_CODE 
+ RIGHT JOIN    
+	<foreach collection="years" open="(" close=")" separator="UNION ALL" item="trainYear">
+		SELECT #{trainYear,jdbcType=DECIMAL} YEARS FROM DUAL
+    </foreach>  YSER_TEM
+    ON YSER_TEM.YEARS = IP.YEAR
+ 	GROUP BY IUS.USER_TYPE, iar.regions_level,iar.REGIONS_CODE, YSER_TEM.YEARS
+  	ORDER BY YSER_TEM.YEARS ) t
+     	GROUP BY t.USER_TYPE, t.CITY, t.YEARS )  tme_
+  	RIGHT JOIN IPANTHER_ADMIN_REGIONS IAR ON   IAR.REGIONS_CODE=TME_.REGIONS_CODE 
+  	WHERE IAR.REGIONS_CODE=TME_.REGIONS_CODE OR IAR.PARENT_CODE='440000' 
+  	ORDER BY IAR.REGIONS_CODE
+  </select>
+  <!-- 新增  行业类型 -->
+  <select id="selectTrainStatisticsIndustryType" resultType="java.util.Map" parameterType="searchParam" >
+  
+    SELECT 
+    <if test="paramMap.typeCodes!=null and paramMap.typeCodes !='' ">
+    <foreach collection="paramMap.typeCodes" item="type" separator=",">
+<!--     sum(case when (instr(gg.industry_type,'"'||#{type}||'"') > 0) then 1 else 0 end) as "${type}" -->
+    sum(case when (instr(gg.industry_type,CONCAT('"',#{type},'"')) > 0) then 1 else 0 end) as "${type}"
+    </foreach>
+    </if>
+   
+ from (select 
+    DISTINCT e.user_id,IFNULL(f.industry_type,'[""]') as industry_type,IFNULL(f.person_type,'[""]') as person_type
+	  FROM ipr_project t 
+	  LEFT JOIN ipr_train a
+	  	ON (a.project_id = t.id AND a.IS_DELETED='N')
+	  JOIN ipr_train_register e
+	    ON (a.id = e.train_id AND e.status = '01' AND e.IS_DELETED='N')
+	  join ipr_train_course c
+      ON(c.train_id=a.id AND c.IS_DELETED='N')
+      join ipr_course f
+      on (f.id=c.course_id)
+	 WHERE t.status = '02'
+	 AND T.IS_DELETED='N'
+	 ) gg
+  </select>
+  <!-- 人才类型查询统计 -->
+  <select id="selectTrainStatisticsPersonType" resultType="java.util.Map" parameterType="searchParam">
+  SELECT x.parent_value "newkey",COUNT(distinct y.user_id) "value" FROM 
+
+(SELECT m.dict_value,m.parent_value FROM ipanther_dict_entry m WHERE m.dict_type_code = 'USER_TYPE') x
+LEFT JOIN 
+(
+select 
+    DISTINCT e.user_id,f.industry_type,f.person_type
+    FROM ipr_project t 
+    LEFT JOIN ipr_train a
+      ON (a.project_id = t.id AND a.IS_DELETED='N')
+    JOIN ipr_train_register e
+      ON (a.id = e.train_id AND e.status = '01' AND e.IS_DELETED='N')
+    join ipr_train_course c
+      ON(c.train_id=a.id AND c.IS_DELETED='N')
+      join ipr_course f
+      on (f.id=c.course_id)
+   WHERE t.status = '02'
+   AND T.IS_DELETED='N'
+) y  ON INSTR(y.person_type,CONCAT('"',x.dict_value,'"')) > 0
+GROUP BY x.parent_value
+  </select>
+</mapper>

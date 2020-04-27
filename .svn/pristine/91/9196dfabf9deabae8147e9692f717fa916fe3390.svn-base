@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>广东省知识产权人才信息化管理</title>
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<!--start #g-tp 顶部 -->
+	<div id="g-tp">
+		<div class="g-tpc clearfix">
+			<div class="m-welcomes">欢迎来到广东省知识产权人才信息化管理门户！</div>
+			<div class="m-lr">
+				<a href="#" class="log" id="u-log-btn">登录</a>	
+				<span>|</span>
+				<a href="#" class="reg" id="u-reg-btn">注册</a>
+			</div>
+		</div>
+	</div>
+	<!--end #g-tp 顶部 -->
+	<!--start #g-hd 头部 -->
+	<div id="g-hd">
+		<div class="g-hdc clearfix">
+			<h1 id="logo"><a href="index.html">广东省知识产权人才信息化管理</a></h1>
+			<div class="m-sch">
+				<input type="text" placeholder="搜索" class="u-input u-input-full">
+				<button type="submit" class="u-sch-btn">
+					<i class="ico"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+	<!--end #g-hd 头部 -->
+	<!--start #g-menu 导航 -->
+	<div id="g-menu">
+		<div class="g-nvc clearfix">
+			<a href="index.html">首页</a>
+			<a href="informList.html">通知要闻</a>
+			<a href="dynamicList.html">培训动态</a>
+			<a href="talents.html">人才培训系统</a>
+			<a href="teacher.html">培训师资系统</a>
+			<a href="javascript:void(0);">人才评估系统</a>
+			<a href="contactUs.html" class="z-crt">联系我们</a>
+		</div>
+	</div>
+	<!--end #g-menu 导航 -->
+	<!--start #g-bd 中间 -->
+	<div id="g-bd">
+		<!--start #contactUs 联系我们 -->
+		<div id="contactUs">
+			<div class="g-page-wrap">
+				<div class="g-page-box">
+					<div class="m-tt2">
+						<div class="m-crm">
+							<span class="c-txt">您的位置：</span>
+							<a href="index.html">首页</a>
+							<span class="line">&gt;</span>
+							<span class="z-crt">联系我们</span>
+						</div>
+					</div><!--end .m-tt2-->	
+					<div class="m-page-dt">
+						<div class="m-site-img">
+							<img src="images/site.jpg" alt="">
+						</div>
+						<ul class="m-txt-lst2">
+							<li class="item">
+								<i class="site-ico"></i>
+								<b>联系地址：</b>
+								<p>中国广东省广州市先烈中路100号大院高科技中心大楼9-12楼</p>
+							</li>
+							<li class="item">
+								<i class="phone-ico"></i>
+								<b>局总机：</b>
+								<p>020-32210173，020-32210174</p>
+							</li>
+							<li class="item">
+								<i class="phone1-ico"></i>
+								<b>培训咨询：</b>
+								<p>86-20-87683159</p>
+							</li>
+							<li class="item">
+								<i class="fax-ico"></i>
+								<b>传  真：</b>
+								<p>020-32210174</p>
+							</li>
+							<li class="item">
+								<i class="email-ico"></i>
+								<b>电子信箱：</b>
+								<p>gipo32210174@163.com</p>
+							</li>
+						</ul>
+					</div><!--end .m-page-dt-->
+				</div><!--end .g-page-box -->
+			</div>
+		</div>
+		<!--end #contactUs 联系我们 -->
+	</div>
+	<!--end #g-bd 中间 -->
+	<!--start #g-ft 底部 -->
+	<div id="g-ft">
+		<div class="g-ftc">
+			<p class="c-txt">主办单位：广东省知识产权局</p>
+			<p class="c-txt">地址：中国广东省广州市先烈中路100号大院高科技中心大楼9-12楼 (邮编：510070)</p>
+			<p class="c-txt">局总机：8620-87682346&nbsp;&nbsp;投诉电话：87680604</p>
+			<p class="c-txt">Copyright <em>©</em> 2015. All rights reserved</p>
+		</div>
+	</div>
+	<!--end #g-ft 底部 -->
+	<div class="m-blackbg"></div>
+	<!--start .m-log-layer 登录弹出框-->
+	<div class="m-log-layer m-layer">
+		<div class="layer-c">
+			<h4 id="showText">登录</h4>
+			<div class="m-logreg">
+				<div class="m-lr-scroll" id="mTfScroll">
+					<div class="m-log">
+						<form action="">
+							<label class="u-ipttxt">
+								<i class="user-icon"></i>
+								<input type="text" value="" class="c-ipt">
+								<span class="ph-txt">用户名或邮箱</span>
+							</label>
+	 						<label class="u-ipttxt">
+								<i class="lock-icon"></i>
+								<input type="text" value="" class="c-ipt">
+								<span class="ph-txt">密码</span>
+							</label>
+							<div class="u-iptopa f-cb">
+								<div class="c-op">
+									<a href="#">忘记密码？</a>
+								</div>
+								<input type="submit" value="登录" class="c-btn">
+							</div>
+							<div class="no-user">没有账号？<a href="javascript:void(0);" id="u-tf-log">注册</a></div>
+						</form>
+					</div><!--end .m-log 登录-->
+					<div class="m-reg">
+						<form action="">
+							<label class="u-ipttxt">
+								<i class="user-icon"></i>
+								<input type="text" value="" class="c-ipt">
+								<span class="ph-txt">用户名 仅英文或者数字</span>
+							</label>
+							<label class="u-ipttxt">
+								<i class="email-icon"></i>
+								<input type="text" value="" class="c-ipt">
+								<span class="ph-txt">邮箱</span>
+							</label>
+							<label class="u-ipttxt">
+								<i class="lock-icon"></i>
+								<input type="text" value="" class="c-ipt">
+								<span class="ph-txt">密码</span>
+							</label>
+							<div class="u-iptopa f-cb">
+								<div class="c-op">
+									<span>已有账号？<a href="javascript:void(0);" id="u-tf-reg">登录</a></span>
+								</div>
+								<input type="submit" value="注册" class="c-btn">
+							</div>
+						</form>
+					</div>
+				</div><!--end .m-reg 注册-->	
+			</div><!--end .m-lr-scroll -->
+		</div>
+	</div>
+	<!--end .m-log-layer 登录弹出框-->
+</body>
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="js/function.js"></script>
+</html>

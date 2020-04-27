@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcis.ipr.train.effect.mapper.CheckResultMapper" >
+  <resultMap id="BaseResultMap" type="com.hcis.ipr.train.effect.entity.CheckResult" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="CHECK_ID" property="checkId" jdbcType="VARCHAR" />
+    <result column="PROJECT_ID" property="projectId" jdbcType="VARCHAR" />
+    <result column="TEACHER_ID" property="teacherId" jdbcType="VARCHAR" />
+    <result column="RESULT" property="result" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="CHAR" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+    
+    <result column="PROJECT_NAME" property="projectName" jdbcType="VARCHAR" />
+    <result column="TEACHER_NAME" property="teacherName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID,CHECK_ID, PROJECT_ID, TEACHER_ID, RESULT, STATUS, CREATOR, CREATE_TIME, UPDATEDBY, UPDATE_TIME, 
+    IS_DELETED, VERSION
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from IPR_TRAIN_EFFECT_CHECK_RESULT
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from IPR_TRAIN_EFFECT_CHECK_RESULT
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hcis.ipr.train.effect.entity.CheckResult" >
+    insert into IPR_TRAIN_EFFECT_CHECK_RESULT (ID,CHECK_ID, PROJECT_ID, TEACHER_ID, 
+      RESULT, STATUS, CREATOR, 
+      CREATE_TIME, UPDATEDBY, UPDATE_TIME, 
+      IS_DELETED, VERSION)
+    values (#{id,jdbcType=VARCHAR}, #{checkId,jdbcType=VARCHAR},#{projectId,jdbcType=VARCHAR}, #{teacherId,jdbcType=VARCHAR}, 
+      #{result,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updatedby,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{isDeleted,jdbcType=CHAR}, #{version,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hcis.ipr.train.effect.entity.CheckResult" >
+    insert into IPR_TRAIN_EFFECT_CHECK_RESULT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="checkId != null" >
+        CHECK_ID,
+      </if>
+      <if test="projectId != null" >
+        PROJECT_ID,
+      </if>
+      <if test="teacherId != null" >
+        TEACHER_ID,
+      </if>
+      <if test="result != null" >
+        RESULT,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="creator != null" >
+        CREATOR,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="checkId != null" >
+        #{checkId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherId != null" >
+        #{teacherId,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null" >
+        #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=CHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hcis.ipr.train.effect.entity.CheckResult" >
+    update IPR_TRAIN_EFFECT_CHECK_RESULT
+    <set >
+      <if test="checkId != null" >
+        CHECK_ID = #{checkId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null" >
+        PROJECT_ID = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherId != null" >
+        TEACHER_ID = #{teacherId,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null" >
+        RESULT = #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      </if>
+      VERSION = VERSION+1,
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hcis.ipr.train.effect.entity.CheckResult" >
+    update IPR_TRAIN_EFFECT_CHECK_RESULT
+    set CHECK_ID = #{checkId,jdbcType=VARCHAR},
+      PROJECT_ID = #{projectId,jdbcType=VARCHAR},
+      TEACHER_ID = #{teacherId,jdbcType=VARCHAR},
+      RESULT = #{result,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      CREATOR = #{creator,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      VERSION = VERSION+1
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectBySearchParam" parameterType="searchParam" resultMap="BaseResultMap">
+  	SELECT t.*,b.project_name,c.real_name as teacher_name
+	  FROM ipr_train_effect_check_result t
+	  JOIN ipr_train_effect_check a
+	    ON t.check_id = a.id
+	  JOIN ipbox_project b
+	    ON t.project_id = b.id
+	  JOIN ipanther_user c
+	    ON t.teacher_id = c.id
+	  JOIN ipanther_user_dept d
+	    ON c.id = d.user_id
+	  JOIN ipanther_department e
+	    ON d.dept_id = e.id
+	 WHERE t.is_deleted = 'N'
+	   AND a.is_deleted = 'N'
+	   AND b.is_deleted = 'N'
+	   AND c.is_deleted = 'N'
+    <if test="paramMap.projectName != null and paramMap.projectName != ''" >
+<!--     	AND b.project_name LIKE '%'||#{paramMap.projectName,jdbcType=VARCHAR}||'%'     -->
+    	AND b.project_name LIKE '%${paramMap.projectName}%'    
+    </if>
+    <if test="paramMap.teacherName != null and paramMap.teacherName != ''" >
+<!--     	AND c.real_name LIKE '%'||#{paramMap.teacherName,jdbcType=VARCHAR}||'%'     -->
+    	AND c.real_name LIKE '%${paramMap.teacherName}%'    
+    </if>
+    <if test="paramMap.teacherId != null and paramMap.teacherId != ''" >
+    	AND t.teacher_id LIKE '%${paramMap.teacherId}%'    
+    </if>
+    <if test="paramMap.status != null and paramMap.status != ''" >
+    	AND T.STATUS = #{paramMap.status,jdbcType=VARCHAR}
+    </if>
+    order by t.status,t.create_time desc
+  </select>
+</mapper>

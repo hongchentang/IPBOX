@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcis.ipanther.common.customers.mapper.CustomersMapper" >
+                 
+  <resultMap id="BaseResultMap" type="com.hcis.ipanther.common.customers.entity.CustomersEmail" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="USER_EMAIL" property="userEmail" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="TOTIME" property="toTime" jdbcType="VARCHAR" />
+    
+    <result column="COMPANY_NAME" property="companyName" jdbcType="VARCHAR" />
+    <result column="MOBILE_PHONE" property="mobilePhoe" jdbcType="VARCHAR" />
+
+    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="CHAR" />
+    <result column="VERSION" property="version" jdbcType="BIGINT" />
+  </resultMap>
+
+  <insert id="insert" parameterType="com.hcis.ipanther.common.customers.entity.CustomersEmail" >
+    insert into ipanther_user_email (ID, USER_NAME, USER_EMAIL,USER_ID,STATUS,TOTIME,COMPANY_NAME,MOBILE_PHONE, 
+      CREATOR, CREATE_TIME, UPDATEDBY, UPDATE_TIME, IS_DELETED, VERSION)
+      values (#{id,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{userEmail,jdbcType=VARCHAR} , #{userId,jdbcType=VARCHAR} , #{status,jdbcType=VARCHAR} ,#{toTime,jdbcType=VARCHAR} ,#{companyName,jdbcType=VARCHAR},#{mobilePhoe,jdbcType=VARCHAR},
+      #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updatedby,jdbcType=VARCHAR},
+      #{updateTime,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=CHAR}, #{version,jdbcType=BIGINT})
+  </insert>
+<select id="selectList" resultMap="BaseResultMap" parameterType="searchParam">
+	 select IU.ID, IU.USER_NAME, IU.USER_EMAIL,IU.USER_ID,IU.STATUS,IU.TOTIME,IU.COMPANY_NAME,IU.MOBILE_PHONE,IU.CREATOR,IU.CREATE_TIME,IU.UPDATEDBY ,IU.UPDATE_TIME ,IU.IS_DELETED,IU.version  from ipanther_user_email IU
+          WHERE IU.IS_DELETED = 'N'
+<!-- 		<if test="paramMap.deptName!=null and paramMap.deptName!=''">
+			and IU.USER_NAME like CONCAT('%',#{paramMap.deptName,jdbcType=VARCHAR},'%')
+		</if> -->
+		<if test="paramMap.userEmail!=null and paramMap.userEmail!=''">
+			AND IU.USER_EMAIL like CONCAT('%',#{paramMap.userEmail,jdbcType=VARCHAR},'%')
+			
+		</if> 
+		<if test="paramMap.userName!=null and paramMap.userName!=''">
+			AND IU.USER_NAME like CONCAT('%',#{paramMap.userName,jdbcType=VARCHAR},'%')
+			
+		</if> 
+			<if test="paramMap.companyName!=null and paramMap.companyName!=''">
+			AND IU.COMPANY_NAME like CONCAT('%',#{paramMap.companyName,jdbcType=VARCHAR},'%')
+			
+		</if> 
+			<if test="paramMap.userId!=null and paramMap.userId!=''">
+			AND IU.USER_ID like CONCAT('%',#{paramMap.userId,jdbcType=VARCHAR},'%')
+			
+		</if> 
+		
+     ORDER BY IU.CREATE_TIME desc 
+	</select>
+  <update id="updateById" parameterType="java.lang.String" >
+   update ipanther_user_email set  IS_DELETED = 'Y' where ID = #{ID,jdbcType=VARCHAR}
+
+  </update>
+  
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String">
+	 select IU.ID, IU.USER_NAME, IU.USER_EMAIL,IU.COMPANY_NAME,IU.MOBILE_PHONE,IU.CREATOR,IU.CREATE_TIME,IU.UPDATEDBY ,IU.UPDATE_TIME ,IU.IS_DELETED,IU.version  from ipanther_user_email IU
+          WHERE IU.IS_DELETED = 'N' AND IU.ID=#{_ID}
+
+	</select>
+	<update id="updateByAll" parameterType="com.hcis.ipanther.common.customers.entity.CustomersEmail" >
+            update ipanther_user_email set
+
+			USER_EMAIL =#{userEmail,jdbcType=VARCHAR},
+			STATUS =#{status,jdbcType=VARCHAR}, 
+			TOTIME =#{toTime,jdbcType=VARCHAR}, 
+
+		    COMPANY_NAME =#{companyName,jdbcType=VARCHAR},
+			MOBILE_PHONE =#{mobilePhoe,jdbcType=VARCHAR}
+	
+        where ID = #{id,jdbcType=VARCHAR}
+
+  </update>
+  
+<select id="selectcontacts" resultMap="BaseResultMap" parameterType="searchParam">
+	 select IU.ID, IU.USER_NAME, IU.USER_EMAIL,IU.USER_ID,IU.STATUS,IU.TOTIME,IU.COMPANY_NAME,IU.MOBILE_PHONE,IU.CREATOR,IU.CREATE_TIME,IU.UPDATEDBY ,IU.UPDATE_TIME ,IU.IS_DELETED,IU.version  from ipanther_user_email IU
+          WHERE IU.IS_DELETED = 'N' AND IU.STATUS='Y' 
+			<if test="paramMap.userId!=null and paramMap.userId!=''">
+			AND IU.USER_ID like CONCAT('%',#{paramMap.userId,jdbcType=VARCHAR},'%')
+			
+		</if> 
+		
+     ORDER BY IU.TOTIME desc 
+	</select>
+  
+
+</mapper>

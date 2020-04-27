@@ -1,0 +1,79 @@
+[
+	{
+		"id":"ajaxInfoClickDirective",
+		"text":"ajaxInfoClick",
+		"attributes":{
+		
+		}
+	 },
+	 {
+		"id":"channelDirective",
+		"text":"channel",
+		"attributes":{
+		
+		}
+	 },
+	  {
+		"id":"channelListDirective",
+		"text":"channelList",
+		"attributes":{
+		
+		}
+	 },
+	 {
+		"id":"channelSonDirective",
+		"text":"channelSon",
+		"attributes":{
+		
+		}
+	 },
+	 {
+		"id":"channelPathDirective",
+		"text":"channelPath",
+		"attributes":{
+		
+		}
+	 },
+	  {
+		"id":"infoListDirective",
+		"text":"infoList",
+		"attributes":{
+		
+		}
+	 },
+	   {
+		"id":"infoPageDirective",
+		"text":"infoPage",
+		"attributes":{
+		
+		}
+	 },
+	   {
+		"id":"infoAttchsDirective",
+		"text":"infoAttchs",
+		"attributes":{
+		
+		}
+	 },
+	 {
+		"id":"infoDirective",
+		"text":"info",
+		"attributes":{
+		
+		}
+	 },
+	 {
+		"id":"linkListDirective",
+		"text":"linkList",
+		"attributes":{
+		
+		}
+	 },
+	  {
+		"id":"ajaxLoadDirective",
+		"text":"ajaxLoad",
+		"attributes":{
+		
+		}
+	 }
+]

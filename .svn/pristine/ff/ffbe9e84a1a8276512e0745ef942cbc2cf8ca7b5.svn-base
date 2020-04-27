@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib>
+	<tlib-version>1.0</tlib-version>
+	<jsp-version>2.0</jsp-version>
+	<short-name>ipanther-common</short-name>
+	<uri>http://ipanther-common.hcis.com</uri>
+	<description>IPanther Common Function lib</description>
+	<function>
+		<!--EL页面调用名字-->
+		<name>getProperty</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.core.utils.AppConfig</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>java.lang.String getProperty(java.lang.String , java.lang.String)</function-signature>
+	</function>
+	<function>
+		<!--EL页面调用名字-->
+		<name>getRegionsOptions</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.common.regions.utils.RegionsUtil</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>java.lang.String getRegionsOptions()</function-signature>
+	</function>
+	<function>
+		<!--EL页面调用名字-->
+		<name>getRegionsOptionsSelected</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.common.regions.utils.RegionsUtil</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>java.lang.String getRegionsOptionsSelected(java.lang.String)</function-signature>
+	</function>
+	<function>
+		<!--EL页面调用名字-->
+		<name>getProvinceOptions</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.common.regions.utils.RegionsUtil</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>java.lang.String getProvinceOptions(java.lang.String)</function-signature>
+	</function>
+	<function>
+		<!--EL页面调用名字-->
+		<name>getProvinceOptionsSelected</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.common.regions.utils.RegionsUtil</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>java.lang.String getProvinceOptionsSelected(java.lang.String,java.lang.String)</function-signature>
+	</function>
+	<function>
+		<!--EL页面调用名字-->
+		<name>getCityOptions</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.common.regions.utils.RegionsUtil</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>java.lang.String getCityOptions(java.lang.String)</function-signature>
+	</function>
+	<function>
+		<!--EL页面调用名字-->
+		<name>getCityOptionsSelected</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.common.regions.utils.RegionsUtil</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>java.lang.String getCityOptionsSelected(java.lang.String,java.lang.String)</function-signature>
+	</function>
+	<function>
+		<!--EL页面调用名字-->
+		<name>getCountiesOptions</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.common.regions.utils.RegionsUtil</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>java.lang.String getCountiesOptions(java.lang.String)</function-signature>
+	</function>
+	<function>
+		<!--EL页面调用名字-->
+		<name>getCountiesOptionsSelected</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.common.regions.utils.RegionsUtil</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>java.lang.String getCountiesOptionsSelected(java.lang.String,java.lang.String)</function-signature>
+	</function>
+	<function>
+		<!--EL页面调用名字-->
+		<name>getProvinceList</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.common.regions.utils.RegionsUtil</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>java.util.List getProvinceList(java.lang.String)</function-signature>
+	</function>
+	<function>
+		<!--EL页面调用名字-->
+		<name>getCityList</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.common.regions.utils.RegionsUtil</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>java.util.List getCityList(java.lang.String)</function-signature>
+	</function>
+	<function>
+		<!--EL页面调用名字-->
+		<name>getCountiesList</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.common.regions.utils.RegionsUtil</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>java.util.List getCountiesList(java.lang.String)</function-signature>
+	</function>
+	<function>
+		<!--EL页面调用名字-->
+		<name>getRegionsName</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.common.regions.utils.RegionsUtil</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>java.lang.String getRegionsName(java.lang.String)</function-signature>
+	</function>
+	<function>
+		<!--EL页面调用名字-->
+		<name>getRegions</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.common.regions.utils.RegionsUtil</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>com.hcis.ipanther.common.regions.entity.Regions getRegions(java.lang.String)</function-signature>
+	</function>
+	<function>
+		<!--EL页面调用名字-->
+		<name>getRegionTreeMap</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.common.regions.utils.RegionsUtil</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>java.lang.String getRegionTreeMap(java.lang.String)</function-signature>
+	</function>
+	<function>
+		<!--EL页面调用名字-->
+		<name>getRegionNameTreeMap</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.common.regions.utils.RegionsUtil</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>java.lang.String getRegionNameTreeMap(java.lang.String)</function-signature>
+	</function>
+	<function>
+		<!--EL页面调用名字-->
+		<name>getTrainOrg</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.common.dept.utils.DepartmentUtil</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>com.hcis.ipanther.common.dept.vo.Department getTrainOrg(java.lang.String)</function-signature>
+	</function>
+	<function>
+		<!--EL页面调用名字-->
+		<name>getTrainOrgList</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.common.dept.utils.DepartmentUtil</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>java.util.List getTrainOrgList()</function-signature>
+	</function>
+	<function>
+		<!--EL页面调用名字-->
+		<name>getTrainOrgRegionsList</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.common.dept.utils.DepartmentUtil</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>java.util.List getTrainOrgList(java.lang.String)</function-signature>
+	</function>
+	<function>
+		<!--EL页面调用名字-->
+		<name>getTrainOrgRegionsRangeList</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.common.dept.utils.DepartmentUtil</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>java.util.List getTrainOrgList(java.lang.String,java.lang.String)</function-signature>
+	</function>
+	<function>
+		<!--EL页面调用名字-->
+		<name>getAttachment</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.common.attachment.utils.AttachmentUtils</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>com.hcis.ipanther.common.attachment.vo.Attachment getAttachment(java.lang.String)</function-signature>
+	</function>
+	<function>
+		<!--EL页面调用名字-->
+		<name>formatFileSize</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.common.attachment.utils.AttachmentUtils</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>java.util.String formatFileSize(java.lang.Long)</function-signature>
+	</function>
+	<function>
+		<!--EL页面调用名字-->
+		<name>getAttachmentParam</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.common.attachment.utils.AttachmentUtils</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>java.util.String getAttachmentParam(java.lang.String,java.lang.String,java.lang.String ,java.lang.String)</function-signature>
+	</function>
+	<function>
+		<!--EL页面调用名字-->
+		<name>getAttachmentParamImage</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.common.attachment.utils.AttachmentUtils</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>java.util.String getAttachmentParamImage(java.lang.String,java.lang.String,java.lang.String ,java.lang.String)</function-signature>
+	</function>
+	<function>
+		<!--EL页面调用名字-->
+		<name>getAttachmentParamBase</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.common.attachment.utils.AttachmentUtils</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>java.util.String getAttachmentParamBase(java.lang.String,java.lang.String,java.lang.String ,java.lang.String,java.lang.String ,java.lang.String)</function-signature>
+	</function>
+	<function>
+		<!--EL页面调用名字-->
+		<name>getAttachmentPath</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.common.attachment.utils.AttachmentUtils</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>java.util.String getAttachmentPath(java.lang.String,java.lang.String)</function-signature>
+	</function>
+	<function>
+		<!--EL页面调用名字-->
+		<name>getAttachmentDownloadUrl</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.common.attachment.utils.AttachmentUtils</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>java.util.String getAttachmentDownloadUrl(java.lang.String)</function-signature>
+	</function>
+	<function>
+		<name>readUser</name>
+		<function-class>com.hcis.ipanther.common.user.utils.UserUtils</function-class>
+		<function-signature>com.hcis.ipanther.common.user.vo.User readUser(java.lang.String)</function-signature>
+	</function>
+	<function>
+		<name>readUserDepartment</name>
+		<function-class>com.hcis.ipanther.common.user.utils.UserUtils</function-class>
+		<function-signature>com.hcis.ipanther.common.dept.entity.Department readUserDepartment(java.lang.String)</function-signature>
+	</function>
+	<function>
+		<name>readUserTeacher</name>
+		<function-class>com.hcis.ipanther.common.user.utils.UserUtils</function-class>
+		<function-signature>com.hcis.ipanther.common.user.vo.UserTeacher readUserTeacher(java.lang.String)</function-signature>
+	</function>
+	<function>
+		<name>readLoginUser</name>
+		<function-class>com.hcis.ipanther.common.user.utils.UserUtils</function-class>
+		<function-signature>com.hcis.ipanther.common.login.vo.LoginUser readLoginUser(java.lang.String)</function-signature>
+	</function>
+	<function>
+		<name>readDepartment</name>
+		<function-class>com.hcis.ipanther.common.user.utils.UserUtils</function-class>
+		<function-signature>com.hcis.ipanther.common.login.vo.Department readDepartment(java.lang.String)</function-signature>
+	</function>
+	<!-- 读取用户的真实姓名 -->
+	<function>
+		<name>getUserRealName</name>
+		<function-class>com.hcis.ipanther.common.user.utils.UserUtils</function-class>
+		<function-signature>java.util.String getUserRealName(java.lang.String)</function-signature>
+	</function>
+	<!-- 读取机构的名称 -->
+	<function>
+		<name>getDeptName</name>
+		<function-class>com.hcis.ipanther.common.dept.utils.DepartmentUtils</function-class>
+		<function-signature>java.util.String getDeptName(java.lang.String)</function-signature>
+	</function>
+	<!-- 多国语言 -->
+	<function>
+		<name>getLocale</name>
+		<function-class>com.hcis.ipanther.common.i18n.utils.I18nUtils</function-class>
+		<function-signature>java.util.Locale getLocale(javax.servlet.http.HttpServletRequest)</function-signature>
+	</function>
+	
+	<!-- 当前用户的所有区域-可选是否到街镇级别 -->
+	<function>
+		<name>getRegionsJson</name>
+		<function-class>com.hcis.ipanther.common.regions.utils.RegionsUtil</function-class>
+		<function-signature>java.lang.String getRegionsJson(boolean)</function-signature>
+	</function>
+	<function>
+		<name>getDepartment</name>
+		<function-class>com.hcis.ipanther.common.dept.utils.DepartmentUtils</function-class>
+		<function-signature>com.hcis.ipanther.common.dept.entity.Department getDepartment(java.lang.String)</function-signature>
+	</function>
+	<!-- 判断机构类型是否为主管机构 -->
+	<function>
+		<name>isAdminCompetent</name>
+		<function-class>com.hcis.ipanther.common.dept.utils.DepartmentUtils</function-class>
+		<function-signature>boolean isAdminCompetent(java.lang.String)</function-signature>
+	</function>
+	<!-- 判断机构类型是否为个人机构 -->
+	<function>
+		<name>isVirtualOrg</name>
+		<function-class>com.hcis.ipanther.common.dept.utils.DepartmentUtils</function-class>
+		<function-signature>boolean isVirtualOrg(java.lang.String)</function-signature>
+	</function>
+	
+	<!-- 是否具有超级管理员角色 -->
+	<function>
+		<name>isSuperAdmin</name>
+		<function-class>com.hcis.ipanther.common.security.utils.SecurityRoleUtils</function-class>
+		<function-signature>boolean isSuperAdmin(java.lang.String)</function-signature>
+	</function>
+	<!-- 是否具有区域管理员角色 -->
+	<function>
+		<name>isAreaAdmin</name>
+		<function-class>com.hcis.ipanther.common.security.utils.SecurityRoleUtils</function-class>
+		<function-signature>boolean isAreaAdmin(java.lang.String)</function-signature>
+	</function>
+	<!-- 是否具有机构管理员角色 -->
+	<function>
+		<name>isDeptAdmin</name>
+		<function-class>com.hcis.ipanther.common.security.utils.SecurityRoleUtils</function-class>
+		<function-signature>boolean isDeptAdmin(java.lang.String)</function-signature>
+	</function>
+	<!-- 是否具有教师角色 -->
+	<function>
+		<name>isTeacher</name>
+		<function-class>com.hcis.ipanther.common.security.utils.SecurityRoleUtils</function-class>
+		<function-signature>boolean isTeacher(java.lang.String)</function-signature>
+	</function>
+	<!-- 是否具有人才/学员角色 -->
+	<function>
+		<name>isStudent</name>
+		<function-class>com.hcis.ipanther.common.security.utils.SecurityRoleUtils</function-class>
+		<function-signature>boolean isStudent(java.lang.String)</function-signature>
+	</function>
+	
+	<!-- 得到中国的区域编码 -->
+	<function>
+		<name>getChinaRegionsCode</name>
+		<function-class>com.hcis.ipanther.common.regions.utils.RegionsUtil</function-class>
+		<function-signature>java.lang.String getChinaRegionsCode()</function-signature>
+	</function>
+	<!-- 得到广东的区域编码 -->
+	<function>
+		<name>getGDRegionsCode</name>
+		<function-class>com.hcis.ipanther.common.regions.utils.RegionsUtil</function-class>
+		<function-signature>java.lang.String getGDRegionsCode()</function-signature>
+	</function>
+	
+	<!-- 得到完整的区域名称 -->
+	<function>
+		<name>getRegionsNameFull</name>
+		<function-class>com.hcis.ipanther.common.regions.utils.RegionsUtil</function-class>
+		<function-signature>java.lang.String getRegionsNameFull(java.lang.String)</function-signature>
+	</function>
+	
+	<function>
+		<name>getSiteName</name>
+		<function-class>com.hcis.ipanther.common.regions.utils.RegionsUtil</function-class>
+		<function-signature>java.lang.String getSiteName(java.lang.String)</function-signature>
+	</function>
+	
+	<!-- 根据总页数生成list（全端课程列表分页） -->
+	<function>
+		<name>getPageList</name>
+		<function-class>com.hcis.ipr.train.course.utils.CourseUtils</function-class>
+		<function-signature>java.util.List getPageList(java.lang.Integer)</function-signature>
+	</function>
+	
+	<!-- 返回角色名称(User.roleCode的名称) -->
+	<function>
+		<name>getRoleName</name>
+		<function-class>com.hcis.ipanther.common.user.utils.UserUtils</function-class>
+		<function-signature>java.lang.String getRoleName(java.lang.String)</function-signature>
+	</function>
+	<!-- 判断是否是允许请求个人端 -->
+	<function>
+		<name>isSpace</name>
+		<function-class>com.hcis.ipanther.common.user.utils.UserUtils</function-class>
+		<function-signature>boolean isSpace(java.lang.String)</function-signature>
+	</function>
+	
+	<!-- 获得所有的站点 -->
+	<function>
+		<name>getSiteList</name>
+		<function-class>com.hcis.ipanther.common.regions.utils.RegionsUtil</function-class>
+		<function-signature>java.util.List getSiteList()</function-signature>
+	</function>
+</taglib>

@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="activiti">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/ipbox_web/src/main/resources/activiti/TEACHER_FLOW_DEPT.zip!/" />
+      <root url="jar://$PROJECT_DIR$/ipbox_web/src/main/resources/activiti/COURSE_FLOW.zip!/" />
+      <root url="jar://$PROJECT_DIR$/ipbox_web/src/main/resources/activiti/PROJECT_FLOW.zip!/" />
+      <root url="jar://$PROJECT_DIR$/ipbox_web/src/main/resources/activiti/TEACHER_FLOW_USER.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

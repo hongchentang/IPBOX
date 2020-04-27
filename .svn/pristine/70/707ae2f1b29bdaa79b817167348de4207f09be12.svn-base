@@ -1,0 +1,1127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcis.ipr.train.course.mapper.CourseMapper" >
+
+  <resultMap id="BaseResultMap" type="com.hcis.ipr.train.course.entity.Course" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="PROC_INST_ID" property="procInstId" jdbcType="VARCHAR" />
+    <result column="COURSE_CODE" property="courseCode" jdbcType="VARCHAR" />
+    <result column="COURSE_NAME" property="courseName" jdbcType="VARCHAR" />
+    <result column="COURSE_INTRO" property="courseIntro" jdbcType="VARCHAR" />
+    <result column="DECLARE_DEPT" property="declareDept" jdbcType="VARCHAR" />
+    <result column="DECLARE_USER" property="declareUser" jdbcType="VARCHAR" />
+    <result column="DECLARE_TIME" property="declareTime" jdbcType="TIMESTAMP" />
+    <result column="START_TIME" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="END_TIME" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="TEACHER_NAME" property="teacherName" jdbcType="VARCHAR" />
+    <result column="TEACHER_UNIT" property="teacherUnit" jdbcType="VARCHAR" />
+    <result column="TEACHER_JOB" property="teacherJob" jdbcType="VARCHAR" />
+    <result column="TRAIN_TYPE" property="trainType" jdbcType="VARCHAR" />
+    <result column="ATTEND_ELEC" property="attendElec" jdbcType="VARCHAR" />
+    <result column="STUDY_HOURS" property="studyHours" jdbcType="DECIMAL" />
+    <result column="HOURS_TYPE" property="hoursType" jdbcType="VARCHAR" />
+    <result column="STUDY_DAYS" property="studyDays" jdbcType="DECIMAL" />
+    <result column="COURSE_TYPE" property="courseType" jdbcType="VARCHAR" />
+    <result column="COURSE_LEVEL" property="courseLevel" jdbcType="VARCHAR" />
+    <result column="APPLY_JOB" property="applyJob" jdbcType="VARCHAR" />
+    <result column="APPLY_POSITION" property="applyPosition" jdbcType="VARCHAR" />
+    <result column="HAS_BOOK" property="hasBook" jdbcType="VARCHAR" />
+    <result column="BOOK_NAME" property="bookName" jdbcType="VARCHAR" />
+    <result column="BOOK_FORM" property="bookForm" jdbcType="VARCHAR" />
+    <result column="PUBLICATION" property="publication" jdbcType="VARCHAR" />
+    <result column="AUTHOR" property="author" jdbcType="VARCHAR" />
+    <result column="AUTHOR_IMG" property="authorImg" jdbcType="VARCHAR" />
+    <result column="AUTHOR_DESC" property="authorDesc" jdbcType="VARCHAR" />
+    <result column="PUBLISH_TIME" property="publishTime" jdbcType="TIMESTAMP" />
+    <result column="TRAIN_CASH" property="trainCash" jdbcType="DECIMAL" />
+    <result column="TRAIN_CASH_UNIT" property="trainCashUnit" jdbcType="VARCHAR" />
+    <result column="TRAIN_CASH_WAY" property="trainCashWay" jdbcType="VARCHAR" />
+    <result column="BOOK_CASH" property="bookCash" jdbcType="DECIMAL" />
+    <result column="BOOK_CASH_UNIT" property="bookCashUnit" jdbcType="VARCHAR" />
+    <result column="BOOK_CASH_WAY" property="bookCashWay" jdbcType="VARCHAR" />
+    <result column="TOTAL_CASH" property="totalCash" jdbcType="DECIMAL" />
+    <result column="AUDIT_EXPERT" property="auditExpert" jdbcType="VARCHAR" />
+    <result column="AUDIT_CONTENT" property="auditContent" jdbcType="VARCHAR" />
+    <result column="AUDIT_RESULT" property="auditResult" jdbcType="VARCHAR" />
+    <result column="AUDIT_TIME" property="auditTime" jdbcType="TIMESTAMP" />
+    <result column="MOBILE_STUDY" property="mobileStudy" jdbcType="VARCHAR" />
+    <result column="COURSE_IMG" property="courseImg" jdbcType="VARCHAR" />
+    <result column="ATTACHMENT" property="attachment" jdbcType="VARCHAR" />
+    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="CHAR" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="APPLY_COUNT" property="applyCount" jdbcType="DECIMAL" />
+    <result column="MAX_APPLY_COUNT" property="maxApplyCount" jdbcType="DECIMAL" />
+    <result column="COURSE_STAGE" property="courseStage" jdbcType="VARCHAR" />
+    
+    <result column="EXPERT_ID" property="expertId" jdbcType="VARCHAR" />
+    <result column="EXPERT_ATTACHMENT" property="expertAttachment" jdbcType="VARCHAR" />
+    <result column="TEACHER_AVATAR" property="teacherAvatar" jdbcType="VARCHAR" />
+    <result column="PERSON_TYPE" property="personType" jdbcType="VARCHAR" />
+    <result column="INDUSTRY_TYPE" property="industryType" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap type="java.util.Map" id="listTodo" extends="BaseResultMap">
+  		<result column="TASK_DEF_KEY_" property="taskDefKey" jdbcType="VARCHAR" />
+  		<result column="NAME_" property="taskName" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap type="java.util.Map" id="listAll" extends="BaseResultMap">
+  		<result column="EXPERT_NAME" property="expertName" jdbcType="VARCHAR" />
+  		<result column="DEPT_NAME" property="deptName" jdbcType="VARCHAR" />
+  		<result column="TRAIN_COUNT" property="trainCount" jdbcType="VARCHAR" />
+  		<result column="TRAIN_START_TIME" property="trainStartTime" jdbcType="TIMESTAMP" />
+  		<result column="ALL_TRAIN_COUNT" property="allTrainCount" jdbcType="VARCHAR" />
+  		
+  		<result column="OPENING_COUNT" property="openingCount" jdbcType="VARCHAR" />
+  		<result column="OPEN_COUNT" property="openCount" jdbcType="VARCHAR" />
+  		<result column="END_COUNT" property="endCount" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap type="java.util.Map" id="listCourseMap" extends="BaseResultMap">
+  		<result column="ALL_TRAIN_NAME" property="allTrainName" jdbcType="VARCHAR" />
+  		
+  		<result column="PROJECT_NAME" property="projectName" jdbcType="VARCHAR" />
+  		<result column="TRAIN_NAME" property="trainName" jdbcType="VARCHAR" />
+  		<result column="EXPERT_NAME" property="expertName" jdbcType="VARCHAR" />
+  		<result column="TRAIN_ID" property="trainId" jdbcType="VARCHAR" />
+  		<result column="TRAIN_COURSE_ID" property="trainCourseId" jdbcType="VARCHAR" />
+  		<result column="TEACHER_ID" property="teacherId" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap type="java.util.Map" id="listCourseExtends" extends="BaseResultMap">
+  		<result column="EXPERT_NAME" property="expertName" jdbcType="VARCHAR" />
+  		<result column="DEPT_NAME" property="deptName" jdbcType="VARCHAR" />
+  		<result column="TRAIN_COUNT" property="trainCount" jdbcType="VARCHAR" />
+  		<result column="TRAIN_START_TIME" property="trainStartTime" jdbcType="TIMESTAMP" />
+  		<result column="ALL_TRAIN_COUNT" property="allTrainCount" jdbcType="VARCHAR" />
+  		
+  		<result column="OPENING_COUNT" property="openingCount" jdbcType="VARCHAR" />
+  		<result column="OPEN_COUNT" property="openCount" jdbcType="VARCHAR" />
+  		<result column="END_COUNT" property="endCount" jdbcType="VARCHAR" />
+  </resultMap>
+   <resultMap type="java.util.Map" id="courseTrain" extends="BaseResultMap">
+  		<result column="PROJECT_NAME" property="projectName" jdbcType="VARCHAR" />
+   		<result column="TRAIN_ID" property="trainId" jdbcType="VARCHAR" />
+  		<result column="TRAIN_NAME" property="trainName" jdbcType="VARCHAR" />
+  		<result column="TRAIN_COUNT" property="trainCount" jdbcType="VARCHAR" />
+  		<result column="TRAIN_START_TIME" property="trainStartTime" jdbcType="VARCHAR" />
+  		<result column="TRAIN_END_TIME" property="trainEndTime" jdbcType="VARCHAR" />
+  		<result column="LOGO" property="logo" jdbcType="VARCHAR" />
+  		<result column="IS_STOP_APPLY" property="isStopApply" jdbcType="VARCHAR" />
+  		<result column="IS_ROOM" property="isRoom" jdbcType="VARCHAR" />
+    <result column="ROOM_START_TIME" property="roomStartTime" jdbcType="TIMESTAMP" />
+    <result column="ROOM_END_TIME" property="roomEndTime" jdbcType="TIMESTAMP" /> 
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ID, PROC_INST_ID, COURSE_CODE, COURSE_NAME, COURSE_INTRO, DECLARE_DEPT, DECLARE_USER, 
+    DECLARE_TIME, START_TIME, END_TIME, TEACHER_NAME, TEACHER_UNIT, TEACHER_JOB, TRAIN_TYPE, 
+    ATTEND_ELEC, STUDY_HOURS, HOURS_TYPE, STUDY_DAYS, COURSE_TYPE, COURSE_LEVEL, APPLY_JOB, 
+    APPLY_POSITION, HAS_BOOK, BOOK_NAME, BOOK_FORM, PUBLICATION, AUTHOR, AUTHOR_IMG, 
+    AUTHOR_DESC, PUBLISH_TIME, TRAIN_CASH, TRAIN_CASH_UNIT, TRAIN_CASH_WAY, BOOK_CASH, 
+    BOOK_CASH_UNIT, BOOK_CASH_WAY, TOTAL_CASH, AUDIT_EXPERT, AUDIT_CONTENT, AUDIT_RESULT, 
+    AUDIT_TIME, MOBILE_STUDY, COURSE_IMG, ATTACHMENT, CREATOR, CREATE_TIME, UPDATEDBY, 
+    UPDATE_TIME, IS_DELETED, VERSION,STATUS,APPLY_COUNT,MAX_APPLY_COUNT,EXPERT_ID,EXPERT_ATTACHMENT,COURSE_STAGE,TEACHER_AVATAR
+  </sql>
+  <sql id="Base_Column" >
+    ic.ID, ic.PROC_INST_ID, ic.COURSE_CODE, ic.COURSE_NAME, ic.COURSE_INTRO, ic.DECLARE_DEPT, ic.DECLARE_USER, 
+    ic.DECLARE_TIME, ic.START_TIME, ic.END_TIME, ic.TEACHER_NAME, ic.TEACHER_UNIT, ic.TEACHER_JOB, ic.TRAIN_TYPE, 
+    ic.ATTEND_ELEC, ic.STUDY_HOURS, ic.HOURS_TYPE, ic.STUDY_DAYS, ic.COURSE_TYPE, ic.COURSE_LEVEL, ic.APPLY_JOB, 
+    ic.APPLY_POSITION, ic.HAS_BOOK, ic.BOOK_NAME, ic.BOOK_FORM, ic.PUBLICATION, ic.AUTHOR, ic.AUTHOR_IMG, 
+    ic.AUTHOR_DESC, ic.PUBLISH_TIME, ic.TRAIN_CASH, ic.TRAIN_CASH_UNIT, ic.TRAIN_CASH_WAY, ic.BOOK_CASH, 
+    ic.BOOK_CASH_UNIT, ic.BOOK_CASH_WAY, ic.TOTAL_CASH, ic.AUDIT_EXPERT, ic.AUDIT_CONTENT, ic.AUDIT_RESULT, 
+    ic.AUDIT_TIME, ic.MOBILE_STUDY, ic.COURSE_IMG, ic.ATTACHMENT, ic.CREATOR, ic.CREATE_TIME, ic.UPDATEDBY, 
+    ic.UPDATE_TIME, ic.IS_DELETED, ic.VERSION,ic.STATUS,ic.APPLY_COUNT,ic.MAX_APPLY_COUNT,ic.EXPERT_ID,ic.EXPERT_ATTACHMENT,ic.COURSE_STAGE,ic.TEACHER_AVATAR
+  </sql>
+  <sql id="Base_ColumnOFT" >
+    T.ID, T.PROC_INST_ID, T.COURSE_CODE, T.COURSE_NAME, T.COURSE_INTRO, T.DECLARE_DEPT, T.DECLARE_USER, 
+    T.DECLARE_TIME, T.START_TIME, T.END_TIME, T.TEACHER_NAME, T.TEACHER_UNIT, T.TEACHER_JOB, T.TRAIN_TYPE, 
+    T.ATTEND_ELEC, T.STUDY_HOURS, T.HOURS_TYPE, T.STUDY_DAYS, T.COURSE_TYPE, T.COURSE_LEVEL, T.APPLY_JOB, 
+    T.APPLY_POSITION, T.HAS_BOOK, T.BOOK_NAME, T.BOOK_FORM, T.PUBLICATION, T.AUTHOR, T.AUTHOR_IMG, 
+    T.AUTHOR_DESC, T.PUBLISH_TIME, T.TRAIN_CASH, T.TRAIN_CASH_UNIT, T.TRAIN_CASH_WAY, T.BOOK_CASH, 
+    T.BOOK_CASH_UNIT, T.BOOK_CASH_WAY, T.TOTAL_CASH, T.AUDIT_EXPERT, T.AUDIT_CONTENT, T.AUDIT_RESULT, 
+    T.AUDIT_TIME, T.MOBILE_STUDY, T.COURSE_IMG, T.ATTACHMENT, T.CREATOR, T.CREATE_TIME, T.UPDATEDBY, 
+    T.UPDATE_TIME, T.IS_DELETED, T.VERSION,T.STATUS,T.APPLY_COUNT,T.MAX_APPLY_COUNT,T.EXPERT_ID,T.EXPERT_ATTACHMENT,T.COURSE_STAGE
+  </sql>
+  
+  <select id="selectBySearchParam" resultMap="listCourseExtends" parameterType="searchParam" >
+    select 
+    <include refid="Base_Column_List" />,
+    (select t.real_name from ipanther_user t where t.id=EXPERT_ID) expert_name
+    from IPR_COURSE where IS_DELETED='N'
+    <if test="paramMap.courseName != null and paramMap.courseName!=''" >
+       and COURSE_NAME like CONCAT('%',#{paramMap.courseName,jdbcType=VARCHAR},'%')
+      </if>
+<!--       <if test="paramMap.creator !=null and paramMap.creator!=''"> -->
+<!-- 		and  CREATOR=#{paramMap.creator,jdbcType=VARCHAR} and PROC_INST_ID is null     -->
+<!--       </if> -->
+      <if test="paramMap.status!=null and paramMap.status!=''">
+<!--        	and STATUS=#{paramMap.status,jdbcType=VARCHAR} -->
+       	and STATUS in(${paramMap.status})
+      </if>
+       <if test="paramMap.declareDept!=null and paramMap.declareDept!=''">
+      	and DECLARE_DEPT=#{paramMap.declareDept,jdbcType=VARCHAR}
+      </if>
+      <if test="paramMap.courseIds!=null and paramMap.courseIds!=''" >
+      	and id not in(${paramMap.courseIds})
+      </if>
+      <if test="paramMap.courseId!=null and paramMap.courseId!=''" >
+      	and id =#{paramMap.courseId,jdbcType=VARCHAR}
+      </if>
+       ORDER BY CREATE_TIME DESC
+  </select>
+  
+  <!-- 前端课程列表 -->
+  <!-- 思路：若关联ipr_train_course关联表查询，会出现两个问题：
+  1无法查出未开班课程。
+  2同一门课程在两个正在培训的班级的时候回出现重复数据，即页面会出现两条一样的课程。
+   所以只能通过exists条件查询。 -->
+  <select id="selectTalentCourse" resultMap="listCourseExtends" parameterType="searchParam" >
+<!--    select  iu.real_name,iu.avatar teacher_avatar,, -->
+   select  <include refid="Base_ColumnOFT"/>,
+    		(select min(tt.start_time) from ipr_train_course itc join ipr_train tt on itc.train_id=tt.id and itc.is_deleted='N' and tt.is_deleted='N' join ipr_project pro on tt.project_id=pro.id and pro.status='02' where itc.course_id=t.id) train_start_time,
+   			(select tt.dept_name from ipanther_department tt where tt.id=t.DECLARE_DEPT) DEPT_NAME,
+   			 (select count(1) from ipr_train_register itr where exists 
+   			 	( select 1 from ipr_train_course itc where itc.is_deleted='N' and itc.train_id=itr.train_id and itc.course_id=t.id ) and itr.status='01') train_count
+   			 	<if test="paramMap.allTrainCount!=null and paramMap.allTrainCount!=''">
+   			 	<!--   报名通过与未通过的人数 -->
+			      	,(select count(1) from ipr_train_register itr where exists 
+   			 			( select 1 from ipr_train_course itc where itc.is_deleted='N' and itc.train_id=itr.train_id and itc.course_id=t.id )) all_train_count
+			      </if>
+    from IPR_COURSE t  
+    where t.IS_DELETED='N' and t.STATUS='02'
+     <if test="paramMap.trainType!=null and paramMap.trainType!=''">
+      	and t.train_type=#{paramMap.trainType,jdbcType=VARCHAR}
+      </if>
+      <if test="paramMap.hoursType!=null and paramMap.hoursType!=''">
+      	and t.hours_type=#{paramMap.hoursType,jdbcType=VARCHAR}
+      </if>
+       <if test="paramMap.courseLevel!=null and paramMap.courseLevel!=''">
+      	and t.course_level=#{paramMap.courseLevel,jdbcType=VARCHAR}
+      </if>
+      <if test="paramMap.applyJob!=null and paramMap.applyJob!=''">
+      	and t.apply_job=#{paramMap.applyJob,jdbcType=VARCHAR}
+      </if>
+      <if test="paramMap.year!=null and paramMap.year!=''">
+      	and date_format(t.create_time,'yyyy')=#{paramMap.year,jdbcType=VARCHAR}
+      </if>
+       <if test="paramMap.declareDept!=null and paramMap.declareDept!=''">
+      	and t.DECLARE_DEPT=#{paramMap.declareDept,jdbcType=VARCHAR}
+      </if>
+       <if test="paramMap.courseStage!=null and paramMap.courseStage!=''">
+      	and t.COURSE_STAGE=#{paramMap.courseStage,jdbcType=VARCHAR}
+      </if>
+       <if test="paramMap.courseId!=null and paramMap.courseId!=''">
+      	and t.id=#{paramMap.courseId,jdbcType=VARCHAR}
+      </if>
+      <if test="paramMap.openStatus!=null and paramMap.openStatus!=''">
+      		<!-- 尚未开班 -->
+      		<if test="paramMap.openStatus=='notOpen'">
+      			and  not exists (select 1 from ipr_train_course itc 
+					      			join ipr_train it on itc.train_id=it.id and it.is_deleted='N'
+					      			join ipr_project ip on ip.id=it.project_id and ip.status='02' and ip.is_deleted='N'
+					 				where itc.is_deleted='N' AND itc.course_id=t.id)
+      		</if>
+      		<if test="paramMap.openStatus!='notOpen' and paramMap.openStatus!='all'">
+      			and exists  ( select 1 from ipr_train_course itc 
+      								join ipr_train it on itc.train_id=it.id and it.is_deleted='N' 
+      								join ipr_project ip on ip.id=it.project_id and ip.status='02' and ip.is_deleted='N'
+      								where itc.is_deleted='N' and t.id=itc.course_id
+						  	<!-- 报名进行中 -->
+						  	<if test="paramMap.openStatus=='opening'">
+						   		 and it.start_time &lt; now() and it.end_time &gt; now()
+						    </if>
+						    <!-- 即将报名 -->
+						    <if test="paramMap.openStatus!='opening'">
+						    	and it.start_time &gt; NOW() 
+						    </if>
+						    )
+      		</if>
+      		<!-- 全部 -->
+      		<if test="paramMap.openStatus=='all'">
+      			and  ( <!-- 尚未开班 -->
+      					(not exists (select 1 from ipr_train_course itc 
+					      			join ipr_train it on itc.train_id=it.id and it.is_deleted='N'
+					      			join ipr_project ip on ip.id=it.project_id and ip.status='02' and ip.is_deleted='N'
+					 				where itc.is_deleted='N' AND itc.course_id=t.id))
+					 	or
+					 	<!-- 报名进行中和即将报名 -->
+					 	(exists  ( select 1 from ipr_train_course itc 
+      								join ipr_train it on itc.train_id=it.id and it.is_deleted='N' 
+      								join ipr_project ip on ip.id=it.project_id and ip.status='02' and ip.is_deleted='N'
+      								where itc.is_deleted='N' and t.id=itc.course_id
+						   		 	and  it.end_time &gt; now()
+						    ))					
+						)
+      		</if>
+      </if>
+      
+       ORDER BY t.CREATE_TIME DESC
+  </select>
+  <!--首页的4课程数据  -->
+  <select id="selectCourseHome" resultMap="listCourseExtends" parameterType="searchParam" >
+  select * from (
+  		SELECT  t.*
+  		,(SELECT tt.dept_name FROM ipanther_department tt WHERE tt.id=t.DECLARE_DEPT) DEPT_NAME 
+		  ,(select count(1) from ipr_train_register itr where exists ( select 1 from ipr_train_course itc where itc.is_deleted='N' and itc.train_id=itr.train_id and itc.course_id=t.id ) and itr.status='01') train_count
+		   ,(SELECT COUNT(1) FROM ipr_train_course itc 
+								JOIN ipr_train it ON itc.train_id=it.id AND it.is_deleted='N' 
+								JOIN ipr_project ip ON ip.id=it.project_id AND ip.status='02' AND ip.is_deleted='N'
+								WHERE itc.is_deleted='N' AND t.id=itc.course_id AND it.start_time &lt; NOW() AND  it.end_time &gt; NOW()) opening_count
+		   ,(SELECT COUNT(1) FROM ipr_train_course itc 
+								JOIN ipr_train it ON itc.train_id=it.id AND it.is_deleted='N' 
+								JOIN ipr_project ip ON ip.id=it.project_id AND ip.status='02' AND ip.is_deleted='N'
+								WHERE itc.is_deleted='N' AND t.id=itc.course_id  AND  it.end_time &lt; NOW()) end_count
+		   ,(SELECT COUNT(1) FROM ipr_train_course itc 
+								JOIN ipr_train it ON itc.train_id=it.id AND it.is_deleted='N' 
+								JOIN ipr_project ip ON ip.id=it.project_id AND ip.status='02' AND ip.is_deleted='N'
+								WHERE itc.is_deleted='N' AND t.id=itc.course_id  AND  it.start_time &gt;  NOW()) open_count
+		    FROM IPR_COURSE t  
+		    WHERE t.IS_DELETED='N' AND t.STATUS='02' 
+		    ) tt
+		    where 1=1
+		      <if test="paramMap.trainType!=null and paramMap.trainType!=''">
+		      	and tt.train_type=#{paramMap.trainType,jdbcType=VARCHAR}
+		      </if>
+		      <if test="paramMap.hoursType!=null and paramMap.hoursType!=''">
+		      	and tt.hours_type=#{paramMap.hoursType,jdbcType=VARCHAR}
+		      </if>
+		       <if test="paramMap.courseLevel!=null and paramMap.courseLevel!=''">
+		      	and tt.course_level=#{paramMap.courseLevel,jdbcType=VARCHAR}
+		      </if>
+		      <if test="paramMap.applyJob!=null and paramMap.applyJob!=''">
+		      	and tt.apply_job=#{paramMap.applyJob,jdbcType=VARCHAR}
+		      </if>
+		      <if test="paramMap.year!=null and paramMap.year!=''">
+		      	and date_format(tt.create_time,'yyyy')=#{paramMap.year,jdbcType=VARCHAR}
+		      </if>
+		       <if test="paramMap.declareDept!=null and paramMap.declareDept!=''">
+		      	and tt.DECLARE_DEPT=#{paramMap.declareDept,jdbcType=VARCHAR}
+		      </if>
+		       <if test="paramMap.courseStage!=null and paramMap.courseStage!=''">
+		      	and tt.COURSE_STAGE=#{paramMap.courseStage,jdbcType=VARCHAR}
+		      </if>
+		       <if test="paramMap.courseId!=null and paramMap.courseId!=''">
+		      	and tt.id=#{paramMap.courseId,jdbcType=VARCHAR}
+		      </if>
+		    <!-- 报名结束 -->
+		    <if test="paramMap.openStatus=='close'">
+		    	and tt.opening_count=0 and tt.end_count>0 and tt.opening_count=0
+		    </if>
+		     <!-- 报名进行中 -->
+		    <if test="paramMap.openStatus=='opening'">
+		    	and tt.opening_count>0 
+		    </if>
+		    <!-- 即将报名 -->
+		    <if test="paramMap.openStatus=='willOpen'">
+		   	 	and tt.opening_count>0 and tt.opening_count=0
+		    </if>
+		     <!-- 尚未开班 -->
+		     <if test="paramMap.openStatus=='notOpen'">
+		    	and tt.opening_count=0 and tt.end_count=0 and tt.opening_count=0
+		    </if> 
+		    ORDER BY tt.opening_count DESC,tt.CREATE_TIME DESC
+  </select>
+  <!-- 前端报名课程培训班列表 -->
+  <select id="selectCourseTrain" resultMap="courseTrain" parameterType="searchParam" >
+   select t.*,ip.project_name,itt.train_name,itt.start_time train_start_time,itt.end_time train_end_time,itc.train_id,itt.IS_STOP_APPLY,
+	(select count(1) from ipr_train_register itr where itr.is_deleted='N' and itr.train_id=itt.id and itr.status='01') train_count,
+	itt.is_room,itt.room_start_time,itt.room_end_time
+	from ipr_course t 
+	join ipr_train_course itc  on t.id=itc.course_id and itc.is_deleted='N'
+	join ipr_train itt on itt.id=itc.train_id and itt.is_deleted='N'  
+	join ipr_project ip on ip.id=itt.project_id and ip.is_deleted='N' and ip.status='02'
+	where t.is_deleted='N' and t.status='02' 
+     
+      <if test="paramMap.courseId!=null and paramMap.courseId!=''" >
+      	and t.id =#{paramMap.courseId,jdbcType=VARCHAR}
+      </if>
+       ORDER BY t.CREATE_TIME DESC
+  </select>
+    <!-- 前端人才培训系统栏目首页培训基地选项 -->
+  <select id="selectTrain" resultMap="courseTrain" parameterType="searchParam" >
+   select dept.id DECLARE_DEPT,dept.dept_name TRAIN_NAME,dept.logo from ipanther_department dept 
+ 		where exists (select 1 from IPR_COURSE t where t.status='02' and t.is_deleted='N' and t.declare_dept=dept.id)
+        order by dept.id
+  </select>
+   <select id="listCourse" resultMap="listCourseMap" parameterType="searchParam" >
+   	select train.all_train_name,<include refid="Base_Column" /> from ipr_course ic 
+   		   left join
+	   	    (select t.id course_id,CAST(GROUP_CONCAT(it.train_name)AS CHAR) all_train_name from ipr_course t 
+	   	  		left join ipr_train_course itc on t.id=itc.course_id and itc.is_deleted='N'
+	            left join ipr_train it on itc.train_id=it.id and it.is_deleted='N'
+	            where t.is_deleted='N' and t.status='02'
+	            group by t.id) train on train.course_id=ic.id
+	where ic.IS_DELETED='N' and ic.status='02'
+             <if test="paramMap.courseName != null and paramMap.courseName!=''" >
+		       and ic.COURSE_NAME like CONCAT('%',#{paramMap.courseName,jdbcType=VARCHAR},'%')
+		      </if>
+		       <if test="paramMap.declareDept != null and paramMap.declareDept!=''" >
+		       and ic.DECLARE_DEPT =#{paramMap.declareDept,jdbcType=VARCHAR}
+		      </if>
+		      <if test="paramMap.expertId != null and paramMap.expertId!=''" >
+		       and ic.EXPERT_ID =#{paramMap.expertId,jdbcType=VARCHAR}
+		      </if>
+		       <if test="paramMap.teacherId != null and paramMap.teacherId !=''" >
+		       and exists(select 1 from ipr_course_teacher ictt where ictt.teacher_id=#{paramMap.teacherId,jdbcType=VARCHAR} and ictt.course_id=ic.id)
+		      </if>
+	 ORDER BY ic.CREATE_TIME DESC
+  </select>
+  
+   <select id="listTrainCoure" resultMap="listCourseMap" parameterType="searchParam" >
+   select  ip.project_name,it.train_name ,t.train_id,ic.*,t.id train_course_id ,t.expert_id teacher_id,
+   			(select iu.real_name from ipanther_user iu where iu.id=t.expert_id) expert_Name
+ 		from ipr_train_course t 
+			join ipr_course ic on t.course_id=ic.id and ic.is_deleted='N' and ic.status='02'
+			join ipr_train it on t.train_id =it.id and it.is_deleted='N'
+			join ipr_project ip on it.project_id=ip.id and ip.status='02'
+		where t.is_deleted='N'
+		 <if test="paramMap.courseName != null and paramMap.courseName!=''" >
+<!-- 	      	 and ic.COURSE_NAME like '%'|| #{paramMap.courseName,jdbcType=VARCHAR}||'%' -->
+	      	 and ic.COURSE_NAME like CONCAT('%',#{paramMap.courseName,jdbcType=VARCHAR},'%')
+	      </if>
+	       <if test="paramMap.declareDept != null and paramMap.declareDept!=''" >
+	      	 and ic.DECLARE_DEPT =#{paramMap.declareDept,jdbcType=VARCHAR}
+	      </if>
+	      <if test="paramMap.expertId != null and paramMap.expertId!=''" >
+	      	 and ic.EXPERT_ID =#{paramMap.expertId,jdbcType=VARCHAR}
+	      </if>
+	       <if test="paramMap.teacherId != null and paramMap.teacherId !=''" >
+	       	 and  t.expert_id=#{paramMap.teacherId,jdbcType=VARCHAR}
+	       </if>
+  			<if test="paramMap.trainCourseId != null and paramMap.trainCourseId !=''" >
+	       	 and  t.id=#{paramMap.trainCourseId,jdbcType=VARCHAR}
+	       </if>
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select t.*
+    from IPR_COURSE t 
+    where t.ID = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="listAll" resultMap="listAll" parameterType="searchParam" >
+  		select ic.* ,
+  		(select t.real_name from ipanther_user t where t.id=ic.EXPERT_ID) expert_name
+  		from IPR_COURSE ic  where ic.is_deleted='N'
+  		<if test="paramMap.userId!=null and paramMap.userId!=''">
+			and (exists(select 1 from IPR_COURSE_FLOW icf where icf.is_deleted='N' and icf.course_id=ic.id and icf.audit_user=#{paramMap.userId,jdbcType=VARCHAR})
+			    or ic.declare_user=#{paramMap.userId,jdbcType=VARCHAR}
+			)
+		</if>
+		<if test="paramMap.courseName != null and paramMap.courseName!=''" >
+       and ic.COURSE_NAME like CONCAT('%',#{paramMap.courseName,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="paramMap.status !=null and paramMap.status!=''">
+	       and ic.STATUS=#{paramMap.status,jdbcType=VARCHAR}
+	  </if>
+	  union
+	  select ice.*, (select t.real_name from ipanther_user t where t.id=EXPERT_ID) expert_name from IPR_COURSE ice where IS_DELETED='N' and CREATOR=#{paramMap.userId,jdbcType=VARCHAR} and PROC_INST_ID is null
+	  <if test="paramMap.courseName != null and paramMap.courseName!=''" >
+       and COURSE_NAME like CONCAT('%',#{paramMap.courseName,jdbcType=VARCHAR},'%')
+      </if>
+	order by create_time desc
+  </select>
+  
+   <select id="listTodo" resultMap="listTodo" parameterType="searchParam" >
+   select  ic.*,art.task_def_key_,art.name_  from IPR_COURSE ic 
+   			  join ACT_HI_PROCINST ahp on ic.proc_inst_id=ahp.proc_inst_id_ 
+              join ACT_RU_TASK art on ic.proc_inst_id=art.proc_inst_id_
+              join ACT_RU_IDENTITYLINK ari on ari.task_id_=art.id_ and ari.type_='candidate'
+              where ic.is_deleted='N'
+	    <if test="paramMap.candidateId != null and paramMap.candidateId!=''" >
+	       		and ari.group_id_ =#{paramMap.candidateId,jdbcType=VARCHAR}
+	      </if>
+	      <if test="paramMap.candidateIdList != null" >
+	       		and ari.group_id_ in 
+	       			<foreach collection="paramMap.candidateIdList" item="groupId" open="(" close=")" separator=",">
+	       				#{groupId}
+	       			</foreach>
+	      </if>
+	      <if test="paramMap.courseName != null and paramMap.courseName!=''" >
+<!-- 	       and ic.COURSE_NAME like '%'|| #{paramMap.courseName,jdbcType=VARCHAR}||'%' -->
+	       and ic.COURSE_NAME like CONCAT('%',#{paramMap.courseName,jdbcType=VARCHAR},'%')
+	      </if>
+	      order by ic.create_time desc
+  </select>
+  <select id="listDone" resultMap="listCourseExtends" parameterType="searchParam" >
+  		select ic.* ,
+  		(select t.real_name from ipanther_user t where t.id=ic.EXPERT_ID) expert_name
+  		from IPR_COURSE ic  where ic.is_deleted='N'
+  		<if test="paramMap.userId!=null and paramMap.userId!=''">
+			and (exists(select 1 from IPR_COURSE_FLOW icf where icf.is_deleted='N' and icf.course_id=ic.id and icf.audit_user=#{paramMap.userId,jdbcType=VARCHAR})
+			    or ic.declare_user=#{paramMap.userId,jdbcType=VARCHAR}
+			)
+		</if>
+		<if test="paramMap.courseName != null and paramMap.courseName!=''" >
+       and ic.COURSE_NAME like CONCAT('%',#{paramMap.courseName,jdbcType=VARCHAR},'%')
+      </if>
+       <if test="paramMap.status !=null and paramMap.status!=''">
+	       and ic.STATUS=#{paramMap.status,jdbcType=VARCHAR}
+	      </if>
+		order by ic.create_time desc
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from IPR_COURSE
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hcis.ipr.train.course.entity.Course" >
+    insert into IPR_COURSE (ID, PROC_INST_ID, COURSE_CODE, 
+      COURSE_NAME, COURSE_INTRO, DECLARE_DEPT, 
+      DECLARE_USER, DECLARE_TIME, START_TIME, 
+      END_TIME, TEACHER_NAME, TEACHER_UNIT, 
+      TEACHER_JOB, TRAIN_TYPE, ATTEND_ELEC, 
+      STUDY_HOURS, HOURS_TYPE, STUDY_DAYS, 
+      COURSE_TYPE, COURSE_LEVEL, APPLY_JOB, 
+      APPLY_POSITION, HAS_BOOK, BOOK_NAME, 
+      BOOK_FORM, PUBLICATION, AUTHOR, 
+      AUTHOR_IMG, AUTHOR_DESC, PUBLISH_TIME, 
+      TRAIN_CASH, TRAIN_CASH_UNIT, TRAIN_CASH_WAY, 
+      BOOK_CASH, BOOK_CASH_UNIT, BOOK_CASH_WAY, 
+      TOTAL_CASH, AUDIT_EXPERT, AUDIT_CONTENT, 
+      AUDIT_RESULT, AUDIT_TIME, MOBILE_STUDY, 
+      COURSE_IMG, ATTACHMENT, CREATOR, 
+      CREATE_TIME, UPDATEDBY, UPDATE_TIME, 
+      IS_DELETED, VERSION,STATUS,APPLY_COUNT,MAX_APPLY_COUNT,EXPERT_ID,EXPERT_ATTACHMENT,COURSE_STAGE,TEACHER_AVATAR)
+     
+    values (#{id,jdbcType=VARCHAR}, #{procInstId,jdbcType=VARCHAR}, #{courseCode,jdbcType=VARCHAR}, 
+      #{courseName,jdbcType=VARCHAR}, #{courseIntro,jdbcType=VARCHAR}, #{declareDept,jdbcType=VARCHAR}, 
+      #{declareUser,jdbcType=VARCHAR}, #{declareTime,jdbcType=TIMESTAMP}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP}, #{teacherName,jdbcType=VARCHAR}, #{teacherUnit,jdbcType=VARCHAR}, 
+      #{teacherJob,jdbcType=VARCHAR}, #{trainType,jdbcType=VARCHAR}, #{attendElec,jdbcType=VARCHAR}, 
+      #{studyHours,jdbcType=DECIMAL}, #{hoursType,jdbcType=VARCHAR}, #{studyDays,jdbcType=DECIMAL}, 
+      #{courseType,jdbcType=VARCHAR}, #{courseLevel,jdbcType=VARCHAR}, #{applyJob,jdbcType=VARCHAR}, 
+      #{applyPosition,jdbcType=VARCHAR}, #{hasBook,jdbcType=VARCHAR}, #{bookName,jdbcType=VARCHAR}, 
+      #{bookForm,jdbcType=VARCHAR}, #{publication,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
+      #{authorImg,jdbcType=VARCHAR}, #{authorDesc,jdbcType=VARCHAR}, #{publishTime,jdbcType=TIMESTAMP}, 
+      #{trainCash,jdbcType=DECIMAL}, #{trainCashUnit,jdbcType=VARCHAR}, #{trainCashWay,jdbcType=VARCHAR}, 
+      #{bookCash,jdbcType=DECIMAL}, #{bookCashUnit,jdbcType=VARCHAR}, #{bookCashWay,jdbcType=VARCHAR}, 
+      #{totalCash,jdbcType=DECIMAL}, #{auditExpert,jdbcType=VARCHAR}, #{auditContent,jdbcType=VARCHAR}, 
+      #{auditResult,jdbcType=VARCHAR}, #{auditTime,jdbcType=TIMESTAMP}, #{mobileStudy,jdbcType=VARCHAR}, 
+      #{courseImg,jdbcType=VARCHAR}, #{attachment,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updatedby,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{isDeleted,jdbcType=CHAR}, #{version,jdbcType=DECIMAL},#{status,jdbcType=VARCHAR},
+      #{applyCount,jdbcType=DECIMAL},#{maxApplyCount,jdbcType=DECIMAL},
+      #{expertId,jdbcType=VARCHAR},#{expertAttachment,jdbcType=VARCHAR},#{courseStage,jdbcType=VARCHAR}
+      ,#{teacherAvatar,jdbcType=VARCHAR})
+      
+  </insert>
+  <insert id="insertSelective" parameterType="com.hcis.ipr.train.course.entity.Course" >
+    insert into IPR_COURSE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="procInstId != null" >
+        PROC_INST_ID,
+      </if>
+      <if test="courseCode != null" >
+        COURSE_CODE,
+      </if>
+      <if test="courseName != null" >
+        COURSE_NAME,
+      </if>
+      <if test="courseIntro != null" >
+        COURSE_INTRO,
+      </if>
+      <if test="declareDept != null" >
+        DECLARE_DEPT,
+      </if>
+      <if test="declareUser != null" >
+        DECLARE_USER,
+      </if>
+      <if test="declareTime != null" >
+        DECLARE_TIME,
+      </if>
+      <if test="startTime != null" >
+        START_TIME,
+      </if>
+      <if test="endTime != null" >
+        END_TIME,
+      </if>
+      <if test="teacherName != null" >
+        TEACHER_NAME,
+      </if>
+      <if test="teacherUnit != null" >
+        TEACHER_UNIT,
+      </if>
+      <if test="teacherJob != null" >
+        TEACHER_JOB,
+      </if>
+      <if test="trainType != null" >
+        TRAIN_TYPE,
+      </if>
+      <if test="attendElec != null" >
+        ATTEND_ELEC,
+      </if>
+      <if test="studyHours != null" >
+        STUDY_HOURS,
+      </if>
+      <if test="hoursType != null" >
+        HOURS_TYPE,
+      </if>
+      <if test="studyDays != null" >
+        STUDY_DAYS,
+      </if>
+      <if test="courseType != null" >
+        COURSE_TYPE,
+      </if>
+      <if test="courseLevel != null" >
+        COURSE_LEVEL,
+      </if>
+      <if test="applyJob != null" >
+        APPLY_JOB,
+      </if>
+      <if test="applyPosition != null" >
+        APPLY_POSITION,
+      </if>
+      <if test="hasBook != null" >
+        HAS_BOOK,
+      </if>
+      <if test="bookName != null" >
+        BOOK_NAME,
+      </if>
+      <if test="bookForm != null" >
+        BOOK_FORM,
+      </if>
+      <if test="publication != null" >
+        PUBLICATION,
+      </if>
+      <if test="author != null" >
+        AUTHOR,
+      </if>
+      <if test="authorImg != null" >
+        AUTHOR_IMG,
+      </if>
+      <if test="authorDesc != null" >
+        AUTHOR_DESC,
+      </if>
+      <if test="publishTime != null" >
+        PUBLISH_TIME,
+      </if>
+      <if test="trainCash != null" >
+        TRAIN_CASH,
+      </if>
+      <if test="trainCashUnit != null" >
+        TRAIN_CASH_UNIT,
+      </if>
+      <if test="trainCashWay != null" >
+        TRAIN_CASH_WAY,
+      </if>
+      <if test="bookCash != null" >
+        BOOK_CASH,
+      </if>
+      <if test="bookCashUnit != null" >
+        BOOK_CASH_UNIT,
+      </if>
+      <if test="bookCashWay != null" >
+        BOOK_CASH_WAY,
+      </if>
+      <if test="totalCash != null" >
+        TOTAL_CASH,
+      </if>
+      <if test="auditExpert != null" >
+        AUDIT_EXPERT,
+      </if>
+      <if test="auditContent != null" >
+        AUDIT_CONTENT,
+      </if>
+      <if test="auditResult != null" >
+        AUDIT_RESULT,
+      </if>
+      <if test="auditTime != null" >
+        AUDIT_TIME,
+      </if>
+      <if test="mobileStudy != null" >
+        MOBILE_STUDY,
+      </if>
+      <if test="courseImg != null" >
+        COURSE_IMG,
+      </if>
+      <if test="attachment != null" >
+        ATTACHMENT,
+      </if>
+      <if test="creator != null" >
+        CREATOR,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+        <if test="applyCount != null" >
+        APPLY_COUNT,
+      </if>
+        <if test="maxApplyCount != null" >
+        MAX_APPLY_COUNT,
+      </if>
+       <if test="expertId != null" >
+        EXPERT_ID,
+      </if>
+       <if test="expertAttachment != null" >
+        EXPERT_ATTACHMENT,
+      </if>
+      <if test="courseStage != null" >
+        COURSE_STAGE,
+      </if>
+     <if test="teacherAvatar !=null">
+     	TEACHER_AVATAR,
+     </if>
+     <!-- 我新加的 人才与行业 -->
+     <if test="personType !=null">
+     	PERSON_TYPE,
+     </if>
+     <if test="industryType !=null">
+     	INDUSTRY_TYPE,
+     </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="procInstId != null" >
+        #{procInstId,jdbcType=VARCHAR},
+      </if>
+      <if test="courseCode != null" >
+        #{courseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="courseName != null" >
+        #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseIntro != null" >
+        #{courseIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="declareDept != null" >
+        #{declareDept,jdbcType=VARCHAR},
+      </if>
+      <if test="declareUser != null" >
+        #{declareUser,jdbcType=VARCHAR},
+      </if>
+      <if test="declareTime != null" >
+        #{declareTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="teacherName != null" >
+        #{teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherUnit != null" >
+        #{teacherUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherJob != null" >
+        #{teacherJob,jdbcType=VARCHAR},
+      </if>
+      <if test="trainType != null" >
+        #{trainType,jdbcType=VARCHAR},
+      </if>
+      <if test="attendElec != null" >
+        #{attendElec,jdbcType=VARCHAR},
+      </if>
+      <if test="studyHours != null" >
+        #{studyHours,jdbcType=DECIMAL},
+      </if>
+      <if test="hoursType != null" >
+        #{hoursType,jdbcType=VARCHAR},
+      </if>
+      <if test="studyDays != null" >
+        #{studyDays,jdbcType=DECIMAL},
+      </if>
+      <if test="courseType != null" >
+        #{courseType,jdbcType=VARCHAR},
+      </if>
+      <if test="courseLevel != null" >
+        #{courseLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="applyJob != null" >
+        #{applyJob,jdbcType=VARCHAR},
+      </if>
+      <if test="applyPosition != null" >
+        #{applyPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="hasBook != null" >
+        #{hasBook,jdbcType=VARCHAR},
+      </if>
+      <if test="bookName != null" >
+        #{bookName,jdbcType=VARCHAR},
+      </if>
+      <if test="bookForm != null" >
+        #{bookForm,jdbcType=VARCHAR},
+      </if>
+      <if test="publication != null" >
+        #{publication,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="authorImg != null" >
+        #{authorImg,jdbcType=VARCHAR},
+      </if>
+      <if test="authorDesc != null" >
+        #{authorDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="publishTime != null" >
+        #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="trainCash != null" >
+        #{trainCash,jdbcType=DECIMAL},
+      </if>
+      <if test="trainCashUnit != null" >
+        #{trainCashUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="trainCashWay != null" >
+        #{trainCashWay,jdbcType=VARCHAR},
+      </if>
+      <if test="bookCash != null" >
+        #{bookCash,jdbcType=DECIMAL},
+      </if>
+      <if test="bookCashUnit != null" >
+        #{bookCashUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="bookCashWay != null" >
+        #{bookCashWay,jdbcType=VARCHAR},
+      </if>
+      <if test="totalCash != null" >
+        #{totalCash,jdbcType=DECIMAL},
+      </if>
+      <if test="auditExpert != null" >
+        #{auditExpert,jdbcType=VARCHAR},
+      </if>
+      <if test="auditContent != null" >
+        #{auditContent,jdbcType=VARCHAR},
+      </if>
+      <if test="auditResult != null" >
+        #{auditResult,jdbcType=VARCHAR},
+      </if>
+      <if test="auditTime != null" >
+        #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mobileStudy != null" >
+        #{mobileStudy,jdbcType=VARCHAR},
+      </if>
+      <if test="courseImg != null" >
+        #{courseImg,jdbcType=VARCHAR},
+      </if>
+      <if test="attachment != null" >
+        #{attachment,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=CHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="applyCount != null" >
+        #{applyCount,jdbcType=DECIMAL},
+      </if>
+      <if test="maxApplyCount != null" >
+        #{maxApplyCount,jdbcType=DECIMAL},
+      </if>
+      <if test="expertId != null" >
+        #{expertId,jdbcType=VARCHAR},
+      </if>
+      <if test="expertAttachment != null" >
+        #{expertAttachment,jdbcType=VARCHAR},
+      </if>
+       <if test="courseStage != null" >
+        #{courseStage,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherAvatar !=null">
+        #{teacherAvatar,jdbcType=VARCHAR},
+       </if>
+       <!-- 新加的人才与行业 -->
+      <if test="personType !=null">
+        #{personType,jdbcType=VARCHAR},
+      </if>
+      <if test="industryType !=null">
+        #{industryType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hcis.ipr.train.course.entity.Course" >
+    update IPR_COURSE
+    <set >
+      <if test="procInstId != null" >
+        PROC_INST_ID = #{procInstId,jdbcType=VARCHAR},
+      </if>
+      <if test="courseCode != null" >
+        COURSE_CODE = #{courseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="courseName != null" >
+        COURSE_NAME = #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseIntro != null" >
+        COURSE_INTRO = #{courseIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="declareDept != null" >
+        DECLARE_DEPT = #{declareDept,jdbcType=VARCHAR},
+      </if>
+      <if test="declareUser != null" >
+        DECLARE_USER = #{declareUser,jdbcType=VARCHAR},
+      </if>
+      <if test="declareTime != null" >
+        DECLARE_TIME = #{declareTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null" >
+        START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="teacherName != null" >
+        TEACHER_NAME = #{teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherUnit != null" >
+        TEACHER_UNIT = #{teacherUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherJob != null" >
+        TEACHER_JOB = #{teacherJob,jdbcType=VARCHAR},
+      </if>
+      <if test="trainType != null" >
+        TRAIN_TYPE = #{trainType,jdbcType=VARCHAR},
+      </if>
+      <if test="attendElec != null" >
+        ATTEND_ELEC = #{attendElec,jdbcType=VARCHAR},
+      </if>
+      <if test="studyHours != null" >
+        STUDY_HOURS = #{studyHours,jdbcType=DECIMAL},
+      </if>
+      <if test="hoursType != null" >
+        HOURS_TYPE = #{hoursType,jdbcType=VARCHAR},
+      </if>
+      <if test="studyDays != null" >
+        STUDY_DAYS = #{studyDays,jdbcType=DECIMAL},
+      </if>
+      <if test="courseType != null" >
+        COURSE_TYPE = #{courseType,jdbcType=VARCHAR},
+      </if>
+      <if test="courseLevel != null" >
+        COURSE_LEVEL = #{courseLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="applyJob != null" >
+        APPLY_JOB = #{applyJob,jdbcType=VARCHAR},
+      </if>
+      <if test="applyPosition != null" >
+        APPLY_POSITION = #{applyPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="hasBook != null" >
+        HAS_BOOK = #{hasBook,jdbcType=VARCHAR},
+      </if>
+      <if test="bookName != null" >
+        BOOK_NAME = #{bookName,jdbcType=VARCHAR},
+      </if>
+      <if test="bookForm != null" >
+        BOOK_FORM = #{bookForm,jdbcType=VARCHAR},
+      </if>
+      <if test="publication != null" >
+        PUBLICATION = #{publication,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        AUTHOR = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="authorImg != null" >
+        AUTHOR_IMG = #{authorImg,jdbcType=VARCHAR},
+      </if>
+      <if test="authorDesc != null" >
+        AUTHOR_DESC = #{authorDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="publishTime != null" >
+        PUBLISH_TIME = #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="trainCash != null" >
+        TRAIN_CASH = #{trainCash,jdbcType=DECIMAL},
+      </if>
+      <if test="trainCashUnit != null" >
+        TRAIN_CASH_UNIT = #{trainCashUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="trainCashWay != null" >
+        TRAIN_CASH_WAY = #{trainCashWay,jdbcType=VARCHAR},
+      </if>
+      <if test="bookCash != null" >
+        BOOK_CASH = #{bookCash,jdbcType=DECIMAL},
+      </if>
+      <if test="bookCashUnit != null" >
+        BOOK_CASH_UNIT = #{bookCashUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="bookCashWay != null" >
+        BOOK_CASH_WAY = #{bookCashWay,jdbcType=VARCHAR},
+      </if>
+      <if test="totalCash != null" >
+        TOTAL_CASH = #{totalCash,jdbcType=DECIMAL},
+      </if>
+      <if test="auditExpert != null" >
+        AUDIT_EXPERT = #{auditExpert,jdbcType=VARCHAR},
+      </if>
+      <if test="auditContent != null" >
+        AUDIT_CONTENT = #{auditContent,jdbcType=VARCHAR},
+      </if>
+      <if test="auditResult != null" >
+        AUDIT_RESULT = #{auditResult,jdbcType=VARCHAR},
+      </if>
+      <if test="auditTime != null" >
+        AUDIT_TIME = #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mobileStudy != null" >
+        MOBILE_STUDY = #{mobileStudy,jdbcType=VARCHAR},
+      </if>
+      <if test="courseImg != null" >
+        COURSE_IMG = #{courseImg,jdbcType=VARCHAR},
+      </if>
+      <if test="attachment != null" >
+        ATTACHMENT = #{attachment,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      </if>
+     
+       <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="applyCount != null" >
+        APPLY_COUNT = #{applyCount,jdbcType=DECIMAL},
+      </if>
+      <if test="maxApplyCount != null" >
+        MAX_APPLY_COUNT = #{maxApplyCount,jdbcType=DECIMAL},
+      </if>
+      <if test="expertId != null" >
+        EXPERT_ID = #{expertId,jdbcType=VARCHAR},
+      </if>
+      <if test="expertAttachment != null" >
+        EXPERT_ATTACHMENT = #{expertAttachment,jdbcType=VARCHAR},
+      </if>
+      <if test="courseStage != null" >
+        COURSE_STAGE = #{courseStage,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherAvatar !=null">
+      	TEACHER_AVATAR=#{teacherAvatar,jdbcType=VARCHAR},
+      </if>
+      <!-- 新加的  人才和类型-->
+      <if test="personType !=null">
+        PERSON_TYPE=#{personType,jdbcType=VARCHAR},
+      </if>
+      <if test="industryType !=null">
+       INDUSTRY_TYPE=#{industryType,jdbcType=VARCHAR},
+      </if> 
+      VERSION = VERSION+1,
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hcis.ipr.train.course.entity.Course" >
+    update IPR_COURSE
+    set PROC_INST_ID = #{procInstId,jdbcType=VARCHAR},
+      COURSE_CODE = #{courseCode,jdbcType=VARCHAR},
+      COURSE_NAME = #{courseName,jdbcType=VARCHAR},
+      COURSE_INTRO = #{courseIntro,jdbcType=VARCHAR},
+      DECLARE_DEPT = #{declareDept,jdbcType=VARCHAR},
+      DECLARE_USER = #{declareUser,jdbcType=VARCHAR},
+      DECLARE_TIME = #{declareTime,jdbcType=TIMESTAMP},
+      START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      TEACHER_NAME = #{teacherName,jdbcType=VARCHAR},
+      TEACHER_UNIT = #{teacherUnit,jdbcType=VARCHAR},
+      TEACHER_JOB = #{teacherJob,jdbcType=VARCHAR},
+      TRAIN_TYPE = #{trainType,jdbcType=VARCHAR},
+      ATTEND_ELEC = #{attendElec,jdbcType=VARCHAR},
+      STUDY_HOURS = #{studyHours,jdbcType=DECIMAL},
+      HOURS_TYPE = #{hoursType,jdbcType=VARCHAR},
+      STUDY_DAYS = #{studyDays,jdbcType=DECIMAL},
+      COURSE_TYPE = #{courseType,jdbcType=VARCHAR},
+      COURSE_LEVEL = #{courseLevel,jdbcType=VARCHAR},
+      APPLY_JOB = #{applyJob,jdbcType=VARCHAR},
+      APPLY_POSITION = #{applyPosition,jdbcType=VARCHAR},
+      HAS_BOOK = #{hasBook,jdbcType=VARCHAR},
+      BOOK_NAME = #{bookName,jdbcType=VARCHAR},
+      BOOK_FORM = #{bookForm,jdbcType=VARCHAR},
+      PUBLICATION = #{publication,jdbcType=VARCHAR},
+      AUTHOR = #{author,jdbcType=VARCHAR},
+      AUTHOR_IMG = #{authorImg,jdbcType=VARCHAR},
+      AUTHOR_DESC = #{authorDesc,jdbcType=VARCHAR},
+      PUBLISH_TIME = #{publishTime,jdbcType=TIMESTAMP},
+      TRAIN_CASH = #{trainCash,jdbcType=DECIMAL},
+      TRAIN_CASH_UNIT = #{trainCashUnit,jdbcType=VARCHAR},
+      TRAIN_CASH_WAY = #{trainCashWay,jdbcType=VARCHAR},
+      BOOK_CASH = #{bookCash,jdbcType=DECIMAL},
+      BOOK_CASH_UNIT = #{bookCashUnit,jdbcType=VARCHAR},
+      BOOK_CASH_WAY = #{bookCashWay,jdbcType=VARCHAR},
+      TOTAL_CASH = #{totalCash,jdbcType=DECIMAL},
+      AUDIT_EXPERT = #{auditExpert,jdbcType=VARCHAR},
+      AUDIT_CONTENT = #{auditContent,jdbcType=VARCHAR},
+      AUDIT_RESULT = #{auditResult,jdbcType=VARCHAR},
+      AUDIT_TIME = #{auditTime,jdbcType=TIMESTAMP},
+      MOBILE_STUDY = #{mobileStudy,jdbcType=VARCHAR},
+      COURSE_IMG = #{courseImg,jdbcType=VARCHAR},
+      ATTACHMENT = #{attachment,jdbcType=VARCHAR},
+      CREATOR = #{creator,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      VERSION = VERSION+1,
+      STATUS = #{status,jdbcType=VARCHAR},
+      EXPERT_ID = #{expertId,jdbcType=VARCHAR},
+      EXPERT_ATTACHMENT = #{expertAttachment,jdbcType=VARCHAR},
+      TEACHER_AVATAR=#{teacherAvatar,jdbcType=VARCHAR},
+       COURSE_STAGE = #{courseStage,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+    
+  </update>
+  <update id="deleteByLogic" parameterType="com.hcis.ipr.train.course.entity.Course">
+  		 update IPR_COURSE
+    <set >
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      VERSION = VERSION+1,
+        IS_DELETED = 'Y',
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

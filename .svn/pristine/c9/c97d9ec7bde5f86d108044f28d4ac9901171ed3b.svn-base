@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcis.ipanther.common.user.mapper.UserStaffHisMapper" >
+  <resultMap id="BaseResultMap" type="com.hcis.ipanther.common.user.entity.UserStaffHis" >
+    <id column="HIS_ID" property="hisId" jdbcType="VARCHAR" />
+    <result column="USER_TYPE" property="userType" jdbcType="VARCHAR" />
+    <result column="HIGH_DIPLOMA" property="highDiploma" jdbcType="VARCHAR" />
+    <result column="HIGH_SUBJECT" property="highSubject" jdbcType="VARCHAR" />
+    <result column="HIGH_COLLEGE" property="highCollege" jdbcType="VARCHAR" />
+    <result column="HIGH_DT" property="highDt" jdbcType="TIMESTAMP" />
+    <result column="HIGH_DEGREE" property="highDegree" jdbcType="VARCHAR" />
+    <result column="HIGH_DEGREE_UNIT" property="highDegreeUnit" jdbcType="VARCHAR" />
+    <result column="HIGH_DEGREE_DT" property="highDegreeDt" jdbcType="TIMESTAMP" />
+    <result column="FOREIGN_LANGUAGES" property="foreignLanguages" jdbcType="VARCHAR" />
+    <result column="FOREIGN_DEGREE" property="foreignDegree" jdbcType="VARCHAR" />
+    <result column="FOREIGN_LEVEL" property="foreignLevel" jdbcType="VARCHAR" />
+    <result column="COMPUTER_LEVEL" property="computerLevel" jdbcType="VARCHAR" />
+    <result column="CHINESE_LEVEL" property="chineseLevel" jdbcType="VARCHAR" />
+    <result column="PRO_NAME" property="proName" jdbcType="VARCHAR" />
+    <result column="PRO_DT" property="proDt" jdbcType="TIMESTAMP" />
+    <result column="PRO_JOB" property="proJob" jdbcType="VARCHAR" />
+    <result column="EXPERT_TYPE" property="expertType" jdbcType="VARCHAR" />
+    <result column="EXPERT_LEVEL" property="expertLevel" jdbcType="VARCHAR" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="TITLE_DT" property="titleDt" jdbcType="TIMESTAMP" />
+    <result column="RESEARCH_FIELD" property="researchField" jdbcType="VARCHAR" />
+    <result column="RESEARCH_SPECIAL" property="researchSpecial" jdbcType="VARCHAR" />
+    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="CHAR" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+    <result column="TRAIN_DOMAIN" property="trainDomain" jdbcType="VARCHAR" />
+    <result column="TRAIN_DIRECTION" property="trainDirection" jdbcType="VARCHAR" />
+    <result column="HAVE_EXP" property="haveExp" jdbcType="VARCHAR" />
+    <result column="EXP_DESC" property="expDesc" jdbcType="VARCHAR" />
+    <result column="MAIN_THESIS" property="mainThesis" jdbcType="VARCHAR" />
+    <result column="BANK_ACCOUNT" property="bankAccount" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    HIS_ID, USER_TYPE, HIGH_DIPLOMA, HIGH_SUBJECT, HIGH_COLLEGE, HIGH_DT, HIGH_DEGREE, 
+    HIGH_DEGREE_UNIT, HIGH_DEGREE_DT, FOREIGN_LANGUAGES, FOREIGN_DEGREE, FOREIGN_LEVEL, 
+    COMPUTER_LEVEL, CHINESE_LEVEL, PRO_NAME, PRO_DT, PRO_JOB, EXPERT_TYPE, EXPERT_LEVEL, 
+    TITLE, TITLE_DT, RESEARCH_FIELD, RESEARCH_SPECIAL, CREATOR, CREATE_TIME, UPDATEDBY, 
+    UPDATE_TIME, IS_DELETED, VERSION, TRAIN_DOMAIN, TRAIN_DIRECTION, HAVE_EXP, EXP_DESC, 
+    MAIN_THESIS, BANK_ACCOUNT
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from IPANTHER_USER_STAFF_HIS
+    where HIS_ID = #{hisId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from IPANTHER_USER_STAFF_HIS
+    where HIS_ID = #{hisId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hcis.ipanther.common.user.entity.UserStaffHis" >
+    insert into IPANTHER_USER_STAFF_HIS (HIS_ID, USER_TYPE, HIGH_DIPLOMA, 
+      HIGH_SUBJECT, HIGH_COLLEGE, HIGH_DT, 
+      HIGH_DEGREE, HIGH_DEGREE_UNIT, HIGH_DEGREE_DT, 
+      FOREIGN_LANGUAGES, FOREIGN_DEGREE, FOREIGN_LEVEL, 
+      COMPUTER_LEVEL, CHINESE_LEVEL, PRO_NAME, 
+      PRO_DT, PRO_JOB, EXPERT_TYPE, 
+      EXPERT_LEVEL, TITLE, TITLE_DT, 
+      RESEARCH_FIELD, RESEARCH_SPECIAL, CREATOR, 
+      CREATE_TIME, UPDATEDBY, UPDATE_TIME, 
+      IS_DELETED, VERSION, TRAIN_DOMAIN, 
+      TRAIN_DIRECTION, HAVE_EXP, EXP_DESC, 
+      MAIN_THESIS, BANK_ACCOUNT)
+    values (#{hisId,jdbcType=VARCHAR}, #{userType,jdbcType=VARCHAR}, #{highDiploma,jdbcType=VARCHAR}, 
+      #{highSubject,jdbcType=VARCHAR}, #{highCollege,jdbcType=VARCHAR}, #{highDt,jdbcType=TIMESTAMP}, 
+      #{highDegree,jdbcType=VARCHAR}, #{highDegreeUnit,jdbcType=VARCHAR}, #{highDegreeDt,jdbcType=TIMESTAMP}, 
+      #{foreignLanguages,jdbcType=VARCHAR}, #{foreignDegree,jdbcType=VARCHAR}, #{foreignLevel,jdbcType=VARCHAR}, 
+      #{computerLevel,jdbcType=VARCHAR}, #{chineseLevel,jdbcType=VARCHAR}, #{proName,jdbcType=VARCHAR}, 
+      #{proDt,jdbcType=TIMESTAMP}, #{proJob,jdbcType=VARCHAR}, #{expertType,jdbcType=VARCHAR}, 
+      #{expertLevel,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{titleDt,jdbcType=TIMESTAMP}, 
+      #{researchField,jdbcType=VARCHAR}, #{researchSpecial,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updatedby,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{isDeleted,jdbcType=CHAR}, #{version,jdbcType=DECIMAL}, #{trainDomain,jdbcType=VARCHAR}, 
+      #{trainDirection,jdbcType=VARCHAR}, #{haveExp,jdbcType=VARCHAR}, #{expDesc,jdbcType=VARCHAR}, 
+      #{mainThesis,jdbcType=VARCHAR}, #{bankAccount,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hcis.ipanther.common.user.entity.UserStaffHis" >
+    insert into IPANTHER_USER_STAFF_HIS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="hisId != null" >
+        HIS_ID,
+      </if>
+      <if test="userType != null" >
+        USER_TYPE,
+      </if>
+      <if test="highDiploma != null" >
+        HIGH_DIPLOMA,
+      </if>
+      <if test="highSubject != null" >
+        HIGH_SUBJECT,
+      </if>
+      <if test="highCollege != null" >
+        HIGH_COLLEGE,
+      </if>
+      <if test="highDt != null" >
+        HIGH_DT,
+      </if>
+      <if test="highDegree != null" >
+        HIGH_DEGREE,
+      </if>
+      <if test="highDegreeUnit != null" >
+        HIGH_DEGREE_UNIT,
+      </if>
+      <if test="highDegreeDt != null" >
+        HIGH_DEGREE_DT,
+      </if>
+      <if test="foreignLanguages != null" >
+        FOREIGN_LANGUAGES,
+      </if>
+      <if test="foreignDegree != null" >
+        FOREIGN_DEGREE,
+      </if>
+      <if test="foreignLevel != null" >
+        FOREIGN_LEVEL,
+      </if>
+      <if test="computerLevel != null" >
+        COMPUTER_LEVEL,
+      </if>
+      <if test="chineseLevel != null" >
+        CHINESE_LEVEL,
+      </if>
+      <if test="proName != null" >
+        PRO_NAME,
+      </if>
+      <if test="proDt != null" >
+        PRO_DT,
+      </if>
+      <if test="proJob != null" >
+        PRO_JOB,
+      </if>
+      <if test="expertType != null" >
+        EXPERT_TYPE,
+      </if>
+      <if test="expertLevel != null" >
+        EXPERT_LEVEL,
+      </if>
+      <if test="title != null" >
+        TITLE,
+      </if>
+      <if test="titleDt != null" >
+        TITLE_DT,
+      </if>
+      <if test="researchField != null" >
+        RESEARCH_FIELD,
+      </if>
+      <if test="researchSpecial != null" >
+        RESEARCH_SPECIAL,
+      </if>
+      <if test="creator != null" >
+        CREATOR,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+      <if test="trainDomain != null" >
+        TRAIN_DOMAIN,
+      </if>
+      <if test="trainDirection != null" >
+        TRAIN_DIRECTION,
+      </if>
+      <if test="haveExp != null" >
+        HAVE_EXP,
+      </if>
+      <if test="expDesc != null" >
+        EXP_DESC,
+      </if>
+      <if test="mainThesis != null" >
+        MAIN_THESIS,
+      </if>
+      <if test="bankAccount != null" >
+        BANK_ACCOUNT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="hisId != null" >
+        #{hisId,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null" >
+        #{userType,jdbcType=VARCHAR},
+      </if>
+      <if test="highDiploma != null" >
+        #{highDiploma,jdbcType=VARCHAR},
+      </if>
+      <if test="highSubject != null" >
+        #{highSubject,jdbcType=VARCHAR},
+      </if>
+      <if test="highCollege != null" >
+        #{highCollege,jdbcType=VARCHAR},
+      </if>
+      <if test="highDt != null" >
+        #{highDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="highDegree != null" >
+        #{highDegree,jdbcType=VARCHAR},
+      </if>
+      <if test="highDegreeUnit != null" >
+        #{highDegreeUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="highDegreeDt != null" >
+        #{highDegreeDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="foreignLanguages != null" >
+        #{foreignLanguages,jdbcType=VARCHAR},
+      </if>
+      <if test="foreignDegree != null" >
+        #{foreignDegree,jdbcType=VARCHAR},
+      </if>
+      <if test="foreignLevel != null" >
+        #{foreignLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="computerLevel != null" >
+        #{computerLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="chineseLevel != null" >
+        #{chineseLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="proName != null" >
+        #{proName,jdbcType=VARCHAR},
+      </if>
+      <if test="proDt != null" >
+        #{proDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="proJob != null" >
+        #{proJob,jdbcType=VARCHAR},
+      </if>
+      <if test="expertType != null" >
+        #{expertType,jdbcType=VARCHAR},
+      </if>
+      <if test="expertLevel != null" >
+        #{expertLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="titleDt != null" >
+        #{titleDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="researchField != null" >
+        #{researchField,jdbcType=VARCHAR},
+      </if>
+      <if test="researchSpecial != null" >
+        #{researchSpecial,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=CHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+      <if test="trainDomain != null" >
+        #{trainDomain,jdbcType=VARCHAR},
+      </if>
+      <if test="trainDirection != null" >
+        #{trainDirection,jdbcType=VARCHAR},
+      </if>
+      <if test="haveExp != null" >
+        #{haveExp,jdbcType=VARCHAR},
+      </if>
+      <if test="expDesc != null" >
+        #{expDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="mainThesis != null" >
+        #{mainThesis,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccount != null" >
+        #{bankAccount,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hcis.ipanther.common.user.entity.UserStaffHis" >
+    update IPANTHER_USER_STAFF_HIS
+    <set >
+      <if test="userType != null" >
+        USER_TYPE = #{userType,jdbcType=VARCHAR},
+      </if>
+      <if test="highDiploma != null" >
+        HIGH_DIPLOMA = #{highDiploma,jdbcType=VARCHAR},
+      </if>
+      <if test="highSubject != null" >
+        HIGH_SUBJECT = #{highSubject,jdbcType=VARCHAR},
+      </if>
+      <if test="highCollege != null" >
+        HIGH_COLLEGE = #{highCollege,jdbcType=VARCHAR},
+      </if>
+      <if test="highDt != null" >
+        HIGH_DT = #{highDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="highDegree != null" >
+        HIGH_DEGREE = #{highDegree,jdbcType=VARCHAR},
+      </if>
+      <if test="highDegreeUnit != null" >
+        HIGH_DEGREE_UNIT = #{highDegreeUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="highDegreeDt != null" >
+        HIGH_DEGREE_DT = #{highDegreeDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="foreignLanguages != null" >
+        FOREIGN_LANGUAGES = #{foreignLanguages,jdbcType=VARCHAR},
+      </if>
+      <if test="foreignDegree != null" >
+        FOREIGN_DEGREE = #{foreignDegree,jdbcType=VARCHAR},
+      </if>
+      <if test="foreignLevel != null" >
+        FOREIGN_LEVEL = #{foreignLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="computerLevel != null" >
+        COMPUTER_LEVEL = #{computerLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="chineseLevel != null" >
+        CHINESE_LEVEL = #{chineseLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="proName != null" >
+        PRO_NAME = #{proName,jdbcType=VARCHAR},
+      </if>
+      <if test="proDt != null" >
+        PRO_DT = #{proDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="proJob != null" >
+        PRO_JOB = #{proJob,jdbcType=VARCHAR},
+      </if>
+      <if test="expertType != null" >
+        EXPERT_TYPE = #{expertType,jdbcType=VARCHAR},
+      </if>
+      <if test="expertLevel != null" >
+        EXPERT_LEVEL = #{expertLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        TITLE = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="titleDt != null" >
+        TITLE_DT = #{titleDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="researchField != null" >
+        RESEARCH_FIELD = #{researchField,jdbcType=VARCHAR},
+      </if>
+      <if test="researchSpecial != null" >
+        RESEARCH_SPECIAL = #{researchSpecial,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      </if>
+      VERSION = VERSION+1,
+      <if test="trainDomain != null" >
+        TRAIN_DOMAIN = #{trainDomain,jdbcType=VARCHAR},
+      </if>
+      <if test="trainDirection != null" >
+        TRAIN_DIRECTION = #{trainDirection,jdbcType=VARCHAR},
+      </if>
+      <if test="haveExp != null" >
+        HAVE_EXP = #{haveExp,jdbcType=VARCHAR},
+      </if>
+      <if test="expDesc != null" >
+        EXP_DESC = #{expDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="mainThesis != null" >
+        MAIN_THESIS = #{mainThesis,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccount != null" >
+        BANK_ACCOUNT = #{bankAccount,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where HIS_ID = #{hisId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hcis.ipanther.common.user.entity.UserStaffHis" >
+    update IPANTHER_USER_STAFF_HIS
+    set USER_TYPE = #{userType,jdbcType=VARCHAR},
+      HIGH_DIPLOMA = #{highDiploma,jdbcType=VARCHAR},
+      HIGH_SUBJECT = #{highSubject,jdbcType=VARCHAR},
+      HIGH_COLLEGE = #{highCollege,jdbcType=VARCHAR},
+      HIGH_DT = #{highDt,jdbcType=TIMESTAMP},
+      HIGH_DEGREE = #{highDegree,jdbcType=VARCHAR},
+      HIGH_DEGREE_UNIT = #{highDegreeUnit,jdbcType=VARCHAR},
+      HIGH_DEGREE_DT = #{highDegreeDt,jdbcType=TIMESTAMP},
+      FOREIGN_LANGUAGES = #{foreignLanguages,jdbcType=VARCHAR},
+      FOREIGN_DEGREE = #{foreignDegree,jdbcType=VARCHAR},
+      FOREIGN_LEVEL = #{foreignLevel,jdbcType=VARCHAR},
+      COMPUTER_LEVEL = #{computerLevel,jdbcType=VARCHAR},
+      CHINESE_LEVEL = #{chineseLevel,jdbcType=VARCHAR},
+      PRO_NAME = #{proName,jdbcType=VARCHAR},
+      PRO_DT = #{proDt,jdbcType=TIMESTAMP},
+      PRO_JOB = #{proJob,jdbcType=VARCHAR},
+      EXPERT_TYPE = #{expertType,jdbcType=VARCHAR},
+      EXPERT_LEVEL = #{expertLevel,jdbcType=VARCHAR},
+      TITLE = #{title,jdbcType=VARCHAR},
+      TITLE_DT = #{titleDt,jdbcType=TIMESTAMP},
+      RESEARCH_FIELD = #{researchField,jdbcType=VARCHAR},
+      RESEARCH_SPECIAL = #{researchSpecial,jdbcType=VARCHAR},
+      CREATOR = #{creator,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      VERSION = VERSION+1,
+      TRAIN_DOMAIN = #{trainDomain,jdbcType=VARCHAR},
+      TRAIN_DIRECTION = #{trainDirection,jdbcType=VARCHAR},
+      HAVE_EXP = #{haveExp,jdbcType=VARCHAR},
+      EXP_DESC = #{expDesc,jdbcType=VARCHAR},
+      MAIN_THESIS = #{mainThesis,jdbcType=VARCHAR},
+      BANK_ACCOUNT = #{bankAccount,jdbcType=VARCHAR}
+    where HIS_ID = #{hisId,jdbcType=VARCHAR}
+  </update>
+</mapper>

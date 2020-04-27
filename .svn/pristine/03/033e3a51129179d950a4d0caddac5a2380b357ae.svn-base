@@ -1,0 +1,47 @@
+.alter-table-h,
+.alter-table-v {
+  min-width: 100%;
+  border: 1px solid #ccc;
+}
+.alter-table-h tr,
+.alter-table-v tr {
+  height: 35px;
+}
+.alter-table-h td,
+.alter-table-v td {
+  padding: 0 10px;
+  border: 1px dashed #ccc;
+  color: #333;
+  text-align: center;
+}
+.alter-table-h thead,
+.alter-table-v thead {
+  text-align: center;
+  background-color: #f6f6f6;
+  font-weight: 700;
+  color: #000;
+}
+.alter-table-h thead td:hover,
+.alter-table-h tbody tr:hover {
+  background-color: #eaf2ff;
+}
+
+.alter-table-v-space {
+  min-width: 100%;
+  border: 1px solid #ccc;
+}
+.alter-table-v-space tr {
+  height: 35px;
+}
+.alter-table-v-space td {
+  padding: 0 10px;
+  border: 1px dashed #ccc;
+  color: #333;
+  text-align: center;
+}
+.alter-table-v-space thead {
+  text-align: center;
+  background-color: #f6f6f6;
+  font-weight: 700;
+  color: #000;
+}

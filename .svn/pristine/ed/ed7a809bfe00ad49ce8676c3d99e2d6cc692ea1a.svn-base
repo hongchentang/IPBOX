@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/context   
+          				http://www.springframework.org/schema/context/spring-context-3.2.xsd 
+						http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
+						http://www.springframework.org/schema/tx 
+						http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+						http://www.springframework.org/schema/aop 
+						http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+
+	<!-- JNDI方式配置数据源 -->
+	<!-- <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean"> <property name="jndiName" value="${jndiName}"></property> </bean> -->
+	
+	<!-- 配置数据源 -->
+	<bean id="dataSource1" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+
+		<!-- 基本属性 url、user、password -->
+		<property name="driverClassName" value="${driverClassName}" />
+		<property name="url" value="${jdbc_url}" />
+		<property name="username" value="${jdbc_username}" />
+		<property name="password" value="${jdbc_password}" />
+
+		<!-- 配置初始化大小、最小、最大 -->
+		<property name="initialSize" value="5" />
+		<property name="minIdle" value="5" />
+		<property name="maxActive" value="200" />
+
+		<!-- 配置获取连接等待超时的时间 -->
+		<property name="maxWait" value="60000" />
+
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+
+		<property name="validationQuery" value="SELECT 1 FROM DUAL" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+
+		<!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+		<property name="poolPreparedStatements" value="false" />
+		<property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
+
+		<!-- 配置监控统计拦截的filters -->
+		<property name="filters" value="stat" />
+	</bean>
+
+	<!-- 第二个数据源 -->
+	<bean id="dataSource2" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+		<!-- 基本属性 url、user、password -->
+		<property name="driverClassName" value="${driverClassName2}" />
+		<property name="url" value="${jdbc_url_2}" />
+		<property name="username" value="${jdbc_username2}" />
+		<property name="password" value="${jdbc_password2}" />
+
+		<!-- 配置初始化大小、最小、最大 -->
+		<property name="initialSize" value="5" />
+		<property name="minIdle" value="5" />
+		<property name="maxActive" value="200" />
+
+		<!-- 配置获取连接等待超时的时间 -->
+		<property name="maxWait" value="60000" />
+
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+
+		<property name="validationQuery" value="SELECT 1 FROM DUAL" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+
+		<!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+		<property name="poolPreparedStatements" value="false" />
+		<property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
+
+		<!-- 配置监控统计拦截的filters -->
+		<property name="filters" value="stat" />
+	</bean>
+
+	<bean id="dataSource" class="com.hcis.datas.MultipleDataSource">
+		<!-- 默认数据库 -->
+		<property name="defaultTargetDataSource" ref="dataSource1" />
+		<property name="targetDataSources">
+			<map>
+				<entry key="dataSource1" value-ref="dataSource1" />
+				<entry key="dataSource2" value-ref="dataSource2" />
+			</map>
+		</property>
+	</bean>
+
+	<!-- 切面 -->
+	<aop:aspectj-autoproxy>
+
+	</aop:aspectj-autoproxy>
+	<bean id="dataSourceAspect" class="com.hcis.datas.DateSourceAspect" />
+
+	<!-- myBatis文件 -->
+	<bean id="sqlSessionFactory" name="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:ibatis-config.xml" />
+		<!-- 自动扫描mapper目录, 省掉Configuration.xml里的手工配置 -->
+		<property name="mapperLocations">
+			<array>
+ 				<value>classpath*:com/hcis/ipanther/**/mapper/*.xml</value>
+ 				<value>classpath:com/haoyu/ipanther/common/login/mapper/*Mapper.xml</value>
+				<value>classpath:com/hcis/ipr/**/mapper/*.xml</value>
+ 				<value>classpath*:com/hcis/ipr/**/mapper/*Mapper.xml</value>
+ 				<value>classpath*:com/hcis/survey/**/mapper/*Mapper.xml</value>
+				<value>classpath*:com/hcis/items/**/mapper/*Mapper.xml</value>
+			</array>
+		</property>
+	</bean>
+
+	<!-- <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.hcis.ipanther.*.*.dao" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	</bean> -->
+
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+ 
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+	<bean id = "jdbcTemplate" class = "org.springframework.jdbc.core.JdbcTemplate">    
+         <property name = "dataSource" ref="dataSource"/>    
+    </bean>   
+	
+
+	<aop:config proxy-target-class="true">
+		<aop:advisor pointcut="execution(* com.hcis.ipanther..*Service*.*(..))" advice-ref="txAdvice" />
+		<aop:advisor pointcut="execution(* com.hcis.ipr..*Service*.*(..))" advice-ref="txAdvice" />
+
+		<aop:aspect ref="dataSourceAspect">
+			<!-- 拦截所有service方法，在dao层添加注解 -->
+			<!--com.hcis.ipr.intellectual.patent.service.impl.PatentServiceImpl-->
+			<aop:pointcut id="dataSourcePointcut" expression="execution( * com.hcis.ipr..*Service*.*(..))"/>
+			<aop:before method="intercept" pointcut-ref="dataSourcePointcut" />
+			<aop:after method="after" pointcut-ref="dataSourcePointcut" />
+		</aop:aspect>
+	</aop:config>
+
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*query*" read-only="true" />
+			<tx:method name="*get*" read-only="true" />
+			<tx:method name="*search*" read-only="true" />
+			<tx:method name="*list*" read-only="true" />
+			<tx:method name="*select*" read-only="true" />
+			<tx:method name="*find*" read-only="true" />
+			<tx:method name="*update*" read-only="false" />
+			<tx:method name="*edit*" read-only="false" />
+			<tx:method name="*save*" read-only="false" />
+			<tx:method name="*add*" read-only="false" />
+			<tx:method name="*import*" read-only="false" />
+			<tx:method name="*remove*" read-only="false" />
+			<tx:method name="*delete*" read-only="false" />
+			<tx:method name="*insert*" read-only="false" />
+			<tx:method name="*submit*" read-only="false" />
+			<tx:method name="*upload*" read-only="false" />
+			<tx:method name="*create*" read-only="false" />
+			<tx:method name="*duplicate*" read-only="false"/>
+		</tx:attributes>
+	</tx:advice>
+     
+    <!-- 配置sqlSessionTemplate --> 
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">  
+        <constructor-arg index="0" ref="sqlSessionFactory" />  
+    </bean> 
+	
+	<bean id="myBatisDao" class="com.hcis.ipanther.core.persistence.dao.MyBatisDao">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+
+	<bean id="userLoginAttemptDao" class="com.haoyu.ipanther.common.login.dao.impl.mybatis.UserLoginAttemptDao" parent="myBatisDao">
+		<property name="namespace" value="com.haoyu.ipanther.common.login.mapper.UserLoginAttemptMapper"/>
+	</bean>
+
+	<bean id="userLoginLogDao" class="com.haoyu.ipanther.common.login.dao.impl.mybatis.UserLoginLogDao" parent="myBatisDao">
+		<property name="namespace" value="com.haoyu.ipanther.common.login.mapper.UserLoginLogMapper"/>
+	</bean>
+</beans>

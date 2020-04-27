@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcis.ipr.intellectual.cost.mapper.PatentCostPaymentMapper" >
+  <resultMap id="BaseResultMap" type="com.hcis.ipr.intellectual.cost.entity.PatentCostPayment" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="PATENT_COST_ID" property="patentCostId" jdbcType="VARCHAR" />
+    <result column="PAYMENT_AMOUNT" property="paymentAmount" jdbcType="DECIMAL" />
+    <result column="PAYMENT_DATE" property="paymentDate" jdbcType="TIMESTAMP" />
+    <result column="PAYMENTER" property="paymenter" jdbcType="VARCHAR" />
+    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="CHAR" />
+    <result column="VERSION" property="version" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, PATENT_COST_ID, PAYMENT_AMOUNT, PAYMENT_DATE, PAYMENTER, CREATOR, CREATE_TIME, 
+    UPDATEDBY, UPDATE_TIME, IS_DELETED, VERSION
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ipanther_patent_cost_payment
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ipanther_patent_cost_payment
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hcis.ipr.intellectual.cost.entity.PatentCostPayment" >
+    insert into ipanther_patent_cost_payment (ID, PATENT_COST_ID, PAYMENT_AMOUNT, 
+      PAYMENT_DATE, PAYMENTER, CREATOR, 
+      CREATE_TIME, UPDATEDBY, UPDATE_TIME, 
+      IS_DELETED, VERSION)
+    values (#{id,jdbcType=VARCHAR}, #{patentCostId,jdbcType=VARCHAR}, #{paymentAmount,jdbcType=DECIMAL}, 
+      #{paymentDate,jdbcType=TIMESTAMP}, #{paymenter,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updatedby,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{isDeleted,jdbcType=TIMESTAMP}, #{version,jdbcType=BIGINT})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.hcis.ipr.intellectual.cost.entity.PatentCostPayment" >
+    update ipanther_patent_cost_payment
+    set PATENT_COST_ID = #{patentCostId,jdbcType=VARCHAR},
+      PAYMENT_AMOUNT = #{paymentAmount,jdbcType=DECIMAL},
+      PAYMENT_DATE = #{paymentDate,jdbcType=TIMESTAMP},
+      PAYMENTER = #{paymenter,jdbcType=VARCHAR},
+      CREATOR = #{creator,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      IS_DELETED = #{isDeleted,jdbcType=TIMESTAMP},
+      VERSION = #{version,jdbcType=BIGINT}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

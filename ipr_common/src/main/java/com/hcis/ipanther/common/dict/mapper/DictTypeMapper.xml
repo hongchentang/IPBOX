@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hcis.ipanther.common.dict.mapper.DictTypeMapper">
+	<resultMap id="BaseResultMap" type="com.hcis.ipanther.common.dict.vo.DictType">
+		<id column="DICT_TYPE_CODE" jdbcType="VARCHAR" property="dictTypeCode" />
+		<result column="DICT_TYPE_NAME" jdbcType="VARCHAR" property="dictTypeName" />
+		<result column="RANK" jdbcType="DECIMAL" property="rank" />
+		<result column="PARENT_CODE" jdbcType="VARCHAR" property="parentCode" />
+		<result column="CREATOR" jdbcType="VARCHAR" property="creator" />
+		<result column="CREATE_TIME" jdbcType="DATE" property="createTime" />
+		<result column="UPDATEDBY" jdbcType="VARCHAR" property="updatedby" />
+		<result column="UPDATE_TIME" jdbcType="DATE" property="updateTime" />
+		<result column="IS_DELETED" jdbcType="CHAR" property="isDeleted" />
+		<result column="VERSION" jdbcType="DECIMAL" property="version" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		DICT_TYPE_CODE, DICT_TYPE_NAME, RANK, PARENT_CODE, CREATOR, CREATE_TIME, UPDATEDBY,
+		UPDATE_TIME, IS_DELETED, VERSION
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from IPANTHER_DICT_TYPE
+		where DICT_TYPE_CODE = #{dictTypeCode,jdbcType=VARCHAR}
+		and IS_DELETED = 'N'
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from IPANTHER_DICT_TYPE
+		where DICT_TYPE_CODE = #{dictTypeCode,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.hcis.ipanther.common.dict.vo.DictType">
+		insert into IPANTHER_DICT_TYPE (DICT_TYPE_CODE, DICT_TYPE_NAME, RANK,
+		PARENT_CODE, CREATOR, CREATE_TIME,
+		UPDATEDBY, UPDATE_TIME, IS_DELETED,
+		VERSION)
+		values (#{dictTypeCode,jdbcType=VARCHAR}, #{dictTypeName,jdbcType=VARCHAR}, #{rank,jdbcType=DECIMAL},
+		#{parentCode,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE},
+		#{updatedby,jdbcType=VARCHAR}, #{updateTime,jdbcType=DATE}, #{isDeleted,jdbcType=CHAR},
+		#{version,jdbcType=DECIMAL})
+	</insert>
+	<insert id="insertSelective" parameterType="com.hcis.ipanther.common.dict.vo.DictType">
+		insert into IPANTHER_DICT_TYPE
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="dictTypeCode != null">
+				DICT_TYPE_CODE,
+			</if>
+			<if test="dictTypeName != null">
+				DICT_TYPE_NAME,
+			</if>
+			<if test="rank != null">
+				RANK,
+			</if>
+			<if test="parentCode != null">
+				PARENT_CODE,
+			</if>
+			<if test="creator != null">
+				CREATOR,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="updatedby != null">
+				UPDATEDBY,
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME,
+			</if>
+			<if test="isDeleted != null">
+				IS_DELETED,
+			</if>
+			<if test="version != null">
+				VERSION,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="dictTypeCode != null">
+				#{dictTypeCode,jdbcType=VARCHAR},
+			</if>
+			<if test="dictTypeName != null">
+				#{dictTypeName,jdbcType=VARCHAR},
+			</if>
+			<if test="rank != null">
+				#{rank,jdbcType=DECIMAL},
+			</if>
+			<if test="parentCode != null">
+				#{parentCode,jdbcType=VARCHAR},
+			</if>
+			<if test="creator != null">
+				#{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedby != null">
+				#{updatedby,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isDeleted != null">
+				#{isDeleted,jdbcType=CHAR},
+			</if>
+			<if test="version != null">
+				#{version,jdbcType=DECIMAL},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.hcis.ipanther.common.dict.vo.DictType">
+		update IPANTHER_DICT_TYPE
+		<set>
+			<if test="dictTypeName != null">
+				DICT_TYPE_NAME = #{dictTypeName,jdbcType=VARCHAR},
+			</if>
+			<if test="rank != null">
+				RANK = #{rank,jdbcType=DECIMAL},
+			</if>
+			<if test="parentCode != null">
+				PARENT_CODE = #{parentCode,jdbcType=VARCHAR},
+			</if>
+			<if test="creator != null">
+				CREATOR = #{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedby != null">
+				UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isDeleted != null">
+				IS_DELETED = #{isDeleted,jdbcType=CHAR},
+			</if>
+			<if test="version != null">
+				VERSION = VERSION +1,
+			</if>
+		</set>
+		where DICT_TYPE_CODE = #{dictTypeCode,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.hcis.ipanther.common.dict.vo.DictType">
+		update IPANTHER_DICT_TYPE
+		set DICT_TYPE_NAME = #{dictTypeName,jdbcType=VARCHAR},
+		RANK = #{rank,jdbcType=DECIMAL},
+		PARENT_CODE = #{parentCode,jdbcType=VARCHAR},
+		CREATOR = #{creator,jdbcType=VARCHAR},
+		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+		UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+		IS_DELETED = #{isDeleted,jdbcType=CHAR},
+		VERSION = #{version,jdbcType=DECIMAL}
+		where DICT_TYPE_CODE = #{dictTypeCode,jdbcType=VARCHAR}
+	</update>
+	<select id="selectAll" parameterType="searchParam" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from IPANTHER_DICT_TYPE IDT
+		where IDT.IS_DELETED = 'N'
+	</select>
+	<select id="selectBySearchParam" parameterType="searchParam" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from IPANTHER_DICT_TYPE IDT
+		where IDT.IS_DELETED = 'N'
+		<if test="paramMap.dictTypeName != null and paramMap.dictTypeName != ''">
+			and IDT.DICT_TYPE_NAME like '%${paramMap.dictTypeName}%'
+		</if>
+		<if test="paramMap.dictTypeCode != null and paramMap.dictTypeCode != ''">
+			and IDT.DICT_TYPE_CODE like '%${paramMap.dictTypeCode}%'
+		</if>
+		order by CREATE_TIME desc
+	</select>
+	<select id="selectDictTypeOptions" resultMap="BaseResultMap">
+		select
+		IDT.DICT_TYPE_CODE, IDT.DICT_TYPE_NAME, IDT.PARENT_CODE
+		from IPANTHER_DICT_TYPE IDT
+		where IDT.IS_DELETED = 'N'
+	</select>
+	<delete id="deleteByIdArray">
+		delete from IPANTHER_DICT_TYPE
+		where DICT_TYPE_CODE in
+		<foreach collection="array" open="(" separator="," close=")" item="item">
+			#{item,jdbcType=VARCHAR}
+		</foreach>
+	</delete>
+</mapper>

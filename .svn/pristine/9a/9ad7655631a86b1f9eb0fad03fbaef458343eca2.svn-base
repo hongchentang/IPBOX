@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcis.survey.mapper.SurveyMapper" >
+  <resultMap id="BaseResultMap" type="com.hcis.survey.entity.Survey" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="VARCHAR" />
+    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="CHAR" />
+    <result column="PUBLISH_TIME" property="publishTime" jdbcType="TIMESTAMP" />
+    
+    <result column="COMPLETION_STATUS" property="completionStatus" jdbcType="VARCHAR"/>
+    <result column="END_TIME" property="endTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="surveyMap" type="com.hcis.survey.entity.Survey" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="VARCHAR" />
+    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="CHAR" />
+    <result column="PUBLISH_TIME" property="publishTime" jdbcType="TIMESTAMP" />
+    <association property="questions" column="ID" select="selectQuestions" />
+  </resultMap>
+  <resultMap id="questionsMap" type="com.hcis.survey.entity.SurveyQuestion" >
+    <result column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="QUES_BODY" property="quesBody" jdbcType="VARCHAR" />
+    <result column="QUES_TYPE" property="quesType" jdbcType="VARCHAR" />
+    <result column="INTERACTION" property="interaction" jdbcType="VARCHAR" />
+    <result column="SEQUENCE_INDEX" property="sequenceIndex" jdbcType="DECIMAL" />
+    <result column="RELATION_ID" property="relationId" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, TITLE, DESCRIPTION, STATE, CREATOR, CREATE_TIME, UPDATEDBY, UPDATE_TIME, VERSION, 
+    IS_DELETED,PUBLISH_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="surveyMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from IMS_SURVEY
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectBySearchParam" parameterType="searchParam" resultMap="BaseResultMap">
+  	select 
+  	T.*
+    from IMS_SURVEY T JOIN IPANTHER_USER A ON T.CREATOR = A.ID
+    JOIN ipanther_user_dept B ON A.ID = B.USER_ID
+    where T.IS_DELETED = 'N'
+    <if test="paramMap.title != null and paramMap.title != ''" >
+    	AND T.TITLE LIKE '%${paramMap.title}%'    
+<!--     	AND T.TITLE LIKE '%'||#{paramMap.title,jdbcType=VARCHAR}||'%'     -->
+    </if>
+    <if test="paramMap.state != null and paramMap.state != ''" >
+    	AND T.STATE = #{paramMap.state,jdbcType=VARCHAR}
+    </if>
+    <if test="paramMap.deptId != null and paramMap.deptId != ''" >
+    	AND B.DEPT_ID = #{paramMap.deptId,jdbcType=VARCHAR}
+    </if>
+  </select>
+  <select id="selectQuestions" parameterType="string" resultMap="questionsMap">
+  	select ID, TITLE, QUES_BODY, QUES_TYPE, INTERACTION, SEQUENCE_INDEX, RELATION_ID, CREATE_TIME
+  	from IMS_SURVEY_QUESTION
+  	where IS_DELETED = 'N'
+  	and RELATION_ID = #{id,jdbcType=VARCHAR}
+<!--   	order by decode(SEQUENCE_INDEX,0,null,SEQUENCE_INDEX),CREATE_TIME -->
+  	order by if(SEQUENCE_INDEX=0,null,SEQUENCE_INDEX),CREATE_TIME
+  </select>
+  <insert id="insertSelective" parameterType="com.hcis.survey.entity.Survey" >
+    insert into IMS_SURVEY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="title != null" >
+        TITLE,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="creator != null" >
+        CREATOR,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED,
+      </if>
+      <if test="publishTime != null" >
+        PUBLISH_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=CHAR},
+      </if>
+      <if test="publishTime != null" >
+        #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hcis.survey.entity.Survey" >
+    update IMS_SURVEY
+    <set >
+      <if test="title != null" >
+        TITLE = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      VERSION = VERSION+1,
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      </if>
+      <if test="publishTime != null" >
+        PUBLISH_TIME = #{publishTime,jdbcType=CHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="deleteByLogic" parameterType="com.hcis.survey.entity.Survey">
+  	update IMS_SURVEY
+  	set IS_DELETED = 'Y', UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+  	<if test="updatedby != null and updatedby != ''">
+  		,UPDATEDBY = #{updatedby,jdbcType=VARCHAR}
+  	</if>
+  	where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 个人端查找自己的问卷 -->
+  <select id="listSurveyForSpace" parameterType="searchParam" resultMap="BaseResultMap">
+  	SELECT t.*,a.COMPLETION_STATUS,b.end_time
+	  FROM ims_survey t
+	  LEFT JOIN ims_survey_user a
+	    ON (a.survey_id = t.id AND A.USER_ID = #{paramMap.userId,jdbcType=VARCHAR})
+	  LEFT JOIN IPR_TRAIN_REQUIREMENT_SURVEY B 
+	  	ON B.SURVEY_ID = T.ID
+	 WHERE t.is_deleted = 'N' and B.is_deleted='N'
+	   AND t.state = '2'
+	   and b.start_time &lt; NOW()
+	   <if test="paramMap.regionsCode != null and paramMap.regionsCode != ''" >
+	    AND (b.REGIONS_CODES IS NULL 
+<!-- 	     OR dbms_lob.instr(b.REGIONS_CODES,#{paramMap.regionsCode,jdbcType=VARCHAR}) >0) -->
+	     OR instr(b.REGIONS_CODES,#{paramMap.regionsCode,jdbcType=VARCHAR}) >0)
+      </if>
+<!-- 	   order by decode(a.COMPLETION_STATUS,'complete',2,1),t.PUBLISH_TIME desc -->
+	   order by if(a.COMPLETION_STATUS='complete',2,1),t.PUBLISH_TIME desc
+  </select>
+  
+</mapper>

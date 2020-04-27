@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcis.ipanther.common.useremail.mapper.UserEmailMapper" >
+                 
+  <resultMap id="BaseResultMap" type="com.hcis.ipanther.common.useremail.entity.UserEmail" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+       <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="USER_EMAIL" property="userEmail" jdbcType="VARCHAR" />
+ 
+
+    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="CHAR" />
+    <result column="VERSION" property="version" jdbcType="BIGINT" />
+  </resultMap>
+
+  <insert id="insert" parameterType="com.hcis.ipanther.common.useremail.entity.UserEmail" >
+    insert into ipanther_useremail (ID, USER_ID, NAME,USER_EMAIL,
+      CREATOR, CREATE_TIME, UPDATEDBY, UPDATE_TIME, IS_DELETED, VERSION)
+      values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR} ,#{userEmail,jdbcType=VARCHAR},
+      #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updatedby,jdbcType=VARCHAR},
+      #{updateTime,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=CHAR}, #{version,jdbcType=BIGINT})
+  </insert>
+<select id="selectList" resultMap="BaseResultMap" parameterType="searchParam">
+	 select IU.ID,IU.USER_ID, IU.NAME, IU.USER_EMAIL,IU.CREATOR,IU.CREATE_TIME,IU.UPDATEDBY ,IU.UPDATE_TIME ,IU.IS_DELETED,IU.version  from ipanther_useremail IU
+          WHERE IU.IS_DELETED = 'N'
+<!-- 		<if test="paramMap.deptName!=null and paramMap.deptName!=''">
+			and IU.USER_NAME like CONCAT('%',#{paramMap.deptName,jdbcType=VARCHAR},'%')
+		</if> -->
+		<if test="paramMap.userId!=null and paramMap.userId!=''">
+			and IU.USER_ID =#{paramMap.userId,jdbcType=VARCHAR}
+		</if>
+		<if test="paramMap.creator!=null and paramMap.creator!=''">
+			and IU.CREATOR =#{paramMap.CREATOR,jdbcType=VARCHAR}
+		</if>
+
+
+		ORDER BY IU.CREATE_TIME desc
+	</select>
+	  <update id="updateById" parameterType="java.lang.String" >
+   update ipanther_useremail set  IS_DELETED = 'Y' where ID = #{ID,jdbcType=VARCHAR}
+
+  </update>
+  
+  	<update id="updateByAll" parameterType="com.hcis.ipanther.common.useremail.entity.UserEmail" >
+            update ipanther_useremail set
+
+			NAME=#{name,jdbcType=VARCHAR},
+
+		    USER_EMAIL=#{userEmail,jdbcType=VARCHAR}
+	
+        where ID = #{id,jdbcType=VARCHAR}
+
+  </update>
+    <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String">
+		 select IU.ID,IU.USER_ID, IU.NAME, IU.USER_EMAIL,IU.CREATOR,IU.CREATE_TIME,IU.UPDATEDBY ,IU.UPDATE_TIME ,IU.IS_DELETED,IU.version  from ipanther_useremail IU
+          WHERE IU.IS_DELETED = 'N' AND IU.ID=#{_ID}
+
+	</select>
+  
+
+</mapper>

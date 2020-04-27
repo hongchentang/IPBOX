@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcis.ipr.intellectual.trademark.mapper.TrademarkMapper">
+    <resultMap id="BaseResultMap" type="com.hcis.ipr.intellectual.trademark.entity.Trademark">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="REGISTERED_NUMBER" property="registeredNumber" jdbcType="VARCHAR"/>
+        <result column="REGISTERED_NAME"   property="registeredName"   jdbcType="VARCHAR"/>
+        <result column="REGISTERED_IMAGE"  property="registeredImage"  jdbcType="VARCHAR"/>
+        <result column="APPLY_DATE"        property="applyDate"        jdbcType="TIMESTAMP"/>
+		<result column="CLASSIFY"          property="classify"         jdbcType="VARCHAR"/>
+		<result column="CLASSIFY_LIKE"     property="classifyLike"     jdbcType="VARCHAR"/>
+		<result column="TRADEMARK_STATE"   property="trademarkState"   jdbcType="VARCHAR"/>
+		<result column="FIRST_PUBLIC_NUMBER" property="firstPublicNumber" jdbcType="VARCHAR"/>
+		<result column="REGISTER_PUBLIC_NUMBER" property="registerPublicNumber" jdbcType="VARCHAR"/>
+		<result column="FIRST_PUBLIC_DATE" property="firstPublicDate"  jdbcType="TIMESTAMP"/>
+		<result column="REGISTER_PUBLIC_DATE" property="registerPublicDate" jdbcType="TIMESTAMP"/>
+		<result column="BEGIN_DATE"        property="beginDate"        jdbcType="TIMESTAMP"/>
+		<result column="IS_OWNER"          property="isOwner"          jdbcType="VARCHAR"/>
+		<result column="TRADEMARK_TYPE"    property="trademarkType"    jdbcType="VARCHAR"/>
+		<result column="REGISTER_TYPE"     property="registerType"     jdbcType="VARCHAR"/>
+		<result column="REGISTER_DATE"     property="registerDate"     jdbcType="TIMESTAMP"/>
+		<result column="VALID_DATE"        property="validDate"        jdbcType="TIMESTAMP"/>
+		<result column="REGISTER_CITY"     property="registerCity"     jdbcType="VARCHAR"/>
+		<result column="REGISTER_ROLE"     property="registerRole"     jdbcType="VARCHAR"/>
+		<result column="REGISTER_ADDRESS"  property="registerAddress"  jdbcType="VARCHAR"/>
+		<result column="AGENCY_CODE"       property="agencyCode"       jdbcType="VARCHAR"/>
+		<result column="REGISTOR_INFO"     property="registorInfo"     jdbcType="VARCHAR"/>
+		<result column="TRADEMARK_FILE"    property="trademarkFile"    jdbcType="VARCHAR"/>
+        <result column="CREATOR"           property="creator"          jdbcType="VARCHAR"/>
+        <result column="CREATE_TIME"       property="createTime"       jdbcType="TIMESTAMP"/>
+        <result column="UPDATEDBY"         property="updatedby"        jdbcType="VARCHAR"/>
+        <result column="UPDATE_TIME"       property="updateTime"       jdbcType="TIMESTAMP"/>
+        <result column="IS_DELETED"        property="isDeleted"        jdbcType="CHAR"/>
+        <result column="VERSION"           property="version"          jdbcType="DECIMAL"/>
+
+    </resultMap>
+
+    <sql id="Base_Column_List">
+	    ID,REGISTERED_NUMBER,REGISTERED_NAME,REGISTERED_IMAGE,APPLY_DATE,CLASSIFY,CLASSIFY_LIKE,TRADEMARK_STATE,
+		FIRST_PUBLIC_NUMBER,REGISTER_PUBLIC_NUMBER,FIRST_PUBLIC_DATE,REGISTER_PUBLIC_DATE,BEGIN_DATE,
+		IS_OWNER,TRADEMARK_TYPE,REGISTER_TYPE,REGISTER_DATE,VALID_DATE,REGISTER_CITY,REGISTER_ROLE,
+		REGISTER_ADDRESS,AGENCY_CODE,REGISTOR_INFO,TRADEMARK_FILE,
+	    CREATOR,CREATE_TIME,UPDATEDBY,UPDATE_TIME,IS_DELETED,VERSION
+    </sql>
+    <sql id="Base_Column">
+    	t.ID,t.REGISTERED_NUMBER,t.REGISTERED_NAME,t.REGISTERED_IMAGE,t.APPLY_DATE,t.CLASSIFY,t.CLASSIFY_LIKE,t.TRADEMARK_STATE,
+		t.FIRST_PUBLIC_NUMBER,t.REGISTER_PUBLIC_NUMBER,t.FIRST_PUBLIC_DATE,t.REGISTER_PUBLIC_DATE,t.BEGIN_DATE,
+		t.IS_OWNER,t.TRADEMARK_TYPE,t.REGISTER_TYPE,t.REGISTER_DATE,t.VALID_DATE,t.REGISTER_CITY,t.REGISTER_ROLE,
+		t.REGISTER_ADDRESS,t.AGENCY_CODE,t.REGISTOR_INFO,t.TRADEMARK_FILE,
+	    t.CREATOR,t.CREATE_TIME,t.UPDATEDBY,t.UPDATE_TIME,t.IS_DELETED,t.VERSION
+    </sql>
+
+    <select id="selectBySearchParam" resultMap="BaseResultMap" parameterType="searchParam">
+        select
+        <include refid="Base_Column"/>
+        from IPANTHER_TRADEMARK T
+        LEFT JOIN ipanther_user AS u ON u.id = T.CREATOR
+        LEFT JOIN ipanther_user_dept AS ut ON ut.user_id = u.id
+        where T.IS_DELETED='N'
+        <if test="paramMap.registeredName !=null and paramMap.registeredName !=''">
+            and T.REGISTERED_NAME like '%${paramMap.registeredName}%'
+        </if>
+        <if test="paramMap.registeredNumber!=null and paramMap.registeredNumber!=''">
+            and T.REGISTERED_NUMBER = #{paramMap.registeredNumber,jdbcType=VARCHAR}
+        </if>
+        <if test="paramMap.deptIds != null and paramMap.deptIds.size > 0">
+            and ut.dept_id IN
+            <foreach collection="paramMap.deptIds" item="deptId" open="(" close=")" separator=",">
+                #{deptId, jdbcType=VARCHAR}
+            </foreach>
+        </if>
+        <if test="paramMap.searchUserId != null and paramMap.searchUserId != ''">
+            and T.CREATOR = #{paramMap.searchUserId, jdbcType=VARCHAR}
+        </if>
+        group by t.id
+        order by t.update_time desc,t.create_time desc,t.id
+    </select>
+
+    <update id="deleteByLogic" parameterType="com.hcis.ipr.intellectual.trademark.entity.Trademark">
+        update IPANTHER_TRADEMARK
+        <set>
+            IS_DELETED = 'Y',
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT
+        <include refid="Base_Column"/>
+        FROM
+        IPANTHER_TRADEMARK t
+        WHERE
+        ID = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <insert id="insert" parameterType="com.hcis.ipr.intellectual.trademark.entity.Trademark" >
+        insert into ipanther_trademark (ID, REGISTERED_NUMBER, REGISTERED_NAME,
+                                        APPLY_DATE, CLASSIFY, CLASSIFY_LIKE,
+                                        FIRST_PUBLIC_NUMBER, REGISTER_PUBLIC_NUMBER,
+                                        FIRST_PUBLIC_DATE, REGISTER_PUBLIC_DATE, BEGIN_DATE,
+                                        IS_OWNER, TRADEMARK_TYPE, REGISTER_TYPE,
+                                        REGISTER_DATE, VALID_DATE, REGISTER_CITY,
+                                        REGISTER_ROLE, REGISTER_ADDRESS, AGENCY_CODE,
+                                        CREATOR, CREATE_TIME, UPDATEDBY,
+                                        UPDATE_TIME, IS_DELETED, VERSION,
+                                        REGISTERED_IMAGE, TRADEMARK_STATE,
+                                        REGISTOR_INFO, TRADEMARK_FILE)
+        values (#{id,jdbcType=VARCHAR}, #{registeredNumber,jdbcType=VARCHAR}, #{registeredName,jdbcType=VARCHAR},
+                #{applyDate,jdbcType=DATE}, #{classify,jdbcType=VARCHAR}, #{classifyLike,jdbcType=VARCHAR},
+                #{firstPublicNumber,jdbcType=VARCHAR}, #{registerPublicNumber,jdbcType=VARCHAR},
+                #{firstPublicDate,jdbcType=DATE}, #{registerPublicDate,jdbcType=DATE}, #{beginDate,jdbcType=DATE},
+                #{isOwner,jdbcType=VARCHAR}, #{trademarkType,jdbcType=VARCHAR}, #{registerType,jdbcType=VARCHAR},
+                #{registerDate,jdbcType=DATE}, #{validDate,jdbcType=DATE}, #{registerCity,jdbcType=VARCHAR},
+                #{registerRole,jdbcType=VARCHAR}, #{registerAddress,jdbcType=VARCHAR}, #{agencyCode,jdbcType=VARCHAR},
+                #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updatedby,jdbcType=VARCHAR},
+                #{updateTime,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=VARCHAR}, #{version,jdbcType=BIGINT},
+                #{registeredImage,jdbcType=LONGVARCHAR}, #{trademarkState,jdbcType=LONGVARCHAR},
+                #{registorInfo,jdbcType=LONGVARCHAR}, #{trademarkFile,jdbcType=LONGVARCHAR})
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.hcis.ipr.intellectual.trademark.entity.Trademark" >
+        insert into ipanther_trademark
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                ID,
+            </if>
+            <if test="registeredNumber != null" >
+                REGISTERED_NUMBER,
+            </if>
+            <if test="registeredName != null" >
+                REGISTERED_NAME,
+            </if>
+            <if test="applyDate != null" >
+                APPLY_DATE,
+            </if>
+            <if test="classify != null" >
+                CLASSIFY,
+            </if>
+            <if test="classifyLike != null" >
+                CLASSIFY_LIKE,
+            </if>
+            <if test="firstPublicNumber != null" >
+                FIRST_PUBLIC_NUMBER,
+            </if>
+            <if test="registerPublicNumber != null" >
+                REGISTER_PUBLIC_NUMBER,
+            </if>
+            <if test="firstPublicDate != null" >
+                FIRST_PUBLIC_DATE,
+            </if>
+            <if test="registerPublicDate != null" >
+                REGISTER_PUBLIC_DATE,
+            </if>
+            <if test="beginDate != null" >
+                BEGIN_DATE,
+            </if>
+            <if test="isOwner != null" >
+                IS_OWNER,
+            </if>
+            <if test="trademarkType != null" >
+                TRADEMARK_TYPE,
+            </if>
+            <if test="registerType != null" >
+                REGISTER_TYPE,
+            </if>
+            <if test="registerDate != null" >
+                REGISTER_DATE,
+            </if>
+            <if test="validDate != null" >
+                VALID_DATE,
+            </if>
+            <if test="registerCity != null" >
+                REGISTER_CITY,
+            </if>
+            <if test="registerRole != null" >
+                REGISTER_ROLE,
+            </if>
+            <if test="registerAddress != null" >
+                REGISTER_ADDRESS,
+            </if>
+            <if test="agencyCode != null" >
+                AGENCY_CODE,
+            </if>
+            <if test="creator != null" >
+                CREATOR,
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME,
+            </if>
+            <if test="updatedby != null" >
+                UPDATEDBY,
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME,
+            </if>
+            <if test="isDeleted != null" >
+                IS_DELETED,
+            </if>
+            <if test="version != null" >
+                VERSION,
+            </if>
+            <if test="registeredImage != null" >
+                REGISTERED_IMAGE,
+            </if>
+            <if test="trademarkState != null" >
+                TRADEMARK_STATE,
+            </if>
+            <if test="registorInfo != null" >
+                REGISTOR_INFO,
+            </if>
+            <if test="trademarkFile != null" >
+                TRADEMARK_FILE,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="registeredNumber != null" >
+                #{registeredNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="registeredName != null" >
+                #{registeredName,jdbcType=VARCHAR},
+            </if>
+            <if test="applyDate != null" >
+                #{applyDate,jdbcType=DATE},
+            </if>
+            <if test="classify != null" >
+                #{classify,jdbcType=VARCHAR},
+            </if>
+            <if test="classifyLike != null" >
+                #{classifyLike,jdbcType=VARCHAR},
+            </if>
+            <if test="firstPublicNumber != null" >
+                #{firstPublicNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="registerPublicNumber != null" >
+                #{registerPublicNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="firstPublicDate != null" >
+                #{firstPublicDate,jdbcType=DATE},
+            </if>
+            <if test="registerPublicDate != null" >
+                #{registerPublicDate,jdbcType=DATE},
+            </if>
+            <if test="beginDate != null" >
+                #{beginDate,jdbcType=DATE},
+            </if>
+            <if test="isOwner != null" >
+                #{isOwner,jdbcType=VARCHAR},
+            </if>
+            <if test="trademarkType != null" >
+                #{trademarkType,jdbcType=VARCHAR},
+            </if>
+            <if test="registerType != null" >
+                #{registerType,jdbcType=VARCHAR},
+            </if>
+            <if test="registerDate != null" >
+                #{registerDate,jdbcType=DATE},
+            </if>
+            <if test="validDate != null" >
+                #{validDate,jdbcType=DATE},
+            </if>
+            <if test="registerCity != null" >
+                #{registerCity,jdbcType=VARCHAR},
+            </if>
+            <if test="registerRole != null" >
+                #{registerRole,jdbcType=VARCHAR},
+            </if>
+            <if test="registerAddress != null" >
+                #{registerAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="agencyCode != null" >
+                #{agencyCode,jdbcType=VARCHAR},
+            </if>
+            <if test="creator != null" >
+                #{creator,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedby != null" >
+                #{updatedby,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDeleted != null" >
+                #{isDeleted,jdbcType=VARCHAR},
+            </if>
+            <if test="version != null" >
+                #{version,jdbcType=BIGINT},
+            </if>
+            <if test="registeredImage != null" >
+                #{registeredImage,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="trademarkState != null" >
+                #{trademarkState,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="registorInfo != null" >
+                #{registorInfo,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="trademarkFile != null" >
+                #{trademarkFile,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.hcis.ipr.intellectual.trademark.entity.Trademark" >
+        update ipanther_trademark
+        set REGISTERED_NUMBER = #{registeredNumber,jdbcType=VARCHAR},
+            REGISTERED_NAME = #{registeredName,jdbcType=VARCHAR},
+            APPLY_DATE = #{applyDate,jdbcType=DATE},
+            CLASSIFY = #{classify,jdbcType=VARCHAR},
+            CLASSIFY_LIKE = #{classifyLike,jdbcType=VARCHAR},
+            FIRST_PUBLIC_NUMBER = #{firstPublicNumber,jdbcType=VARCHAR},
+            REGISTER_PUBLIC_NUMBER = #{registerPublicNumber,jdbcType=VARCHAR},
+            FIRST_PUBLIC_DATE = #{firstPublicDate,jdbcType=DATE},
+            REGISTER_PUBLIC_DATE = #{registerPublicDate,jdbcType=DATE},
+            BEGIN_DATE = #{beginDate,jdbcType=DATE},
+            IS_OWNER = #{isOwner,jdbcType=VARCHAR},
+            TRADEMARK_TYPE = #{trademarkType,jdbcType=VARCHAR},
+            REGISTER_TYPE = #{registerType,jdbcType=VARCHAR},
+            REGISTER_DATE = #{registerDate,jdbcType=DATE},
+            VALID_DATE = #{validDate,jdbcType=DATE},
+            REGISTER_CITY = #{registerCity,jdbcType=VARCHAR},
+            REGISTER_ROLE = #{registerRole,jdbcType=VARCHAR},
+            REGISTER_ADDRESS = #{registerAddress,jdbcType=VARCHAR},
+            AGENCY_CODE = #{agencyCode,jdbcType=VARCHAR},
+            CREATOR = #{creator,jdbcType=VARCHAR},
+            CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+            UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            IS_DELETED = #{isDeleted,jdbcType=VARCHAR},
+            VERSION = #{version,jdbcType=BIGINT}
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hcis.ipr.intellectual.trademark.entity.Trademark" >
+        update ipanther_trademark
+        set REGISTERED_NUMBER = #{registeredNumber,jdbcType=VARCHAR},
+            REGISTERED_NAME = #{registeredName,jdbcType=VARCHAR},
+            APPLY_DATE = #{applyDate,jdbcType=DATE},
+            CLASSIFY = #{classify,jdbcType=VARCHAR},
+            CLASSIFY_LIKE = #{classifyLike,jdbcType=VARCHAR},
+            FIRST_PUBLIC_NUMBER = #{firstPublicNumber,jdbcType=VARCHAR},
+            REGISTER_PUBLIC_NUMBER = #{registerPublicNumber,jdbcType=VARCHAR},
+            FIRST_PUBLIC_DATE = #{firstPublicDate,jdbcType=DATE},
+            REGISTER_PUBLIC_DATE = #{registerPublicDate,jdbcType=DATE},
+            BEGIN_DATE = #{beginDate,jdbcType=DATE},
+            IS_OWNER = #{isOwner,jdbcType=VARCHAR},
+            TRADEMARK_TYPE = #{trademarkType,jdbcType=VARCHAR},
+            REGISTER_TYPE = #{registerType,jdbcType=VARCHAR},
+            REGISTER_DATE = #{registerDate,jdbcType=DATE},
+            VALID_DATE = #{validDate,jdbcType=DATE},
+            REGISTER_CITY = #{registerCity,jdbcType=VARCHAR},
+            REGISTER_ROLE = #{registerRole,jdbcType=VARCHAR},
+            REGISTER_ADDRESS = #{registerAddress,jdbcType=VARCHAR},
+            AGENCY_CODE = #{agencyCode,jdbcType=VARCHAR},
+            CREATOR = #{creator,jdbcType=VARCHAR},
+            CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+            UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            IS_DELETED = #{isDeleted,jdbcType=VARCHAR},
+            VERSION = #{version,jdbcType=BIGINT},
+            REGISTERED_IMAGE = #{registeredImage,jdbcType=LONGVARCHAR},
+            TRADEMARK_STATE = #{trademarkState,jdbcType=LONGVARCHAR},
+            REGISTOR_INFO = #{registorInfo,jdbcType=LONGVARCHAR},
+            TRADEMARK_FILE = #{trademarkFile,jdbcType=LONGVARCHAR}
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.hcis.ipr.intellectual.trademark.entity.Trademark" >
+        update ipanther_trademark
+        <set >
+            <if test="registeredNumber != null" >
+                REGISTERED_NUMBER = #{registeredNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="registeredName != null" >
+                REGISTERED_NAME = #{registeredName,jdbcType=VARCHAR},
+            </if>
+            <if test="applyDate != null" >
+                APPLY_DATE = #{applyDate,jdbcType=DATE},
+            </if>
+            <if test="classify != null" >
+                CLASSIFY = #{classify,jdbcType=VARCHAR},
+            </if>
+            <if test="classifyLike != null" >
+                CLASSIFY_LIKE = #{classifyLike,jdbcType=VARCHAR},
+            </if>
+            <if test="firstPublicNumber != null" >
+                FIRST_PUBLIC_NUMBER = #{firstPublicNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="registerPublicNumber != null" >
+                REGISTER_PUBLIC_NUMBER = #{registerPublicNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="firstPublicDate != null" >
+                FIRST_PUBLIC_DATE = #{firstPublicDate,jdbcType=DATE},
+            </if>
+            <if test="registerPublicDate != null" >
+                REGISTER_PUBLIC_DATE = #{registerPublicDate,jdbcType=DATE},
+            </if>
+            <if test="beginDate != null" >
+                BEGIN_DATE = #{beginDate,jdbcType=DATE},
+            </if>
+            <if test="isOwner != null" >
+                IS_OWNER = #{isOwner,jdbcType=VARCHAR},
+            </if>
+            <if test="trademarkType != null" >
+                TRADEMARK_TYPE = #{trademarkType,jdbcType=VARCHAR},
+            </if>
+            <if test="registerType != null" >
+                REGISTER_TYPE = #{registerType,jdbcType=VARCHAR},
+            </if>
+            <if test="registerDate != null" >
+                REGISTER_DATE = #{registerDate,jdbcType=DATE},
+            </if>
+            <if test="validDate != null" >
+                VALID_DATE = #{validDate,jdbcType=DATE},
+            </if>
+            <if test="registerCity != null" >
+                REGISTER_CITY = #{registerCity,jdbcType=VARCHAR},
+            </if>
+            <if test="registerRole != null" >
+                REGISTER_ROLE = #{registerRole,jdbcType=VARCHAR},
+            </if>
+            <if test="registerAddress != null" >
+                REGISTER_ADDRESS = #{registerAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="agencyCode != null" >
+                AGENCY_CODE = #{agencyCode,jdbcType=VARCHAR},
+            </if>
+            <if test="creator != null" >
+                CREATOR = #{creator,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedby != null" >
+                UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDeleted != null" >
+                IS_DELETED = #{isDeleted,jdbcType=VARCHAR},
+            </if>
+            <if test="version != null" >
+                VERSION = #{version,jdbcType=BIGINT},
+            </if>
+            <if test="registeredImage != null" >
+                REGISTERED_IMAGE = #{registeredImage,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="trademarkState != null" >
+                TRADEMARK_STATE = #{trademarkState,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="registorInfo != null" >
+                REGISTOR_INFO = #{registorInfo,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="trademarkFile != null" >
+                TRADEMARK_FILE = #{trademarkFile,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+</mapper>

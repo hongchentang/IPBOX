@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcis.survey.mapper.SurveyQuestionMapper" >
+  <resultMap id="BaseResultMap" type="com.hcis.survey.entity.SurveyQuestion" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="QUES_BODY" property="quesBody" jdbcType="VARCHAR" />
+    <result column="QUES_TYPE" property="quesType" jdbcType="VARCHAR" />
+    <result column="INTERACTION" property="interaction" jdbcType="VARCHAR" />
+    <result column="SEQUENCE_INDEX" property="sequenceIndex" jdbcType="DECIMAL" />
+    <result column="RELATION_ID" property="relationId" jdbcType="VARCHAR" />
+    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, TITLE, QUES_BODY, QUES_TYPE, INTERACTION, SEQUENCE_INDEX, RELATION_ID, CREATOR, 
+    CREATE_TIME, UPDATEDBY, UPDATE_TIME, VERSION, IS_DELETED
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from IMS_SURVEY_QUESTION
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectBySearchParam" resultMap="BaseResultMap" parameterType="searchParam" >
+    select 
+    <include refid="Base_Column_List" />
+    from IMS_SURVEY_QUESTION
+    where IS_DELETED = 'N'
+  </select>
+  <insert id="insertSelective" parameterType="com.hcis.survey.entity.SurveyQuestion" >
+    insert into IMS_SURVEY_QUESTION
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="title != null" >
+        TITLE,
+      </if>
+      <if test="quesBody != null" >
+        QUES_BODY,
+      </if>
+      <if test="quesType != null" >
+        QUES_TYPE,
+      </if>
+      <if test="interaction != null" >
+        INTERACTION,
+      </if>
+      <if test="sequenceIndex != null" >
+        SEQUENCE_INDEX,
+      </if>
+      <if test="relationId != null" >
+        RELATION_ID,
+      </if>
+      <if test="creator != null" >
+        CREATOR,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="quesBody != null" >
+        #{quesBody,jdbcType=VARCHAR},
+      </if>
+      <if test="quesType != null" >
+        #{quesType,jdbcType=VARCHAR},
+      </if>
+      <if test="interaction != null" >
+        #{interaction,jdbcType=VARCHAR},
+      </if>
+      <if test="sequenceIndex != null" >
+        #{sequenceIndex,jdbcType=DECIMAL},
+      </if>
+      <if test="relationId != null" >
+        #{relationId,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hcis.survey.entity.SurveyQuestion" >
+    update IMS_SURVEY_QUESTION
+    <set >
+      <if test="title != null" >
+        TITLE = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="quesBody != null" >
+        QUES_BODY = #{quesBody,jdbcType=VARCHAR},
+      </if>
+      <if test="quesType != null" >
+        QUES_TYPE = #{quesType,jdbcType=VARCHAR},
+      </if>
+      <if test="interaction != null" >
+        INTERACTION = #{interaction,jdbcType=VARCHAR},
+      </if>
+      <if test="sequenceIndex != null" >
+        SEQUENCE_INDEX = #{sequenceIndex,jdbcType=DECIMAL},
+      </if>
+      <if test="relationId != null" >
+        RELATION_ID = #{relationId,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      VERSION = VERSION+1,
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="deleteQuestions" parameterType="map">
+  	update IMS_SURVEY_QUESTION
+  	set IS_DELETED = 'Y', UPDATE_TIME = #{updateTime,jdbcType=VARCHAR}
+  	where RELATION_ID = #{relationId,jdbcType=VARCHAR}
+  	and ID not in 
+  	<foreach collection="ids" open="(" close=")" item="item" separator=",">
+  		#{item}
+  	</foreach>
+  </update>
+  <update id="deleteByLogic" parameterType="com.hcis.survey.entity.SurveyQuestion">
+  	update IMS_SURVEY_QUESTION
+  	set IS_DELETED = 'Y', UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+  	<if test="updatedby != null and updatedby != ''">
+  		,UPDATEDBY = #{updatedby,jdbcType=VARCHAR}
+  	</if>
+  	where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

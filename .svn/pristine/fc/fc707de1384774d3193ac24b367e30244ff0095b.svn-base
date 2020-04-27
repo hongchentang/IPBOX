@@ -1,0 +1,64 @@
+package com.hcis.ipr.alipay.utils;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import com.alibaba.fastjson.JSON;
+import com.alipay.api.AlipayApiException;
+import com.alipay.api.AlipayClient;
+import com.alipay.api.DefaultAlipayClient;
+import com.alipay.api.request.AlipayTradePagePayRequest;
+import com.alipay.api.request.AlipayTradeQueryRequest;
+import com.alipay.api.response.AlipayTradeQueryResponse;
+import com.hcis.ipr.alipay.config.AlipayConfig;
+import com.hcis.ipr.intellectual.cost.entity.PatentCost;
+
+/**
+ * @author zhw
+ * @date 2019/10/21
+ **/
+public class AlipayUtils {
+
+	public String connect(PatentCost cost) throws AlipayApiException {
+		// 初始化Alipay客户端
+		AlipayClient client = new DefaultAlipayClient(AlipayConfig.gatewayUrl, AlipayConfig.app_id,
+				AlipayConfig.merchant_private_key, AlipayConfig.format, AlipayConfig.charset,
+				AlipayConfig.alipay_public_key, AlipayConfig.sign_type);
+
+		// 设置请求参数
+		AlipayTradePagePayRequest request = new AlipayTradePagePayRequest();
+		// 同步通知页面
+		request.setReturnUrl(AlipayConfig.return_url);
+		// 异步通知页面
+		request.setNotifyUrl(AlipayConfig.notify_url);
+		// 封装参数
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("out_trade_no", cost.getId());
+		map.put("product_code", "FAST_INSTANT_TRADE_PAY");
+		map.put("total_amount", cost.getFeePayable().doubleValue());
+		map.put("subject", cost.getCostName());
+		map.put("body", cost.getCostRemark());
+		map.put("timeout_express", "5m");
+
+		request.setBizContent(JSON.toJSONString(map));
+
+		// 请求支付宝进行付款，并获取支付结果
+
+		return client.pageExecute(request).getBody();
+
+	}
+
+	public AlipayTradeQueryResponse query(PatentCost cost) throws AlipayApiException {
+		AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.gatewayUrl, AlipayConfig.app_id,
+				AlipayConfig.merchant_private_key, AlipayConfig.format, AlipayConfig.charset,
+				AlipayConfig.alipay_public_key, AlipayConfig.sign_type);
+		AlipayTradeQueryRequest request = new AlipayTradeQueryRequest();
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("out_trade_no", cost.getId());
+
+		request.setBizContent(JSON.toJSONString(map));
+		return alipayClient.execute(request);
+	}
+}

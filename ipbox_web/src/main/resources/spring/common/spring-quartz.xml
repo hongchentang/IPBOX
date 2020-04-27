@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+    <!-- 这个类用来做需要完成的业务-->
+    <bean id="mailJob" class="com.hcis.ipr.quartz.mail.MailQuartzJob"/>
+    <bean id="springContextUtil" class="com.hcis.ipr.quartz.utils.QuartzCronDateUtils" />
+    <bean id="mailService" class="com.hcis.ipr.intellectual.cost.service.impl.MailServiceImpl" />
+    <bean id="mailDao" class="com.hcis.ipr.intellectual.cost.dao.MailConfigDao" />
+    <bean id="patentCostMonitorService" class="com.hcis.ipr.intellectual.cost.service.impl.PatentCostMonitorServiceImpl" />
+    <bean id="legalQuartzJob" class="com.hcis.ipr.quartz.legal.LegalQuartzJob" />
+    <bean id="patentService" class="com.hcis.ipr.intellectual.patent.service.impl.PatentServiceImpl" />
+    <bean id="patentMongoService" class="com.hcis.ipr.warehouse.patentHouse.service.impl.PatentMongoServiceImpl" />
+
+    <!-- 定时任务 -->
+    <bean id="jobTaskUrgent" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="mailJob" />
+        <property name="targetMethod" value="run4Urgent" />
+    </bean>
+    <bean id="jobTaskStagnate" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="mailJob" />
+        <property name="targetMethod" value="run4Stagnate" />
+    </bean>
+    <bean id="jobTaskLegal" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="legalQuartzJob" />
+        <property name="targetMethod" value="run4UpdatePatentLegalStatus" />
+    </bean>
+
+    <!-- 定义触发时间和定时任务实现类-->
+    <bean id="cronTriggerUrgent" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean ">
+        <property name="jobDetail" ref="jobTaskUrgent" />
+        <property name="cronExpression" value="0 0 7 * * ?" />
+    </bean>
+    <bean id="cronTriggerStagnate" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean ">
+        <property name="jobDetail" ref="jobTaskStagnate" />
+        <property name="cronExpression" value="0 25 11 * * ?" />
+        <!--<property name="cronExpression" value="0 0 8 ? * MON" />-->
+    </bean>
+    <bean id="cronTriggerLegal" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean ">
+        <property name="jobDetail" ref="jobTaskLegal" />
+        <property name="cronExpression" value="0 0 7 ? * SUN" />
+    </bean>
+
+    <!-- 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序  -->
+    <bean id="startQuartz" lazy-init="true" autowire="no" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                 <ref bean="cronTriggerUrgent" />
+                 <ref bean="cronTriggerStagnate" />
+                 <ref bean="cronTriggerLegal" />
+            </list>
+        </property>
+    </bean>
+
+    <!--这个类是用来设置触发时间的， startJobs方法启动调度容器 -->
+    <bean id="quartzManager" class="com.hcis.ipr.quartz.utils.QuartzManager" lazy-init="false" init-method="startJobs" >
+        <!--这个对象一定要注入，这样类才能进行管理，还有在类型要用get set方法，不然会报错。-->
+        <property name="scheduler" ref="startQuartz" />
+    </bean>
+</beans>

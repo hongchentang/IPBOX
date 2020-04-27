@@ -1,0 +1,802 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcis.items.mapper.ItemsManagerMapper" >
+  <resultMap id="BaseResultMap" type="com.hcis.items.entity.ItemsManager" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="PROJECT_SOURCE_CODE" property="projectSourceCode" jdbcType="VARCHAR" />
+    <result column="PROJECT_CODE" property="projectCode" jdbcType="VARCHAR" />
+    <result column="PROJECT_NAME" property="projectName" jdbcType="VARCHAR" />
+    <result column="PROJECT_EXECUTE_DATE" property="projectExecuteDate" jdbcType="TIMESTAMP" />
+    <result column="PROJECT_CHIEF_EXPORT" property="projectChiefExport" jdbcType="VARCHAR" />
+    <result column="PROJECT_LEADER" 	  property="projectLeader" 		jdbcType="VARCHAR" />
+    <result column="PROJECT_EXECUTE_DEPT" property="projectExecuteDept" jdbcType="VARCHAR" />
+    <result column="PROJECT_DOMIN"		  property="projectDomin"		jdbcType="VARCHAR" />
+    <result column="PROJECT_DEADLINE" 	  property="projectDeadline" 	jdbcType="TIMESTAMP" />
+    <result column="PROJECT_SELF_ASSESSMENT" property="projectSelfAssessment" jdbcType="DECIMAL" />
+    <result column="PROJECT_SELF_RESULT"  property="projectSelfResult" 	jdbcType="VARCHAR" />
+    <result column="PROJECT_ATTACHER_FILE" property="projectAttacherFile" 		jdbcType="VARCHAR" />
+    <result column="PROJECT_RULE_FILE" property="projectRuleFile" 		jdbcType="VARCHAR" />
+    <result column="PROJECT_TYPE"	   property="projectType" 		jdbcType="VARCHAR" />
+    <result column="PROJECT_EXPLAIN"	   property="projectExplain" 	jdbcType="VARCHAR" />
+    <result column="PROJECT_NOTES"	   property="projectNotes" 		jdbcType="VARCHAR" />
+    <result column="PROJECT_OTHER_NOTES"   property="projectOtherNotes" jdbcType="VARCHAR"/>
+    <result column="PROJECT_IS_OTHERS" property="projectIsOthers"		jdbcType="VARCHAR"/>
+    <result column="PROJECT_APPLYER" 	  property="projectApplyer"		jdbcType="VARCHAR" />
+    <result column="FIRST_CHECKER" 		  property="firstChecker" 		jdbcType="VARCHAR" />
+    <result column="FIRST_CHECK_DATE" 	  property="firstCheckDate" 	jdbcType="VARCHAR" />
+    <result column="FIRST_CHECK_NOTE"	  property="firstCheckNote"     jdbcType="VARCHAR" />
+    <result column="FIRST_CHECK_STATUS"   property="firstCheckStatus" 	jdbcType="VARCHAR" />
+    <result column="FIRST_AGAINCHECKER"   property="firstAgainChecker"  jdbcType="VARCHAR" />
+    <result column="FIRST_AGAINCHECK_DATE"  property="firstAgainCheckDate" 	jdbcType="TIMESTAMP" />
+    <result column="FIRST_AGAINNOTE" 	  property="firstAgainNote" 	jdbcType="VARCHAR" />
+    <result column="FIRST_AGAINCHECK_STATUS" property="firstAgainCheckStatus" jdbcType="VARCHAR"/>
+    <result column="EXPERT_NAME"			property="expertName" jdbcType="VARCHAR" />
+    <result column="PROJECT_IS_EXPORT" 		 property="projectIsExport"		jdbcType="VARCHAR"/>
+    <result column="OTHERS_CHECKER" 	  property="othersChecker" 		jdbcType="VARCHAR" />
+    <result column="OTHERS_CHECKER_NAME" 	  property="othersCheckerName" 		jdbcType="VARCHAR" />
+    <result column="OTHERS_CHECK_DATE" 	  property="othersCheckDate" 	jdbcType="VARCHAR" />
+    <result column="OTHERS_CHECK_FILE"	  property="othersCheckFile"     jdbcType="VARCHAR" />
+    <result column="SECOND_CHECKER"       property="secondChecker" 	jdbcType="VARCHAR" />
+    <result column="SECOND_CHECK_DATE"    property="secondCheckDate"  jdbcType="TIMESTAMP" />
+    <result column="SECOND_CHECK_NOTE"    property="secondCheckNote" 	jdbcType="VARCHAR" />
+    <result column="SECOND_CHECK_STATUS"  property="secondCheckStatus" 	jdbcType="VARCHAR" />
+    <result column="SECOND_AGAINCHECKER"  property="secondAgainChecker" jdbcType="VARCHAR"/>
+    <result column="SECOND_AGAINCHECK_DATE"  property="secondAgainCheckDate" 			jdbcType="VARCHAR"/>
+    <result column="SECOND_AGAINCHECK_NOTE"  property="secondAgainCheckNote"		jdbcType="VARCHAR" /> 
+    <result column="SECOND_AGAINCHECK_STATUS"   property="secondAgainCheckStatus" jdbcType="VARCHAR"/>
+    <result column="PROJECT_STATUS" 		  property="projectStatus" 			jdbcType="VARCHAR"/>
+    <result column="PROJECT_PASS_NOTES" 	  property="projectPassNotes"		jdbcType="VARCHAR" />
+  	<result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_DBY" property="updatedby" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="CHAR" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+    <result column="FLOW_STATUS" property="flowStatus" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="expertsResultMaps" type="com.hcis.items.entity.ItemsManager" >
+  	<id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="PROJECT_SOURCE_CODE" property="projectSourceCode" jdbcType="VARCHAR" />
+    <result column="PROJECT_CODE" 		 property="projectCode" 	  jdbcType="VARCHAR" />
+    <result column="PROJECT_NAME"        property="projectName" 	  jdbcType="VARCHAR" />
+    <result column="PROJECT_DEADLINE" 	  property="projectDeadline" 	jdbcType="TIMESTAMP" />
+    <result column="PROJECT_ATTACHER_FILE" property="projectAttacherFile"   jdbcType="VARCHAR" />
+    <result column="PROJECT_RULE_FILE"   property="projectRuleFile" 		jdbcType="VARCHAR" />
+    <result column="PROJECT_TYPE"	     property="projectType" 	  jdbcType="VARCHAR" />
+    <result column="PROJECT_EXPLAIN"	 property="projectExplain" 	  jdbcType="VARCHAR" />
+    <result column="PROJECT_NOTES"	     property="projectNotes" 	  jdbcType="VARCHAR" />
+    <result column="EXPERT_NAME"		 property="expertName" 		  jdbcType="VARCHAR" />
+    <result column="PROJECT_IS_EXPORT" 	 property="projectIsExport"	  jdbcType="VARCHAR"/>
+    <result column="PROJECT_STATUS" 	 property="projectStatus" 	  jdbcType="VARCHAR"/>
+    <result column="PROJECT_PASS_NOTES"  property="projectPassNotes"  jdbcType="VARCHAR" />
+    <result column="OTHERS_CHECKER" 	  property="othersChecker" 		jdbcType="VARCHAR" />
+    <result column="OTHERS_CHECKER_NAME" 	  property="othersCheckerName" 		jdbcType="VARCHAR" />
+    <result column="OTHERS_CHECK_FILE" 	  property="othersCheckFile" 		jdbcType="VARCHAR" />     
+<!--   	<result column="CREATOR" 			 property="creator" 		  jdbcType="VARCHAR" /> -->
+    <result column="CREATE_TIME" 		 property="createTime" 		  jdbcType="TIMESTAMP" />
+    <result column="UPDATED_BY" 			 property="updatedby" 		  jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" 		 property="updateTime"        jdbcType="TIMESTAMP" />
+    <result column="IS_DELETED" 		 property="isDeleted"         jdbcType="CHAR" />
+    <result column="VERSION" 			 property="version"           jdbcType="DECIMAL" />
+    <result column="FLOW_STATUS" 		 property="flowStatus"        jdbcType="VARCHAR" />
+    	<collection property="itemsExperts" ofType="com.hcis.items.entity.ItemsExpert">
+    		<id column="ID" property="id" jdbcType="VARCHAR" />
+    		<result column="EXPERT_CHECK_DATE" property="expertCheckDate" />
+    		<result column="EXPERT_CHECK_NOTES" property="expertCheckNotes" />
+    		<result column="EXPERT_CHECK_FILE" property="expertCheckFile" />
+    		<result column="Expert_CHECK_STATUS" property="expertCheckStatus" />
+    		<result column="CREATOR" 			 property="creator"  />
+       	</collection>
+  </resultMap>
+  
+    <resultMap type="com.hcis.items.entity.ItemsManager" id="agencyResultMaps" >
+  	<id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="PROJECT_SOURCE_CODE" property="projectSourceCode" jdbcType="VARCHAR" />
+    <result column="PROJECT_CODE" 		 property="projectCode" 	  jdbcType="VARCHAR" />
+    <result column="PROJECT_NAME"        property="projectName" 	  jdbcType="VARCHAR" />
+    <result column="PROJECT_DEADLINE" 	  property="projectDeadline" 	jdbcType="TIMESTAMP" />
+    <result column="PROJECT_ATTACHER_FILE" property="projectAttacherFile"   jdbcType="VARCHAR" />
+    <result column="PROJECT_RULE_FILE"   property="projectRuleFile" 		jdbcType="VARCHAR" />
+    <result column="PROJECT_TYPE"	     property="projectType" 	  jdbcType="VARCHAR" />
+    <result column="PROJECT_EXPLAIN"	 property="projectExplain" 	  jdbcType="VARCHAR" />
+    <result column="PROJECT_NOTES"	     property="projectNotes" 	  jdbcType="VARCHAR" />
+    <result column="EXPERT_NAME"		 property="expertName" 		  jdbcType="VARCHAR" />
+    <result column="PROJECT_IS_EXPORT" 	 property="projectIsExport"	  jdbcType="VARCHAR"/>
+    <result column="PROJECT_STATUS" 	 property="projectStatus" 	  jdbcType="VARCHAR"/>
+    <result column="PROJECT_PASS_NOTES"  property="projectPassNotes"  jdbcType="VARCHAR" />
+	<result column="OTHERS_CHECKER" 	  property="othersChecker" 		jdbcType="VARCHAR" />
+    <result column="OTHERS_CHECKER_NAME" 	  property="othersCheckerName" 		jdbcType="VARCHAR" />
+	<result column="OTHERS_CHECK_DATE" 	  property="othersCheckDate" 	jdbcType="VARCHAR" />
+    <result column="OTHERS_CHECK_FILE"	  property="othersCheckFile"     jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" 		 property="createTime" 		  jdbcType="TIMESTAMP" />
+    <result column="UPDATED_BY" 			 property="updatedby" 		  jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" 		 property="updateTime"        jdbcType="TIMESTAMP" />
+    <result column="IS_DELETED" 		 property="isDeleted"         jdbcType="CHAR" />
+    <result column="VERSION" 			 property="version"           jdbcType="DECIMAL" />
+    <result column="FLOW_STATUS" 		 property="flowStatus"        jdbcType="VARCHAR" />
+    	<collection property="itemsExperts" ofType="com.hcis.items.entity.ItemsExpert">
+    		<id column="ID" property="id" jdbcType="VARCHAR" />
+    		<result column="EXPERT_CHECK_DATE" property="expertCheckDate" />
+    		<result column="EXPERT_CHECK_NOTES" property="expertCheckNotes" />
+    		<result column="EXPERT_CHECK_FILE" property="expertCheckFile" />
+    		<result column="Expert_CHECK_STATUS" property="expertCheckStatus" />
+    		<result column="CREATOR" 			 property="creator"  />
+       	</collection>
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    PROJECT_SOURCE_CODE,PROJECT_CODE,PROJECT_NAME,PROJECT_EXECUTE_DATE,PROJECT_CHIEF_EXPORT,PROJECT_LEADER,PROJECT_EXECUTE_DEPT,PROJECT_DOMIN,PROJECT_DEADLINE ,
+	PROJECT_SELF_ASSESSMENT,PROJECT_SELF_RESULT,PROJECT_RULE_FILE,PROJECT_ATTACHER_FILE,PROJECT_TYPE,PROJECT_EXPLAIN,PROJECT_NOTES,PROJECT_OTHER_NOTES,PROJECT_APPLYER,FIRST_CHECKER,
+	FIRST_CHECK_DATE,FIRST_CHECK_NOTE,FIRST_CHECK_STATUS,FIRST_AGAINCHECKER,FIRST_AGAINCHECK_DATE,FIRST_AGAINCHECK_NOTE,FIRST_AGAINCHECK_STATUS,
+	PROJECT_IS_EXPORT,OTHERS_CHECKER,OTHERS_CHECKER_NAME,OTHERS_CHECK_DATE,OTHERS_CHECK_FILE,PROJECT_IS_OTHERS,SECOND_CHECKER,SECOND_CHECK_DATE,SECOND_CHECK_NOTE,SECOND_CHECK_STATUS,
+	SECOND_AGAINCHECKER,SECOND_AGAINCHECK_DATE,SECOND_AGAINCHECK_NOTE,SECOND_AGAINCHECK_STATUS,PROJECT_STATUS,PROJECT_PASS_NOTES 
+  </sql>
+  
+  <select id="listProjectItem" resultMap="BaseResultMap" parameterType="searchParam" >
+   	select ID, PROJECT_SOURCE_CODE,PROJECT_CODE,PROJECT_NAME,PROJECT_EXECUTE_DATE,PROJECT_CHIEF_EXPORT,PROJECT_LEADER,PROJECT_EXECUTE_DEPT,PROJECT_DOMIN,PROJECT_DEADLINE ,
+	PROJECT_SELF_ASSESSMENT,PROJECT_SELF_RESULT,PROJECT_RULE_FILE,PROJECT_ATTACHER_FILE,PROJECT_TYPE,PROJECT_EXPLAIN,PROJECT_NOTES,PROJECT_OTHER_NOTES,PROJECT_APPLYER,FIRST_CHECKER,
+	FIRST_CHECK_DATE,FIRST_CHECK_NOTE,FIRST_CHECK_STATUS,FIRST_AGAINCHECKER,FIRST_AGAINCHECK_DATE,FIRST_AGAINCHECK_NOTE,FIRST_AGAINCHECK_STATUS,
+	PROJECT_IS_EXPORT,
+	OTHERS_CHECKER,OTHERS_CHECKER_NAME,OTHERS_CHECK_DATE,OTHERS_CHECK_FILE,PROJECT_IS_OTHERS,SECOND_CHECKER,SECOND_CHECK_DATE,SECOND_CHECK_NOTE,SECOND_CHECK_STATUS,
+	SECOND_AGAINCHECKER,SECOND_AGAINCHECK_DATE,SECOND_AGAINCHECK_NOTE,SECOND_AGAINCHECK_STATUS,PROJECT_STATUS,PROJECT_PASS_NOTES,FLOW_STATUS
+	from ipbox_project_MANAGER
+	where IS_DELETED='N'
+    <if test="paramMap.creator != null and paramMap.creator!=''" >
+		     	and creator =#{paramMap.creator,jdbcType=VARCHAR}
+	</if>
+	<if test="paramMap.projectName !=null and paramMap.projectName !=''">
+		      	and project_name=#{paramMap.projectName,jdbcType=VARCHAR}
+	</if>
+	<if test="paramMap.projectCode !=null and paramMap.projectCode !=''">
+		      	and projectCode=#{paramMap.projectCode,jdbcType=VARCHAR}
+	</if>
+	<if test="paramMap.projectStatus !=null and paramMap.projectStatus !=''">
+		      	and project_status=#{paramMap.projectStatus}
+	</if>
+	 ORDER BY CREATE_TIME DESC
+  </select>
+  
+  <select id="selectBySearchParam" resultMap="BaseResultMap" parameterType="searchParam" >
+      	select ID,PROJECT_SOURCE_CODE,PROJECT_CODE,PROJECT_NAME,PROJECT_EXECUTE_DATE,PROJECT_CHIEF_EXPORT,PROJECT_LEADER,PROJECT_EXECUTE_DEPT,PROJECT_DOMIN,PROJECT_DEADLINE ,
+	PROJECT_SELF_ASSESSMENT,PROJECT_SELF_RESULT,PROJECT_RULE_FILE,PROJECT_ATTACHER_FILE,PROJECT_TYPE,PROJECT_EXPLAIN,PROJECT_NOTES,PROJECT_OTHER_NOTES,PROJECT_APPLYER,FIRST_CHECKER,
+	FIRST_CHECK_DATE,FIRST_CHECK_NOTE,FIRST_CHECK_STATUS,FIRST_AGAINCHECKER,FIRST_AGAINCHECK_DATE,FIRST_AGAINCHECK_NOTE,FIRST_AGAINCHECK_STATUS,
+	EXPERT_NAME,PROJECT_IS_EXPORT,OTHERS_CHECKER,OTHERS_CHECKER_NAME,OTHERS_CHECK_DATE,OTHERS_CHECK_FILE,PROJECT_IS_OTHERS,SECOND_CHECKER,SECOND_CHECK_DATE,SECOND_CHECK_NOTE,SECOND_CHECK_STATUS,
+	SECOND_AGAINCHECKER,SECOND_AGAINCHECK_DATE,SECOND_AGAINCHECK_NOTE,SECOND_AGAINCHECK_STATUS,PROJECT_STATUS,PROJECT_PASS_NOTES 
+	from ipbox_project_MANAGER
+	where IS_DELETED='N'
+    ORDER BY CREATE_TIME DESC
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID,(select real_name from ipanther_user n where n.id= ipbox_project_MANAGER.creator) projectApplyer,
+    CREATE_TIME,
+    <include refid="Base_Column_List" />
+    from ipbox_project_MANAGER
+    where ID = #{id,jdbcType=VARCHAR}
+    AND IS_DELETED='N'
+  </select>
+  
+   <select id="checkProjectItems" resultMap="BaseResultMap" parameterType="searchParam" >
+    select ID,
+         n.PROJECT_SOURCE_CODE,n.PROJECT_CODE,n.PROJECT_NAME,n.PROJECT_EXECUTE_DATE,n.PROJECT_CHIEF_EXPORT,n.PROJECT_LEADER,n.PROJECT_EXECUTE_DEPT,n.PROJECT_DOMIN,n.PROJECT_DEADLINE ,
+	n.PROJECT_SELF_ASSESSMENT,n.PROJECT_SELF_RESULT,n.PROJECT_RULE_FILE,n.PROJECT_ATTACHER_FILE,n.PROJECT_TYPE,n.PROJECT_EXPLAIN,n.PROJECT_NOTES,n.PROJECT_OTHER_NOTES,n.PROJECT_APPLYER,n.FIRST_CHECKER,
+	n.FIRST_CHECK_DATE,n.FIRST_CHECK_NOTE,n.FIRST_CHECK_STATUS,n.FIRST_AGAINCHECKER,n.FIRST_AGAINCHECK_DATE,n.FIRST_AGAINCHECK_NOTE,n.FIRST_AGAINCHECK_STATUS,
+	n.PROJECT_IS_EXPORT,
+	(select iu.dept_Name from IPANTHER_DEPARTMENT iu where iu.id = (n.OTHERS_CHECKER) ) OTHERS_CHECKER,
+	n.OTHERS_CHECKER_NAME,n.OTHERS_CHECK_DATE,n.OTHERS_CHECK_FILE,n.PROJECT_IS_OTHERS,n.SECOND_CHECKER,n.SECOND_CHECK_DATE,n.SECOND_CHECK_NOTE,n.SECOND_CHECK_STATUS,
+	n.SECOND_AGAINCHECKER,n.SECOND_AGAINCHECK_DATE,n.SECOND_AGAINCHECK_NOTE,n.SECOND_AGAINCHECK_STATUS,n.PROJECT_STATUS,n.PROJECT_PASS_NOTES 
+    from ipbox_project_MANAGER n
+    where n.IS_DELETED='N'
+    AND n.FLOW_STATUS = #{paramMap.flowStatus,jdbcType=VARCHAR}    
+	<if test="paramMap.projectName !=null and paramMap.projectName !=''">
+		  and n.project_name=#{paramMap.projectName,jdbcType=VARCHAR}
+	</if>
+	<if test="paramMap.projectCode !=null and paramMap.projectCode !=''">
+		  and n.project_code=#{paramMap.projectCode,jdbcType=VARCHAR}
+	</if>
+	<if test="paramMap.projectStatus !=null and paramMap.projectStatus !=''">
+		   and n.project_status=#{paramMap.projectStatus}
+	</if>
+	 ORDER BY CREATE_TIME DESC
+  </select>
+  
+  <select id="listExpert" resultMap="expertsResultMaps" parameterType="searchParam">
+	 select n.ID,(m.ID) PROJECT_SOURCE_CODE,m.PROJECT_CODE,m.PROJECT_NAME,m.PROJECT_DEADLINE,m.PROJECT_ATTACHER_FILE,m.PROJECT_RULE_FILE,m.PROJECT_TYPE,m.PROJECT_EXPLAIN,m.PROJECT_NOTES,
+	 (select iu.real_name from ipanther_user iu where iu.id = (n.creator)) EXPERT_NAME,m.PROJECT_IS_EXPORT,
+		m.PROJECT_STATUS,m.PROJECT_PASS_NOTES,n.CREATOR,m.CREATE_TIME,m.UPDATED_BY,m.UPDATE_TIME,m.IS_DELETED,m.VERSION,m.FLOW_STATUS,n.EXPERT_CHECK_DATE,n.EXPERT_CHECK_NOTES,n.EXPERT_CHECK_FILE,n.Expert_CHECK_STATUS,
+		 m.OTHERS_CHECK_FILE,
+ 		(select iu.dept_name from ipanther_department iu where iu.id = (m.others_checker)) others_checker_name
+		from  ipbox_project_MANAGER m, ipbox_project_assinted n 
+		where m.IS_DELETED='N'
+		AND m.ID= n.PROJECT_SOURCE_CODE
+		AND n.IS_DELETED='N'
+		<if test="paramMap.projectName != null and paramMap.projectName!=''" >
+			AND m.PROJECT_NAME=#{paramMap.projectName}
+		</if>
+		<if test="paramMap.projectCode != null and paramMap.projectCode!=''" >
+			AND m.PROJECT_CODE=#{paramMap.projectCode}
+		</if>
+		<if test="paramMap.creator != null and paramMap.creator!=''" >
+			AND n.creator=#{paramMap.creator}
+		</if>
+		<if test="paramMap.id != null and paramMap.id!=''" >
+			AND m.ID= #{paramMap.id}
+		</if>
+		<if test="paramMap.projectSourceCode != null and paramMap.projectSourceCode !=''">
+			AND n.id=#{paramMap.projectSourceCode}
+		</if>
+		<if test="paramMap.projectStatus !=null and paramMap.projectStatus !=''">
+			AND m.PROJECT_STATUS=#{paramMap.projectStatus}
+		</if>
+		<if test="paramMap.projectIsExport !=null and paramMap.projectIsExport !=''">
+			AND m.PROJECT_IS_EXPORT=#{paramMap.projectIsExport}
+		</if>
+  </select>
+  
+    <select id="listExpertView" resultMap="expertsResultMaps" parameterType="searchParam">
+	 select n.ID,(m.ID) PROJECT_SOURCE_CODE,m.PROJECT_CODE,m.PROJECT_NAME,m.PROJECT_DEADLINE,m.PROJECT_ATTACHER_FILE,m.PROJECT_RULE_FILE,m.PROJECT_TYPE,m.PROJECT_EXPLAIN,m.PROJECT_NOTES,
+	 (select iu.real_name from ipanther_user iu where iu.id = (n.creator)) EXPERT_NAME,m.PROJECT_IS_EXPORT,
+		m.PROJECT_STATUS,m.PROJECT_PASS_NOTES,n.CREATOR,m.CREATE_TIME,m.UPDATED_BY,m.UPDATE_TIME,m.IS_DELETED,m.VERSION,m.FLOW_STATUS,n.EXPERT_CHECK_DATE,n.EXPERT_CHECK_NOTES,n.EXPERT_CHECK_FILE,n.Expert_CHECK_STATUS,
+		 m.OTHERS_CHECK_FILE,
+ 		(select iu.dept_name from ipanther_department iu where iu.id = (m.others_checker)) others_checker_name
+		from  ipbox_project_MANAGER m, ipbox_project_assinted n 
+		where m.IS_DELETED='N'
+		AND m.ID= n.PROJECT_SOURCE_CODE
+		AND n.IS_DELETED='N'
+		<if test="paramMap.projectName != null and paramMap.projectName!=''" >
+			AND m.PROJECT_NAME=#{paramMap.projectName}
+		</if>
+		<if test="paramMap.projectCode != null and paramMap.projectCode!=''" >
+			AND m.PROJECT_CODE=#{paramMap.projectCode}
+		</if>
+		<if test="paramMap.id != null and paramMap.id !=''">
+			AND n.id=#{paramMap.id}
+		</if>
+		<if test="paramMap.projectStatus !=null and paramMap.projectStatus !=''">
+			AND m.PROJECT_STATUS=#{paramMap.projectStatus}
+		</if>
+		<if test="paramMap.projectIsExport !=null and paramMap.projectIsExport !=''">
+			AND m.PROJECT_IS_EXPORT=#{paramMap.projectIsExport}
+		</if>
+  </select>
+ 
+ 
+ <select id="selectByDoublePrimaryKey" resultMap="expertsResultMaps" parameterType="searchParam">
+	 select n.ID,m.PROJECT_CODE,m.PROJECT_NAME,m.PROJECT_DEADLINE,m.PROJECT_ATTACHER_FILE,m.PROJECT_RULE_FILE,m.PROJECT_TYPE,m.PROJECT_EXPLAIN,m.PROJECT_NOTES,
+	 (select iu.real_name from ipanther_user iu where iu.id = (n.creator)) EXPERT_NAME,m.PROJECT_IS_EXPORT,
+		m.PROJECT_STATUS,m.PROJECT_PASS_NOTES,n.CREATOR,m.CREATE_TIME,m.UPDATED_BY,m.UPDATE_TIME,m.IS_DELETED,m.VERSION,m.FLOW_STATUS,n.EXPERT_CHECK_DATE,n.EXPERT_CHECK_NOTES,n.EXPERT_CHECK_FILE,n.Expert_CHECK_STATUS,
+		 m.OTHERS_CHECK_FILE,
+ 		(select iu.dept_name from ipanther_department iu where iu.id = (m.others_checker)) others_checker_name
+		from  ipbox_project_MANAGER m, ipbox_project_assinted n 
+		where m.IS_DELETED='N'
+		AND m.ID= n.PROJECT_SOURCE_CODE
+		AND n.IS_DELETED='N'
+		<if test="paramMap.projectName != null and paramMap.projectName!=''" >
+			AND m.PROJECT_NAME=#{paramMap.projectName}
+		</if>
+		<if test="paramMap.projectCode != null and paramMap.projectCode!=''" >
+			AND m.PROJECT_CODE=#{paramMap.projectCode}
+		</if>
+		<if test="paramMap.creator != null and paramMap.creator!=''" >
+			AND n.creator=#{paramMap.creator}
+		</if>
+		<if test="paramMap.id != null and paramMap.id!=''" >
+			AND n.ID= #{paramMap.id}
+		</if>
+<!-- 		<if test="paramMap.projectSourceCode != null and paramMap.projectSourceCode !=''"> -->
+<!-- 			AND m.id=#{paramMap.projectSourceCode} -->
+<!-- 		</if> -->
+		<if test="paramMap.projectStatus !=null and paramMap.projectStatus !=''">
+			AND m.PROJECT_STATUS=#{paramMap.projectStatus}
+		</if>
+		<if test="paramMap.projectIsExport !=null and paramMap.projectIsExport !=''">
+			AND m.PROJECT_IS_EXPORT=#{paramMap.projectIsExport}
+		</if>
+  </select>
+    
+    <select id="listExpertName" resultMap="expertsResultMaps" parameterType="searchParam">
+		select n.ID,(m.ID) PROJECT_SOURCE_CODE,m.PROJECT_CODE,m.PROJECT_NAME,m.PROJECT_DEADLINE,m.PROJECT_ATTACHER_FILE,m.PROJECT_RULE_FILE,m.PROJECT_TYPE,m.PROJECT_EXPLAIN,m.PROJECT_NOTES,n.creator,
+			(select iu.real_name from ipanther_user iu where iu.id = (n.creator)) EXPERT_NAME,m.PROJECT_IS_EXPORT,
+			m.PROJECT_STATUS,m.PROJECT_PASS_NOTES,m.CREATE_TIME,m.UPDATED_BY,m.UPDATE_TIME,m.IS_DELETED,m.VERSION,m.FLOW_STATUS,n.EXPERT_CHECK_DATE,n.EXPERT_CHECK_NOTES,n.EXPERT_CHECK_FILE,n.Expert_CHECK_STATUS
+		from  ipbox_project_MANAGER m, ipbox_project_assinted n 
+		where m.IS_DELETED='N' AND n.IS_DELETED='N' 
+		AND m.id= n.PROJECT_SOURCE_CODE		
+		<if test="paramMap.creator != null and paramMap.creator!=''" >
+			AND n.creator=#{paramMap.creator}
+		</if>
+		<if test="paramMap.id != null and paramMap.id!=''" >
+			AND m.ID= #{paramMap.id}
+		</if>
+		<if test="paramMap.projectSourceCode != null and paramMap.projectSourceCode !=''">
+			AND n.id=#{paramMap.projectSourceCode}
+		</if>
+		<if test="paramMap.projectStatus !=null and paramMap.projectStatus !=''">
+			AND m.PROJECT_STATUS=#{paramMap.projectStatus}
+		</if>
+		<if test="paramMap.projectIsExport !=null and paramMap.projectIsExport !=''">
+			AND m.PROJECT_IS_EXPORT=#{paramMap.projectIsExport}
+		</if>
+  </select>
+  
+  <select id="listAgencyName" resultMap="agencyResultMaps" parameterType="searchParam">
+			select m.ID,m.PROJECT_SOURCE_CODE,m.PROJECT_CODE,m.PROJECT_NAME,m.PROJECT_DEADLINE,m.PROJECT_ATTACHER_FILE,m.PROJECT_RULE_FILE,m.PROJECT_TYPE,m.PROJECT_EXPLAIN,m.PROJECT_NOTES,
+			(select iu.dept_name from ipanther_department iu where iu.id = (m.others_Checker)) as OTHERS_CHECKER_NAME ,m.others_checker,m.PROJECT_IS_EXPORT,m.PROJECT_IS_OTHERS,
+			m.PROJECT_STATUS,m.PROJECT_PASS_NOTES,m.CREATE_TIME,m.UPDATED_BY,m.UPDATE_TIME,m.IS_DELETED,m.VERSION,m.FLOW_STATUS
+		from  ipbox_project_MANAGER m
+		where m.IS_DELETED='N'		
+		<if test="paramMap.id != null and paramMap.id!=''" >
+			AND m.ID= #{paramMap.id}
+		</if>
+		<if test="paramMap.projectIsOthers != null and paramMap.projectIsOthers!=''" >
+			AND m.PROJECT_IS_OTHERS= #{paramMap.projectIsOthers}
+		</if>
+		<if test="paramMap.projectStatus !=null and paramMap.projectStatus!=''">
+			and m.PROJECT_STATUS = #{paramMap.projectStatus}
+		</if>
+		<if test="paramMap.creator != null and paramMap.creator!=''" >
+			AND m.creator=#{paramMap.creator}
+		</if>
+  </select>
+  
+    <select id="auditAgencyList" resultMap="agencyResultMaps" parameterType="searchParam">
+		select m.ID,(n.ID)PROJECT_SOURCE_CODE,m.PROJECT_CODE,m.PROJECT_NAME,m.PROJECT_DEADLINE,m.PROJECT_ATTACHER_FILE,m.PROJECT_RULE_FILE,m.PROJECT_TYPE,m.PROJECT_EXPLAIN,m.PROJECT_NOTES,
+			(select iu.dept_Name from ipanther_department iu where iu.id = (m.others_Checker)) as OTHERS_CHECKER_NAME ,m.others_Checker,m.OTHERS_CHECK_FIle ,m.PROJECT_IS_EXPORT,n.EXPERT_CHECK_NOTES,n.EXPERT_CHECK_FILE,
+			m.PROJECT_STATUS,m.PROJECT_PASS_NOTES,m.CREATE_TIME,m.UPDATED_BY,m.UPDATE_TIME,m.IS_DELETED,m.VERSION,m.FLOW_STATUS
+		   from  (select c.* from ipbox_project_MANAGER c ,ipanther_user t,  ipanther_user_dept a , 
+			ipanther_department b where t.id = a.user_id and
+ 			a.dept_id = b.id 
+			and c.others_Checker=b.id
+			<if test="paramMap.creator != null and paramMap.creator!=''" >
+			and t.id =#{paramMap.creator}
+			</if>
+			) m,ipbox_project_assinted n
+		where m.IS_DELETED='N'
+		and n.IS_DELETED='N'
+		and m.ID=n.PROJECT_SOURCE_CODE
+		<if test="paramMap.id != null and paramMap.id!=''" >
+			AND m.ID= #{paramMap.id}
+		</if>
+		<if test="paramMap.projectStatus !=null and paramMap.projectStatus!=''">
+			AND m.PROJECT_STATUS = #{paramMap.projectStatus}
+		</if>	
+		<if test="paramMap.projectIsOthers !=null and paramMap.projectIsOthers !=''">
+			AND m.PROJECT_IS_OTHERS=#{paramMap.projectIsOthers}
+		</if>
+  </select>
+  
+  
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from CMS_CONFIG
+    where CODE = #{code,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.hcis.items.entity.ItemsManager" >
+    insert into ipbox_project_MANAGER (ID,PROEJECT_CODE, PROJECT_NAME, CREATOR, CREATE_TIME, 
+      UPDATED_BY, UPDATE_TIME, VERSION, 
+      IS_DELETED)
+    values (#{id,jdbcType=VARCHAR}, #{projectCode,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},#{updatedby,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{version,jdbcType=DECIMAL}, 
+      #{isDeleted,jdbcType=CHAR})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.hcis.items.entity.ItemsManager" >
+    insert into ipbox_project_MANAGER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null">
+      	Id,
+      </if>
+       <if test="projectSourceCode != null" >
+        PROJECT_SOURCE_CODE,
+      </if>
+      <if test="projectCode != null" >
+        PROJECT_CODE,
+      </if>
+      <if test="projectName != null" >
+        PROJECT_NAME,
+      </if>
+      <if test="projectExecuteDate != null" >
+        PROJECT_EXECUTE_DATE,
+      </if>
+      <if test="projectChiefExport != null" >
+        PROJECT_CHIEF_EXPORT,
+      </if>
+      <if test ="projectLeader !=null">
+      	PROJECT_LEADER,
+      </if>
+      <if test ="projectExecuteDept !=null">
+      	PROJECT_EXECUTE_DEPT,
+      </if>
+      <if test ="projectDomin !=null">
+      	PROJECT_DOMIN,
+      </if>
+      <if test ="projectDeadline !=null">
+      	PROJECT_DEADLINE,
+      </if>
+      <if test ="projectSelfAssessment !=null">
+      	PROJECT_SELF_ASSESSMENT,
+      </if>
+      <if test ="projectSelfResult !=null">
+      	PROJECT_SELF_RESULT,
+      </if>
+      <if test ="projectRuleFile !=null">
+      	PROJECT_RULE_FILE,
+      </if>
+      <if test ="projectAttacherFile !=null">
+      	PROJECT_ATTACHER_FILE,
+      </if>
+      <if test ="projectType !=null">
+      	PROJECT_TYPE,
+      </if>
+      <if test ="projectExplain !=null">
+      	PROJECT_EXPLAIN,
+      </if>
+      <if test ="projectNotes !=null">
+      	PROJECT_NOTES,
+      </if>
+      <if test ="projectApplyer !=null">
+      	PROJECT_APPLYER,
+      </if>
+      <if test ="firstChecker !=null">
+      	FIRST_CHECKER,
+      </if>
+      <if test ="firstCheckDate !=null">
+      	FIRST_CHECK_DATE,
+      </if>
+      <if test ="firstCheckNote !=null">
+      	FIRST_CHECK_NOTE,
+      </if>
+      <if test ="firstCheckStatus !=null">
+      	FIRST_CHECK_STATUS,
+      </if>
+      <if test ="firstAgainChecker !=null">
+      	FIRST_AGAINCHECKER,
+      </if>
+      <if test ="firstAgainCheckDate !=null">
+      	FIRST_AGAINCHECK_DATE,
+      </if>
+      <if test ="firstAgainNote !=null">
+      	FIRST_AGAINCHECK_NOTE,
+      </if>
+      <if test ="firstAgainCheckStatus !=null">
+      	FIRST_AGAINCHECK_STATUS,
+      </if>
+      <if test ="projectIsExport !=null">
+      	PROJECT_IS_EXPORT,
+      </if>
+      <if test ="othersChecker !=null">
+      	OTHERS_CHECKER,
+      </if>
+      <if test ="othersCheckDate !=null">
+      	OTHERS_CHECK_DATE,
+      </if>
+      <if test ="othersCheckFile !=null">
+      	OTHERS_CHECK_FILE,
+      </if>
+      <if test ="secondChecker !=null">
+		SECOND_CHECKER,
+      </if>
+      <if test ="secondCheckDate !=null">
+		SECOND_CHECK_DATE,
+      </if>
+      <if test ="secondCheckNote !=null">
+		SECOND_CHECK_NOTE,
+      </if>
+      <if test ="secondCheckStatus !=null">
+		SECOND_CHECK_STATUS,
+      </if>
+      <if test ="secondAgainChecker !=null">
+		SECOND_AGAINCHECKER,
+      </if>
+      <if test ="secondAgainCheckDate !=null">
+		SECOND_AGAINCHECK_DATE,
+      </if>
+      <if test ="secondAgainCheckNote !=null">
+		SECOND_AGAINCHECK_NOTE,
+      </if>
+      <if test ="secondAgainCheckStatus !=null">
+		SECOND_AGAINCHECK_STATUS,
+      </if>
+      <if test ="projectStatus !=null">
+		PROJECT_STATUS,
+      </if>
+      <if test ="projectPassNotes !=null">
+		PROJECT_PASS_NOTES,
+      </if>
+      <if test="creator != null" >
+        CREATOR,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updatedby != null" >
+        UPDATED_BY,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null">
+      	#{id,jdbcType=VARCHAR},
+      </if>
+      <if test="projectSourceCode != null" >
+        #{projectSourceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="projectCode != null" >
+        #{projectCode,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null" >
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectExecuteDate != null" >
+        #{projectExecuteDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="projectChiefExport != null" >
+        #{projectChiefExport,jdbcType=VARCHAR},
+      </if>
+      <if test ="projectLeader !=null">
+      	#{projectLeader,jdbcType=VARCHAR},
+      </if>
+      <if test ="projectExecuteDept !=null">
+      	#{projectExecuteDept,jdbcType=VARCHAR},
+      </if>
+      <if test ="projectDomin !=null">
+      	#{projectDomin,jdbcType=VARCHAR},
+      </if>
+      <if test ="projectDeadline !=null">
+      	#{projectDeadline,jdbcType=TIMESTAMP},
+      </if>
+      <if test ="projectSelfAssessment !=null">
+      	#{projectSelfAssessment,jdbcType=NUMERIC},
+      </if>
+      <if test ="projectSelfResult !=null">
+      	#{projectSelfResult,jdbcType=VARCHAR},
+      </if>
+      <if test ="projectRuleFile !=null">
+      	#{projectRuleFile,jdbcType=VARCHAR},
+      </if>
+      <if test ="projectAttacherFile !=null">
+      	#{projectAttacherFile,jdbcType=VARCHAR},
+      </if>
+      <if test ="projectType !=null">
+      	#{projectType,jdbcType=VARCHAR},
+      </if>
+      <if test ="projectExplain !=null">
+      	#{projectExplain,jdbcType=VARCHAR},
+      </if>
+      <if test ="projectNotes !=null">
+        #{projectNotes,jdbcType=VARCHAR},
+      </if>
+      <if test ="projectOtherNotes !=null">
+      	#{projectOtherNotes,jdbcType=VARCHAR},
+      </if>
+      <if test ="projectApplyer !=null">
+      	#{projectApplyer,jdbcType=VARCHAR},
+      </if>
+      <if test ="firstChecker !=null">
+      	#{firstChecker,jdbcType=VARCHAR},
+      </if>
+      <if test ="firstCheckDate !=null">
+      	#{firstCheckDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test ="firstCheckNote !=null">
+      	#{firstCheckNote,jdbcType=VARCHAR},
+      </if>
+      <if test ="firstCheckStatus !=null">
+      	#{firstCheckStatus,jdbcType=VARCHAR},
+      </if>
+      <if test ="firstAgainChecker !=null">
+      	#{firstAgainChecker,jdbcType=VARCHAR},
+      </if>
+      <if test ="firstAgainCheckDate !=null">
+      	#{firstAgainCheckDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test ="firstAgainNote !=null">
+      	#{firstAgainNote,jdbcType=VARCHAR},
+      </if>
+      <if test ="firstAgainCheckStatus !=null">
+      	#{firstAgainCheckStatus,jdbcType=VARCHAR},
+      </if>
+      <if test ="projectIsExport !=null">
+      	#{projectIsExport,jdbcType=VARCHAR},
+      </if>
+      <if test ="othersChecker !=null">
+      	#{othersChecker,jdbcType=VARCHAR},
+      </if>
+      <if test ="othersCheckDate !=null">
+      	#{othersCheckDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test ="othersCheckFile !=null">
+      	#{othersCheckFile,jdbcType=VARCHAR},
+      </if>
+      <if test ="secondChecker !=null">
+		#{secondChecker,jdbcType=VARCHAR},
+      </if>
+      <if test ="secondCheckDate !=null">
+		#{secondCheckDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test ="secondCheckNote !=null">
+		#{secondCheckNote,jdbcType=VARCHAR},
+      </if>
+      <if test ="secondCheckStatus !=null">
+		#{secondCheckStatus,jdbcType=VARCHAR},
+      </if>
+      <if test ="secondAgainChecker !=null">
+		#{secondAgainChecker,jdbcType=VARCHAR},
+      </if>
+      <if test ="secondAgainCheckDate !=null">
+		#{secondAgainCheckDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test ="secondAgainCheckNote !=null">
+		#{secondAgainCheckNote,jdbcType=VARCHAR},
+      </if>
+      <if test ="secondAgainCheckStatus !=null">
+		#{secondAgainCheckStatus,jdbcType=VARCHAR},
+      </if>
+      <if test ="projectStatus !=null">
+		#{projectStatus,jdbcType=VARCHAR},
+      </if>
+      <if test ="projectPassNotes !=null">
+		#{projectPassNotes,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=NUMERIC},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.hcis.items.entity.ItemsManager" >
+    update ipbox_project_MANAGER
+    <set>
+      <if test="projectAttacherFile != null" >
+        PROJECT_ATTACHER_FILE = #{projectAttacherFile,jdbcType=VARCHAR},
+      </if>
+      <if test="projectOtherNotes != null" >
+        PROJECT_OTHER_NOTES = #{projectOtherNotes,jdbcType=VARCHAR},
+      </if>
+      <if test="projectStatus != null" >
+        PROJECT_STATUS = #{projectStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="flowStatus != null" >
+        FLOW_STATUS = #{flowStatus,jdbcType=VARCHAR},
+      </if>
+      <if test ="firstChecker !=null">
+      	FIRST_CHECKER=#{firstChecker,jdbcType=VARCHAR},
+      </if>
+      <if test ="firstCheckDate !=null">
+      	FIRST_CHECK_DATE=#{firstCheckDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test ="firstCheckNote !=null">
+      	FIRST_CHECK_NOTE=#{firstCheckNote,jdbcType=VARCHAR},
+      </if>
+      <if test ="firstCheckStatus !=null">
+      	FIRST_CHECK_STATUS=#{firstCheckStatus,jdbcType=VARCHAR},
+      </if>
+      <if test ="firstAgainChecker !=null">
+      	FIRST_AGAINCHECKER=#{firstAgainChecker,jdbcType=VARCHAR},
+      </if>
+      <if test ="firstAgainCheckDate !=null">
+      	FIRST_AGAINCHECK_DATE=#{firstAgainCheckDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test ="firstAgainNote !=null">
+      	FIRST_AGAINCHECK_NOTE=#{firstAgainNote,jdbcType=VARCHAR},
+      </if>
+      <if test ="firstAgainCheckStatus !=null">
+      	FIRST_AGAINCHECK_STATUS=#{firstAgainCheckStatus,jdbcType=VARCHAR},
+      </if>
+      <if test ="projectIsExport !=null">
+      	PROJECT_IS_EXPORT=#{projectIsExport,jdbcType=VARCHAR},
+      </if>
+      <if test ="othersChecker !=null">
+      	OTHERS_CHECKER=#{othersChecker,jdbcType=VARCHAR},
+      </if>
+      <if test ="othersCheckDate !=null">
+      	OTHERS_CHECK_DATE=#{othersCheckDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test ="othersCheckFile !=null">
+      	OTHERS_CHECK_FILE=#{othersCheckFile,jdbcType=VARCHAR},
+      </if>
+      <if test ="projectIsOthers !=null">
+      	PROJECT_IS_OTHERS=#{projectIsOthers,jdbcType=VARCHAR},
+      </if>
+      <if test ="secondChecker !=null">
+		SECOND_CHECKER=#{secondChecker,jdbcType=VARCHAR},
+      </if>
+      <if test ="secondCheckDate !=null">
+		SECOND_CHECK_DATE=#{secondCheckDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test ="secondCheckNote !=null">
+		SECOND_CHECK_NOTE=#{secondCheckNote,jdbcType=VARCHAR},
+      </if>
+      <if test ="secondCheckStatus !=null">
+		SECOND_CHECK_STATUS=#{secondCheckStatus,jdbcType=VARCHAR},
+      </if>
+      <if test ="secondAgainChecker !=null">
+		SECOND_AGAINCHECKER=#{secondAgainChecker,jdbcType=VARCHAR},
+      </if>
+      <if test ="secondAgainCheckDate !=null">
+		SECOND_AGAINCHECK_DATE=#{secondAgainCheckDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test ="secondAgainCheckNote !=null">
+		SECOND_AGAINCHECK_NOTE=#{secondAgainCheckNote,jdbcType=VARCHAR},
+      </if>
+      <if test ="secondAgainCheckStatus !=null">
+		SECOND_AGAINCHECK_STATUS=#{secondAgainCheckStatus,jdbcType=VARCHAR},
+      </if>
+      <if test ="projectPassNotes !=null">
+		PROJECT_PASS_NOTES=#{projectPassNotes,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        UPDATED_BY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+        VERSION = VERSION+1,
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.hcis.items.entity.ItemsManager" >
+    update CMS_CONFIG
+    set NAME = #{name,jdbcType=VARCHAR},
+      CONFIG_VALUE = #{configValue,jdbcType=VARCHAR},
+      ORDER_NUM = #{orderNum,jdbcType=DECIMAL},
+      CREATOR = #{creator,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{updatedby,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      VERSION = VERSION+1,
+      IS_DELETED = #{isDeleted,jdbcType=CHAR}
+    where CODE = #{code,jdbcType=VARCHAR}
+  </update>
+  
+  
+  <delete id="deleteByLogic" parameterType="com.hcis.items.entity.ItemsManager">
+  	update ipbox_project_MANAGER
+    <set>
+      <if test="updatedby != null" >
+        UPDATED_BY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+        VERSION = VERSION+1,
+        IS_DELETED='Y',
+    </set>
+  	WHERE ID=#{id,jdbcType=VARCHAR} AND IS_DELETED='N'
+  </delete>
+</mapper>

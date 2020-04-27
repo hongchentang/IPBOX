@@ -1,0 +1,735 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcis.ipanther.common.user.mapper.UserHisMapper" >
+  <resultMap id="BaseResultMap" type="com.hcis.ipanther.common.user.entity.UserHis" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="DEPT_ID" property="deptId" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="PASSWORD_PLAIN" property="passwordPlain" jdbcType="VARCHAR" />
+    <result column="ROLE_CODE" property="roleCode" jdbcType="VARCHAR" />
+    <result column="REAL_NAME" property="realName" jdbcType="VARCHAR" />
+    <result column="SEX" property="sex" jdbcType="VARCHAR" />
+    <result column="COUNTRY" property="country" jdbcType="VARCHAR" />
+    <result column="NATION" property="nation" jdbcType="VARCHAR" />
+    <result column="HOMETOWN" property="hometown" jdbcType="VARCHAR" />
+    <result column="HOMETOWN_PROVINCE" property="hometownProvince" jdbcType="VARCHAR" />
+    <result column="HOMETOWN_CITY" property="hometownCity" jdbcType="VARCHAR" />
+    <result column="HOMETOWN_COUNTIES" property="hometownCounties" jdbcType="VARCHAR" />
+    <result column="PAPERWORK_TYPE" property="paperworkType" jdbcType="VARCHAR" />
+    <result column="PAPERWORK_NO" property="paperworkNo" jdbcType="VARCHAR" />
+    <result column="MARITAL_STATUS" property="maritalStatus" jdbcType="VARCHAR" />
+    <result column="POLITICS_ROLE" property="politicsRole" jdbcType="VARCHAR" />
+    <result column="PASSWORD_ASK" property="passwordAsk" jdbcType="VARCHAR" />
+    <result column="PASSWORD_ANSWER" property="passwordAnswer" jdbcType="VARCHAR" />
+    <result column="BORN_DATE" property="bornDate" jdbcType="VARCHAR" />
+    <result column="WORK_DATE" property="workDate" jdbcType="TIMESTAMP" />
+    <result column="JOB" property="job" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="MOBILE_PHONE" property="mobilePhone" jdbcType="VARCHAR" />
+    <result column="OFFICE_ADDRESS" property="officeAddress" jdbcType="VARCHAR" />
+    <result column="OFFICE_PHONE" property="officePhone" jdbcType="VARCHAR" />
+    <result column="HOME_PHONE" property="homePhone" jdbcType="VARCHAR" />
+    <result column="HOME_ADDRESS" property="homeAddress" jdbcType="VARCHAR" />
+    <result column="CORR_ADDRESS" property="corrAddress" jdbcType="VARCHAR" />
+    <result column="POST_CODE" property="postCode" jdbcType="VARCHAR" />
+    <result column="HOME_PAGE" property="homePage" jdbcType="VARCHAR" />
+    <result column="IM_NO" property="imNo" jdbcType="VARCHAR" />
+    <result column="AVATAR" property="avatar" jdbcType="VARCHAR" />
+    <result column="IS_ADMIN" property="isAdmin" jdbcType="VARCHAR" />
+    <result column="ADMIN_LEVEL" property="adminLevel" jdbcType="VARCHAR" />
+    <result column="ADMIN_START_DATE" property="adminStartDate" jdbcType="TIMESTAMP" />
+    <result column="ADMIN_END_DATE" property="adminEndDate" jdbcType="TIMESTAMP" />
+    <result column="START_TIME" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="END_TIME" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="CHAR" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+    <result column="BELONG_DEPT_NAME" property="belongDeptName" jdbcType="VARCHAR" />
+    <result column="CURRENT_PROVINCE" property="currentProvince" jdbcType="VARCHAR" />
+    <result column="CURRENT_STREET" property="currentStreet" jdbcType="VARCHAR" />
+    <result column="CURRENT_CITY" property="currentCity" jdbcType="VARCHAR" />
+    <result column="CURRENT_COUNTIES" property="currentCounties" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="STUDENT_STATUS" property="studentStatus" jdbcType="VARCHAR" />
+    <result column="TEACHER_STATUS" property="teacherStatus" jdbcType="VARCHAR" />
+    <result column="INTRODUCE" property="introduce" jdbcType="VARCHAR" />
+    
+    <result column="DEPT_ID" property="deptId" jdbcType="VARCHAR" />
+    <result column="DEPT_NAME" property="deptName" jdbcType="VARCHAR" />
+    <result column="REGIONS_CODE" property="regionsCode" jdbcType="VARCHAR" />
+    <result column="REGIONS_NAME" property="regionsName" jdbcType="VARCHAR" />
+    <result column="IS_PERSON" property="isPerson" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, USER_ID, DEPT_ID, USER_NAME, PASSWORD, PASSWORD_PLAIN, ROLE_CODE, REAL_NAME, 
+    SEX, COUNTRY, NATION, HOMETOWN, HOMETOWN_PROVINCE, HOMETOWN_CITY, HOMETOWN_COUNTIES, 
+    PAPERWORK_TYPE, PAPERWORK_NO, MARITAL_STATUS, POLITICS_ROLE, PASSWORD_ASK, PASSWORD_ANSWER, 
+    BORN_DATE, WORK_DATE, JOB, EMAIL, MOBILE_PHONE, OFFICE_ADDRESS, OFFICE_PHONE, HOME_PHONE, 
+    HOME_ADDRESS, CORR_ADDRESS, POST_CODE, HOME_PAGE, IM_NO, AVATAR, IS_ADMIN, ADMIN_LEVEL, 
+    ADMIN_START_DATE, ADMIN_END_DATE, START_TIME, END_TIME, STATUS, CREATOR, CREATE_TIME, 
+    UPDATEDBY, UPDATE_TIME, IS_DELETED, VERSION, BELONG_DEPT_NAME, CURRENT_PROVINCE, 
+    CURRENT_STREET, CURRENT_CITY, CURRENT_COUNTIES, TYPE, STUDENT_STATUS, TEACHER_STATUS,INTRODUCE,IS_PERSON
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select IU.*,IDE.id DEPT_ID,IDE.DEPT_NAME DEPT_NAME,IU.PASSWORD_PLAIN,IDE.REGIONS_CODE,IAR.REGIONS_NAME,
+<!--     CEIL(MONTHS_BETWEEN(NOW(),if(IU.born_date='',NOW(),str_to_date(IU.born_date,'yyyy-mm')))/12) as AGE -->
+	 (YEAR(CURDATE())-YEAR(STR_TO_DATE(IFNULL(IU.born_date,NOW()),'%Y-%m-%d')))-(RIGHT(CURDATE(),5)&lt;RIGHT(STR_TO_DATE(IFNULL(IU.born_date,NOW()),'%Y-%m-%d'),5)) as AGE
+        from IPANTHER_USER_HIS IU
+         LEFT JOIN IPANTHER_DEPARTMENT IDE ON IDE.ID = IU.DEPT_ID  AND IDE.IS_DELETED = 'N'
+         LEFT JOIN IPANTHER_ADMIN_REGIONS IAR ON IDE.REGIONS_CODE = IAR.REGIONS_CODE AND IAR.IS_DELETED = 'N'
+    where IU.ID = #{id,jdbcType=VARCHAR} 
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from IPANTHER_USER_HIS
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hcis.ipanther.common.user.entity.UserHis" >
+    insert into IPANTHER_USER_HIS (ID, USER_ID, DEPT_ID, 
+      USER_NAME, PASSWORD, PASSWORD_PLAIN, 
+      ROLE_CODE, REAL_NAME, SEX, 
+      COUNTRY, NATION, HOMETOWN, 
+      HOMETOWN_PROVINCE, HOMETOWN_CITY, HOMETOWN_COUNTIES, 
+      PAPERWORK_TYPE, PAPERWORK_NO, MARITAL_STATUS, 
+      POLITICS_ROLE, PASSWORD_ASK, PASSWORD_ANSWER, 
+      BORN_DATE, WORK_DATE, JOB, 
+      EMAIL, MOBILE_PHONE, OFFICE_ADDRESS, 
+      OFFICE_PHONE, HOME_PHONE, HOME_ADDRESS, 
+      CORR_ADDRESS, POST_CODE, HOME_PAGE, 
+      IM_NO, AVATAR, IS_ADMIN, 
+      ADMIN_LEVEL, ADMIN_START_DATE, ADMIN_END_DATE, 
+      START_TIME, END_TIME, STATUS, 
+      CREATOR, CREATE_TIME, UPDATEDBY, 
+      UPDATE_TIME, IS_DELETED, VERSION, 
+      BELONG_DEPT_NAME, CURRENT_PROVINCE, CURRENT_STREET, 
+      CURRENT_CITY, CURRENT_COUNTIES, TYPE, 
+      STUDENT_STATUS, TEACHER_STATUS,INTRODUCE,IS_PERSON)
+    values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{deptId,jdbcType=VARCHAR}, 
+      #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{passwordPlain,jdbcType=VARCHAR}, 
+      #{roleCode,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
+      #{country,jdbcType=VARCHAR}, #{nation,jdbcType=VARCHAR}, #{hometown,jdbcType=VARCHAR}, 
+      #{hometownProvince,jdbcType=VARCHAR}, #{hometownCity,jdbcType=VARCHAR}, #{hometownCounties,jdbcType=VARCHAR}, 
+      #{paperworkType,jdbcType=VARCHAR}, #{paperworkNo,jdbcType=VARCHAR}, #{maritalStatus,jdbcType=VARCHAR}, 
+      #{politicsRole,jdbcType=VARCHAR}, #{passwordAsk,jdbcType=VARCHAR}, #{passwordAnswer,jdbcType=VARCHAR}, 
+      #{bornDate,jdbcType=VARCHAR}, #{workDate,jdbcType=TIMESTAMP}, #{job,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{mobilePhone,jdbcType=VARCHAR}, #{officeAddress,jdbcType=VARCHAR}, 
+      #{officePhone,jdbcType=VARCHAR}, #{homePhone,jdbcType=VARCHAR}, #{homeAddress,jdbcType=VARCHAR}, 
+      #{corrAddress,jdbcType=VARCHAR}, #{postCode,jdbcType=VARCHAR}, #{homePage,jdbcType=VARCHAR}, 
+      #{imNo,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, #{isAdmin,jdbcType=VARCHAR}, 
+      #{adminLevel,jdbcType=VARCHAR}, #{adminStartDate,jdbcType=TIMESTAMP}, #{adminEndDate,jdbcType=TIMESTAMP}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updatedby,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=CHAR}, #{version,jdbcType=DECIMAL}, 
+      #{belongDeptName,jdbcType=VARCHAR}, #{currentProvince,jdbcType=VARCHAR}, #{currentStreet,jdbcType=VARCHAR}, 
+      #{currentCity,jdbcType=VARCHAR}, #{currentCounties,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{studentStatus,jdbcType=VARCHAR}, #{teacherStatus,jdbcType=VARCHAR},#{introduce,jdbcType=VARCHAR}),#{isPerson,jdbcType=VARCHAR}
+  </insert>
+  <insert id="insertSelective" parameterType="com.hcis.ipanther.common.user.entity.UserHis" >
+    insert into IPANTHER_USER_HIS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="deptId != null" >
+        DEPT_ID,
+      </if>
+      <if test="userName != null" >
+        USER_NAME,
+      </if>
+      <if test="password != null" >
+        PASSWORD,
+      </if>
+      <if test="passwordPlain != null" >
+        PASSWORD_PLAIN,
+      </if>
+      <if test="roleCode != null" >
+        ROLE_CODE,
+      </if>
+      <if test="realName != null" >
+        REAL_NAME,
+      </if>
+      <if test="sex != null" >
+        SEX,
+      </if>
+      <if test="country != null" >
+        COUNTRY,
+      </if>
+      <if test="nation != null" >
+        NATION,
+      </if>
+      <if test="hometown != null" >
+        HOMETOWN,
+      </if>
+      <if test="hometownProvince != null" >
+        HOMETOWN_PROVINCE,
+      </if>
+      <if test="hometownCity != null" >
+        HOMETOWN_CITY,
+      </if>
+      <if test="hometownCounties != null" >
+        HOMETOWN_COUNTIES,
+      </if>
+      <if test="paperworkType != null" >
+        PAPERWORK_TYPE,
+      </if>
+      <if test="paperworkNo != null" >
+        PAPERWORK_NO,
+      </if>
+      <if test="maritalStatus != null" >
+        MARITAL_STATUS,
+      </if>
+      <if test="politicsRole != null" >
+        POLITICS_ROLE,
+      </if>
+      <if test="passwordAsk != null" >
+        PASSWORD_ASK,
+      </if>
+      <if test="passwordAnswer != null" >
+        PASSWORD_ANSWER,
+      </if>
+      <if test="bornDate != null" >
+        BORN_DATE,
+      </if>
+      <if test="workDate != null" >
+        WORK_DATE,
+      </if>
+      <if test="job != null" >
+        JOB,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="mobilePhone != null" >
+        MOBILE_PHONE,
+      </if>
+      <if test="officeAddress != null" >
+        OFFICE_ADDRESS,
+      </if>
+      <if test="officePhone != null" >
+        OFFICE_PHONE,
+      </if>
+      <if test="homePhone != null" >
+        HOME_PHONE,
+      </if>
+      <if test="homeAddress != null" >
+        HOME_ADDRESS,
+      </if>
+      <if test="corrAddress != null" >
+        CORR_ADDRESS,
+      </if>
+      <if test="postCode != null" >
+        POST_CODE,
+      </if>
+      <if test="homePage != null" >
+        HOME_PAGE,
+      </if>
+      <if test="imNo != null" >
+        IM_NO,
+      </if>
+      <if test="avatar != null" >
+        AVATAR,
+      </if>
+      <if test="isAdmin != null" >
+        IS_ADMIN,
+      </if>
+      <if test="adminLevel != null" >
+        ADMIN_LEVEL,
+      </if>
+      <if test="adminStartDate != null" >
+        ADMIN_START_DATE,
+      </if>
+      <if test="adminEndDate != null" >
+        ADMIN_END_DATE,
+      </if>
+      <if test="startTime != null" >
+        START_TIME,
+      </if>
+      <if test="endTime != null" >
+        END_TIME,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="creator != null" >
+        CREATOR,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+      <if test="belongDeptName != null" >
+        BELONG_DEPT_NAME,
+      </if>
+      <if test="currentProvince != null" >
+        CURRENT_PROVINCE,
+      </if>
+      <if test="currentStreet != null" >
+        CURRENT_STREET,
+      </if>
+      <if test="currentCity != null" >
+        CURRENT_CITY,
+      </if>
+      <if test="currentCounties != null" >
+        CURRENT_COUNTIES,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+      <if test="studentStatus != null" >
+        STUDENT_STATUS,
+      </if>
+      <if test="teacherStatus != null" >
+        TEACHER_STATUS,
+      </if>
+      <if test="introduce != null" >
+        INTRODUCE,
+      </if>
+      <if test="isPerson != null" >
+        IS_PERSON,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="deptId != null" >
+        #{deptId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="passwordPlain != null" >
+        #{passwordPlain,jdbcType=VARCHAR},
+      </if>
+      <if test="roleCode != null" >
+        #{roleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null" >
+        #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="hometown != null" >
+        #{hometown,jdbcType=VARCHAR},
+      </if>
+      <if test="hometownProvince != null" >
+        #{hometownProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="hometownCity != null" >
+        #{hometownCity,jdbcType=VARCHAR},
+      </if>
+      <if test="hometownCounties != null" >
+        #{hometownCounties,jdbcType=VARCHAR},
+      </if>
+      <if test="paperworkType != null" >
+        #{paperworkType,jdbcType=VARCHAR},
+      </if>
+      <if test="paperworkNo != null" >
+        #{paperworkNo,jdbcType=VARCHAR},
+      </if>
+      <if test="maritalStatus != null" >
+        #{maritalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="politicsRole != null" >
+        #{politicsRole,jdbcType=VARCHAR},
+      </if>
+      <if test="passwordAsk != null" >
+        #{passwordAsk,jdbcType=VARCHAR},
+      </if>
+      <if test="passwordAnswer != null" >
+        #{passwordAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="bornDate != null" >
+        #{bornDate,jdbcType=VARCHAR},
+      </if>
+      <if test="workDate != null" >
+        #{workDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="job != null" >
+        #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilePhone != null" >
+        #{mobilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="officeAddress != null" >
+        #{officeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="officePhone != null" >
+        #{officePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="homePhone != null" >
+        #{homePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="homeAddress != null" >
+        #{homeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="corrAddress != null" >
+        #{corrAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null" >
+        #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="homePage != null" >
+        #{homePage,jdbcType=VARCHAR},
+      </if>
+      <if test="imNo != null" >
+        #{imNo,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null" >
+        #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="isAdmin != null" >
+        #{isAdmin,jdbcType=VARCHAR},
+      </if>
+      <if test="adminLevel != null" >
+        #{adminLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="adminStartDate != null" >
+        #{adminStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adminEndDate != null" >
+        #{adminEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=CHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+      <if test="belongDeptName != null" >
+        #{belongDeptName,jdbcType=VARCHAR},
+      </if>
+      <if test="currentProvince != null" >
+        #{currentProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="currentStreet != null" >
+        #{currentStreet,jdbcType=VARCHAR},
+      </if>
+      <if test="currentCity != null" >
+        #{currentCity,jdbcType=VARCHAR},
+      </if>
+      <if test="currentCounties != null" >
+        #{currentCounties,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="studentStatus != null" >
+        #{studentStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherStatus != null" >
+        #{teacherStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="introduce != null" >
+        #{introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="isPerson != null" >
+        #{isPerson,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hcis.ipanther.common.user.entity.UserHis" >
+    update IPANTHER_USER_HIS
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="deptId != null" >
+        DEPT_ID = #{deptId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="passwordPlain != null" >
+        PASSWORD_PLAIN = #{passwordPlain,jdbcType=VARCHAR},
+      </if>
+      <if test="roleCode != null" >
+        ROLE_CODE = #{roleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        REAL_NAME = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        SEX = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        COUNTRY = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null" >
+        NATION = #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="hometown != null" >
+        HOMETOWN = #{hometown,jdbcType=VARCHAR},
+      </if>
+      <if test="hometownProvince != null" >
+        HOMETOWN_PROVINCE = #{hometownProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="hometownCity != null" >
+        HOMETOWN_CITY = #{hometownCity,jdbcType=VARCHAR},
+      </if>
+      <if test="hometownCounties != null" >
+        HOMETOWN_COUNTIES = #{hometownCounties,jdbcType=VARCHAR},
+      </if>
+      <if test="paperworkType != null" >
+        PAPERWORK_TYPE = #{paperworkType,jdbcType=VARCHAR},
+      </if>
+      <if test="paperworkNo != null" >
+        PAPERWORK_NO = #{paperworkNo,jdbcType=VARCHAR},
+      </if>
+      <if test="maritalStatus != null" >
+        MARITAL_STATUS = #{maritalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="politicsRole != null" >
+        POLITICS_ROLE = #{politicsRole,jdbcType=VARCHAR},
+      </if>
+      <if test="passwordAsk != null" >
+        PASSWORD_ASK = #{passwordAsk,jdbcType=VARCHAR},
+      </if>
+      <if test="passwordAnswer != null" >
+        PASSWORD_ANSWER = #{passwordAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="bornDate != null" >
+        BORN_DATE = #{bornDate,jdbcType=VARCHAR},
+      </if>
+      <if test="workDate != null" >
+        WORK_DATE = #{workDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="job != null" >
+        JOB = #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilePhone != null" >
+        MOBILE_PHONE = #{mobilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="officeAddress != null" >
+        OFFICE_ADDRESS = #{officeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="officePhone != null" >
+        OFFICE_PHONE = #{officePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="homePhone != null" >
+        HOME_PHONE = #{homePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="homeAddress != null" >
+        HOME_ADDRESS = #{homeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="corrAddress != null" >
+        CORR_ADDRESS = #{corrAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null" >
+        POST_CODE = #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="homePage != null" >
+        HOME_PAGE = #{homePage,jdbcType=VARCHAR},
+      </if>
+      <if test="imNo != null" >
+        IM_NO = #{imNo,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null" >
+        AVATAR = #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="isAdmin != null" >
+        IS_ADMIN = #{isAdmin,jdbcType=VARCHAR},
+      </if>
+      <if test="adminLevel != null" >
+        ADMIN_LEVEL = #{adminLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="adminStartDate != null" >
+        ADMIN_START_DATE = #{adminStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adminEndDate != null" >
+        ADMIN_END_DATE = #{adminEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null" >
+        START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      </if>
+      VERSION = VERSION+1,
+      <if test="belongDeptName != null" >
+        BELONG_DEPT_NAME = #{belongDeptName,jdbcType=VARCHAR},
+      </if>
+      <if test="currentProvince != null" >
+        CURRENT_PROVINCE = #{currentProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="currentStreet != null" >
+        CURRENT_STREET = #{currentStreet,jdbcType=VARCHAR},
+      </if>
+      <if test="currentCity != null" >
+        CURRENT_CITY = #{currentCity,jdbcType=VARCHAR},
+      </if>
+      <if test="currentCounties != null" >
+        CURRENT_COUNTIES = #{currentCounties,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="studentStatus != null" >
+        STUDENT_STATUS = #{studentStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherStatus != null" >
+        TEACHER_STATUS = #{teacherStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="introduce != null" >
+        INTRODUCE = #{introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="isPerson != null" >
+        IS_PERSON = #{isPerson,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hcis.ipanther.common.user.entity.UserHis" >
+    update IPANTHER_USER_HIS
+    set USER_ID = #{userId,jdbcType=VARCHAR},
+      DEPT_ID = #{deptId,jdbcType=VARCHAR},
+      USER_NAME = #{userName,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      PASSWORD_PLAIN = #{passwordPlain,jdbcType=VARCHAR},
+      ROLE_CODE = #{roleCode,jdbcType=VARCHAR},
+      REAL_NAME = #{realName,jdbcType=VARCHAR},
+      SEX = #{sex,jdbcType=VARCHAR},
+      COUNTRY = #{country,jdbcType=VARCHAR},
+      NATION = #{nation,jdbcType=VARCHAR},
+      HOMETOWN = #{hometown,jdbcType=VARCHAR},
+      HOMETOWN_PROVINCE = #{hometownProvince,jdbcType=VARCHAR},
+      HOMETOWN_CITY = #{hometownCity,jdbcType=VARCHAR},
+      HOMETOWN_COUNTIES = #{hometownCounties,jdbcType=VARCHAR},
+      PAPERWORK_TYPE = #{paperworkType,jdbcType=VARCHAR},
+      PAPERWORK_NO = #{paperworkNo,jdbcType=VARCHAR},
+      MARITAL_STATUS = #{maritalStatus,jdbcType=VARCHAR},
+      POLITICS_ROLE = #{politicsRole,jdbcType=VARCHAR},
+      PASSWORD_ASK = #{passwordAsk,jdbcType=VARCHAR},
+      PASSWORD_ANSWER = #{passwordAnswer,jdbcType=VARCHAR},
+      BORN_DATE = #{bornDate,jdbcType=VARCHAR},
+      WORK_DATE = #{workDate,jdbcType=TIMESTAMP},
+      JOB = #{job,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      MOBILE_PHONE = #{mobilePhone,jdbcType=VARCHAR},
+      OFFICE_ADDRESS = #{officeAddress,jdbcType=VARCHAR},
+      OFFICE_PHONE = #{officePhone,jdbcType=VARCHAR},
+      HOME_PHONE = #{homePhone,jdbcType=VARCHAR},
+      HOME_ADDRESS = #{homeAddress,jdbcType=VARCHAR},
+      CORR_ADDRESS = #{corrAddress,jdbcType=VARCHAR},
+      POST_CODE = #{postCode,jdbcType=VARCHAR},
+      HOME_PAGE = #{homePage,jdbcType=VARCHAR},
+      IM_NO = #{imNo,jdbcType=VARCHAR},
+      AVATAR = #{avatar,jdbcType=VARCHAR},
+      IS_ADMIN = #{isAdmin,jdbcType=VARCHAR},
+      ADMIN_LEVEL = #{adminLevel,jdbcType=VARCHAR},
+      ADMIN_START_DATE = #{adminStartDate,jdbcType=TIMESTAMP},
+      ADMIN_END_DATE = #{adminEndDate,jdbcType=TIMESTAMP},
+      START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      STATUS = #{status,jdbcType=VARCHAR},
+      CREATOR = #{creator,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      VERSION = VERSION+1,
+      BELONG_DEPT_NAME = #{belongDeptName,jdbcType=VARCHAR},
+      CURRENT_PROVINCE = #{currentProvince,jdbcType=VARCHAR},
+      CURRENT_STREET = #{currentStreet,jdbcType=VARCHAR},
+      CURRENT_CITY = #{currentCity,jdbcType=VARCHAR},
+      CURRENT_COUNTIES = #{currentCounties,jdbcType=VARCHAR},
+      TYPE = #{type,jdbcType=VARCHAR},
+      STUDENT_STATUS = #{studentStatus,jdbcType=VARCHAR},
+      TEACHER_STATUS = #{teacherStatus,jdbcType=VARCHAR},
+      INTRODUCE = #{introduce,jdbcType=VARCHAR}
+      IS_PERSON = #{isPerson,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectBySearchParam" resultMap="BaseResultMap" parameterType="searchParam" >
+  	select * From IPANTHER_USER_HIS WHERE IS_DELETED = 'N'
+  	AND USER_ID = #{paramMap.userId,jdbcType=VARCHAR}
+    <if test="paramMap.updateTimeMin != null and paramMap.updateTimeMin != ''" >
+        AND update_time >= str_to_date(#{paramMap.updateTimeMin,jdbcType=VARCHAR},'yyyy-mm-dd')
+    </if>
+    <if test="paramMap.updateTimeMax != null and paramMap.updateTimeMax != ''" >
+        AND update_time &lt;= str_to_date(#{paramMap.updateTimeMax,jdbcType=VARCHAR},'yyyy-mm-dd')
+    </if>
+    order by update_time desc
+  </select>
+</mapper>

@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcis.ipanther.common.user.mapper.UserResearchMapper" >
+  <resultMap id="BaseResultMap" type="com.hcis.ipanther.common.user.entity.UserResearch" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="RESEARCH_FIELD" property="researchField" jdbcType="VARCHAR" />
+    <result column="RESEARCH_SPECIAL" property="researchSpecial" jdbcType="VARCHAR" />
+    <result column="ACHIEVEMENT_NAME" property="achievementName" jdbcType="VARCHAR" />
+    <result column="PUBLICATION_DATE" property="publicationDate" jdbcType="TIMESTAMP" />
+    <result column="PUBLICATION_UNIT" property="publicationUnit" jdbcType="VARCHAR" />
+    <result column="PUBLICATION_NAME" property="publicationName" jdbcType="VARCHAR" />
+    <result column="PUBLICATION_NO" property="publicationNo" jdbcType="VARCHAR" />
+    <result column="MEETING_NAME" property="meetingName" jdbcType="VARCHAR" />
+    <result column="SELF_AFFECT" property="selfAffect" jdbcType="VARCHAR" />
+    <result column="ATTACHMENT" property="attachment" jdbcType="VARCHAR" />
+    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="CHAR" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, USER_ID, RESEARCH_FIELD, RESEARCH_SPECIAL, ACHIEVEMENT_NAME, PUBLICATION_DATE, 
+    PUBLICATION_UNIT, PUBLICATION_NAME, PUBLICATION_NO, MEETING_NAME, SELF_AFFECT, ATTACHMENT, 
+    CREATOR, CREATE_TIME, UPDATEDBY, UPDATE_TIME, IS_DELETED, VERSION
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from IPANTHER_USER_RESEARCH
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from IPANTHER_USER_RESEARCH
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hcis.ipanther.common.user.entity.UserResearch" >
+    insert into IPANTHER_USER_RESEARCH (ID, USER_ID, RESEARCH_FIELD, 
+      RESEARCH_SPECIAL, ACHIEVEMENT_NAME, PUBLICATION_DATE, 
+      PUBLICATION_UNIT, PUBLICATION_NAME, PUBLICATION_NO, 
+      MEETING_NAME, SELF_AFFECT, ATTACHMENT, 
+      CREATOR, CREATE_TIME, UPDATEDBY, 
+      UPDATE_TIME, IS_DELETED, VERSION
+      )
+    values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{researchField,jdbcType=VARCHAR}, 
+      #{researchSpecial,jdbcType=VARCHAR}, #{achievementName,jdbcType=VARCHAR}, #{publicationDate,jdbcType=TIMESTAMP}, 
+      #{publicationUnit,jdbcType=VARCHAR}, #{publicationName,jdbcType=VARCHAR}, #{publicationNo,jdbcType=VARCHAR}, 
+      #{meetingName,jdbcType=VARCHAR}, #{selfAffect,jdbcType=VARCHAR}, #{attachment,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updatedby,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=CHAR}, #{version,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hcis.ipanther.common.user.entity.UserResearch" >
+    insert into IPANTHER_USER_RESEARCH
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="researchField != null" >
+        RESEARCH_FIELD,
+      </if>
+      <if test="researchSpecial != null" >
+        RESEARCH_SPECIAL,
+      </if>
+      <if test="achievementName != null" >
+        ACHIEVEMENT_NAME,
+      </if>
+      <if test="publicationDate != null" >
+        PUBLICATION_DATE,
+      </if>
+      <if test="publicationUnit != null" >
+        PUBLICATION_UNIT,
+      </if>
+      <if test="publicationName != null" >
+        PUBLICATION_NAME,
+      </if>
+      <if test="publicationNo != null" >
+        PUBLICATION_NO,
+      </if>
+      <if test="meetingName != null" >
+        MEETING_NAME,
+      </if>
+      <if test="selfAffect != null" >
+        SELF_AFFECT,
+      </if>
+      <if test="attachment != null" >
+        ATTACHMENT,
+      </if>
+      <if test="creator != null" >
+        CREATOR,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="researchField != null" >
+        #{researchField,jdbcType=VARCHAR},
+      </if>
+      <if test="researchSpecial != null" >
+        #{researchSpecial,jdbcType=VARCHAR},
+      </if>
+      <if test="achievementName != null" >
+        #{achievementName,jdbcType=VARCHAR},
+      </if>
+      <if test="publicationDate != null" >
+        #{publicationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="publicationUnit != null" >
+        #{publicationUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="publicationName != null" >
+        #{publicationName,jdbcType=VARCHAR},
+      </if>
+      <if test="publicationNo != null" >
+        #{publicationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="meetingName != null" >
+        #{meetingName,jdbcType=VARCHAR},
+      </if>
+      <if test="selfAffect != null" >
+        #{selfAffect,jdbcType=VARCHAR},
+      </if>
+      <if test="attachment != null" >
+        #{attachment,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=CHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hcis.ipanther.common.user.entity.UserResearch" >
+    update IPANTHER_USER_RESEARCH
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="researchField != null" >
+        RESEARCH_FIELD = #{researchField,jdbcType=VARCHAR},
+      </if>
+      <if test="researchSpecial != null" >
+        RESEARCH_SPECIAL = #{researchSpecial,jdbcType=VARCHAR},
+      </if>
+      <if test="achievementName != null" >
+        ACHIEVEMENT_NAME = #{achievementName,jdbcType=VARCHAR},
+      </if>
+      <if test="publicationDate != null" >
+        PUBLICATION_DATE = #{publicationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="publicationUnit != null" >
+        PUBLICATION_UNIT = #{publicationUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="publicationName != null" >
+        PUBLICATION_NAME = #{publicationName,jdbcType=VARCHAR},
+      </if>
+      <if test="publicationNo != null" >
+        PUBLICATION_NO = #{publicationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="meetingName != null" >
+        MEETING_NAME = #{meetingName,jdbcType=VARCHAR},
+      </if>
+      <if test="selfAffect != null" >
+        SELF_AFFECT = #{selfAffect,jdbcType=VARCHAR},
+      </if>
+      <if test="attachment != null" >
+        ATTACHMENT = #{attachment,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      </if>
+      VERSION = VERSION+1,
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <delete id="deleteByLogic" parameterType="com.hcis.ipanther.common.user.entity.UserResearch">
+  	update IPANTHER_USER_RESEARCH
+  	set IS_DELETED='Y',
+  	UPDATEDBY=#{updatedby,jdbcType=VARCHAR},
+  	UPDATE_TIME=#{updateTime,jdbcType=TIMESTAMP},
+  	VERSION = VERSION+1
+  	WHERE ID=#{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <select id="selectBySearchParam" resultMap="BaseResultMap" parameterType="searchParam" >
+    SELECT t.*
+	  FROM IPANTHER_USER_RESEARCH t
+	 WHERE t.IS_DELETED = 'N'
+    <if test="paramMap.userId!=null and paramMap.userId!=''">
+    	AND T.USER_ID=#{paramMap.userId,jdbcType=VARCHAR}
+    </if>
+    ORDER BY T.CREATE_TIME DESC
+  </select>
+  
+  <update id="updateByPrimaryKey" parameterType="com.hcis.ipanther.common.user.entity.UserResearch" >
+    update IPANTHER_USER_RESEARCH
+    set USER_ID = #{userId,jdbcType=VARCHAR},
+      RESEARCH_FIELD = #{researchField,jdbcType=VARCHAR},
+      RESEARCH_SPECIAL = #{researchSpecial,jdbcType=VARCHAR},
+      ACHIEVEMENT_NAME = #{achievementName,jdbcType=VARCHAR},
+      PUBLICATION_DATE = #{publicationDate,jdbcType=TIMESTAMP},
+      PUBLICATION_UNIT = #{publicationUnit,jdbcType=VARCHAR},
+      PUBLICATION_NAME = #{publicationName,jdbcType=VARCHAR},
+      PUBLICATION_NO = #{publicationNo,jdbcType=VARCHAR},
+      MEETING_NAME = #{meetingName,jdbcType=VARCHAR},
+      SELF_AFFECT = #{selfAffect,jdbcType=VARCHAR},
+      ATTACHMENT = #{attachment,jdbcType=VARCHAR},
+      CREATOR = #{creator,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      VERSION = VERSION+1
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcis.ipanther.common.notice.mapper.NoticeMapper" >
+  <resultMap id="BaseResultMap" type="com.hcis.ipanther.common.notice.entity.Notice" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="NOTICE_TITLE" property="noticeTitle" jdbcType="VARCHAR" />
+    <result column="NOTICE_CONTENT" property="noticeContent" jdbcType="VARCHAR" />
+    <result column="NOTICE_STATUS" property="noticeStatus" jdbcType="DECIMAL" />
+    <result column="NOTICE_TOP" property="noticeTop" jdbcType="DECIMAL" />
+    <result column="START_TIME" property="startTime" jdbcType="VARCHAR" />
+    <result column="END_TIME" property="endTime" jdbcType="VARCHAR" />
+    <result column="ATTACHMENT" property="attachment" jdbcType="VARCHAR" />
+    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="CHAR" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+    <result column="NOTICE_TYPE" property="noticeType" jdbcType="DECIMAL" />
+    <result column="NOTICE_SORT_NO" property="noticeSortNo" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_STATUS,NOTICE_TOP, START_TIME, END_TIME, ATTACHMENT, 
+    CREATOR, CREATE_TIME, UPDATEDBY, UPDATE_TIME, IS_DELETED, VERSION,NOTICE_TYPE,NOTICE_SORT_NO
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from IPANTHER_NOTICE
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectBySearchParam" resultMap="BaseResultMap" parameterType="searchParam" >
+    select 
+    <include refid="Base_Column_List" />
+    from IPANTHER_NOTICE 
+    where IS_DELETED='N'
+    <if test="paramMap.noticeTitle!=null and paramMap.noticeTitle!=''">
+    	AND NOTICE_TITLE like '%${paramMap.noticeTitle}%'
+    </if>
+    <if test="paramMap.startTime!=null and paramMap.startTime!=''">
+    	AND ((START_TIME is not null AND START_TIME &gt;= #{paramMap.startTime,jdbcType=VARCHAR}) or (START_TIME is null))
+    </if>
+    <if test="paramMap.endTime!=null and paramMap.endTime!=''">
+    	AND ((END_TIME is not null AND END_TIME &lt;= #{paramMap.endTime,jdbcType=VARCHAR}) or (END_TIME is null))
+    </if>
+    <if test="paramMap.currentTime!=null and paramMap.currentTime!=''">
+    	AND ((START_TIME is not null AND START_TIME &lt;= #{paramMap.currentTime,jdbcType=VARCHAR}) or (START_TIME is null))
+    	AND ((END_TIME is not null AND END_TIME &gt;= #{paramMap.currentTime,jdbcType=VARCHAR}) or (END_TIME is null))
+    </if>
+    <if test="paramMap.noticeType!=null and paramMap.noticeType!=''">
+    	AND NOTICE_TYPE = #{paramMap.noticeType,jdbcType=VARCHAR}
+    </if>
+    <if test="paramMap.noticeStatus!=null and paramMap.noticeStatus!=''">
+    	AND NOTICE_STATUS =	#{paramMap.noticeStatus,jdbcType=VARCHAR}
+    </if> 
+<!--      ORDER BY NOTICE_TOP desc nulls last,START_TIME desc nulls last,CREATE_TIME desc -->
+     ORDER BY NOTICE_TOP desc ,START_TIME desc ,CREATE_TIME desc
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from IPANTHER_NOTICE
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByLogic" parameterType="com.hcis.ipanther.common.notice.entity.Notice">
+  UPDATE IPANTHER_NOTICE T
+  SET T.IS_DELETED='Y',
+  	UPDATEDBY=#{updatedby,jdbcType=VARCHAR},
+  	UPDATE_TIME=#{updateTime,jdbcType=TIMESTAMP},
+  	VERSION = VERSION+1
+  	WHERE ID=#{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hcis.ipanther.common.notice.entity.Notice" >
+    insert into IPANTHER_NOTICE (ID, NOTICE_TITLE, NOTICE_CONTENT, 
+      NOTICE_STATUS, NOTICE_TOP, START_TIME, END_TIME, 
+      ATTACHMENT, CREATOR, CREATE_TIME,UPDATEDBY, UPDATE_TIME, IS_DELETED, 
+      VERSION,NOTICE_TYPE,NOTICE_SORT_NO)
+    values (#{id,jdbcType=VARCHAR}, #{noticeTitle,jdbcType=VARCHAR}, #{noticeContent,jdbcType=VARCHAR}, 
+      #{noticeStatus,jdbcType=DECIMAL}, #{noticeTop,jdbcType=DECIMAL}, #{startTime,jdbcType=VARCHAR}, 
+      #{endTime,jdbcType=VARCHAR},#{attachment,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=DATE},#{updatedby,jdbcType=VARCHAR}, #{updateTime,jdbcType=DATE}, 
+      #{isDeleted,jdbcType=CHAR}, #{version,jdbcType=DECIMAL},#{noticeType,jdbcType=DECIMAL},
+      #{counties,jdbcType=VARCHAR},#{province,jdbcType=VARCHAR},#{city,jdbcType=VARCHAR},
+      #{deptType,jdbcType=VARCHAR},#{noticeSortNo,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hcis.ipanther.common.notice.entity.Notice" >
+    insert into IPANTHER_NOTICE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="noticeTitle != null" >
+        NOTICE_TITLE,
+      </if>
+      <if test="noticeContent != null" >
+        NOTICE_CONTENT,
+      </if>
+      <if test="noticeStatus != null" >
+        NOTICE_STATUS,
+      </if>
+      <if test="noticeTop != null">
+      	NOTICE_TOP,
+      </if>
+      <if test="startTime != null" >
+        START_TIME,
+      </if>
+      <if test="endTime != null" >
+        END_TIME,
+      </if>
+      <if test="attachment != null" >
+        ATTACHMENT,
+      </if>
+      <if test="creator != null" >
+        CREATOR,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+      <if test="noticeType != null" >
+        NOTICE_TYPE,
+      </if>
+      <if test="noticeSortNo != null" >
+        NOTICE_SORT_NO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeTitle != null" >
+        #{noticeTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeContent != null" >
+        #{noticeContent,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeStatus != null" >
+        #{noticeStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="noticeTop != null">
+      	#{noticeTop,jdbcType=DECIMAL},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="attachment != null" >
+        #{attachment,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=DATE},
+      </if>
+      <if test="updatedby != null" >
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=DATE},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=CHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+      <if test="noticeType != null" >
+        #{noticeType,jdbcType=DECIMAL},
+      </if>
+      <if test="counties != null" >
+        #{counties,jdbcType=VARCHAR},
+      </if>
+	  <if test="noticeSortNo != null" >
+        #{noticeSortNo,jdbcType=DECIMAL},
+	  </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hcis.ipanther.common.notice.entity.Notice" >
+    update IPANTHER_NOTICE
+    <set >
+      <if test="noticeTitle != null" >
+        NOTICE_TITLE = #{noticeTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeContent != null" >
+        NOTICE_CONTENT = #{noticeContent,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeStatus != null" >
+        NOTICE_STATUS = #{noticeStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="noticeTop != null">
+      	NOTICE_TOP = #{noticeTop,jdbcType=DECIMAL},
+      </if>
+      <if test="startTime != null" >
+        START_TIME = #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null" >
+        END_TIME = #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="attachment != null" >
+        ATTACHMENT = #{attachment,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=DATE},
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=DATE},
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      </if>
+      	VERSION = VERSION + 1,
+      <if test="noticeType != null" >
+        NOTICE_TYPE=#{noticeType,jdbcType=DECIMAL},
+      </if>
+      <if test="noticeSortNo != null" >
+      	NOTICE_SORT_NO = #{noticeSortNo,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hcis.ipanther.common.notice.entity.Notice" >
+    update IPANTHER_NOTICE
+    set NOTICE_TITLE = #{noticeTitle,jdbcType=VARCHAR},
+      NOTICE_CONTENT = #{noticeContent,jdbcType=VARCHAR},
+      NOTICE_STATUS = #{noticeStatus,jdbcType=DECIMAL},
+      NOTICE_TOP = #{noticeTop,jdbcType=DECIMAL},
+      START_TIME = #{startTime,jdbcType=VARCHAR},
+      END_TIME = #{endTime,jdbcType=VARCHAR},
+      ATTACHMENT = #{attachment,jdbcType=VARCHAR},
+      CREATOR = #{creator,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=DATE},
+      UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=DATE},
+      IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      VERSION = VERSION + 1,
+      NOTICE_TYPE=#{noticeType,jdbcType=DECIMAL},
+      NOTICE_SORT_NO = #{noticeSortNo,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

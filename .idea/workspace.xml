@@ -1,0 +1,664 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="efda35ca-4761-4435-9746-c45c46922912" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/ipbox_web/src/main/java/com/hcis/ipr/alipay/utils/AlipayUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/ipbox_web/src/main/java/com/hcis/ipr/alipay/utils/AlipayUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipbox_web/src/main/java/com/hcis/ipr/alipay/web/AlipayController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ipbox_web/src/main/java/com/hcis/ipr/alipay/web/AlipayController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipbox_web/src/main/java/com/hcis/ipr/intellectual/patent/web/PatentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ipbox_web/src/main/java/com/hcis/ipr/intellectual/patent/web/PatentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipbox_web/src/main/resources/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ipbox_web/src/main/resources/config.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipbox_web/src/main/webapp/WEB-INF/views/intellectual/cost/list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/ipbox_web/src/main/webapp/WEB-INF/views/intellectual/cost/list.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipbox_web/target/classes/com/hcis/ipr/cms/config/mapper/CmsConfigMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ipbox_web/target/classes/com/hcis/ipr/cms/config/mapper/CmsConfigMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipbox_web/target/classes/com/hcis/ipr/cms/config/service/ICmsConfigService.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipbox_web/target/classes/com/hcis/ipr/cms/config/service/ICmsConfigService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipbox_web/target/classes/com/hcis/ipr/cms/config/service/impl/CmsConfigServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipbox_web/target/classes/com/hcis/ipr/cms/config/service/impl/CmsConfigServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipbox_web/target/classes/com/hcis/ipr/intellectual/call/mapper/ProcedureMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ipbox_web/target/classes/com/hcis/ipr/intellectual/call/mapper/ProcedureMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipbox_web/target/classes/com/hcis/ipr/intellectual/cost/mapper/PatentCostMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ipbox_web/target/classes/com/hcis/ipr/intellectual/cost/mapper/PatentCostMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipbox_web/target/classes/com/hcis/ipr/intellectual/cost/mapper/PatentCostMonitorMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ipbox_web/target/classes/com/hcis/ipr/intellectual/cost/mapper/PatentCostMonitorMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipbox_web/target/classes/com/hcis/ipr/intellectual/patent/mapper/PatentAttachmentMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ipbox_web/target/classes/com/hcis/ipr/intellectual/patent/mapper/PatentAttachmentMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipbox_web/target/classes/com/hcis/ipr/intellectual/patent/mapper/PatentMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ipbox_web/target/classes/com/hcis/ipr/intellectual/patent/mapper/PatentMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipbox_web/target/classes/com/hcis/ipr/train/course/web/CourseTalentTrainController.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipbox_web/target/classes/com/hcis/ipr/train/course/web/CourseTalentTrainController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipbox_web/target/classes/com/hcis/ipr/train/train/service/impl/TrainServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipbox_web/target/classes/com/hcis/ipr/train/train/service/impl/TrainServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipbox_web/target/classes/com/hcis/ipr/wechat/filter/WechatSecurityFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipbox_web/target/classes/com/hcis/ipr/wechat/filter/WechatSecurityFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipbox_web/target/classes/com/hcis/ipr/wechat/service/IWechatService.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipbox_web/target/classes/com/hcis/ipr/wechat/service/IWechatService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipbox_web/target/classes/com/hcis/ipr/wechat/service/impl/WechatServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipbox_web/target/classes/com/hcis/ipr/wechat/service/impl/WechatServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipbox_web/target/classes/com/hcis/ipr/wechat/utils/AccessTokenUtils$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipbox_web/target/classes/com/hcis/ipr/wechat/utils/AccessTokenUtils$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipbox_web/target/classes/com/hcis/ipr/wechat/utils/AccessTokenUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipbox_web/target/classes/com/hcis/ipr/wechat/utils/AccessTokenUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipbox_web/target/classes/com/hcis/ipr/wechat/utils/WechatConstants.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipbox_web/target/classes/com/hcis/ipr/wechat/utils/WechatConstants.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipbox_web/target/classes/com/hcis/ipr/wechat/web/WechatController.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipbox_web/target/classes/com/hcis/ipr/wechat/web/WechatController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipbox_web/target/classes/com/hcis/ipr/wechat/web/WechatUserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipbox_web/target/classes/com/hcis/ipr/wechat/web/WechatUserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipbox_web/target/classes/common.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ipbox_web/target/classes/common.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipbox_web/target/classes/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ipbox_web/target/classes/config.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipbox_web/target/classes/excel-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ipbox_web/target/classes/excel-config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipbox_web/target/classes/generatorConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ipbox_web/target/classes/generatorConfig.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipbox_web/target/classes/spring-mvc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ipbox_web/target/classes/spring-mvc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipbox_web/target/classes/spring/common/spring-mybatis.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ipbox_web/target/classes/spring/common/spring-mybatis.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipbox_web/target/classes/spring/common/spring-shiro.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ipbox_web/target/classes/spring/common/spring-shiro.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipbox_web/target/classes/wechat.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ipbox_web/target/classes/wechat.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipbox_web/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/ipbox_web/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipbox_web/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/ipbox_web/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipbox_web/target/tomcat/work/Tomcat/localhost/_/org/apache/jsp/WEB_002dINF/views/login_jsp.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipbox_web/target/tomcat/work/Tomcat/localhost/_/org/apache/jsp/WEB_002dINF/views/login_jsp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipbox_web/target/tomcat/work/Tomcat/localhost/_/org/apache/jsp/WEB_002dINF/views/login_jsp.java" beforeDir="false" afterPath="$PROJECT_DIR$/ipbox_web/target/tomcat/work/Tomcat/localhost/_/org/apache/jsp/WEB_002dINF/views/login_jsp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipbox_web/target/tomcat/work/Tomcat/localhost/_/org/apache/jsp/default_jsp.java" beforeDir="false" afterPath="$PROJECT_DIR$/ipbox_web/target/tomcat/work/Tomcat/localhost/_/org/apache/jsp/default_jsp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipbox_web/target/tomcat/work/Tomcat/localhost/_/org/apache/jsp/jsp/common/_404_jsp.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipbox_web/target/tomcat/work/Tomcat/localhost/_/org/apache/jsp/jsp/common/_404_jsp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipbox_web/target/tomcat/work/Tomcat/localhost/_/org/apache/jsp/jsp/common/_404_jsp.java" beforeDir="false" afterPath="$PROJECT_DIR$/ipbox_web/target/tomcat/work/Tomcat/localhost/_/org/apache/jsp/jsp/common/_404_jsp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/ipr_common.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/ipr_common.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/haoyu/ipanther/common/excel/DataType.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/haoyu/ipanther/common/excel/DataType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/haoyu/ipanther/common/excel/DateStyle.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/haoyu/ipanther/common/excel/DateStyle.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/haoyu/ipanther/common/excel/ExcelExport.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/haoyu/ipanther/common/excel/ExcelExport.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/haoyu/ipanther/common/excel/ExcelImport.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/haoyu/ipanther/common/excel/ExcelImport.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/haoyu/ipanther/common/excel/styles/StandardStyle.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/haoyu/ipanther/common/excel/styles/StandardStyle.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/haoyu/ipanther/common/excel/utils/Dictionary.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/haoyu/ipanther/common/excel/utils/Dictionary.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/haoyu/ipanther/common/excel/utils/FieldValidator.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/haoyu/ipanther/common/excel/utils/FieldValidator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/haoyu/ipanther/common/excel/utils/PoiExcelHelper.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/haoyu/ipanther/common/excel/utils/PoiExcelHelper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/haoyu/ipanther/common/login/entity/UserLoginLog.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/haoyu/ipanther/common/login/entity/UserLoginLog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/haoyu/ipanther/common/login/listener/UserLoginLogListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/haoyu/ipanther/common/login/listener/UserLoginLogListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/haoyu/ipanther/common/login/mapper/UserLoginLogMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/haoyu/ipanther/common/login/mapper/UserLoginLogMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/haoyu/ipanther/common/login/service/impl/UserLoginLogServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/haoyu/ipanther/common/login/service/impl/UserLoginLogServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/haoyu/ipanther/common/login/util/UserLoginLogUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/haoyu/ipanther/common/login/util/UserLoginLogUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/attachment/service/impl/AttachmentLocalServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/attachment/service/impl/AttachmentLocalServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/attachment/service/impl/AttachmentServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/attachment/service/impl/AttachmentServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/attachment/utils/AttachmentUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/attachment/utils/AttachmentUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/captcha/utils/CaptchaEngineEx.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/captcha/utils/CaptchaEngineEx.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/captcha/web/controller/CaptchaController.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/captcha/web/controller/CaptchaController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dept/dao/DepartmentDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dept/dao/DepartmentDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dept/entity/Department.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dept/entity/Department.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dept/mapper/DepartmentMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dept/mapper/DepartmentMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dept/service/IDepartmentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dept/service/IDepartmentService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dept/service/impl/DepartmentServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dept/service/impl/DepartmentServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dept/service/impl/UnitBrandServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dept/service/impl/UnitBrandServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dept/service/impl/UnitFundServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dept/service/impl/UnitFundServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dept/service/impl/UnitIntellectualServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dept/service/impl/UnitIntellectualServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dept/service/impl/UnitLegalServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dept/service/impl/UnitLegalServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dept/service/impl/UnitQualificationServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dept/service/impl/UnitQualificationServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dept/utils/DepartmentUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dept/utils/DepartmentUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dept/web/DeptController.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dept/web/DeptController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dict/service/impl/DictEntryServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dict/service/impl/DictEntryServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dict/service/impl/DictTypeServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dict/service/impl/DictTypeServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dict/utils/DictTypeUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dict/utils/DictTypeUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dict/utils/DictUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dict/utils/DictUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dict/utils/DictionaryUtils$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dict/utils/DictionaryUtils$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dict/utils/DictionaryUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dict/utils/DictionaryUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dict/vo/DictEntry.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dict/vo/DictEntry.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dict/vo/DictType.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dict/vo/DictType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dict/web/DictEntryController.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/dict/web/DictEntryController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/excel/ExcelFactoryBean.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/excel/ExcelFactoryBean.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/excel/builder/xml/XMLModelBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/excel/builder/xml/XMLModelBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/excel/config/Configuration$StrictMap.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/excel/config/Configuration$StrictMap.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/excel/config/Configuration.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/excel/config/Configuration.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/excel/config/ExcelConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/excel/config/ExcelConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/excel/convert/ExcelTOModelService.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/excel/convert/ExcelTOModelService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/excel/model/ModelStatement$Builder.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/excel/model/ModelStatement$Builder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/excel/model/ModelStatement.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/excel/model/ModelStatement.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/excel/utils/ExcelExport.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/excel/utils/ExcelExport.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/file/entity/FilesUnit.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/file/entity/FilesUnit.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/flow/listener/FlowLogListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/flow/listener/FlowLogListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/flow/service/impl/FlowLogServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/flow/service/impl/FlowLogServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/flow/service/impl/FlowServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/flow/service/impl/FlowServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/flow/utils/DesUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/flow/utils/DesUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/i18n/utils/I18nUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/i18n/utils/I18nUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/log/mapper/CommonLogMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/log/mapper/CommonLogMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/login/dao/LoginUserDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/login/dao/LoginUserDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/login/mapper/LoginUserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/login/mapper/LoginUserMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/login/service/ILoginService.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/login/service/ILoginService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/login/service/impl/LoginServiceImpl$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/login/service/impl/LoginServiceImpl$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/login/service/impl/LoginServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/login/service/impl/LoginServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/login/service/impl/ShiroLoginServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/login/service/impl/ShiroLoginServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/login/utils/LoginFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/login/utils/LoginFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/login/utils/LoginListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/login/utils/LoginListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/login/utils/LoginUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/login/utils/LoginUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/login/vo/LoginLog.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/login/vo/LoginLog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/login/vo/LoginUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/login/vo/LoginUser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/login/web/LoginAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/login/web/LoginAction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/notice/entity/Notice.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/notice/entity/Notice.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/notice/service/impl/NoticeServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/notice/service/impl/NoticeServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/notice/web/NoticeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/notice/web/NoticeController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/privilege/config/PrivilegeConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/privilege/config/PrivilegeConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/privilege/entity/Children.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/privilege/entity/Children.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/privilege/entity/PermissionNode.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/privilege/entity/PermissionNode.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/privilege/service/impl/PrivilegeServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/privilege/service/impl/PrivilegeServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/privilege/service/impl/RolePermissionServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/privilege/service/impl/RolePermissionServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/privilege/shiro/AuthenticationRealm.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/privilege/shiro/AuthenticationRealm.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/privilege/shiro/captcha/CaptchaFormAuthenticationFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/privilege/shiro/captcha/CaptchaFormAuthenticationFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/privilege/shiro/concurrent/ConcurrentAccessLogoutFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/privilege/shiro/concurrent/ConcurrentAccessLogoutFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/regions/service/impl/RegionsServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/regions/service/impl/RegionsServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/regions/utils/RegionsUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/regions/utils/RegionsUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/regions/web/controller/RegionsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/regions/web/controller/RegionsController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/security/entity/Privilege.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/security/entity/Privilege.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/security/entity/Role.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/security/entity/Role.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/security/entity/RolePri.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/security/entity/RolePri.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/security/entity/UserRole.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/security/entity/UserRole.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/security/realm/AuthenticationRealm.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/security/realm/AuthenticationRealm.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/security/realm/FramePermissionsAuthorizationFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/security/realm/FramePermissionsAuthorizationFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/security/realm/RolesOrFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/security/realm/RolesOrFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/security/service/IPrivilegeService.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/security/service/IPrivilegeService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/security/service/IRoleService.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/security/service/IRoleService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/security/service/impl/ModuleServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/security/service/impl/ModuleServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/security/service/impl/PrivilegeServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/security/service/impl/PrivilegeServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/security/service/impl/RolePriServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/security/service/impl/RolePriServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/security/service/impl/RoleServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/security/service/impl/RoleServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/security/service/impl/UserRoleServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/security/service/impl/UserRoleServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/security/tags/HasAnyPermissionsTag.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/security/tags/HasAnyPermissionsTag.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/security/utils/SecurityRoleUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/security/utils/SecurityRoleUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/security/web/PrivilegeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/security/web/PrivilegeController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/security/web/RoleController.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/security/web/RoleController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/seq/entity/Seq.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/seq/entity/Seq.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/seq/service/impl/SeqServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/seq/service/impl/SeqServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/task/utils/TaskUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/task/utils/TaskUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/dao/UserDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/dao/UserDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/dao/UserDeptDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/dao/UserDeptDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/entity/User$StudentStatus.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/entity/User$StudentStatus.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/entity/User$TeacherStatus.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/entity/User$TeacherStatus.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/entity/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/entity/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/entity/UserDeptKey.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/entity/UserDeptKey.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/entity/UserParttime.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/entity/UserParttime.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/entity/UserRegions.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/entity/UserRegions.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/entity/UserRegister$Status.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/entity/UserRegister$Status.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/entity/UserRegister$Type.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/entity/UserRegister$Type.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/entity/UserRegister.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/entity/UserRegister.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/entity/UserRegisterFlow$Status.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/entity/UserRegisterFlow$Status.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/entity/UserRegisterFlow$TaskId.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/entity/UserRegisterFlow$TaskId.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/entity/UserRegisterFlow$TaskName.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/entity/UserRegisterFlow$TaskName.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/entity/UserRegisterFlow.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/entity/UserRegisterFlow.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/entity/UserResearch.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/entity/UserResearch.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/entity/UserReward.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/entity/UserReward.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/entity/UserStaff.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/entity/UserStaff.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/entity/UserTransfer.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/entity/UserTransfer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/mapper/UserDeptMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/mapper/UserDeptMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/mapper/UserMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/mapper/UserStaffMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/mapper/UserStaffMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/service/IUserDeptService.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/service/IUserDeptService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/service/IUserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/service/IUserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/service/impl/UserDeptServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/service/impl/UserDeptServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/service/impl/UserHisServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/service/impl/UserHisServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/service/impl/UserParttimeServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/service/impl/UserParttimeServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/service/impl/UserRegionsServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/service/impl/UserRegionsServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/service/impl/UserResearchServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/service/impl/UserResearchServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/service/impl/UserRewardServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/service/impl/UserRewardServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/service/impl/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/service/impl/UserServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/service/impl/UserStaffHisServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/service/impl/UserStaffHisServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/service/impl/UserStaffServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/service/impl/UserStaffServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/utils/RandomValidateCode.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/utils/RandomValidateCode.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/utils/UserConstants.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/utils/UserConstants.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/utils/UserRegionsUtils$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/utils/UserRegionsUtils$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/utils/UserRegionsUtils$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/utils/UserRegionsUtils$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/utils/UserRegionsUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/utils/UserRegionsUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/utils/UserUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/utils/UserUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/web/UserManagerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/web/UserManagerController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/web/UserMyInfoController.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/web/UserMyInfoController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/web/UserRegionsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/web/UserRegionsController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/web/UserSiteController.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/user/web/UserSiteController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/validate/service/impl/ValidateServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/validate/service/impl/ValidateServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/validate/utils/SmsUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/validate/utils/SmsUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/web/RemoteContentServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/web/RemoteContentServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/web/Servlets.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/web/Servlets.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/web/StaticContentServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/common/web/StaticContentServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/cache/ehcache/CacheInterceptor.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/cache/ehcache/CacheInterceptor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/cache/ehcache/PageEhCacheFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/cache/ehcache/PageEhCacheFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/cache/local/CacheMessageListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/cache/local/CacheMessageListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/cache/local/CacheMessageSender$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/cache/local/CacheMessageSender$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/cache/local/CacheMessageSender.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/cache/local/CacheMessageSender.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/cache/local/CacheReloadInvoker.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/cache/local/CacheReloadInvoker.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/cache/redis/JedisConnectionFactory.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/cache/redis/JedisConnectionFactory.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/entity/Response$ValidFieldResult.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/entity/Response$ValidFieldResult.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/entity/Response.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/entity/Response.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/exception/Exceptions.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/exception/Exceptions.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/exception/IPantherHandlerExceptionResolver.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/exception/IPantherHandlerExceptionResolver.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/filter/AuthFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/filter/AuthFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/filter/HTMLCharacterRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/filter/HTMLCharacterRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/page/Pagination.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/page/Pagination.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/persistence/dao/MyBatisDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/persistence/dao/MyBatisDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/persistence/page/MybatisPaginationInterceptor.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/persistence/page/MybatisPaginationInterceptor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/security/shiro/HasAnyPermissionsTag.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/security/shiro/HasAnyPermissionsTag.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/security/utils/AES$AESMode.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/security/utils/AES$AESMode.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/security/utils/AES.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/security/utils/AES.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/security/utils/Cryptos.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/security/utils/Cryptos.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/security/utils/Digests.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/security/utils/Digests.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/security/utils/ThreeDes.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/security/utils/ThreeDes.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/spring/mvc/method/annotation/BaseMethodArgumentResolver.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/spring/mvc/method/annotation/BaseMethodArgumentResolver.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/spring/mvc/method/annotation/FormModelMethodArgumentResolver.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/spring/mvc/method/annotation/FormModelMethodArgumentResolver.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/spring/mvc/method/annotation/RequestJsonParamMethodArgumentResolver$RequestJsonParamNamedValueInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/spring/mvc/method/annotation/RequestJsonParamMethodArgumentResolver$RequestJsonParamNamedValueInfo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/spring/mvc/method/annotation/RequestJsonParamMethodArgumentResolver.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/spring/mvc/method/annotation/RequestJsonParamMethodArgumentResolver.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/tree/TreeTestMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/tree/TreeTestMain.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/tree/model/StringTreeWalker.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/tree/model/StringTreeWalker.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/tree/visitor/RecursiveNodeWalker.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/tree/visitor/RecursiveNodeWalker.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/tree/visitor/TreeNodePicker.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/tree/visitor/TreeNodePicker.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/utils/AppConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/utils/AppConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/utils/BeanLocator.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/utils/BeanLocator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/utils/CommonConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/utils/CommonConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/utils/Encodes.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/utils/Encodes.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/utils/ExportUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/utils/ExportUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/utils/HtmlUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/utils/HtmlUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/utils/IdCardUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/utils/IdCardUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/utils/ImageCut.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/utils/ImageCut.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/utils/ImageProcessor.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/utils/ImageProcessor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/utils/JSONUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/utils/JSONUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/utils/JsonUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/utils/JsonUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/utils/PropertiesLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/utils/PropertiesLoader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/utils/Reflections.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/utils/Reflections.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/utils/StringUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/utils/StringUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/utils/Zipper.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/utils/Zipper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/web/controller/BaseController.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/web/controller/BaseController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/web/interceptor/SearchParamHandleInterceptor.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/web/interceptor/SearchParamHandleInterceptor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/web/taglib/ConstantsTag.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/web/taglib/ConstantsTag.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/web/utils/ServletUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/web/utils/ServletUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/web/validate/BeanValidators.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/web/validate/BeanValidators.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/web/vo/AjaxReturnObject$ValidFieldResult.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/web/vo/AjaxReturnObject$ValidFieldResult.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/web/vo/AjaxReturnObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipanther/core/web/vo/AjaxReturnObject.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipr/core/entity/Response$ValidFieldResult.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipr/core/entity/Response$ValidFieldResult.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipr/core/entity/Response.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipr/core/entity/Response.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipr/core/web/controller/BaseController.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/com/hcis/ipr/core/web/controller/BaseController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/Example.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/Example.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/messages/CmdMsgMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/messages/CmdMsgMessage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/messages/CmdNtfMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/messages/CmdNtfMessage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/messages/ContactNtfMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/messages/ContactNtfMessage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/messages/CustomTxtMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/messages/CustomTxtMessage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/messages/ImgMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/messages/ImgMessage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/messages/ImgTextMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/messages/ImgTextMessage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/messages/InfoNtfMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/messages/InfoNtfMessage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/messages/LBSMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/messages/LBSMessage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/messages/ProfileNtfMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/messages/ProfileNtfMessage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/messages/TxtMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/messages/TxtMessage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/messages/VoiceMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/messages/VoiceMessage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/methods/Chatroom.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/methods/Chatroom.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/methods/Group.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/methods/Group.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/methods/Message.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/methods/Message.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/methods/Push.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/methods/Push.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/methods/SMS.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/methods/SMS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/methods/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/methods/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/methods/Wordfilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/methods/Wordfilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/BlockChatRoomUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/BlockChatRoomUser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/BlockUsers.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/BlockUsers.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/ChatRoom.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/ChatRoom.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/ChatRoomInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/ChatRoomInfo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/ChatRoomUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/ChatRoomUser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/ChatroomQueryReslut.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/ChatroomQueryReslut.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/ChatroomUserQueryReslut.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/ChatroomUserQueryReslut.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/CheckOnlineReslut.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/CheckOnlineReslut.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/CodeSuccessReslut.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/CodeSuccessReslut.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/GagChatRoomUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/GagChatRoomUser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/GagGroupUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/GagGroupUser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/GroupInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/GroupInfo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/GroupUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/GroupUser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/GroupUserQueryReslut.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/GroupUserQueryReslut.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/HistoryMessageReslut.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/HistoryMessageReslut.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/ListBlockChatroomUserReslut.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/ListBlockChatroomUserReslut.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/ListGagChatroomUserReslut.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/ListGagChatroomUserReslut.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/ListGagGroupUserReslut.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/ListGagGroupUserReslut.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/ListWordfilterReslut.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/ListWordfilterReslut.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/MsgObj.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/MsgObj.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/Notification.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/Notification.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/PlatformNotification.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/PlatformNotification.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/PushMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/PushMessage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/QueryBlacklistUserReslut.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/QueryBlacklistUserReslut.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/QueryBlockUserReslut.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/QueryBlockUserReslut.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/SMSImageCodeReslut.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/SMSImageCodeReslut.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/SMSSendCodeReslut.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/SMSSendCodeReslut.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/TagObj.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/TagObj.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/TemplateMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/TemplateMessage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/TokenReslut.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/TokenReslut.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/UserTag.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/models/UserTag.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/util/HostType.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/util/HostType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/util/HttpUtil$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/util/HttpUtil$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/util/HttpUtil$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/util/HttpUtil$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/util/HttpUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/io/rong/util/HttpUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/org/springrain/frame/cached/RedisCachedImpl$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/org/springrain/frame/cached/RedisCachedImpl$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/org/springrain/frame/cached/RedisCachedImpl$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/org/springrain/frame/cached/RedisCachedImpl$10.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/org/springrain/frame/cached/RedisCachedImpl$11.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/org/springrain/frame/cached/RedisCachedImpl$11.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/org/springrain/frame/cached/RedisCachedImpl$12.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/org/springrain/frame/cached/RedisCachedImpl$12.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/org/springrain/frame/cached/RedisCachedImpl$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/org/springrain/frame/cached/RedisCachedImpl$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/org/springrain/frame/cached/RedisCachedImpl$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/org/springrain/frame/cached/RedisCachedImpl$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/org/springrain/frame/cached/RedisCachedImpl$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/org/springrain/frame/cached/RedisCachedImpl$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/org/springrain/frame/cached/RedisCachedImpl$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/org/springrain/frame/cached/RedisCachedImpl$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/org/springrain/frame/cached/RedisCachedImpl$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/org/springrain/frame/cached/RedisCachedImpl$6.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/org/springrain/frame/cached/RedisCachedImpl$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/org/springrain/frame/cached/RedisCachedImpl$7.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/org/springrain/frame/cached/RedisCachedImpl$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/org/springrain/frame/cached/RedisCachedImpl$8.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/org/springrain/frame/cached/RedisCachedImpl$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/org/springrain/frame/cached/RedisCachedImpl$9.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/org/springrain/frame/cached/RedisCachedImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/org/springrain/frame/cached/RedisCachedImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/org/springside/modules/beanvalidator/BeanValidators.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/org/springside/modules/beanvalidator/BeanValidators.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/org/springside/modules/utils/Collections3.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/org/springside/modules/utils/Collections3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/org/springside/modules/utils/Encodes.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/org/springside/modules/utils/Encodes.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/org/springside/modules/utils/Exceptions.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/org/springside/modules/utils/Exceptions.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/org/springside/modules/utils/PropertiesLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/org/springside/modules/utils/PropertiesLoader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/org/springside/modules/utils/Reflections.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/org/springside/modules/utils/Reflections.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/org/springside/modules/utils/Threads$WrapExceptionRunnable.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/org/springside/modules/utils/Threads$WrapExceptionRunnable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/org/springside/modules/utils/Threads.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/org/springside/modules/utils/Threads.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/spring/common/spring-mail.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/spring/common/spring-mail.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/classes/test/StringTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/classes/test/StringTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/ipr_common-20150209.jar" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/ipr_common-20150209.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/maven-archiver/pom.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ipr_common/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/ipr_common/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="02" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1YI6bDsjljvobSbx7DHgvPHSWUV" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/ipbox_web/src/main/webapp" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="vcs.Subversion" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\0214bug修改\02\ipbox_web\src\main\webapp" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="[tomcat7:run]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="tomcat7:run" />
+              </list>
+            </option>
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration" cleanupOnStartRun="true">
+    <configuration>C:\Users\Administrator\AppData\Roaming\Subversion</configuration>
+    <supportedVersion>125</supportedVersion>
+  </component>
+  <component name="SvnFileUrlMappingImpl">
+    <option name="myMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="E:\0214bug修改\02" />
+          <option name="myCopyRoot" value="E:\0214bug修改\02" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+    <option name="myMoreRealMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="E:\0214bug修改\02" />
+          <option name="myCopyRoot" value="E:\0214bug修改\02" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="efda35ca-4761-4435-9746-c45c46922912" name="Default Changelist" comment="" />
+      <created>1582617830023</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1582617830023</updated>
+      <workItem from="1582617831156" duration="2939000" />
+      <workItem from="1582855318538" duration="22861000" />
+      <workItem from="1582941725398" duration="15024000" />
+      <workItem from="1582967328665" duration="1462000" />
+      <workItem from="1583115109045" duration="100000" />
+      <workItem from="1583118437859" duration="691000" />
+      <workItem from="1583132891160" duration="1834000" />
+      <workItem from="1583139862344" duration="2219000" />
+      <workItem from="1583201185931" duration="70000" />
+      <workItem from="1583201417159" duration="541000" />
+      <workItem from="1583206857664" duration="15348000" />
+      <workItem from="1583460956293" duration="23063000" />
+      <workItem from="1583546207222" duration="1651000" />
+      <workItem from="1583562645478" duration="56000" />
+      <workItem from="1583562730067" duration="11554000" />
+      <workItem from="1583719088521" duration="673000" />
+      <workItem from="1583747473367" duration="532000" />
+      <workItem from="1583808309068" duration="6193000" />
+      <workItem from="1583892184287" duration="12795000" />
+      <workItem from="1583978628559" duration="7526000" />
+      <workItem from="1584320135264" duration="5412000" />
+      <workItem from="1584406794406" duration="3174000" />
+      <workItem from="1584493136249" duration="1059000" />
+      <workItem from="1584497173499" duration="1216000" />
+      <workItem from="1584498838430" duration="8871000" />
+      <workItem from="1587956469964" duration="14893000" />
+    </task>
+    <task id="LOCAL-00001">
+      <created>1583118847766</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1583118847766</updated>
+    </task>
+    <task id="LOCAL-00002">
+      <created>1583480118858</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1583480118858</updated>
+    </task>
+    <task id="LOCAL-00003">
+      <created>1583484766791</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1583484766791</updated>
+    </task>
+    <task id="LOCAL-00004">
+      <created>1583485138659</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1583485138659</updated>
+    </task>
+    <task id="LOCAL-00005">
+      <created>1583547748289</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1583547748289</updated>
+    </task>
+    <task id="LOCAL-00006">
+      <created>1583910822426</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1583910822426</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="LAST_COMMIT_MESSAGE" value="" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="432" y="162" key="#Notifications" timestamp="1582865510133">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="432" y="162" key="#Notifications/0.0.1680.1010@0.0.1680.1010" timestamp="1582865510133" />
+    <state x="294" y="159" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1583573847510">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="294" y="159" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1680.1010@0.0.1680.1010" timestamp="1583573847510" />
+    <state x="645" y="213" key="#com.intellij.ide.util.MemberChooser" timestamp="1583481610292">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="645" y="213" key="#com.intellij.ide.util.MemberChooser/0.0.1680.1010@0.0.1680.1010" timestamp="1583481610292" />
+    <state x="423" y="429" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1587972657983">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="423" y="429" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1680.1010@0.0.1680.1010" timestamp="1587972657983" />
+    <state x="292" y="96" key="CommitChangelistDialog2" timestamp="1583910821250">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="292" y="96" key="CommitChangelistDialog2/0.0.1680.1010@0.0.1680.1010" timestamp="1583910821250" />
+    <state width="475" height="466" key="DebuggerActiveHint" timestamp="1587971407447">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state width="475" height="466" key="DebuggerActiveHint/0.0.1680.1010@0.0.1680.1010" timestamp="1587971407447" />
+    <state x="160" y="82" key="DiffContextDialog" timestamp="1582967689654">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="160" y="82" key="DiffContextDialog/0.0.1680.1010@0.0.1680.1010" timestamp="1582967689654" />
+    <state x="620" y="259" key="FileChooserDialogImpl" timestamp="1582865225886">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="620" y="259" key="FileChooserDialogImpl/0.0.1680.1010@0.0.1680.1010" timestamp="1582865225886" />
+    <state width="1619" height="353" key="GridCell.Tab.0.bottom" timestamp="1587976263872">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state width="1619" height="353" key="GridCell.Tab.0.bottom/0.0.1680.1010@0.0.1680.1010" timestamp="1587976263872" />
+    <state width="1619" height="353" key="GridCell.Tab.0.center" timestamp="1587976263872">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state width="1619" height="353" key="GridCell.Tab.0.center/0.0.1680.1010@0.0.1680.1010" timestamp="1587976263872" />
+    <state width="1619" height="353" key="GridCell.Tab.0.left" timestamp="1587976263871">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state width="1619" height="353" key="GridCell.Tab.0.left/0.0.1680.1010@0.0.1680.1010" timestamp="1587976263871" />
+    <state width="1619" height="353" key="GridCell.Tab.0.right" timestamp="1587976263872">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state width="1619" height="353" key="GridCell.Tab.0.right/0.0.1680.1010@0.0.1680.1010" timestamp="1587976263872" />
+    <state width="1619" height="353" key="GridCell.Tab.1.bottom" timestamp="1587976263872">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state width="1619" height="353" key="GridCell.Tab.1.bottom/0.0.1680.1010@0.0.1680.1010" timestamp="1587976263872" />
+    <state width="1619" height="353" key="GridCell.Tab.1.center" timestamp="1587976263872">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state width="1619" height="353" key="GridCell.Tab.1.center/0.0.1680.1010@0.0.1680.1010" timestamp="1587976263872" />
+    <state width="1619" height="353" key="GridCell.Tab.1.left" timestamp="1587976263872">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state width="1619" height="353" key="GridCell.Tab.1.left/0.0.1680.1010@0.0.1680.1010" timestamp="1587976263872" />
+    <state width="1619" height="353" key="GridCell.Tab.1.right" timestamp="1587976263872">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state width="1619" height="353" key="GridCell.Tab.1.right/0.0.1680.1010@0.0.1680.1010" timestamp="1587976263872" />
+    <state x="232" y="79" key="SettingsEditor" timestamp="1584501959784">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="232" y="79" key="SettingsEditor/0.0.1680.1010@0.0.1680.1010" timestamp="1584501959784" />
+    <state x="11" y="52" key="com.intellij.ide.util.TipDialog" timestamp="1584498829162">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="11" y="52" key="com.intellij.ide.util.TipDialog/0.0.1680.1010@0.0.1680.1010" timestamp="1584498829162" />
+    <state x="653" y="345" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1583909834917">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="653" y="345" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1680.1010@0.0.1680.1010" timestamp="1583909834917" />
+    <state x="385" y="240" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1587971411679">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="385" y="240" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1680.1010@0.0.1680.1010" timestamp="1587971411679" />
+    <state x="447" y="201" width="786" height="608" key="find.popup" timestamp="1587972230286">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="447" y="201" width="786" height="608" key="find.popup/0.0.1680.1010@0.0.1680.1010" timestamp="1587972230286" />
+    <state x="503" y="221" width="672" height="678" key="search.everywhere.popup" timestamp="1587972059003">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="503" y="221" width="672" height="678" key="search.everywhere.popup/0.0.1680.1010@0.0.1680.1010" timestamp="1587972059003" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/ipr_common/src/main/java/com/hcis/ipanther/common/dept/service/impl/DepartmentServiceImpl.java</url>
+          <line>167</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/ipr_common/src/main/java/com/hcis/ipanther/common/user/service/impl/UserServiceImpl.java</url>
+          <line>2101</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/ipbox_web/src/main/java/com/hcis/ipr/intellectual/patent/web/PatentController.java</url>
+          <line>125</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/ipbox_web/src/main/java/com/hcis/ipr/intellectual/patent/web/PatentController.java</url>
+          <line>215</line>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/ipbox_web/src/main/java/com/hcis/ipr/intellectual/patent/web/PatentController.java</url>
+          <line>180</line>
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/ipbox_web/src/main/java/com/hcis/ipr/intellectual/patent/service/impl/PatentServiceImpl.java</url>
+          <line>511</line>
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/ipbox_web/src/main/java/com/hcis/ipr/alipay/utils/AlipayUtils.java</url>
+          <line>68</line>
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

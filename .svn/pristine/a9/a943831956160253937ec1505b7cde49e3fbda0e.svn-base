@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcis.ipanther.common.security.mapper.UserRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.hcis.ipanther.common.security.entity.UserRole" >
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
+  </resultMap>
+     <resultMap type="java.util.Map" id="selectUserId">
+   <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+   </resultMap>
+  <select id="selectByRoleAndUser" resultMap="selectUserId" parameterType="java.util.Map">
+  		select t.user_id from  ipanther_auth_userrole t where 
+  		t.role_id=#{roleId,jdbcType=VARCHAR} 
+  		and t.user_id in 
+  		<foreach collection="userIds" open="(" close=")" separator="," item="userIds">
+  		#{userIds,jdbcType=VARCHAR} 
+  		</foreach>
+  </select>
+  
+    <select id="selectByModule" resultMap="BaseResultMap" parameterType="searchParam">
+  		select ur.user_id,ur.role_id  
+  		from  IPANTHER_AUTH_USERROLE ur join ipanther_auth_role r on ur.role_id=r.id
+		where r.is_deleted='N' 
+		and ur.user_id=#{paramMap.userId,jdbcType=VARCHAR} and (instr(r.module,CONCAT('"',#{paramMap.module,jdbcType=VARCHAR},'"'))>0 or r.module is null)
+  </select>
+  
+  <insert id="insert" parameterType="com.hcis.ipanther.common.security.entity.UserRole" >
+    insert into IPANTHER_AUTH_USERROLE (USER_ID, ROLE_ID)
+    values (#{userId,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hcis.ipanther.common.security.entity.UserRole" >
+    insert into IPANTHER_AUTH_USERROLE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="roleId != null" >
+        ROLE_ID,
+      </if>
+    </trim>  
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <delete id="deleteByUserId" parameterType="java.lang.String">
+  	delete from ipanther_auth_userrole where user_id= #{userId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByRoleId" parameterType="java.lang.String">
+  	delete from ipanther_auth_userrole where role_id=#{roleId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByLogic" parameterType="com.hcis.ipanther.common.security.entity.UserRole">
+   	delete from IPANTHER_AUTH_USERROLE
+  	  <where>
+  	   <if test="userId != null" >
+        AND IPANTHER_AUTH_USERROLE.USER_ID = #{userId,jdbcType=VARCHAR}
+      </if>
+      <if test="roleId != null" >
+        AND IPANTHER_AUTH_USERROLE.ROLE_ID = #{roleId,jdbcType=VARCHAR}
+      </if>
+      <!-- 角色代码过滤 -->
+      <if test="roleCodes!=null">
+			AND exists (
+				select 1 from ipanther_auth_role a where a.id = IPANTHER_AUTH_USERROLE.role_id and a.role_code in 
+				<foreach collection="roleCodes" item="roleCode" separator="," open="(" close=")">
+		 			#{roleCode,jdbcType=VARCHAR}
+		 		</foreach>
+			)
+    </if>
+  	  </where> 
+  </delete>
+  
+</mapper>

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib>
+	<tlib-version>1.1.2</tlib-version>
+	<jsp-version>2.0</jsp-version>
+	<short-name>ipanther-core</short-name>
+	<uri>http://ipanther-core.hcis.com</uri>
+	<description>IPanther Core Function lib</description>
+	<!--
+	<function>
+		<name>getCurrentDate</name>
+		<function-class>com.hcis.ipanther.core.tags.DateTag</function-class>
+		<function-signature>java.lang.String getCurrentDate(java.lang.String)</function-signature>
+	</function>-->
+	<function>
+		<!--EL页面调用名字-->
+		<name>getAppName</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.core.utils.CommonConfig</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>java.lang.String getAppName()</function-signature>
+	</function>
+	<function>
+		<!--EL页面调用名字-->
+		<name>getProperty</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.core.utils.CommonConfig</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>java.lang.String getProperty(java.lang.String)</function-signature>
+	</function>
+	<function>
+	<!--EL页面调用名字-->
+		<name>uuid</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.core.utils.Identities</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>java.lang.String uuid2()</function-signature>
+	</function>	
+	<function>
+	<!--EL页面调用名字-->
+		<name>inCurrentDate</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.core.utils.DateUtils</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>boolean inCurrentDate(java.util.Date,java.util.Date)</function-signature>
+	</function>
+	<function>
+	<!--EL页面调用名字-->
+		<name>inCurrentDateWithPattern</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.core.utils.DateUtils</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>boolean inCurrentDate(java.util.Date,java.util.Date,java.lang.String)</function-signature>
+	</function>
+	<function>
+	<!--EL页面调用名字-->
+		<name>beforeCurrentDate</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.core.utils.DateUtils</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>boolean beforeCurrentDate(java.util.Date)</function-signature>
+	</function>
+	<function>
+	<!--EL页面调用名字-->
+		<name>beforeCurrentDateOffset</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.core.utils.DateUtils</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>boolean beforeCurrentDate(java.util.Date,long)</function-signature>
+	</function>
+	<function>
+	<!--EL页面调用名字-->
+		<name>afterCurrentDate</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.core.utils.DateUtils</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>boolean afterCurrentDate(java.util.Date)</function-signature>
+	</function>
+	<function>
+	<!--EL页面调用名字-->
+		<name>afterCurrentDateOffset</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.core.utils.DateUtils</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>boolean afterCurrentDate(java.util.Date,long)</function-signature>
+	</function>	
+	<function>
+	<!--EL页面调用名字-->
+		<name>getDateSubString</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.core.utils.DateUtils</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>java.util.String getDateSubString(java.util.Date,java.util.Date,java.lang.String)</function-signature>
+	</function>
+	<function>
+	<!--EL页面调用名字-->
+		<name>getCurrentDateSubString</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.core.utils.DateUtils</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>java.util.String getCurrentDateSubString(java.util.Date,java.lang.String)</function-signature>
+	</function>
+	<function>
+	<!--EL页面调用名字-->
+		<name>getYearOptions</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.core.utils.DateUtils</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>String getYearOptions(int,int)</function-signature>
+	</function>	
+	<function>
+	<!--EL页面调用名字-->
+		<name>getYearOptionsSelected</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.core.utils.DateUtils</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>String getYearOptionsSelected(int,int,short)</function-signature>
+	</function>	
+	<function>
+	<!--EL页面调用名字-->
+		<name>getJSONMap</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.core.utils.JSONUtils</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>java.util.Map getJSONMap(java.lang.String)</function-signature>
+	</function>	
+	<function>	
+		<name>getJSONMapValue</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.core.utils.JSONUtils</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>java.lang.Object getJSONMapValue(java.lang.String,java.lang.String)</function-signature>
+	</function>
+	<function>	
+		<name>getJSONArray</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.core.utils.JSONUtils</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>java.lang.Object[] getJSONArray(java.lang.String)</function-signature>
+	</function>	
+	<function>	
+		<name>getJSONArrayMapValue</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.core.utils.JSONUtils</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>java.lang.Object[] getJSONArrayMapValue(java.lang.String,java.lang.String)</function-signature>
+	</function>	
+    <function>	
+		<name>getJSONArrayMap</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.core.utils.JSONUtils</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>java.util.Map[] getJSONArrayMap(java.lang.String)</function-signature>
+	</function>	
+	<function>
+		<!--EL页面调用名字-->
+		<name>encrypt</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.core.security.utils.ThreeDes</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>String encryptMode(java.lang.String)</function-signature>
+	</function>
+    <function>
+		<!--EL页面调用名字-->
+		<name>decryptMode</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.core.security.utils.ThreeDes</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>String decryptMode(java.lang.String)</function-signature>
+	</function>
+		<!--<function>	
+		<name>replaceAll</name>
+	指定标签的处理类，指定了标签由哪个Java类来处理。
+		<function-class>com.hcis.ipanther.core.lang.StringTag</function-class>
+		<function-signature>java.lang.String replaceAll(java.lang.String,java.lang.String,java.lang.String)</function-signature>
+	</function>	-->
+	<function>	
+		<name>bigDecimalDivide</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.core.utils.NumberUtils</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>double divide(java.math.BigDecimal,java.math.BigDecimal,int,int)</function-signature>
+	</function>
+	<function>
+		<!--EL页面调用名字-->
+		<name>microBlogDate</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.core.utils.DateUtils</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>String microBlogDate(java.util.Date)</function-signature>
+	</function>	
+	<function>
+		<!--EL页面调用名字-->
+		<name>getHtmlForText</name>
+		<!--指定标签的处理类，指定了标签由哪个Java类来处理。-->
+		<function-class>com.hcis.ipanther.core.utils.HtmlUtils</function-class>
+		<!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径-->
+		<function-signature>String getHtmlForText(java.lang.String)</function-signature>
+	</function>	
+</taglib>

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcis.ipanther.common.login.sqlmap.LoginLogMapper" >
+  <resultMap id="BaseResultMap" type="com.hcis.ipanther.common.login.vo.LoginLog" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="SESSION_ID" property="sessionId" jdbcType="VARCHAR" />
+    <result column="IP_ADDRESS" property="ipAddress" jdbcType="VARCHAR" />
+    <result column="OS" property="os" jdbcType="VARCHAR" />
+    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="CHAR" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="listResultMap" type="java.util.Map" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="REAL_NAME" property="realName" jdbcType="VARCHAR" />
+    <result column="PAPERWORK_NO" property="paperworkNo" jdbcType="VARCHAR" />
+    <result column="SESSION_ID" property="sessionId" jdbcType="VARCHAR" />
+    <result column="IP_ADDRESS" property="ipAddress" jdbcType="VARCHAR" />
+    <result column="OS" property="os" jdbcType="VARCHAR" />
+    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="CHAR" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, USER_ID, SESSION_ID, IP_ADDRESS, OS, CREATOR, CREATE_TIME, UPDATEDBY, UPDATE_TIME, 
+    IS_DELETED, VERSION
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from IPANTHER_LOGIN_LOG
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectBySearchParam" resultMap="listResultMap" parameterType="searchParam">
+    select 
+    LOG.ID, LOG.USER_ID, LOG.SESSION_ID, LOG.IP_ADDRESS, LOG.OS, LOG.CREATOR, LOG.CREATE_TIME, LOG.UPDATEDBY, LOG.UPDATE_TIME, 
+    LOG.IS_DELETED, LOG.VERSION,U.USER_NAME,U.REAL_NAME,U.PAPERWORK_NO
+    from IPANTHER_LOGIN_LOG LOG
+    	left join IPANTHER_USER U ON LOG.USER_ID=U.ID
+    where 1=1
+    <if test="sessionId != null and sessionId[0] != ''">
+    	and LOG.SESSION_ID= #{sessionId[0],jdbcType=VARCHAR}
+    </if>
+    <if test="userId != null and userId[0] != ''">
+    	and LOG.USER_ID= #{userId[0],jdbcType=VARCHAR}
+    </if>
+    <if test="userName != null and userName[0] != ''">
+    	and U.USER_NAME like '%${userName[0]}%'
+    </if>
+    <if test="realName != null and realName[0] != ''">
+    	and U.REAL_NAME like '%${realName[0]}%'
+    </if>
+    <if test="paperworkNo != null and paperworkNo[0] != ''">
+    	and U.PAPERWORK_NO = #{paperworkNo[0],jdbcType=VARCHAR}
+    </if>
+    <if test="startTime1!=null and startTime1[0]!=''">
+    	and LOG.CREATE_TIME &gt;= to_date('${startTime1[0]}','yyyy-mm-dd hh24:mi:ss')
+    </if>
+    <if test="startTime2!=null and startTime2[0]!=''">
+    	and LOG.CREATE_TIME &lt;= to_date('${startTime2[0]}','yyyy-mm-dd hh24:mi:ss')
+    </if>
+    <if test="isDeleted!=null and isDeleted[0]!=''">
+    	and LOG.IS_DELETED = #{isDeleted[0],jdbcType=CHAR}
+    </if>
+    ORDER BY LOG.CREATE_TIME DESC
+    </select>
+  <delete id="deleteByLogic" parameterType="com.hcis.ipanther.common.login.vo.LoginLog" >
+  	update IPANTHER_LOGIN_LOG
+  	set IS_DELETED='Y',
+  	UPDATEDBY=#{updatedby,jdbcType=VARCHAR},
+  	UPDATE_TIME=#{updateTime,jdbcType=TIMESTAMP},
+  	VERSION = VERSION+1
+  	WHERE ID=#{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from IPANTHER_LOGIN_LOG
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteBySearchParam" parameterType="searchParam">
+    delete from IPANTHER_LOGIN_LOG
+    where CREATE_TIME &gt;= to_date('${startTime[0]}','yyyy-mm-dd hh24:mi:ss')
+    	and CREATE_TIME &lt;= to_date('${endTime[0]}','yyyy-mm-dd hh24:mi:ss')
+  </delete>
+  <insert id="insert" parameterType="com.hcis.ipanther.common.login.vo.LoginLog" >
+    insert into IPANTHER_LOGIN_LOG (ID, USER_ID, SESSION_ID, 
+      IP_ADDRESS, OS, CREATOR, 
+      CREATE_TIME, UPDATEDBY, UPDATE_TIME, 
+      IS_DELETED, VERSION)
+    values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{sessionId,jdbcType=VARCHAR}, 
+      #{ipAddress,jdbcType=VARCHAR}, #{os,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updatedby,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{isDeleted,jdbcType=CHAR}, #{version,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hcis.ipanther.common.login.vo.LoginLog" >
+    insert into IPANTHER_LOGIN_LOG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="sessionId != null" >
+        SESSION_ID,
+      </if>
+      <if test="ipAddress != null" >
+        IP_ADDRESS,
+      </if>
+      <if test="os != null" >
+        OS,
+      </if>
+      <if test="creator != null" >
+        CREATOR,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionId != null" >
+        #{sessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="ipAddress != null" >
+        #{ipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="os != null" >
+        #{os,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=CHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hcis.ipanther.common.login.vo.LoginLog" >
+    update IPANTHER_LOGIN_LOG
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionId != null" >
+        SESSION_ID = #{sessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="ipAddress != null" >
+        IP_ADDRESS = #{ipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="os != null" >
+        OS = #{os,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      </if>
+        VERSION = VERSION+1
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="deleteByLogout" parameterType="com.hcis.ipanther.common.login.vo.LoginLog" >
+    update IPANTHER_LOGIN_LOG
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionId != null" >
+        SESSION_ID = #{sessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="ipAddress != null" >
+        IP_ADDRESS = #{ipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="os != null" >
+        OS = #{os,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      </if>
+        VERSION = VERSION + 1
+    </set>
+    where USER_ID = #{userId,jdbcType=VARCHAR} and SESSION_ID = #{sessionId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hcis.ipanther.common.login.vo.LoginLog" >
+    update IPANTHER_LOGIN_LOG
+    set USER_ID = #{userId,jdbcType=VARCHAR},
+      SESSION_ID = #{sessionId,jdbcType=VARCHAR},
+      IP_ADDRESS = #{ipAddress,jdbcType=VARCHAR},
+      OS = #{os,jdbcType=VARCHAR},
+      CREATOR = #{creator,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      VERSION = VERSION+1
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

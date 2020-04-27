@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib>
+	<tlib-version>1.0</tlib-version>
+	<jsp-version>2.0</jsp-version>
+	<short-name>ipr-cms</short-name>
+	<uri>http://ipr-cms.hcis.com</uri>
+	<description>Ipr Cms Function lib</description>
+	
+	<function>
+		<name>getCmsSite</name>
+		<function-class>com.hcis.ipr.cms.site.utils.CmsSiteUtils</function-class>
+		<function-signature>com.hcis.ipr.cms.site.entity.CmsSite getCmsSite(java.lang.String)</function-signature>
+	</function>
+</taglib>

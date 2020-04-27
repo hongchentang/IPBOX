@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcis.ipanther.common.task.mapper.TaskMapper" >
+   
+   <delete id="deleteIpantherAuthPrivilege">
+   		drop TABLE IPANTHER_AUTH_PRIVILEGE
+   </delete>
+   <delete id="deleteIpantherAuthRole">
+   		drop TABLE IPANTHER_AUTH_ROLE
+   </delete>
+   <delete id="deleteIpantherAuthRolepri">
+   		drop TABLE IPANTHER_AUTH_ROLEPRI
+   </delete>
+   <delete id="deleteIpantherDictEntry">
+   		drop TABLE IPANTHER_DICT_ENTRY
+   </delete>
+   <delete id="deleteIpantherDictType">
+   		drop TABLE IPANTHER_DICT_TYPE
+   </delete>
+   <delete id="deleteIpantherSeq">
+   		drop TABLE IPANTHER_SEQ
+   </delete>
+   <delete id="deleteIpantherAuthModule">
+   		drop TABLE IPANTHER_AUTH_MODULE
+   </delete>
+   <delete id="deleteUserview">
+   		drop  VIEW USERVIEW
+   </delete>
+   <delete id="deleteIpantherAdminRegions">
+   		drop TABLE  IPANTHER_ADMIN_REGIONS
+   </delete>
+</mapper>

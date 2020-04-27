@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcis.ipr.cms.site.mapper.CmsSiteMapper" >
+  <resultMap id="BaseResultMap" type="com.hcis.ipr.cms.site.entity.CmsSite" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="SITE_DO_MAIN" property="siteDoMain" jdbcType="VARCHAR" />
+    <result column="SOURCE_PATH" property="sourcePath" jdbcType="VARCHAR" />
+    <result column="COPYRIGHT" property="copyright" jdbcType="VARCHAR" />
+    <result column="RECORD_CODE" property="recordCode" jdbcType="VARCHAR" />
+    <result column="PARENT_ID" property="parentId" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="VARCHAR" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
+    <result column="INDEX_TEMPLET" property="indexTemplet" jdbcType="VARCHAR" />
+    <result column="LOGO" property="logo" jdbcType="VARCHAR" />
+    <result column="ORDER_NUM" property="orderNum" jdbcType="DECIMAL" />
+    <result column="CLICK_NUM" property="clickNum" jdbcType="DECIMAL" />
+    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATED_BY" property="updatedby" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="CHAR" />
+    <result column="IS_VALID" property="isValid" jdbcType="DECIMAL" />
+    <result column="PARENT_NAME" property="parentName" jdbcType="VARCHAR" />
+    <result column="PROVINCE" property="province" jdbcType="VARCHAR" />
+    <result column="CITY" property="city" jdbcType="VARCHAR" />
+    <result column="COUNTIES" property="counties" jdbcType="VARCHAR" />
+    <result column="IS_MAIN_SITE" property="isMainSite" jdbcType="VARCHAR" />
+    
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, NAME, SITE_DO_MAIN, SOURCE_PATH, COPYRIGHT, RECORD_CODE, PARENT_ID, STATE, URL, 
+    INDEX_TEMPLET, LOGO, ORDER_NUM, CLICK_NUM, CREATOR, CREATE_TIME, UPDATED_BY, UPDATE_TIME, 
+    VERSION, IS_DELETED,IS_VALID,PROVINCE,CITY,COUNTIES,IS_MAIN_SITE
+  </sql>
+  <sql id="Column_List" >
+    T.ID, T.NAME, T.SITE_DO_MAIN, T.SOURCE_PATH, T.COPYRIGHT, T.RECORD_CODE, T.PARENT_ID, T.STATE, 
+    T.URL,T.INDEX_TEMPLET, T.LOGO, T.ORDER_NUM, T.CLICK_NUM, T.CREATOR, T.CREATE_TIME, 
+    T.UPDATED_BY, T.UPDATE_TIME,T.VERSION, T.IS_DELETED,T.IS_VALID,T.PROVINCE,T.CITY,T.COUNTIES,
+    T.IS_MAIN_SITE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from CMS_SITE
+    where ID = #{id,jdbcType=VARCHAR}
+    AND　IS_DELETED='N'
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from CMS_SITE
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hcis.ipr.cms.site.entity.CmsSite" >
+    insert into CMS_SITE (ID, NAME, SITE_DO_MAIN, SOURCE_PATH, COPYRIGHT, 
+      RECORD_CODE,PARENT_ID, STATE, URL, INDEX_TEMPLET, LOGO, ORDER_NUM,CLICK_NUM, 
+      CREATOR, CREATE_TIME,UPDATED_BY, UPDATE_TIME, VERSION,IS_DELETED,IS_VALID,PROVINCE,
+      CITY,COUNTIES,IS_MAIN_SITE)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{siteDoMain,jdbcType=VARCHAR}, 
+      #{sourcePath,jdbcType=VARCHAR}, #{copyright,jdbcType=VARCHAR}, #{recordCode,jdbcType=VARCHAR}, 
+      #{parentId,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{indexTemplet,jdbcType=VARCHAR}, #{logo,jdbcType=VARCHAR}, #{orderNum,jdbcType=DECIMAL}, 
+      #{clickNum,jdbcType=DECIMAL}, #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updatedby,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{version,jdbcType=DECIMAL}, 
+      #{isDeleted,jdbcType=CHAR},#{isValid,jdbcType=VARCHAR},#{province,jdbcType=VARCHAR},
+      #{city,jdbcType=VARCHAR},#{counties,jdbcType=VARCHAR},#{isMainSite,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hcis.ipr.cms.site.entity.CmsSite" >
+    insert into CMS_SITE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="siteDoMain != null" >
+        SITE_DO_MAIN,
+      </if>
+      <if test="sourcePath != null" >
+        SOURCE_PATH,
+      </if>
+      <if test="copyright != null" >
+        COPYRIGHT,
+      </if>
+      <if test="recordCode != null" >
+        RECORD_CODE,
+      </if>
+      <if test="parentId != null" >
+        PARENT_ID,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="url != null" >
+        URL,
+      </if>
+      <if test="indexTemplet != null" >
+        INDEX_TEMPLET,
+      </if>
+      <if test="logo != null" >
+        LOGO,
+      </if>
+      <if test="orderNum != null" >
+        ORDER_NUM,
+      </if>
+      <if test="clickNum != null" >
+        CLICK_NUM,
+      </if>
+      <if test="creator != null" >
+        CREATOR,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updatedby != null" >
+        UPDATED_BY,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED,
+      </if>
+      <if test="isValid != null" >
+        IS_VALID,
+      </if>
+      <if test="province != null" >
+        PROVINCE,
+      </if>
+      <if test="city != null" >
+        CITY,
+      </if>
+      <if test="counties != null" >
+        COUNTIES,
+      </if>
+      <if test="isMainSite != null" >
+        IS_MAIN_SITE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="siteDoMain != null" >
+        #{siteDoMain,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcePath != null" >
+        #{sourcePath,jdbcType=VARCHAR},
+      </if>
+      <if test="copyright != null" >
+        #{copyright,jdbcType=VARCHAR},
+      </if>
+      <if test="recordCode != null" >
+        #{recordCode,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="indexTemplet != null" >
+        #{indexTemplet,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null" >
+        #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=DECIMAL},
+      </if>
+      <if test="clickNum != null" >
+        #{clickNum,jdbcType=DECIMAL},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=CHAR},
+      </if>
+      <if test="isValid != null" >
+        #{isValid,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="counties != null" >
+        #{counties,jdbcType=VARCHAR},
+      </if>
+      <if test="isMainSite != null" >
+        #{isMainSite,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hcis.ipr.cms.site.entity.CmsSite" >
+    update CMS_SITE
+    <set >
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="siteDoMain != null" >
+        SITE_DO_MAIN = #{siteDoMain,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcePath != null" >
+        SOURCE_PATH = #{sourcePath,jdbcType=VARCHAR},
+      </if>
+      <if test="copyright != null" >
+        COPYRIGHT = #{copyright,jdbcType=VARCHAR},
+      </if>
+      <if test="recordCode != null" >
+        RECORD_CODE = #{recordCode,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        PARENT_ID = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        URL = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="indexTemplet != null" >
+        INDEX_TEMPLET = #{indexTemplet,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null and logo!= '-1'" >
+        LOGO = #{logo,jdbcType=VARCHAR},
+      </if>
+       <if test="logo != null and logo== '-1'" >
+        LOGO = NULL,
+      </if>
+      <if test="orderNum != null" >
+        ORDER_NUM = #{orderNum,jdbcType=DECIMAL},
+      </if>
+      <if test="clickNum != null" >
+        CLICK_NUM = #{clickNum,jdbcType=DECIMAL},
+      </if>
+      <if test="creator != null" >
+        CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        UPDATED_BY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+        VERSION = VERSION+1,
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      </if>
+      <if test="isValid != null" >
+        IS_VALID = #{isValid,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        PROVINCE = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        CITY = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="counties != null" >
+        COUNTIES = #{counties,jdbcType=VARCHAR},
+      </if>
+      <if test="isMainSite != null" >
+        IS_MAIN_SITE = #{isMainSite,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hcis.ipr.cms.site.entity.CmsSite" >
+    update CMS_SITE
+    set NAME = #{name,jdbcType=VARCHAR},
+      SITE_DO_MAIN = #{siteDoMain,jdbcType=VARCHAR},
+      SOURCE_PATH = #{sourcePath,jdbcType=VARCHAR},
+      COPYRIGHT = #{copyright,jdbcType=VARCHAR},
+      RECORD_CODE = #{recordCode,jdbcType=VARCHAR},
+      PARENT_ID = #{parentId,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=VARCHAR},
+      URL = #{url,jdbcType=VARCHAR},
+      INDEX_TEMPLET = #{indexTemplet,jdbcType=VARCHAR},
+      LOGO = #{logo,jdbcType=VARCHAR},
+      ORDER_NUM = #{orderNum,jdbcType=DECIMAL},
+      CLICK_NUM = #{clickNum,jdbcType=DECIMAL},
+      CREATOR = #{creator,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{updatedby,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      VERSION = VERSION+1,
+      IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      IS_VALID = #{isValid,jdbcType=VARCHAR},
+      PROVINCE = #{province,jdbcType=VARCHAR},
+      CITY = #{city,jdbcType=VARCHAR},
+      COUNTIES = #{counties,jdbcType=VARCHAR},
+      IS_MAIN_SITE = #{isMainSite,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectBySearchParam" resultMap="BaseResultMap" parameterType="searchParam" >
+    select 
+    <include refid="Column_List" />,
+    (select CS.NAME from CMS_SITE CS where T.ID=CS.ID AND CS.IS_DELETED='N') PARENT_NAME
+    from CMS_SITE T
+    where T.IS_DELETED='N'
+    <if test="paramMap.name != null and paramMap.name != ''" >
+       AND T.ANME = #{paramMap.name,jdbcType=VARCHAR}
+    </if>
+    <if test="paramMap.province != null and paramMap.province != ''" >
+       AND T.PROVINCE = #{paramMap.province,jdbcType=VARCHAR}
+    </if>
+    <if test="paramMap.counties != null and paramMap.counties != ''" >
+       AND T.CITY = #{paramMap.counties,jdbcType=VARCHAR}
+    </if>
+    <if test="paramMap.city != null and paramMap.city != ''" >
+       AND T.COUNTIES = #{paramMap.city,jdbcType=VARCHAR}
+    </if>
+    ORDER BY T.CREATE_TIME,T.ID DESC
+  </select>
+  <delete id="deleteByLogic" parameterType="com.hcis.ipr.cms.site.entity.CmsSite">
+  	update CMS_SITE
+    <set>
+      <if test="updatedby != null" >
+        UPDATED_BY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+        VERSION = VERSION+1,
+        IS_DELETED='Y',
+    </set>
+  	WHERE ID=#{id,jdbcType=VARCHAR}
+  	AND　IS_DELETED='N'
+  </delete>
+  <select id="selectFirstSite" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Column_List" />,
+    (select CS.NAME from CMS_SITE CS where T.ID=CS.ID AND CS.IS_DELETED='N') PARENT_NAME
+    from CMS_SITE T
+    where T.IS_DELETED='N'
+    <if test="name != null and name != ''" >
+       AND T.ANME = #{name,jdbcType=VARCHAR}
+    </if>
+    <if test="parentId != null and parentId != ''" >
+       AND T.PARENT_ID = #{parentId,jdbcType=VARCHAR}
+    </if>
+    <if test="parentId == null or parentId == ''" >
+       AND T.PARENT_ID  IS NULL
+    </if>
+    <if test="province != null and province != ''" >
+       AND T.PROVINCE = #{province,jdbcType=VARCHAR}
+    </if>
+    <if test="counties != null and counties != ''" >
+       AND T.CITY = #{counties,jdbcType=VARCHAR}
+    </if>
+    <if test="city != null and city != ''" >
+       AND T.COUNTIES = #{city,jdbcType=VARCHAR}
+    </if>
+    <if test="regionsCode!=null and regionsCode!=''"> 
+	    <choose>
+	    	<when test="deptLevel!=null and deptLevel!='' and deptLevel='1'">
+	    		AND T.PROVINCE = #{regionsCode,jdbcType=VARCHAR}
+	    	</when>
+	    	<when test="deptLevel!=null and deptLevel!='' and deptLevel='2'">
+	    		AND T.CITY = #{regionsCode,jdbcType=VARCHAR}
+	    	</when>
+	    	<when test="deptLevel!=null and deptLevel!='' and deptLevel='3'">
+	    	 	AND T.CITY = #{regionsCode,jdbcType=VARCHAR}
+	    	</when>
+	    	<otherwise>
+	    		AND T.PROVINCE = #{regionsCode,jdbcType=VARCHAR}
+	    	</otherwise>
+	    </choose>
+    </if>
+    ORDER BY T.CREATE_TIME,T.ID DESC
+  </select>
+   <update id="deleteMainSite" parameterType="com.hcis.ipr.cms.site.entity.CmsSite">
+  	update CMS_SITE
+    <set>
+      <if test="updatedby != null" >
+        UPDATED_BY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+        VERSION = VERSION+1,
+        IS_MAIN_SITE='00',
+    </set>
+  	WHERE IS_DELETED='N'
+  	AND IS_MAIN_SITE='01'
+  </update>
+  <select id="selectMainSite" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select <include refid="Column_List" />,
+    (select CS.NAME from CMS_SITE CS where T.ID=CS.ID AND CS.IS_DELETED='N') PARENT_NAME
+    from CMS_SITE T
+    where T.IS_DELETED='N'
+    <if test="name != null and name != ''" >
+       AND T.ANME = #{name,jdbcType=VARCHAR}
+    </if>
+    <if test="parentId != null and parentId != ''" >
+       AND T.PARENT_ID = #{parentId,jdbcType=VARCHAR}
+    </if>
+    <if test="parentId == null or parentId == ''" >
+       AND T.PARENT_ID  IS NULL
+    </if>
+    <if test="province != null and province != ''" >
+       AND T.PROVINCE = #{province,jdbcType=VARCHAR}
+    </if>
+    <if test="counties != null and counties != ''" >
+       AND T.CITY = #{counties,jdbcType=VARCHAR}
+    </if>
+    <if test="city != null and city != ''" >
+       AND T.COUNTIES = #{city,jdbcType=VARCHAR}
+    </if>
+    AND IS_MAIN_SITE='01'
+    ORDER BY T.CREATE_TIME,T.ID DESC
+  </select>
+  <select id="selectHaveSourcePath" parameterType="java.lang.String" resultType="int">
+    select COUNT(T.ID)
+    from CMS_SITE T
+    where T.IS_DELETED='N'
+  	AND SOURCE_PATH = #{sourcePath,jdbcType=VARCHAR}
+  </select>
+</mapper>

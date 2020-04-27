@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:context="http://www.springframework.org/schema/context" xmlns:cache="http://www.springframework.org/schema/cache"
+        xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.2.xsd
+           http://www.springframework.org/schema/cache 
+           http://www.springframework.org/schema/cache/spring-cache-3.2.xsd">
+
+  <cache:annotation-driven />
+  
+  <bean name="cacheManager" class="com.google.code.ssm.spring.SSMCacheManager">
+    <property name="caches">
+      <set>
+        <bean class="com.google.code.ssm.spring.SSMCache">
+          <constructor-arg name="cache" index="0" ref="defaultCache" />
+          <!-- 5 minutes -->
+          <constructor-arg name="expiration" index="1" value="300" />
+          <!-- @CacheEvict(..., "allEntries" = true) doesn't work -->
+          <constructor-arg name="allowClear" index="2" value="false" />
+        </bean>
+        <bean class="com.google.code.ssm.spring.SSMCache">
+          <constructor-arg name="cache" index="0" ref="privilegeCache" />
+          <!-- 60 minutes -->
+          <constructor-arg name="expiration" index="1" value="3600" />
+          <!-- @CacheEvict(..., "allEntries" = true) doesn't work -->
+          <constructor-arg name="allowClear" index="2" value="false" />
+        </bean>
+      </set>
+    </property>
+  </bean>
+
+  <bean name="defaultCache" class="com.google.code.ssm.CacheFactory">
+    <property name="cacheName" value="defaultCache" />
+    <property name="cacheClientFactory">
+      <bean name="cacheClientFactory" class="com.google.code.ssm.providers.xmemcached.MemcacheClientFactoryImpl" />
+    </property>
+    <property name="addressProvider">
+      <bean class="com.google.code.ssm.config.DefaultAddressProvider">
+        <property name="address" value="127.0.0.1:11211" />
+      </bean>
+    </property>
+    <property name="configuration">
+      <bean class="com.google.code.ssm.providers.CacheConfiguration">
+        <property name="consistentHashing" value="true" />
+      </bean>
+    </property>
+  </bean>
+  <bean name="privilegeCache" class="com.google.code.ssm.CacheFactory">
+    <property name="cacheName" value="privilegeCache" />
+    <property name="cacheClientFactory">
+      <bean name="cacheClientFactory" class="com.google.code.ssm.providers.xmemcached.MemcacheClientFactoryImpl" />
+    </property>
+    <property name="addressProvider">
+      <bean class="com.google.code.ssm.config.DefaultAddressProvider">
+        <property name="address" value="127.0.0.1:11211" />
+      </bean>
+    </property>
+    <property name="configuration">
+      <bean class="com.google.code.ssm.providers.CacheConfiguration">
+        <property name="consistentHashing" value="true" />
+      </bean>
+    </property>
+  </bean>
+  
+  
+   <bean name="memcachedClientBuilder" class="net.rubyeye.xmemcached.XMemcachedClientBuilder">	 
+                <!-- XMemcachedClientBuilder have two arguments.First is server list,and second is weights array. -->
+                <constructor-arg>
+                        <list>
+                                <bean class="java.net.InetSocketAddress">
+                                        <constructor-arg>
+                                                <value>localhost</value>
+                                        </constructor-arg>
+                                        <constructor-arg>
+                                                <value>11211</value>
+                                        </constructor-arg>
+                                </bean>
+                        </list>
+                </constructor-arg>
+                <constructor-arg>
+                        <list>
+                                <value>1</value>
+                             <!--  <value>2</value>  --> 
+                        </list>
+                </constructor-arg>
+                <!--  
+                <property name="authInfoMap">
+					<map>
+						<entry key-ref="server1">
+							<bean class="net.rubyeye.xmemcached.auth.AuthInfo"
+								factory-method="typical">
+								<constructor-arg index="0">
+									<value>cacheuser</value>
+								</constructor-arg>
+								<constructor-arg index="1">
+									<value>123456</value>
+								</constructor-arg>
+							</bean>
+						</entry>
+					</map>
+				</property>-->
+                <property name="connectionPoolSize" value="2"/>
+                <property name="commandFactory">
+                        <bean class="net.rubyeye.xmemcached.command.TextCommandFactory"/>
+                </property>
+                <property name="sessionLocator">
+                        <bean class="net.rubyeye.xmemcached.impl.KetamaMemcachedSessionLocator"/>
+                </property>
+                <property name="transcoder">
+                        <bean class="net.rubyeye.xmemcached.transcoders.SerializingTranscoder" />
+                </property>
+        </bean>
+        <!-- Use factory bean to build memcached client -->
+        <bean name="memcachedClient" factory-bean="memcachedClientBuilder"
+                factory-method="build" destroy-method="shutdown"/>
+</beans>

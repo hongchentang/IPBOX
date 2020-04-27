@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcis.ipanther.common.security.mapper.RolePriMapper" >
+  <resultMap id="BaseResultMap" type="com.hcis.ipanther.common.security.entity.RolePri" >
+    <id column="PRIVILEGE_ID" property="privilegeId" jdbcType="VARCHAR" />
+    <id column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectBySearchParam" resultMap="BaseResultMap" parameterType="searchParam" >
+    SELECT 
+    ROLE_ID,PRIVILEGE_ID
+    from IPANTHER_AUTH_ROLEPRI
+    <where>
+	    <if test="paramMap.id!=null and paramMap.id!=''">
+	     role_id=#{paramMap.id,jdbcType=VARCHAR}
+	    </if>
+    </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.hcis.ipanther.common.security.entity.RolePri" >
+    delete from IPANTHER_AUTH_ROLEPRI
+    where PRIVILEGE_ID = #{privilegeId,jdbcType=VARCHAR}
+      and ROLE_ID = #{roleId,jdbcType=VARCHAR}
+  </delete>
+   <delete id="deleteByRoleId" parameterType="String" >
+    delete from IPANTHER_AUTH_ROLEPRI
+    where ROLE_ID = #{roleId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByModelIdAndRoleId" parameterType="searchParam" >
+   delete from IPANTHER_AUTH_ROLEPRI where role_id=#{paramMap.roleId,jdbcType=VARCHAR} and privilege_id in
+    (
+    <!-- 原oracle不适用  mysql -->
+    select aa.id from
+    (
+    select pri.id from IPANTHER_AUTH_ROLEPRI rolePri join IPANTHER_AUTH_PRIVILEGE pri 
+	on rolePri.Privilege_Id=pri.id 
+	where pri.is_deleted='N' and pri.module=#{paramMap.moduleId,jdbcType=VARCHAR}) as aa
+	) 
+  </delete>
+  
+   <delete id="deleteByPriId" parameterType="String" >
+    delete from IPANTHER_AUTH_ROLEPRI
+    where privilege_id in (#{priId,jdbcType=VARCHAR}
+    <!--  	select a.id  from (
+    	select t.id from 
+          IPANTHER_AUTH_PRIVILEGE t start with t.id =#{priId,jdbcType=VARCHAR}
+            connect  by prior  t.id =t.pid
+            ) a-->
+    )
+  </delete>
+  
+  <insert id="insert" parameterType="com.hcis.ipanther.common.security.entity.RolePri" >
+    insert into IPANTHER_AUTH_ROLEPRI (PRIVILEGE_ID, ROLE_ID)
+    values (#{privilegeId,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.hcis.ipanther.common.security.entity.RolePri" >
+    insert into IPANTHER_AUTH_ROLEPRI
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="privilegeId != null" >
+        PRIVILEGE_ID,
+      </if>
+      <if test="roleId != null" >
+        ROLE_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="privilegeId != null" >
+        #{privilegeId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <select id="selectByPriId" statementType="CALLABLE" parameterType="java.util.Map">
+        {#{result,mode=OUT,jdbcType=VARCHAR}=CALL getPrivilegeById(#{id,mode=IN,jdbcType=VARCHAR})}
+   </select>
+
+    <delete id="deleteBatch" parameterType="java.util.List">
+        delete from IPANTHER_AUTH_ROLEPRI
+        where privilege_id in
+        <foreach collection="list" item="priId" open="(" close=")" separator=",">
+            #{priId,jdbcType=VARCHAR}
+        </foreach>
+    </delete>
+</mapper>

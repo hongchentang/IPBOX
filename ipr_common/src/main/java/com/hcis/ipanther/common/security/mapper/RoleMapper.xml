@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hcis.ipanther.common.security.mapper.RoleMapper">
+  <resultMap id="BaseResultMap" type="com.hcis.ipanther.common.security.entity.Role">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="CHAR" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+    <result column="ROLE_CODE" property="roleCode" jdbcType="VARCHAR" />
+    <result column="MODULE" property="module" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="selectCount" type="String">
+    <result column="COUNT" property="count" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="rolePrivilegeMap" type="com.hcis.ipanther.common.security.entity.Role" >
+        <id column="ROLE_ID" jdbcType="VARCHAR" property="id" />
+	    <result column="ROLE_NAME" jdbcType="VARCHAR" property="name" />
+	    <result column="ROLE_DESCRIPTION" jdbcType="VARCHAR" property="description" />
+    <collection property="privilegeList" ofType="com.hcis.ipanther.common.security.entity.Privilege">
+    	<id column="ID" property="id" jdbcType="VARCHAR" />
+	    <result column="PID" property="pid" jdbcType="VARCHAR" />
+	    <result column="NAME" property="name" jdbcType="VARCHAR" />
+	    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+	    <result column="MODULE" property="module" jdbcType="VARCHAR" />
+	    <result column="PERMISSION" property="permission" jdbcType="VARCHAR" />
+	    <result column="IS_DISPLAY" property="isDisplay" jdbcType="CHAR" />
+	    <result column="URL" property="url" jdbcType="VARCHAR" />
+	    <result column="TARGET" property="target" jdbcType="VARCHAR" />
+	    <result column="ORDER_NO" property="orderNo" jdbcType="DECIMAL" />
+    </collection>
+  </resultMap>
+  <resultMap id="ResultMap" type="java.util.Map">
+    <result column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+    <result column="ROLE_CODE" property="roleCode" jdbcType="VARCHAR" />
+    <result column="MODULE" property="module" jdbcType="VARCHAR" />
+    <result column="TEXT" property="text" jdbcType="VARCHAR" />
+    <result column="CHECKED" property="checked" jdbcType="VARCHAR" />
+    <result column="ROLE_CODE" property="roleCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, NAME, DESCRIPTION,CREATOR, CREATE_TIME, UPDATEDBY, UPDATE_TIME, IS_DELETED, VERSION,ROLE_CODE,MODULE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select  
+    <include refid="Base_Column_List" />
+    from IPANTHER_AUTH_ROLE
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectBySearchParam" parameterType="searchParam" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from IPANTHER_AUTH_ROLE
+    where IS_DELETED='N'
+    <if test="paramMap.id!=null and paramMap.id!=''">
+    	AND ID=#{paramMap.id,jdbcType=VARCHAR}
+    </if>
+    <if test="paramMap.name!=null and paramMap.name!=''">
+    	AND NAME like CONCAT('%',#{paramMap.name,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="paramMap.description!=null and paramMap.description!=''">
+    	AND DESCRIPTION=#{paramMap.description,jdbcType=VARCHAR}
+    </if>
+    <if test="paramMap.roleCode!=null and paramMap.roleCode!=''">
+    	AND ROLE_CODE=#{paramMap.roleCode,jdbcType=VARCHAR}
+    </if>
+    
+    <if test="paramMap.roleCodeList!=null and paramMap.roleCodeList!=''">
+    	AND ROLE_CODE in
+    	<foreach collection="paramMap.roleCodeList" item="roleCode" open="(" close=")" separator="," index="i">
+    			#{roleCode,jdbcType=VARCHAR}
+    	</foreach>
+    </if>
+    
+    <if test="paramMap.module!=null and paramMap.module!=''">
+    	AND  (module is null or instr(module,CONCAT('"',#{paramMap.module,jdbcType=VARCHAR},'"'))>0)
+    </if>
+    order by ROLE_CODE
+  </select>
+  <select id="selectByMap" parameterType="java.util.Map" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from IPANTHER_AUTH_ROLE
+    where IS_DELETED='N'
+    <if test="id!=null and id!=''">
+    	AND ID=#{id,jdbcType=VARCHAR}
+    </if>
+    <if test="name!=null and name!=''">
+    	AND NAME=#{name,jdbcType=VARCHAR}
+    </if>
+    <if test="description!=null and description!=''">
+    	AND DESCRIPTION=#{description,jdbcType=VARCHAR}
+    </if>
+    <if test="roleIds!=null and roleIds!=''">
+    	AND ID IN 
+    	<foreach collection="roleIds" item="roleId" open="(" close=")" separator="," index="i">
+    			#{roleId,jdbcType=VARCHAR}
+    	</foreach>
+    </if>
+    
+    <if test="roleCode!=null and roleCode!=''">
+    	AND ROLE_CODE=#{roleCode,jdbcType=VARCHAR}
+    </if>
+    <if test="roleCodes!=null and roleCodes!=''">
+    	AND ROLE_CODE in
+    	<foreach collection="roleCodes" item="roleCode" open="(" close=")" separator=",">
+    			#{roleCode,jdbcType=VARCHAR}
+    	</foreach>
+    </if>
+  </select>
+  <select id="selectRolesByUser" parameterType="com.hcis.ipanther.common.user.entity.User" resultMap="ResultMap">
+     SELECT IAR.ID, IAR.NAME, IAR.DESCRIPTION,IAR.ROLE_CODE,IAR.MODULE, IAR.NAME TEXT,
+    (CASE WHEN (IAU.ROLE_ID IS NOT NULL) THEN  '1' ELSE '0' END) CHECKED ,iar.ROLE_CODE
+    FROM IPANTHER_AUTH_ROLE IAR
+    LEFT JOIN IPANTHER_AUTH_USERROLE IAU ON IAR.ID=IAU.ROLE_ID
+    <if test="id!=null and id!=''">
+    	AND IAU.USER_ID=#{id,jdbcType=VARCHAR}
+    </if>
+    WHERE IAR.IS_DELETED='N'
+  </select>
+  <select id="selectByUser" parameterType="com.hcis.ipanther.common.user.entity.User" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from IPANTHER_AUTH_ROLE
+    where ID in (
+    	select t.role_id from IPANTHER_AUTH_USERROLE t where t.user_id=#{id,jdbcType=VARCHAR}
+    ) 
+  </select>
+  <select id="selectCountByName" parameterType="searchParam" resultMap="selectCount">
+		select count(t.id) COUNT from IPANTHER_AUTH_ROLE t where t.is_deleted='N'
+		<if test="paramMap.oldRoleName==null or paramMap.oldRoleName==''">
+		     and t.name=#{paramMap.roleName,jdbcType=VARCHAR}
+		</if>
+		<if test="paramMap.oldRoleName!=null and paramMap.oldRoleName!=''">
+			<if test="paramMap.roleName== paramMap.oldRoleName">
+			     and t.name='-1'
+			</if>
+			<if test="paramMap.roleName!= paramMap.oldRoleName">
+			    and t.name=#{paramMap.roleName,jdbcType=VARCHAR}
+			</if>
+		</if>
+  </select>
+  
+  <select id="selectAllRolePrivilege" resultMap="rolePrivilegeMap">
+    select 
+    pri.ID, pri.PID, pri.NAME, pri.DESCRIPTION, pri.MODULE, pri.PERMISSION, pri.IS_DISPLAY, pri.URL, pri.TARGET, pri.ORDER_NO,
+    role.id ROLE_ID, role.name ROLE_NAME, role.description ROLE_DESCRIPTION
+    from ipanther_auth_role role
+      join ipanther_auth_rolepri rp on role.id=rp.role_id
+      join IPANTHER_AUTH_PRIVILEGE pri on pri.id=rp.privilege_id
+    where pri.is_deleted='N'
+      and role.is_deleted='N'
+<!--       and pri.id not in( -->
+<!--                          select t1.id from IPANTHER_AUTH_PRIVILEGE t1 start with t1.id in( -->
+<!--                                                     select t2.id from IPANTHER_AUTH_PRIVILEGE t2 where t2.is_display='N' -->
+<!--                                                 ) -->
+<!--                        connect  by prior  t1.id =  t1.pid)  -->
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from IPANTHER_AUTH_ROLE
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <update id="deleteByLogic" parameterType="com.hcis.ipanther.common.security.entity.Role">
+    update IPANTHER_AUTH_ROLE
+    set IS_DELETED='Y',
+    UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+    UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="batchDeleteByLogic" parameterType="java.util.Map" >
+    update IPANTHER_AUTH_ROLE
+    set IS_DELETED='Y',
+ 	<if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+    </if>
+    <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+    </if>
+    where id IN
+    <foreach collection="list" item="role" open="(" close=")" separator=",">
+    	#{role.id,jdbcType=VARCHAR}
+    </foreach>    
+  </update>
+  <insert id="insert" parameterType="com.hcis.ipanther.common.security.entity.Role">
+    insert into IPANTHER_AUTH_ROLE (ID, NAME, DESCRIPTION,CREATOR, CREATE_TIME, UPDATEDBY,
+     UPDATE_TIME, IS_DELETED, VERSION,ROLE_CODE,MODULE)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
+    #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updatedby,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=CHAR}, 
+      #{version,jdbcType=DECIMAL},#{roleCode,jdbcType=VARCHAR},#{module,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hcis.ipanther.common.security.entity.Role">
+    insert into IPANTHER_AUTH_ROLE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="description != null">
+        DESCRIPTION,
+      </if> 
+      <if test="creator != null" >
+        CREATOR,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+ 	  <if test="roleCode != null" >
+        ROLE_CODE,
+      </if> 
+       <if test="module != null" >
+        MODULE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=CHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+      <if test="roleCode != null" >
+        #{roleCode,jdbcType=VARCHAR},
+      </if> 
+      <if test="module != null" >
+         #{module,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hcis.ipanther.common.security.entity.Role">
+    update IPANTHER_AUTH_ROLE
+    <set>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      </if>
+        VERSION = VERSION+1,
+      <if test="roleCode != null" >
+        ROLE_CODE = #{roleCode,jdbcType=VARCHAR},
+      </if> 
+      <if test="module != null" >
+        MODULE = #{module,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hcis.ipanther.common.security.entity.Role">
+    update IPANTHER_AUTH_ROLE
+    set NAME = #{name,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=DATE},
+      IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      VERSION = VERSION+1,
+      ROLE_CODE = #{roleCode,jdbcType=VARCHAR},
+      MODULE=#{module,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="countByUserId" parameterType="java.util.Map" resultType="int">
+    select count(*) 
+    FROM IPANTHER_AUTH_ROLE IAR
+    JOIN IPANTHER_AUTH_USERROLE IAU ON IAR.ID=IAU.ROLE_ID
+    WHERE IAR.IS_DELETED='N'
+    <if test="roleCode != null" >
+        AND IAR.ROLE_CODE = #{roleCode,jdbcType=VARCHAR}
+    </if>
+    <if test="userId != null" >
+        AND IAU.USER_ID = #{userId,jdbcType=VARCHAR}
+    </if>
+  </select>
+</mapper>

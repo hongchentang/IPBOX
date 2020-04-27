@@ -1,0 +1,754 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcis.ipr.cms.info.mapper.CmsInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.hcis.ipr.cms.info.entity.CmsInfo" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="SITE_ID" property="siteId" jdbcType="VARCHAR" />
+    <result column="CHANNEL_ID" property="channelId" jdbcType="VARCHAR" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="SHOR_TTITLE" property="shorTtitle" jdbcType="VARCHAR" />
+    <result column="TITLE_COLOR" property="titleColor" jdbcType="VARCHAR" />
+    <result column="TITLE_BLOD" property="titleBlod" jdbcType="VARCHAR" />
+    <result column="SOURCE" property="source" jdbcType="VARCHAR" />
+    <result column="AUTHOR" property="author" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="TAGS" property="tags" jdbcType="VARCHAR" />
+    <result column="IMG" property="img" jdbcType="VARCHAR" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
+    <result column="ATTCHS" property="attchs" jdbcType="VARCHAR" />
+    <result column="ADD_TIME" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="TEMPLET_ID" property="templetId" jdbcType="VARCHAR" />
+    <result column="IS_HOT" property="isHot" jdbcType="VARCHAR" />
+    <result column="IS_TOP" property="isTop" jdbcType="VARCHAR" />
+    <result column="TOP_END_TIME" property="topEndTime" jdbcType="TIMESTAMP" />
+    <result column="CLICK_NUM" property="clickNum" jdbcType="DECIMAL" />
+    <result column="ADD_USER" property="addUser" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="VARCHAR" />
+    <result column="IS_SIGN" property="isSign" jdbcType="VARCHAR" />
+    <result column="VIDEO" property="video" jdbcType="VARCHAR" />
+    <result column="IS_COMMENT" property="isComment" jdbcType="VARCHAR" />
+    <result column="OPEN_TIME_TYPE" property="openTimeType" jdbcType="VARCHAR" />
+    <result column="OPEN_END_TIME" property="openEndTime" jdbcType="TIMESTAMP" />
+    <result column="OPEN_TYPE" property="openType" jdbcType="VARCHAR" />
+    <result column="HTML_INDEX_NUM" property="htmlIndexNum" jdbcType="VARCHAR" />
+    <result column="IS_IMGS" property="isImgs" jdbcType="VARCHAR" />
+    <result column="AUDIT_STATE" property="auditState" jdbcType="VARCHAR" />
+    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATED_BY" property="updatedby" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="CHAR" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="REGIONS_CODE" property="regionsCode" jdbcType="VARCHAR" />
+    <result column="COURSE_ID" property="courseId" jdbcType="VARCHAR" />
+    
+    
+    <result column="CHANNEL_NAME" property="channelName" jdbcType="VARCHAR" />
+    <result column="CHANNEL_PAGE_MARK" property="channelPageMark" jdbcType="VARCHAR" />
+    <result column="CHANNEL_INDEX_NUM" property="channelIndexNum" jdbcType="DECIMAL" />
+    <result column="CHANNEL_PARENT_ID" property="channelParentId" jdbcType="VARCHAR" />
+    <result column="CHANNEL_PAR_PAGE_MARK" property="channelParPageMark" jdbcType="VARCHAR" />
+    <result column="SITE_PATH" property="sitePath" jdbcType="VARCHAR" />
+    
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.hcis.ipr.cms.info.entity.CmsInfo" extends="BaseResultMap" >
+    <result column="CONTENT" property="content" jdbcType="CLOB" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, SITE_ID, CHANNEL_ID, TITLE, SHOR_TTITLE, TITLE_COLOR, TITLE_BLOD, SOURCE, AUTHOR, 
+    DESCRIPTION, TAGS, IMG, URL, ATTCHS, ADD_TIME, TEMPLET_ID, IS_HOT, IS_TOP, TOP_END_TIME, 
+    CLICK_NUM, ADD_USER, STATE, IS_SIGN, VIDEO, IS_COMMENT, OPEN_TIME_TYPE, OPEN_END_TIME, 
+    OPEN_TYPE, HTML_INDEX_NUM, IS_IMGS, AUDIT_STATE, CREATOR, CREATE_TIME, UPDATED_BY, 
+    UPDATE_TIME, VERSION, IS_DELETED,TYPE,REGIONS_CODE,COURSE_ID
+  </sql>
+  <sql id="Blob_Column_List" >
+    CONTENT
+  </sql>
+  
+  <sql id="Base_Column" >
+    T.ID, T.SITE_ID, T.CHANNEL_ID, T.TITLE, T.SHOR_TTITLE, T.TITLE_COLOR, T.TITLE_BLOD, T.SOURCE,
+    T.AUTHOR,T.DESCRIPTION, T.TAGS, T.IMG, T.URL, T.ATTCHS, T.ADD_TIME, T.TEMPLET_ID, T.IS_HOT, 
+    T.IS_TOP, T.TOP_END_TIME, T.CLICK_NUM, T.ADD_USER, T.STATE, T.IS_SIGN, T.VIDEO, T.IS_COMMENT,
+    T.OPEN_TIME_TYPE, T.OPEN_END_TIME, T.OPEN_TYPE, T.HTML_INDEX_NUM, T.IS_IMGS, T.AUDIT_STATE,
+    T.CREATOR, T.CREATE_TIME, T.UPDATED_BY, T.UPDATE_TIME, T.VERSION, T.IS_DELETED,T.TYPE,T.REGIONS_CODE,T.COURSE_ID
+   
+  </sql>
+  <sql id="Blob_Column" >
+    T.CONTENT
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column" />
+    ,
+    <include refid="Blob_Column" />
+    from CMS_INFO T
+    where T.ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from CMS_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hcis.ipr.cms.info.entity.CmsInfo" >
+    insert into CMS_INFO (ID, SITE_ID, CHANNEL_ID, 
+      TITLE, SHOR_TTITLE, TITLE_COLOR, 
+      TITLE_BLOD, SOURCE, AUTHOR, 
+      DESCRIPTION, TAGS, IMG, 
+      URL, ATTCHS, ADD_TIME, 
+      TEMPLET_ID, IS_HOT, IS_TOP, 
+      TOP_END_TIME, CLICK_NUM, ADD_USER, 
+      STATE, IS_SIGN, VIDEO, 
+      IS_COMMENT, OPEN_TIME_TYPE, OPEN_END_TIME, 
+      OPEN_TYPE, HTML_INDEX_NUM, IS_IMGS, 
+      AUDIT_STATE, CREATOR, CREATE_TIME, 
+      UPDATED_BY, UPDATE_TIME, VERSION, 
+      IS_DELETED, CONTENT,TYPE,REGIONS_CODE,COURSE_ID)
+    values (#{id,jdbcType=VARCHAR}, #{siteId,jdbcType=VARCHAR}, #{channelId,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{shorTtitle,jdbcType=VARCHAR}, #{titleColor,jdbcType=VARCHAR}, 
+      #{titleBlod,jdbcType=VARCHAR}, #{source,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{tags,jdbcType=VARCHAR}, #{img,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{attchs,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}, 
+      #{templetId,jdbcType=VARCHAR}, #{isHot,jdbcType=VARCHAR}, #{isTop,jdbcType=VARCHAR}, 
+      #{topEndTime,jdbcType=TIMESTAMP}, #{clickNum,jdbcType=DECIMAL}, #{addUser,jdbcType=VARCHAR}, 
+      #{state,jdbcType=VARCHAR}, #{isSign,jdbcType=VARCHAR}, #{video,jdbcType=VARCHAR}, 
+      #{isComment,jdbcType=VARCHAR}, #{openTimeType,jdbcType=VARCHAR}, #{openEndTime,jdbcType=TIMESTAMP}, 
+      #{openType,jdbcType=VARCHAR}, #{htmlIndexNum,jdbcType=VARCHAR}, #{isImgs,jdbcType=VARCHAR}, 
+      #{auditState,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updatedby,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{version,jdbcType=DECIMAL}, 
+      #{isDeleted,jdbcType=CHAR}, #{content,jdbcType=CLOB},#{type,jdbcType=CHAR},#{regionsCode,jdbcType=VARCHAR}，#{courseId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hcis.ipr.cms.info.entity.CmsInfo" >
+    insert into CMS_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="siteId != null" >
+        SITE_ID,
+      </if>
+      <if test="channelId != null" >
+        CHANNEL_ID,
+      </if>
+      <if test="title != null" >
+        TITLE,
+      </if>
+      <if test="shorTtitle != null" >
+        SHOR_TTITLE,
+      </if>
+      <if test="titleColor != null" >
+        TITLE_COLOR,
+      </if>
+      <if test="titleBlod != null" >
+        TITLE_BLOD,
+      </if>
+      <if test="source != null" >
+        SOURCE,
+      </if>
+      <if test="author != null" >
+        AUTHOR,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+      <if test="tags != null" >
+        TAGS,
+      </if>
+      <if test="img != null" >
+        IMG,
+      </if>
+      <if test="url != null" >
+        URL,
+      </if>
+      <if test="attchs != null" >
+        ATTCHS,
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME,
+      </if>
+      <if test="templetId != null" >
+        TEMPLET_ID,
+      </if>
+      <if test="isHot != null" >
+        IS_HOT,
+      </if>
+      <if test="isTop != null" >
+        IS_TOP,
+      </if>
+      <if test="topEndTime != null" >
+        TOP_END_TIME,
+      </if>
+      <if test="clickNum != null" >
+        CLICK_NUM,
+      </if>
+      <if test="addUser != null" >
+        ADD_USER,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="isSign != null" >
+        IS_SIGN,
+      </if>
+      <if test="video != null" >
+        VIDEO,
+      </if>
+      <if test="isComment != null" >
+        IS_COMMENT,
+      </if>
+      <if test="openTimeType != null" >
+        OPEN_TIME_TYPE,
+      </if>
+      <if test="openEndTime != null" >
+        OPEN_END_TIME,
+      </if>
+      <if test="openType != null" >
+        OPEN_TYPE,
+      </if>
+      <if test="htmlIndexNum != null" >
+        HTML_INDEX_NUM,
+      </if>
+      <if test="htmlIndexNum== null">
+        HTML_INDEX_NUM,
+      </if>
+      <if test="isImgs != null" >
+        IS_IMGS,
+      </if>
+      <if test="auditState != null" >
+        AUDIT_STATE,
+      </if>
+      <if test="creator != null" >
+        CREATOR,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updatedby != null" >
+        UPDATED_BY,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED,
+      </if>
+      <if test="content != null" >
+        CONTENT,
+      </if>
+       <if test="type != null" >
+        	TYPE,
+      </if>
+       <if test="courseId != null" >
+        	COURSE_ID,
+      </if>
+       <if test="regionsCode != null" >
+        	REGIONS_CODE
+      </if>
+      
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="siteId != null" >
+        #{siteId,jdbcType=VARCHAR},
+      </if>
+      <if test="channelId != null" >
+        #{channelId,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="shorTtitle != null" >
+        #{shorTtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="titleColor != null" >
+        #{titleColor,jdbcType=VARCHAR},
+      </if>
+      <if test="titleBlod != null" >
+        #{titleBlod,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="tags != null" >
+        #{tags,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null" >
+        #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="attchs != null" >
+        #{attchs,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="templetId != null" >
+        #{templetId,jdbcType=VARCHAR},
+      </if>
+      <if test="isHot != null" >
+        #{isHot,jdbcType=VARCHAR},
+      </if>
+      <if test="isTop != null" >
+        #{isTop,jdbcType=VARCHAR},
+      </if>
+      <if test="topEndTime != null" >
+        #{topEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clickNum != null" >
+        #{clickNum,jdbcType=DECIMAL},
+      </if>
+      <if test="addUser != null" >
+        #{addUser,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="isSign != null" >
+        #{isSign,jdbcType=VARCHAR},
+      </if>
+      <if test="video != null" >
+        #{video,jdbcType=VARCHAR},
+      </if>
+      <if test="isComment != null" >
+        #{isComment,jdbcType=VARCHAR},
+      </if>
+      <if test="openTimeType != null" >
+        #{openTimeType,jdbcType=VARCHAR},
+      </if>
+      <if test="openEndTime != null" >
+        #{openEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="openType != null" >
+        #{openType,jdbcType=VARCHAR},
+      </if>
+      <if test="htmlIndexNum != null">
+      	#{htmlIndexNum,jdbcType=VARCHAR}
+      </if>
+      <if test="htmlIndexNum== null">
+      	(select IFNULL(count(T.ID),0)+1 from CMS_INFO T),
+      </if>
+      <if test="isImgs != null" >
+        #{isImgs,jdbcType=VARCHAR},
+      </if>
+      <if test="auditState != null" >
+        #{auditState,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=CHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=CLOB},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="courseId != null" >
+        #{courseId,jdbcType=VARCHAR},
+      </if>
+       <if test="regionsCode != null" >
+        #{regionsCode,jdbcType=VARCHAR},
+      </if>
+       
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hcis.ipr.cms.info.entity.CmsInfo" >
+    update CMS_INFO
+    <set >
+      <if test="siteId != null" >
+        SITE_ID = #{siteId,jdbcType=VARCHAR},
+      </if>
+      <if test="channelId != null" >
+        CHANNEL_ID = #{channelId,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        TITLE = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="shorTtitle != null" >
+        SHOR_TTITLE = #{shorTtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="titleColor != null" >
+        TITLE_COLOR = #{titleColor,jdbcType=VARCHAR},
+      </if>
+      <if test="titleBlod != null" >
+        TITLE_BLOD = #{titleBlod,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        SOURCE = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        AUTHOR = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="tags != null" >
+        TAGS = #{tags,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null and img != '-1'" >
+        IMG = #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null and img == '-1'" >
+        IMG =  NULL,
+      </if>
+      <if test="url != null" >
+        URL = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="attchs != null and attchs != '-1'" >
+        ATTCHS = #{attchs,jdbcType=VARCHAR},
+      </if>
+      <if test="attchs != null and attchs == '-1'" >
+        ATTCHS = NULL,
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="templetId != null" >
+        TEMPLET_ID = #{templetId,jdbcType=VARCHAR},
+      </if>
+      <if test="isHot != null" >
+        IS_HOT = #{isHot,jdbcType=VARCHAR},
+      </if>
+      <if test="isTop != null" >
+        IS_TOP = #{isTop,jdbcType=VARCHAR},
+      </if>
+      <if test="topEndTime != null" >
+        TOP_END_TIME = #{topEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clickNum != null" >
+        CLICK_NUM = #{clickNum,jdbcType=DECIMAL},
+      </if>
+      <if test="addUser != null" >
+        ADD_USER = #{addUser,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="isSign != null" >
+        IS_SIGN = #{isSign,jdbcType=VARCHAR},
+      </if>
+      <if test="video != null" >
+        VIDEO = #{video,jdbcType=VARCHAR},
+      </if>
+      <if test="isComment != null" >
+        IS_COMMENT = #{isComment,jdbcType=VARCHAR},
+      </if>
+      <if test="openTimeType != null" >
+        OPEN_TIME_TYPE = #{openTimeType,jdbcType=VARCHAR},
+      </if>
+      <if test="openEndTime != null" >
+        OPEN_END_TIME = #{openEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="openType != null" >
+        OPEN_TYPE = #{openType,jdbcType=VARCHAR},
+      </if>
+      <if test="htmlIndexNum != null" >
+        HTML_INDEX_NUM = #{htmlIndexNum,jdbcType=VARCHAR},
+      </if>
+      <if test="isImgs != null" >
+        IS_IMGS = #{isImgs,jdbcType=VARCHAR},
+      </if>
+      <if test="auditState != null" >
+        AUDIT_STATE = #{auditState,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        UPDATED_BY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+        VERSION = VERSION+1,
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      </if>
+      <if test="content != null" >
+        CONTENT = #{content,jdbcType=CLOB},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=CHAR},
+      </if>
+      <if test="regionsCode != null" >
+        REGIONS_CODE = #{regionsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="courseId != null" >
+        COURSE_ID = #{courseId,jdbcType=VARCHAR},
+      </if>
+      
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hcis.ipr.cms.info.entity.CmsInfo" >
+    update CMS_INFO
+    set SITE_ID = #{siteId,jdbcType=VARCHAR},
+      CHANNEL_ID = #{channelId,jdbcType=VARCHAR},
+      TITLE = #{title,jdbcType=VARCHAR},
+      SHOR_TTITLE = #{shorTtitle,jdbcType=VARCHAR},
+      TITLE_COLOR = #{titleColor,jdbcType=VARCHAR},
+      TITLE_BLOD = #{titleBlod,jdbcType=VARCHAR},
+      SOURCE = #{source,jdbcType=VARCHAR},
+      AUTHOR = #{author,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      TAGS = #{tags,jdbcType=VARCHAR},
+      IMG = #{img,jdbcType=VARCHAR},
+      URL = #{url,jdbcType=VARCHAR},
+      ATTCHS = #{attchs,jdbcType=VARCHAR},
+      ADD_TIME = #{addTime,jdbcType=TIMESTAMP},
+      TEMPLET_ID = #{templetId,jdbcType=VARCHAR},
+      IS_HOT = #{isHot,jdbcType=VARCHAR},
+      IS_TOP = #{isTop,jdbcType=VARCHAR},
+      TOP_END_TIME = #{topEndTime,jdbcType=TIMESTAMP},
+      CLICK_NUM = #{clickNum,jdbcType=DECIMAL},
+      ADD_USER = #{addUser,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=VARCHAR},
+      IS_SIGN = #{isSign,jdbcType=VARCHAR},
+      VIDEO = #{video,jdbcType=VARCHAR},
+      IS_COMMENT = #{isComment,jdbcType=VARCHAR},
+      OPEN_TIME_TYPE = #{openTimeType,jdbcType=VARCHAR},
+      OPEN_END_TIME = #{openEndTime,jdbcType=TIMESTAMP},
+      OPEN_TYPE = #{openType,jdbcType=VARCHAR},
+      HTML_INDEX_NUM = #{htmlIndexNum,jdbcType=VARCHAR},
+      IS_IMGS = #{isImgs,jdbcType=VARCHAR},
+      AUDIT_STATE = #{auditState,jdbcType=VARCHAR},
+      CREATOR = #{creator,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{updatedby,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      VERSION = VERSION+1,
+      IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      CONTENT = #{content,jdbcType=CLOB},
+      TYPE = #{type,jdbcType=CHAR},
+      REGIONS_CODE = #{regionsCode,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hcis.ipr.cms.info.entity.CmsInfo" >
+    update CMS_INFO
+    set SITE_ID = #{siteId,jdbcType=VARCHAR},
+      CHANNEL_ID = #{channelId,jdbcType=VARCHAR},
+      TITLE = #{title,jdbcType=VARCHAR},
+      SHOR_TTITLE = #{shorTtitle,jdbcType=VARCHAR},
+      TITLE_COLOR = #{titleColor,jdbcType=VARCHAR},
+      TITLE_BLOD = #{titleBlod,jdbcType=VARCHAR},
+      SOURCE = #{source,jdbcType=VARCHAR},
+      AUTHOR = #{author,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      TAGS = #{tags,jdbcType=VARCHAR},
+      IMG = #{img,jdbcType=VARCHAR},
+      URL = #{url,jdbcType=VARCHAR},
+      ATTCHS = #{attchs,jdbcType=VARCHAR},
+      ADD_TIME = #{addTime,jdbcType=TIMESTAMP},
+      TEMPLET_ID = #{templetId,jdbcType=VARCHAR},
+      IS_HOT = #{isHot,jdbcType=VARCHAR},
+      IS_TOP = #{isTop,jdbcType=VARCHAR},
+      TOP_END_TIME = #{topEndTime,jdbcType=TIMESTAMP},
+      CLICK_NUM = #{clickNum,jdbcType=DECIMAL},
+      ADD_USER = #{addUser,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=VARCHAR},
+      IS_SIGN = #{isSign,jdbcType=VARCHAR},
+      VIDEO = #{video,jdbcType=VARCHAR},
+      IS_COMMENT = #{isComment,jdbcType=VARCHAR},
+      OPEN_TIME_TYPE = #{openTimeType,jdbcType=VARCHAR},
+      OPEN_END_TIME = #{openEndTime,jdbcType=TIMESTAMP},
+      OPEN_TYPE = #{openType,jdbcType=VARCHAR},
+      HTML_INDEX_NUM = #{htmlIndexNum,jdbcType=VARCHAR},
+      IS_IMGS = #{isImgs,jdbcType=VARCHAR},
+      AUDIT_STATE = #{auditState,jdbcType=VARCHAR},
+      CREATOR = #{creator,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{updatedby,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      VERSION = VERSION+1,
+      IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      TYPE = #{type,jdbcType=CHAR},
+       REGIONS_CODE = #{regionsCode,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectBySearchParam" resultMap="BaseResultMap" parameterType="searchParam" >
+    select 
+    <include refid="Base_Column" />
+    from CMS_INFO T
+    where IS_DELETED='N'
+    <if test="paramMap.type != null and paramMap.type != ''">
+    	AND T.TYPE = #{paramMap.type,jdbcType=CHAR} 
+    </if>
+    <if test="paramMap.state != null and paramMap.state != ''">
+    	AND T.STATE = #{paramMap.state,jdbcType=CHAR} 
+    </if>
+    <if test="paramMap.regionsCode != null and paramMap.regionsCode != ''">
+   		AND T.REGIONS_CODE = #{paramMap.regionsCode,jdbcType=CHAR} 
+   	</if>
+     <if test="paramMap.title != null and paramMap.title != ''">
+<!--     	AND T.title like '%'||#{paramMap.title,jdbcType=CHAR}||'%'  -->
+    	AND T.title like CONCAT('%',#{paramMap.title,jdbcType=VARCHAR},'%') 
+    </if>
+    <if test="paramMap.img != null and paramMap.img != ''">
+   		AND T.img is not null AND T.img!=''
+   	</if>
+    order by t.IS_TOP desc,t.ADD_TIME desc
+  </select>
+  <delete id="deleteByLogic" parameterType="com.hcis.ipr.cms.info.entity.CmsInfo">
+  	update CMS_INFO
+    <set>
+      <if test="updatedby != null" >
+        UPDATED_BY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+        VERSION = VERSION+1,
+        IS_DELETED='Y',
+    </set>
+  	WHERE ID=#{id,jdbcType=VARCHAR}
+  	AND　(IS_DELETED='N' OR T.IS_DELETED!='R') 
+  </delete>
+    <select id="selectListCmsInfo" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column" />
+    ,CC.NAME CHANNEL_NAME,CC.PAGE_MARK CHANNEL_PAGE_MARK, CC.INDEX_NUM CHANNEL_INDEX_NUM
+	,CC.PARENT_ID CHANNEL_PARENT_ID,
+	(select CCH.PAGE_MARK from CMS_CHANNEL CCH where CC.PARENT_ID=CCH.ID AND CCH.IS_DELETED='N'　) CHANNEL_PAR_PAGE_MARK,
+	(select CONCAT('site/',CS.SOURCE_PATH,'/') from CMS_SITE CS where CS.ID=T.SITE_ID AND CS.IS_DELETED='N'　) SITE_PATH
+    from CMS_INFO T
+    JOIN CMS_CHANNEL CC ON CC.ID=T.CHANNEL_ID AND CC.IS_DELETED='N'
+    where 1=1
+    <if test="isRecycle == null or isRecycle == ''">
+    	AND T.IS_DELETED='N' 
+    </if>
+    <if test="isRecycle != null and isRecycle != ''">
+    	AND T.IS_DELETED ='R'
+    </if>
+    <if test="channelId != null and channelId != ''">
+     AND T.CHANNEL_ID = #{channelId,jdbcType=VARCHAR}
+    </if>
+    <if test="siteId != null and siteId != ''">
+     AND T.SITE_ID = #{siteId,jdbcType=VARCHAR}
+    </if>
+    <if test="title != null and title != ''">
+<!--      AND T.TITLE like  '%'||#{title,jdbcType=VARCHAR}||'%' -->
+     AND T.TITLE like  CONCAT('%',#{title,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="shorTtitle != null and shorTtitle != ''">
+     AND T.SHOR_TTITLE = #{shorTtitle,jdbcType=VARCHAR}
+    </if>
+    <if test="state != null and state != ''">
+     AND T.STATE = #{state,jdbcType=VARCHAR}
+    </if>
+    <if test="channelIds != null and channelIds != ''">
+     AND T.CHANNEL_ID IN
+     <foreach collection="channelIds" item="channelIds" index="i" open="(" close=")" separator=",">
+      	#{channelIds,jdbcType=VARCHAR}
+     </foreach>
+    </if>
+    <if test="img != null and img != '' and img == 'true'">
+     	AND T.IMG  IS NOT NULL 
+    </if>
+    <if test="img != null and img != '' and img != 'true'">
+     	AND T.IMG  IS NULL 
+    </if>
+    <if test="pageMark != null and pageMark != ''">
+     AND CC.PAGE_MARK = #{pageMark,jdbcType=VARCHAR} 
+    </if>
+    <if test="channelPageMark != null and channelPageMark != ''">
+     AND CC.PAGE_MARK = #{channelPageMark,jdbcType=VARCHAR} 
+    </if>
+    <if test="channelParPageMark != null and channelParPageMark != ''">
+     AND CC.PARENT_ID IN (select CCH.ID from CMS_CHANNEL CCH where CC.PARENT_ID=CCH.ID 
+     			 AND CCH.IS_DELETED='N'　
+     			 AND CCH.PAGE_MARK = #{channelPageMark,jdbcType=VARCHAR} )
+    </if>
+    <if test="orderSql != null and orderSql != ''">
+    	 ORDER BY #{orderSql,jdbcType=VARCHAR}
+    </if>
+    <if test="orderSql == null ">
+    	  ORDER BY T.IS_TOP DESC,T.ADD_TIME DESC
+    </if>
+  </select>
+  
+  <!-- CMS首页站点搜索 -->
+  <select id="searchForCms" resultMap="BaseResultMap" parameterType="searchParam">
+  	SELECT TT.* FROM
+  	(
+  		<if test="paramMap.type == null or paramMap.type =='' or paramMap.type =='dynamic' or paramMap.type == 'inform'">
+  		SELECT t.id, t.title, t.html_index_num, cc.page_mark CHANNEL_PAGE_MARK,T.IS_TOP,T.ADD_TIME
+		  FROM cms_info t
+		  JOIN cms_channel cc
+		    ON cc.id = t.channel_id
+		   AND cc.is_deleted = 'N'
+		WHERE T.IS_DELETED = 'N'
+		<if test="paramMap.type != null and paramMap.type != ''">
+			AND CC.PAGE_MARK = #{paramMap.type,jdbcType=VARCHAR}
+		</if>
+		<if test="paramMap.regionsCode != null and paramMap.regionsCode != ''">
+    		AND T.REGIONS_CODE = #{paramMap.regionsCode,jdbcType=CHAR} 
+    	</if>
+		AND T.STATE = '01'
+		AND CC.PAGE_MARK IN ('dynamic','inform')
+		<if test="paramMap.keyword != null and paramMap.keyword != ''">
+	     AND 
+	     	(
+	     	T.TITLE like  CONCAT('%',#{paramMap.keyword,jdbcType=VARCHAR},'%')
+	     	OR 
+<!-- 	     	DBMS_LOB.INSTR(T.CONTENT,#{paramMap.keyword,jdbcType=VARCHAR}) >0 -->
+	     	INSTR(T.CONTENT,#{paramMap.keyword,jdbcType=VARCHAR}) >0
+	     	)
+	    </if>
+	    <if test="paramMap.type == null or paramMap.type ==''">
+		    UNION ALL
+	    </if>
+	    </if>
+	    <if test="paramMap.type == null or paramMap.type =='' or paramMap.type =='course'">
+	    SELECT DISTINCT a.id,a.course_code title,NULL html_index_num,'course' CHANNEL_PAGE_MARK,NULL IS_TOP,a.create_time ADD_TIME
+	  FROM ipr_course a
+	  LEFT JOIN ipr_train_course itc
+	    ON a.id = itc.course_id
+	   AND itc.is_deleted = 'N'
+	  LEFT JOIN ipr_train it
+	    ON itc.train_id = it.id
+	   AND it.is_deleted = 'N'
+	  LEFT JOIN ipbox_project ip
+	    ON ip.id = it.project_id
+	   AND ip.status = '02'
+	   AND ip.is_deleted = 'N'
+	 WHERE a.is_deleted = 'N'
+	   AND a.status = '02'
+	   <if test="paramMap.keyword != null and paramMap.keyword != ''">
+	     AND A.course_name like  CONCAT('%',#{paramMap.keyword,jdbcType=VARCHAR},'%')
+	    </if>
+	   AND (it.end_time > NOW() OR it.id IS NULL)
+	   </if>
+  	) TT
+    ORDER BY TT.IS_TOP DESC,TT.ADD_TIME DESC
+ </select>
+</mapper>

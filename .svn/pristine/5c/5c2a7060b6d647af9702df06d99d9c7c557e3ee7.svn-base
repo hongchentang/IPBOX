@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hcis.ipr.train.problem.mapper.ProblemMapper">
+	<resultMap id="BaseResultMap" type="com.hcis.ipr.train.problem.entity.Problem">
+		<id column="ID" jdbcType="VARCHAR" property="id" />
+		<id column="PROBLEM_CODE" jdbcType="VARCHAR" property="problemCode" />
+		<result column="PROBLEM_NAME" jdbcType="VARCHAR" property="problemName" />
+		<result column="PROBLEM_CONTENT" jdbcType="VARCHAR" property="problemContent" />
+		<result column="CREATOR" jdbcType="VARCHAR" property="creator" />
+		<result column="CREATE_TIME" jdbcType="DATE" property="createTime" />
+		<result column="UPDATEDBY" jdbcType="VARCHAR" property="updatedby" />
+		<result column="UPDATE_TIME" jdbcType="DATE" property="updateTime" />
+		<result column="IS_DELETED" jdbcType="CHAR" property="isDeleted" />
+		<result column="VERSION" jdbcType="DECIMAL" property="version" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, PROBLEM_CODE, PROBLEM_NAME, PROBLEM_CONTENT, CREATOR, CREATE_TIME, UPDATEDBY,
+		UPDATE_TIME, IS_DELETED, VERSION
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from IPR_PROBLEM
+		where ID = #{id,jdbcType=VARCHAR}
+		and IS_DELETED = 'N'
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from IPR_PROBLEM
+		where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.hcis.ipr.train.problem.entity.Problem">
+		insert into IPR_PROBLEM (ID,PROBLEM_CODE, PROBLEM_NAME, PROBLEM_CONTENT,
+		CREATOR, CREATE_TIME,UPDATEDBY, UPDATE_TIME, IS_DELETED, VERSION)
+		values (#{id,jdbcType=VARCHAR}, #{problemCode,jdbcType=VARCHAR}, #{problemName,jdbcType=VARCHAR}, #{problemContent,jdbcType=VARCHAR},
+		#{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE},
+		#{updatedby,jdbcType=VARCHAR}, #{updateTime,jdbcType=DATE}, #{isDeleted,jdbcType=CHAR}, #{version,jdbcType=DECIMAL})
+	</insert>
+	<insert id="insertSelective" parameterType="com.hcis.ipr.train.problem.entity.Problem">
+		insert into IPR_PROBLEM
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="problemCode != null">
+				PROBLEM_CODE,
+			</if>
+			<if test="problemName != null">
+				PROBLEM_NAME,
+			</if>
+			<if test="problemContent != null">
+				PROBLEM_CONTENT,
+			</if>
+			<if test="creator != null">
+				CREATOR,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="updatedby != null">
+				UPDATEDBY,
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME,
+			</if>
+			<if test="isDeleted != null">
+				IS_DELETED,
+			</if>
+			<if test="version != null">
+				VERSION,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="problemCode != null">
+				#{problemCode,jdbcType=VARCHAR},
+			</if>
+			<if test="problemName != null">
+				#{problemName,jdbcType=VARCHAR},
+			</if>
+			<if test="problemContent != null">
+				#{problemContent,jdbcType=VARCHAR},
+			</if>
+			<if test="creator != null">
+				#{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedby != null">
+				#{updatedby,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isDeleted != null">
+				#{isDeleted,jdbcType=CHAR},
+			</if>
+			<if test="version != null">
+				#{version,jdbcType=DECIMAL},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.hcis.ipr.train.problem.entity.Problem">
+		update IPR_PROBLEM
+		<set>
+			<if test="problemName != null">
+				PROBLEM_NAME = #{problemName,jdbcType=VARCHAR},
+			</if>
+			<if test="problemContent != null">
+				PROBLEM_CONTENT = #{problemContent,jdbcType=VARCHAR},
+			</if>
+			<if test="creator != null">
+				CREATOR = #{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedby != null">
+				UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isDeleted != null">
+				IS_DELETED = #{isDeleted,jdbcType=CHAR},
+			</if>
+			<if test="version != null">
+				VERSION = VERSION +1,
+			</if>
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.hcis.ipr.train.problem.entity.Problem">
+		update IPR_PROBLEM
+		set PROBLEM_NAME = #{problemName,jdbcType=VARCHAR},
+		PROBLEM_CONTENT = #{problemContent,jdbcType=VARCHAR},
+		CREATOR = #{creator,jdbcType=VARCHAR},
+		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+		UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+		IS_DELETED = #{isDeleted,jdbcType=CHAR},
+		VERSION = #{version,jdbcType=CHAR}
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	<select id="selectAll" parameterType="searchParam" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from IPR_PROBLEM IDT
+		where IDT.IS_DELETED = 'N'
+	</select>
+	<select id="selectBySearchParam" parameterType="searchParam" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from IPR_PROBLEM IDT
+		where IDT.IS_DELETED = 'N'
+		<if test="paramMap.problemName != null and paramMap.problemName != ''">
+			and IDT.PROBLEM_NAME like '%${paramMap.problemName}%'
+		</if>
+		<if test="paramMap.problemCode != null and paramMap.problemCode != ''">
+			and IDT.PROBLEM_CODE like '%${paramMap.problemCode}%'
+		</if>
+		order by CREATE_TIME desc
+	</select>
+	<select id="selectDictTypeOptions" resultMap="BaseResultMap">
+		select
+		IDT.PROBLEM_CODE, IDT.PROBLEM_NAME
+		from IPR_PROBLEM IDT
+		where IDT.IS_DELETED = 'N'
+	</select>
+	<delete id="deleteByIdArray">
+		delete from IPR_PROBLEM
+		where PROBLEM_CODE in
+		<foreach collection="array" open="(" separator="," close=")" item="item">
+			#{item,jdbcType=VARCHAR}
+		</foreach>
+	</delete>
+</mapper>

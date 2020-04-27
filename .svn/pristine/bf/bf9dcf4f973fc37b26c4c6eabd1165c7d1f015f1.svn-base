@@ -1,0 +1,1347 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcis.ipanther.common.user.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.hcis.ipanther.common.user.entity.User" extends="com.hcis.ipanther.common.user.mapper.UserStaffMapper.BaseResultMap">
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="PASSWORD_PLAIN" property="passwordPlain" jdbcType="VARCHAR" />
+    <result column="ROLE_CODE" property="roleCode" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="STUDENT_STATUS" property="studentStatus" jdbcType="VARCHAR" />
+    <result column="TEACHER_STATUS" property="teacherStatus" jdbcType="VARCHAR" />
+    <result column="REAL_NAME" property="realName" jdbcType="VARCHAR" />
+    <result column="SEX" property="sex" jdbcType="VARCHAR" />
+    <result column="COUNTRY" property="country" jdbcType="VARCHAR" />
+    <result column="NATION" property="nation" jdbcType="VARCHAR" />
+    <result column="HOMETOWN" property="hometown" jdbcType="VARCHAR" />
+    <result column="HOMETOWN_PROVINCE" property="hometownProvince" jdbcType="VARCHAR" />
+    <result column="HOMETOWN_CITY" property="hometownCity" jdbcType="VARCHAR" />
+    <result column="HOMETOWN_COUNTIES" property="hometownCounties" jdbcType="VARCHAR" />
+    <result column="PAPERWORK_TYPE" property="paperworkType" jdbcType="VARCHAR" />
+    <result column="PAPERWORK_NO" property="paperworkNo" jdbcType="VARCHAR" />
+    <result column="MARITAL_STATUS" property="maritalStatus" jdbcType="VARCHAR" />
+    <result column="POLITICS_ROLE" property="politicsRole" jdbcType="VARCHAR" />
+    <result column="PASSWORD_ASK" property="passwordAsk" jdbcType="VARCHAR" />
+    <result column="PASSWORD_ANSWER" property="passwordAnswer" jdbcType="VARCHAR" />
+    <result column="BORN_DATE" property="bornDate" jdbcType="VARCHAR" />
+    <result column="WORK_DATE" property="workDate" jdbcType="TIMESTAMP" />
+    <result column="JOB" property="job" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="MOBILE_PHONE" property="mobilePhone" jdbcType="VARCHAR" />
+    <result column="OFFICE_ADDRESS" property="officeAddress" jdbcType="VARCHAR" />
+    <result column="OFFICE_PHONE" property="officePhone" jdbcType="VARCHAR" />
+    <result column="HOME_PHONE" property="homePhone" jdbcType="VARCHAR" />
+    <result column="HOME_ADDRESS" property="homeAddress" jdbcType="VARCHAR" />
+    <result column="CORR_ADDRESS" property="corrAddress" jdbcType="VARCHAR" />
+    <result column="POST_CODE" property="postCode" jdbcType="VARCHAR" />
+    <result column="HOME_PAGE" property="homePage" jdbcType="VARCHAR" />
+    <result column="IM_NO" property="imNo" jdbcType="VARCHAR" />
+    <result column="AVATAR" property="avatar" jdbcType="VARCHAR" />
+    <result column="IS_ADMIN" property="isAdmin" jdbcType="VARCHAR" />
+    <result column="ADMIN_LEVEL" property="adminLevel" jdbcType="VARCHAR" />
+    <result column="ADMIN_START_DATE" property="adminStartDate" jdbcType="TIMESTAMP" />
+    <result column="ADMIN_END_DATE" property="adminEndDate" jdbcType="TIMESTAMP" />
+    <result column="START_TIME" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="END_TIME" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="CHAR" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+    <result column="BELONG_DEPT_NAME" property="belongDeptName" jdbcType="VARCHAR" />
+    <result column="CURRENT_PROVINCE" property="currentProvince" jdbcType="VARCHAR" />
+    <result column="CURRENT_CITY" property="currentCity" jdbcType="VARCHAR" />
+    <result column="CURRENT_COUNTIES" property="currentCounties" jdbcType="VARCHAR" />
+    <result column="CURRENT_STREET" property="currentStreet" jdbcType="VARCHAR" />
+    <result column="INTRODUCE" property="introduce" jdbcType="VARCHAR" />
+    
+    <result column="DEPT_ID" property="deptId" jdbcType="VARCHAR" />
+    <result column="DEPT_NAME" property="deptName" jdbcType="VARCHAR" />
+    <result column="REGIONS_CODE" property="regionsCode" jdbcType="VARCHAR" />
+    <result column="REGIONS_NAME" property="regionsName" jdbcType="VARCHAR" />
+    
+    <result column="TASK_ID" property="taskId" jdbcType="VARCHAR" />
+    <result column="TASK_NAME" property="taskName" jdbcType="VARCHAR" />
+    <result column="PROC_INST_ID" property="procInstId" jdbcType="VARCHAR" />
+    <result column="PROC_DEF_ID" property="procDefId" jdbcType="VARCHAR" />
+    <result column="REGISTER_ID" property="registerId" jdbcType="VARCHAR" />
+    <result column="AGE" property="age" jdbcType="DECIMAL" />
+    
+    <result column="RESEARCH_FIELD" property="researchField" jdbcType="VARCHAR" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="EXPERT_TYPE" property="expertType" jdbcType="VARCHAR" />
+    
+    <result column="IS_PERSON" property="isPerson" jdbcType="VARCHAR" />
+    <result column="FAXES" property="faxes" jdbcType="VARCHAR" />
+    
+    <result column="WECHAT_ID" property="wechatId" jdbcType="VARCHAR" />
+    <result column="WECHAT_NICKNAME" property="wechatNickname" jdbcType="VARCHAR" />
+    <result column="UNIT_LEVEL" property="unitLevel" jdbcType="VARCHAR" />
+    
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, USER_NAME, PASSWORD, PASSWORD_PLAIN, ROLE_CODE,TYPE,STUDENT_STATUS,TEACHER_STATUS, REAL_NAME, SEX, COUNTRY, NATION, 
+    HOMETOWN,HOMETOWN_PROVINCE, HOMETOWN_CITY, HOMETOWN_COUNTIES, PAPERWORK_TYPE, PAPERWORK_NO, 
+    MARITAL_STATUS, POLITICS_ROLE, PASSWORD_ASK, PASSWORD_ANSWER, BORN_DATE, WORK_DATE, 
+    JOB, EMAIL, MOBILE_PHONE, OFFICE_ADDRESS, OFFICE_PHONE, HOME_PHONE, HOME_ADDRESS, 
+    CORR_ADDRESS, POST_CODE, HOME_PAGE, IM_NO, AVATAR, IS_ADMIN, ADMIN_LEVEL, ADMIN_START_DATE, 
+    ADMIN_END_DATE, START_TIME, END_TIME, STATUS, CREATOR, CREATE_TIME, UPDATEDBY, UPDATE_TIME, 
+    IS_DELETED, VERSION,BELONG_DEPT_NAME,CURRENT_PROVINCE,CURRENT_CITY,CURRENT_COUNTIES,CURRENT_STREET,INTRODUCE,
+    WECHAT_ID,WECHAT_NICKNAME,UNIT_LEVEL
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select IU.*,IDE.id DEPT_ID,IDE.DEPT_NAME DEPT_NAME,IU.PASSWORD_PLAIN,IDE.REGIONS_CODE,IAR.REGIONS_NAME,
+<!-- 原oracle    CEIL(MONTHS_BETWEEN(SYSDATE,decode(IU.born_date,'',SYSDATE,to_date(IU.born_date,'yyyy-mm')))/12) as AGE -->
+	 (YEAR(CURDATE())-YEAR(STR_TO_DATE(IFNULL(IU.born_date,NOW()),'%Y-%m-%d')))-(RIGHT(CURDATE(),5)&lt;RIGHT(STR_TO_DATE(IFNULL(IU.born_date,NOW()),'%Y-%m-%d'),5)) as AGE
+        from IPANTHER_USER IU
+         LEFT JOIN IPANTHER_USER_DEPT IUD ON IU.ID = IUD.USER_ID AND IUD.IS_DELETED = 'N'
+         LEFT JOIN IPANTHER_DEPARTMENT IDE ON IDE.ID = IUD.DEPT_ID  AND IDE.IS_DELETED = 'N'
+         LEFT JOIN IPANTHER_ADMIN_REGIONS IAR ON IDE.REGIONS_CODE = IAR.REGIONS_CODE AND IAR.IS_DELETED = 'N'
+    where IU.ID = #{id,jdbcType=VARCHAR}
+    group by IU.id
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from IPANTHER_USER
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByLogic" parameterType="com.hcis.ipanther.common.user.entity.User">
+  	update IPANTHER_USER
+  	set IS_DELETED='Y',
+  	UPDATEDBY=#{updatedby,jdbcType=VARCHAR},
+  	UPDATE_TIME=#{updateTime,jdbcType=TIMESTAMP},
+  	VERSION = VERSION+1
+  	WHERE ID=#{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hcis.ipanther.common.user.entity.User" >
+    insert into IPANTHER_USER (ID, USER_NAME, PASSWORD, 
+      PASSWORD_PLAIN, ROLE_CODE,TYPE,STUDENT_STATUS,TEACHER_STATUS, REAL_NAME, 
+      SEX, COUNTRY, NATION, 
+      HOMETOWN,HOMETOWN_PROVINCE, HOMETOWN_CITY, HOMETOWN_COUNTIES, 
+      PAPERWORK_TYPE, PAPERWORK_NO, MARITAL_STATUS, 
+      POLITICS_ROLE, PASSWORD_ASK, PASSWORD_ANSWER, 
+      BORN_DATE, WORK_DATE, JOB, 
+      EMAIL, MOBILE_PHONE, OFFICE_ADDRESS, 
+      OFFICE_PHONE, HOME_PHONE, HOME_ADDRESS, 
+      CORR_ADDRESS, POST_CODE, HOME_PAGE, 
+      IM_NO, AVATAR, IS_ADMIN, 
+      ADMIN_LEVEL, ADMIN_START_DATE, ADMIN_END_DATE, 
+      START_TIME, END_TIME, STATUS, 
+      CREATOR, CREATE_TIME, UPDATEDBY, 
+      UPDATE_TIME, IS_DELETED, VERSION,
+      BELONG_DEPT_NAME,CURRENT_PROVINCE,CURRENT_CITY,CURRENT_COUNTIES,CURRENT_STREET,INTRODUCE,
+   	  WECHAT_ID,WECHAT_NICKNAME
+      )
+    values (#{id,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{passwordPlain,jdbcType=VARCHAR}, #{roleCode,jdbcType=VARCHAR},
+      #{type,jdbcType=VARCHAR},#{studentStatus,jdbcType=VARCHAR},#{teacherStatus,jdbcType=VARCHAR}, 
+      #{realName,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, #{nation,jdbcType=VARCHAR}, 
+      #{hometown,jdbcType=VARCHAR},#{hometownProvince,jdbcType=VARCHAR}, #{hometownCity,jdbcType=VARCHAR}, #{hometownCounties,jdbcType=VARCHAR}, 
+      #{paperworkType,jdbcType=VARCHAR}, #{paperworkNo,jdbcType=VARCHAR}, #{maritalStatus,jdbcType=VARCHAR}, 
+      #{politicsRole,jdbcType=VARCHAR}, #{passwordAsk,jdbcType=VARCHAR}, #{passwordAnswer,jdbcType=VARCHAR}, 
+      #{bornDate,jdbcType=VARCHAR}, #{workDate,jdbcType=TIMESTAMP}, #{job,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{mobilePhone,jdbcType=VARCHAR}, #{officeAddress,jdbcType=VARCHAR}, 
+      #{officePhone,jdbcType=VARCHAR}, #{homePhone,jdbcType=VARCHAR}, #{homeAddress,jdbcType=VARCHAR}, 
+      #{corrAddress,jdbcType=VARCHAR}, #{postCode,jdbcType=VARCHAR}, #{homePage,jdbcType=VARCHAR}, 
+      #{imNo,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, #{isAdmin,jdbcType=VARCHAR}, 
+      #{adminLevel,jdbcType=VARCHAR}, #{adminStartDate,jdbcType=TIMESTAMP}, #{adminEndDate,jdbcType=TIMESTAMP}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updatedby,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=CHAR}, #{version,jdbcType=DECIMAL},
+      #{belongDeptName,jdbcType=VARCHAR},
+      #{currentProvince,jdbcType=VARCHAR},#{currentCity,jdbcType=VARCHAR},#{currentCounties,jdbcType=VARCHAR}
+      #{currentStreet,jdbcType=VARCHAR},#{introduce,jdbcType=VARCHAR},
+      #{wechatId,jdbcType=VARCHAR},#{wechatNickname,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hcis.ipanther.common.user.entity.User" >
+    insert into IPANTHER_USER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="userName != null" >
+        USER_NAME,
+      </if>
+      <if test="password != null" >
+        PASSWORD,
+      </if>
+      <if test="passwordPlain != null" >
+        PASSWORD_PLAIN,
+      </if>
+      <if test="roleCode != null" >
+        ROLE_CODE,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+      <if test="studentStatus != null" >
+        STUDENT_STATUS,
+      </if>
+      <if test="teacherStatus != null" >
+        TEACHER_STATUS,
+      </if>
+      <if test="realName != null" >
+        REAL_NAME,
+      </if>
+      <if test="sex != null" >
+        SEX,
+      </if>
+      <if test="country != null" >
+        COUNTRY,
+      </if>
+      <if test="nation != null" >
+        NATION,
+      </if>
+      <if test="hometown != null" >
+        HOMETOWN,
+      </if>
+      <if test="hometownProvince != null" >
+        HOMETOWN_PROVINCE,
+      </if>
+      <if test="hometownCity != null" >
+        HOMETOWN_CITY,
+      </if>
+      <if test="hometownCounties != null" >
+        HOMETOWN_COUNTIES,
+      </if>
+      <if test="paperworkType != null" >
+        PAPERWORK_TYPE,
+      </if>
+      <if test="paperworkNo != null" >
+        PAPERWORK_NO,
+      </if>
+      <if test="maritalStatus != null" >
+        MARITAL_STATUS,
+      </if>
+      <if test="politicsRole != null" >
+        POLITICS_ROLE,
+      </if>
+      <if test="passwordAsk != null" >
+        PASSWORD_ASK,
+      </if>
+      <if test="passwordAnswer != null" >
+        PASSWORD_ANSWER,
+      </if>
+      <if test="bornDate != null" >
+        BORN_DATE,
+      </if>
+      <if test="workDate != null" >
+        WORK_DATE,
+      </if>
+      <if test="job != null" >
+        JOB,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="mobilePhone != null" >
+        MOBILE_PHONE,
+      </if>
+      <if test="officeAddress != null" >
+        OFFICE_ADDRESS,
+      </if>
+      <if test="officePhone != null" >
+        OFFICE_PHONE,
+      </if>
+      <if test="homePhone != null" >
+        HOME_PHONE,
+      </if>
+      <if test="homeAddress != null" >
+        HOME_ADDRESS,
+      </if>
+      <if test="corrAddress != null" >
+        CORR_ADDRESS,
+      </if>
+      <if test="postCode != null" >
+        POST_CODE,
+      </if>
+      <if test="homePage != null" >
+        HOME_PAGE,
+      </if>
+      <if test="imNo != null" >
+        IM_NO,
+      </if>
+      <if test="avatar != null" >
+        AVATAR,
+      </if>
+      <if test="isAdmin != null" >
+        IS_ADMIN,
+      </if>
+      <if test="adminLevel != null" >
+        ADMIN_LEVEL,
+      </if>
+      <if test="adminStartDate != null" >
+        ADMIN_START_DATE,
+      </if>
+      <if test="adminEndDate != null" >
+        ADMIN_END_DATE,
+      </if>
+      <if test="startTime != null" >
+        START_TIME,
+      </if>
+      <if test="endTime != null" >
+        END_TIME,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="creator != null" >
+        CREATOR,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+      <if test="belongDeptName != null" >
+        BELONG_DEPT_NAME,
+      </if>
+      <if test="currentProvince != null" >
+        CURRENT_PROVINCE,
+      </if>
+      <if test="currentCity != null" >
+        CURRENT_CITY,
+      </if>
+      <if test="currentCounties != null" >
+        CURRENT_COUNTIES,
+      </if>
+      <if test="currentStreet != null" >
+        CURRENT_STREET,
+      </if>
+      <if test="introduce != null" >
+        INTRODUCE,
+      </if>
+      <if test="isPerson != null" >
+       IS_PERSON,
+      </if>
+       <if test="faxes != null" >
+       FAXES,
+      </if>
+       <if test="wechatId != null" >
+       WECHAT_ID,
+      </if>
+       <if test="wechatNickname != null" >
+       WECHAT_NICKNAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="passwordPlain != null" >
+        #{passwordPlain,jdbcType=VARCHAR},
+      </if>
+      <if test="roleCode != null" >
+        #{roleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="studentStatus != null" >
+        #{studentStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherStatus != null" >
+        #{teacherStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null" >
+        #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="hometown != null" >
+        #{hometown,jdbcType=VARCHAR},
+      </if>
+      <if test="hometownProvince != null" >
+        #{hometownProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="hometownCity != null" >
+        #{hometownCity,jdbcType=VARCHAR},
+      </if>
+      <if test="hometownCounties != null" >
+        #{hometownCounties,jdbcType=VARCHAR},
+      </if>
+      <if test="paperworkType != null" >
+        #{paperworkType,jdbcType=VARCHAR},
+      </if>
+      <if test="paperworkNo != null" >
+        #{paperworkNo,jdbcType=VARCHAR},
+      </if>
+      <if test="maritalStatus != null" >
+        #{maritalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="politicsRole != null" >
+        #{politicsRole,jdbcType=VARCHAR},
+      </if>
+      <if test="passwordAsk != null" >
+        #{passwordAsk,jdbcType=VARCHAR},
+      </if>
+      <if test="passwordAnswer != null" >
+        #{passwordAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="bornDate != null" >
+        #{bornDate,jdbcType=VARCHAR},
+      </if>
+      <if test="workDate != null" >
+        #{workDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="job != null" >
+        #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilePhone != null" >
+        #{mobilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="officeAddress != null" >
+        #{officeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="officePhone != null" >
+        #{officePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="homePhone != null" >
+        #{homePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="homeAddress != null" >
+        #{homeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="corrAddress != null" >
+        #{corrAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null" >
+        #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="homePage != null" >
+        #{homePage,jdbcType=VARCHAR},
+      </if>
+      <if test="imNo != null" >
+        #{imNo,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null" >
+        #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="isAdmin != null" >
+        #{isAdmin,jdbcType=VARCHAR},
+      </if>
+      <if test="adminLevel != null" >
+        #{adminLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="adminStartDate != null" >
+        #{adminStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adminEndDate != null" >
+        #{adminEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=CHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+      <if test="belongDeptName != null" >
+        #{belongDeptName,jdbcType=VARCHAR},
+      </if>
+      <if test="currentProvince != null" >
+        #{currentProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="currentCity != null" >
+        #{currentCity,jdbcType=VARCHAR},
+      </if>
+      <if test="currentCounties != null" >
+        #{currentCounties,jdbcType=VARCHAR},
+      </if>
+      <if test="currentStreet != null" >
+        #{currentStreet,jdbcType=VARCHAR},
+      </if>
+      <if test="introduce != null" >
+        #{introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="isPerson != null" >
+        #{isPerson,jdbcType=VARCHAR},
+      </if>
+       <if test="faxes != null" >
+        #{faxes,jdbcType=VARCHAR},
+      </if>
+       <if test="wechatId != null" >
+        #{wechatId,jdbcType=VARCHAR},
+      </if>
+       <if test="wechatNickname != null" >
+        #{wechatNickname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hcis.ipanther.common.user.entity.User" >
+    update IPANTHER_USER
+    <set >
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="passwordPlain != null" >
+        PASSWORD_PLAIN = #{passwordPlain,jdbcType=VARCHAR},
+      </if>
+      <if test="roleCode != null" >
+        ROLE_CODE = #{roleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="studentStatus != null" >
+        STUDENT_STATUS = #{studentStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherStatus != null" >
+        TEACHER_STATUS = #{teacherStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        REAL_NAME = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        SEX = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        COUNTRY = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null" >
+        NATION = #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="hometown != null" >
+        HOMETOWN = #{hometown,jdbcType=VARCHAR},
+      </if>
+      <if test="hometownProvince != null" >
+        HOMETOWN_PROVINCE = #{hometownProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="hometownCity != null" >
+        HOMETOWN_CITY = #{hometownCity,jdbcType=VARCHAR},
+      </if>
+      <if test="hometownCounties != null" >
+        HOMETOWN_COUNTIES = #{hometownCounties,jdbcType=VARCHAR},
+      </if>
+      <if test="paperworkType != null" >
+        PAPERWORK_TYPE = #{paperworkType,jdbcType=VARCHAR},
+      </if>
+      <if test="paperworkNo != null" >
+        PAPERWORK_NO = #{paperworkNo,jdbcType=VARCHAR},
+      </if>
+      <if test="maritalStatus != null" >
+        MARITAL_STATUS = #{maritalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="politicsRole != null" >
+        POLITICS_ROLE = #{politicsRole,jdbcType=VARCHAR},
+      </if>
+      <if test="passwordAsk != null" >
+        PASSWORD_ASK = #{passwordAsk,jdbcType=VARCHAR},
+      </if>
+      <if test="passwordAnswer != null" >
+        PASSWORD_ANSWER = #{passwordAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="bornDate != null" >
+        BORN_DATE = #{bornDate,jdbcType=VARCHAR},
+      </if>
+      <if test="workDate != null" >
+        WORK_DATE = #{workDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="job != null" >
+        JOB = #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilePhone != null" >
+        MOBILE_PHONE = #{mobilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="officeAddress != null" >
+        OFFICE_ADDRESS = #{officeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="officePhone != null" >
+        OFFICE_PHONE = #{officePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="homePhone != null" >
+        HOME_PHONE = #{homePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="homeAddress != null" >
+        HOME_ADDRESS = #{homeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="corrAddress != null" >
+        CORR_ADDRESS = #{corrAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null" >
+        POST_CODE = #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="homePage != null" >
+        HOME_PAGE = #{homePage,jdbcType=VARCHAR},
+      </if>
+      <if test="imNo != null" >
+        IM_NO = #{imNo,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null" >
+        AVATAR = #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="isAdmin != null" >
+        IS_ADMIN = #{isAdmin,jdbcType=VARCHAR},
+      </if>
+      <if test="adminLevel != null" >
+        ADMIN_LEVEL = #{adminLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="adminStartDate != null" >
+        ADMIN_START_DATE = #{adminStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adminEndDate != null" >
+        ADMIN_END_DATE = #{adminEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null" >
+        START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      </if>
+      VERSION = VERSION+1,
+      <if test="belongDeptName != null" >
+        BELONG_DEPT_NAME = #{belongDeptName,jdbcType=VARCHAR},
+      </if>
+      <if test="currentProvince != null" >
+        CURRENT_PROVINCE = #{currentProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="currentCity != null" >
+        CURRENT_CITY = #{currentCity,jdbcType=VARCHAR},
+      </if>
+      <if test="currentCounties != null" >
+        CURRENT_COUNTIES = #{currentCounties,jdbcType=VARCHAR},
+      </if>
+      <if test="currentStreet != null" >
+        CURRENT_STREET = #{currentStreet,jdbcType=VARCHAR},
+      </if>
+      <if test="introduce != null" >
+        INTRODUCE = #{introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="isPerson != null" >
+        IS_PERSON = #{isPerson,jdbcType=VARCHAR},
+      </if>
+       <if test="faxes != null" >
+        FAXES = #{faxes,jdbcType=VARCHAR},
+      </if>
+       <if test="wechatId != null" >
+        WECHAT_ID = #{wechatId,jdbcType=VARCHAR},
+      </if>
+       <if test="wechatNickname != null" >
+        WECHAT_NICKNAME = #{wechatNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="unitLevel != null" >
+        UNIT_LEVEL = #{unitLevel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hcis.ipanther.common.user.entity.User" >
+    update IPANTHER_USER
+    set USER_NAME = #{userName,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      PASSWORD_PLAIN = #{passwordPlain,jdbcType=VARCHAR},
+      ROLE_CODE = #{roleCode,jdbcType=VARCHAR},
+      TYPE = #{type,jdbcType=VARCHAR},
+      STUDENT_STATUS = #{studentStatus,jdbcType=VARCHAR},
+      TEACHER_STATUS = #{teacherStatus,jdbcType=VARCHAR},
+      REAL_NAME = #{realName,jdbcType=VARCHAR},
+      SEX = #{sex,jdbcType=VARCHAR},
+      COUNTRY = #{country,jdbcType=VARCHAR},
+      NATION = #{nation,jdbcType=VARCHAR},
+      HOMETOWN = #{hometown,jdbcType=VARCHAR},
+      HOMETOWN_PROVINCE = #{hometownProvince,jdbcType=VARCHAR},
+      HOMETOWN_CITY = #{hometownCity,jdbcType=VARCHAR},
+      HOMETOWN_COUNTIES = #{hometownCounties,jdbcType=VARCHAR},
+      PAPERWORK_TYPE = #{paperworkType,jdbcType=VARCHAR},
+      PAPERWORK_NO = #{paperworkNo,jdbcType=VARCHAR},
+      MARITAL_STATUS = #{maritalStatus,jdbcType=VARCHAR},
+      POLITICS_ROLE = #{politicsRole,jdbcType=VARCHAR},
+      PASSWORD_ASK = #{passwordAsk,jdbcType=VARCHAR},
+      PASSWORD_ANSWER = #{passwordAnswer,jdbcType=VARCHAR},
+      BORN_DATE = #{bornDate,jdbcType=VARCHAR},
+      WORK_DATE = #{workDate,jdbcType=TIMESTAMP},
+      JOB = #{job,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      MOBILE_PHONE = #{mobilePhone,jdbcType=VARCHAR},
+      OFFICE_ADDRESS = #{officeAddress,jdbcType=VARCHAR},
+      OFFICE_PHONE = #{officePhone,jdbcType=VARCHAR},
+      HOME_PHONE = #{homePhone,jdbcType=VARCHAR},
+      HOME_ADDRESS = #{homeAddress,jdbcType=VARCHAR},
+      CORR_ADDRESS = #{corrAddress,jdbcType=VARCHAR},
+      POST_CODE = #{postCode,jdbcType=VARCHAR},
+      HOME_PAGE = #{homePage,jdbcType=VARCHAR},
+      IM_NO = #{imNo,jdbcType=VARCHAR},
+      AVATAR = #{avatar,jdbcType=VARCHAR},
+      IS_ADMIN = #{isAdmin,jdbcType=VARCHAR},
+      ADMIN_LEVEL = #{adminLevel,jdbcType=VARCHAR},
+      ADMIN_START_DATE = #{adminStartDate,jdbcType=TIMESTAMP},
+      ADMIN_END_DATE = #{adminEndDate,jdbcType=TIMESTAMP},
+      START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      STATUS = #{status,jdbcType=VARCHAR},
+      CREATOR = #{creator,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      VERSION = VERSION+1,
+      BELONG_DEPT_NAME = #{belongDeptName,jdbcType=VARCHAR},
+      CURRENT_PROVINCE = #{currentProvince,jdbcType=VARCHAR},
+      CURRENT_CITY = #{currentCity,jdbcType=VARCHAR},
+      CURRENT_COUNTIES = #{currentCounties,jdbcType=VARCHAR},
+      CURRENT_STREET = #{currentStreet,jdbcType=VARCHAR},
+      INTRODUCE = #{introduce,jdbcType=VARCHAR},
+      UNIT_LEVEL = #{unitLevel,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectUserList" resultType="com.hcis.ipanther.common.user.entity.User" parameterType="searchParam">
+	 select IU.ID AS id, IU.USER_NAME AS userName, IU.PASSWORD AS password, IU.ROLE_CODE AS roleCode,
+	        IU.REAL_NAME AS realName, IU.PAPERWORK_NO AS paperworkNo, IU.AVATAR AS avatar,IU.SEX AS sex,IU.EMAIL AS email,
+	        IU.MOBILE_PHONE AS mobilePhone,IDE.ID AS deptId,IDE.DEPT_NAME AS deptName,IU.STATUS AS status , IAR.NAME AS roleName
+     from IPANTHER_USER IU
+         JOIN IPANTHER_USER_DEPT IUD ON IU.ID = IUD.USER_ID AND IUD.IS_DELETED = 'N'
+         JOIN IPANTHER_DEPARTMENT IDE ON IDE.ID = IUD.DEPT_ID  AND IDE.IS_DELETED = 'N'
+	     JOIN ipanther_auth_userrole IAUR ON IAUR.USER_ID = IU.ID
+	     JOIN ipanther_auth_role IAR ON IAR.ID = IAUR.ROLE_ID
+          WHERE IU.IS_DELETED = 'N'
+		<if test="paramMap.deptName!=null and paramMap.deptName!=''">
+			and IDE.DEPT_NAME like CONCAT('%',#{paramMap.deptName,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="paramMap.userName!=null and paramMap.userName!=''">
+			AND (IU.USER_NAME like CONCAT('%',#{paramMap.userName,jdbcType=VARCHAR},'%')
+			OR  IU.REAL_NAME like CONCAT('%',#{paramMap.userName,jdbcType=VARCHAR},'%'))
+		</if>
+		<if test="paramMap.realName!=null and paramMap.realName!=''">
+			AND IU.REAL_NAME like CONCAT('%',#{paramMap.realName,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="paramMap.deptIds!=null and paramMap.deptIds!=''">
+			AND IDE.id in
+			<foreach collection="paramMap.deptIds" item="dtId" open="(" close=")" separator=",">
+	       				#{dtId}
+	       	</foreach>
+		</if>
+		<if test="paramMap.regionsCode!=null and paramMap.regionsCode!=''">
+			AND IDE.REGIONS_CODE = #{paramMap.regionsCode,jdbcType=VARCHAR}
+		</if>
+		<if test="paramMap.paperworkNo!=null and paramMap.paperworkNo!=''">
+			AND IU.PAPERWORK_NO=#{paramMap.paperworkNo,jdbcType=DECIMAL}
+		</if>
+		<if test="paramMap.notRoleCode!=null and paramMap.notRoleCode!=''">
+			AND (IU.role_code is null or IU.role_code !=#{paramMap.notRoleCode,jdbcType=VARCHAR})
+		</if>
+		ORDER BY IU.CREATE_TIME desc
+  </select>
+	
+	<select id="checkExistUser" resultMap="BaseResultMap" parameterType="searchParam" >
+    select 
+    ID, USER_NAME
+    from IPANTHER_USER 
+    where IS_DELETED='N' 
+    <if test="paramMap.userId!=null and paramMap.userId!=''">
+     	AND ID !=#{paramMap.userId,jdbcType=VARCHAR}
+    </if>
+    <if test="(paramMap.userName!=null and paramMap.userName!='') or (paramMap.paperworkNo!=null and paramMap.paperworkNo!='')">
+    	AND (1!=1 
+	    <if test="paramMap.userName!=null and paramMap.userName!=''">
+	    	OR (USER_NAME=#{paramMap.userName,jdbcType=VARCHAR})
+	    </if>
+	    <if test="paramMap.paperworkNo!=null and paramMap.paperworkNo!=''">
+	    	OR (PAPERWORK_NO=#{paramMap.paperworkNo,jdbcType=VARCHAR})
+	    </if>
+	    <if test="paramMap.email!=null and paramMap.email!=''">
+	    	OR (EMAIL=#{paramMap.email,jdbcType=VARCHAR})
+	    </if>
+    	)
+    </if>
+  </select>
+  
+  <select id="selectBySearchParam" resultMap="BaseResultMap" parameterType="searchParam" >
+  	select tyt.* from (
+    SELECT t.*,b.id dept_id,b.dept_name,c.regions_code,c.regions_name,d.research_field,d.title,d.EXPERT_TYPE as EXPERT_TYPE,
+<!-- 原Oracle    	CEIL(MONTHS_BETWEEN(SYSDATE,decode(t.born_date,'',SYSDATE,to_date(t.born_date,'yyyy-mm')))/12) as AGE -->
+	 (YEAR(CURDATE())-YEAR(STR_TO_DATE(t.born_date,'%Y-%m-%d')))-(RIGHT(CURDATE(),5)&lt;RIGHT(STR_TO_DATE(t.born_date,'%Y-%m-%d'),5)) as AGE
+
+	  FROM ipanther_user t
+	  JOIN ipanther_user_dept a
+	    ON t.id = a.user_id
+	  JOIN ipanther_department b
+	    ON a.dept_id = b.id
+	  JOIN ipanther_admin_regions c
+	    ON b.regions_code = c.regions_code
+	  LEFT JOIN ipanther_user_staff d
+	  	ON (t.id = d.user_id AND d.is_deleted = 'N')
+	 WHERE t.is_deleted = 'N'
+	   AND a.is_deleted = 'N'
+	   AND b.is_deleted = 'N'
+	   AND c.is_deleted = 'N'
+     <if test="paramMap.regionsCode!=null and paramMap.regionsCode!=''">
+    	AND B.REGIONS_CODE =(#{paramMap.regionsCode,jdbcType=VARCHAR})
+    </if>
+    <if test="paramMap.regionsCodes!=null">
+    AND B.REGIONS_CODE IN
+ 		<foreach collection="paramMap.regionsCodes" item="regionsCode" separator="," open="(" close=")">
+ 			 #{regionsCode,jdbcType=VARCHAR}
+ 		</foreach>
+    </if>
+    <if test="paramMap.realName!=null and paramMap.realName!=''">
+<!--     	AND T.real_name like '%'||#{paramMap.realName}||'%' -->
+    	AND T.real_name like CONCAT('%',#{paramMap.realName,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="paramMap.deptId!=null and paramMap.deptId!=''">
+    	AND B.id = #{paramMap.deptId,jdbcType=VARCHAR}
+    </if>
+    <if test="paramMap.deptName!=null and paramMap.deptName!=''">
+<!--     	AND B.dept_name like '%'||#{paramMap.deptName,jdbcType=VARCHAR}||'%' -->
+    	AND B.dept_name like CONCAT('%',#{paramMap.deptName,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="paramMap.regionsCodeChildSearch!=null and paramMap.regionsCodeChildSearch!=''">
+    	AND B.REGIONS_CODE IN (${paramMap.regionsCodeChildSearch})
+<!--     	AND B.REGIONS_CODE IN (<include refid="com.hcis.ipanther.common.regions.mapper.RegionsMapper.selectChildRegionsCode"/>) -->
+    </if>
+   	<!-- 职称过滤 -->
+   	<if test="paramMap.title!=null and paramMap.title!=''">
+<!--     	AND d.title like '%'||#{paramMap.title,jdbcType=VARCHAR}||'%' -->
+    	AND d.title like CONCAT('%',#{paramMap.title,jdbcType=VARCHAR},'%')
+    </if>
+   	<!-- 人才类型过滤 -->
+   	<if test="paramMap.userTypes!=null">
+ 		<foreach collection="paramMap.userTypes" item="userType">
+ 			AND INSTR(D.USER_TYPE,#{userType,jdbcType=VARCHAR}) >0
+ 		</foreach>
+    </if>
+    
+	<if test="paramMap.isPerson!=null and paramMap.isPerson!='' ">
+ 		
+ 			AND t.IS_PERSON=#{paramMap.isPerson,jdbcType=VARCHAR}
+    </if>
+    <!-- 教师状态过滤 -->
+    <if test="paramMap.teacherStatuses!=null">
+    	 AND  t.TEACHER_STATUS in 
+ 		<foreach collection="paramMap.teacherStatuses" item="teacherStatus" separator="," open="(" close=")">
+ 			#{teacherStatus,jdbcType=VARCHAR}
+ 		</foreach>
+    </if>
+    <!-- 角色过滤 -->
+    <if test="paramMap.roleCodes != null" >
+      AND  t.ROLE_CODE in 
+      <foreach collection="paramMap.roleCodes" item="roleCode" separator="," open="(" close=")">
+      	#{roleCode,jdbcType=VARCHAR}
+      </foreach>
+    </if>
+    <if test="paramMap.notRoleCodes != null" >
+      AND  
+      (
+      t.ROLE_CODE is null or
+      t.ROLE_CODE not in 
+      <foreach collection="paramMap.notRoleCodes" item="roleCode" separator="," open="(" close=")">
+      	#{roleCode,jdbcType=VARCHAR}
+      </foreach>
+      )
+    </if>
+    <!-- 身份过滤 -->
+    <if test="paramMap.types != null" >
+      AND  t.type in 
+      <foreach collection="paramMap.types" item="type" separator="," open="(" close=")">
+      	#{type,jdbcType=VARCHAR}
+      </foreach>
+    </if>
+    <!-- 专家类型 -->
+   	<if test="paramMap.expertType!=null and paramMap.expertType!=''">
+    	AND instr(d.expert_type,CONCAT('"',#{paramMap.expertType,jdbcType=VARCHAR},'"'))>0
+ 	</if>
+   	<!-- 研究领域 -->
+    <if test="paramMap.researchField!=null and paramMap.researchField!=''">
+<!--     	AND d.research_field like '%'||#{paramMap.researchField,jdbcType=VARCHAR}||'%' -->
+    	AND d.research_field like CONCAT('%',#{paramMap.researchField,jdbcType=VARCHAR},'%')
+   	  </if>
+   	  <!-- 行业分类 -->
+   	 <if test="paramMap.industryType != null and paramMap.industryType!=''" >
+    	and B.INDUSTRY_TYPE= #{paramMap.industryType,jdbcType=VARCHAR}
+    </if>
+    <if test="paramMap.notTypes != null" >
+      AND  
+      (
+      t.type is null or
+      t.type not in 
+      <foreach collection="paramMap.notTypes" item="type" separator="," open="(" close=")">
+      	#{type,jdbcType=VARCHAR}
+      </foreach>
+      )
+    </if>
+    <!-- ID过滤 -->
+    <if test="paramMap.notIds != null" >
+      AND  t.id not in 
+      <foreach collection="paramMap.notIds" item="notId" separator="," open="(" close=")">
+      	#{notId,jdbcType=VARCHAR}
+      </foreach>
+    </if>
+     <!-- 用户导出只导出所传的Ids -->
+    <if test="paramMap.userIds != null and paramMap.userIds != ''" >
+      AND  t.id in (${paramMap.userIds}) 
+    </if>
+    AND T.STATUS = '1'<!-- 只加载有效的用户，锁定和未验证的不加载 -->
+    ) tyt where 1=1
+    <if test="paramMap.ageMin != null and paramMap.ageMin!=''" >
+    	and tyt.age >= #{paramMap.ageMin,jdbcType=DECIMAL}
+    </if>
+    <if test="paramMap.ageMax != null and paramMap.ageMax!=''" >
+    	and tyt.age &lt;= #{paramMap.ageMax,jdbcType=DECIMAL}
+    </if>
+     <if test="paramMap.email != null and paramMap.email!=''" >
+    	and tyt.email= #{paramMap.email,jdbcType=VARCHAR}
+    </if>
+    
+    ORDER BY tyt.CREATE_TIME desc
+  </select>
+  
+  <select id="selectTeacherTodo" resultMap="BaseResultMap" parameterType="searchParam" >
+  	select tct.* from (
+  	SELECT C.*,T.CREATE_TIME AS SORT_TIME,
+  		 e.id dept_id,e.dept_name,f.regions_code,f.regions_name,h.research_field,
+<!-- oracle  		 CEIL(MONTHS_BETWEEN(SYSDATE,decode(c.born_date,'',SYSDATE,to_date(c.born_date,'yyyy-mm')))/12) as AGE, -->
+		(YEAR(CURDATE())-YEAR(STR_TO_DATE(IFNULL(c.born_date,NOW()),'%Y-%m-%d')))-(RIGHT(CURDATE(),5)&lt;RIGHT(STR_TO_DATE(IFNULL(c.born_date,NOW()),'%Y-%m-%d'),5)) as AGE,
+         A.PROC_INST_ID_ PROC_INST_ID,
+         A.PROC_DEF_ID_ PROC_DEF_ID,
+         B.ID_ TASK_ID,
+         B.TASK_DEF_KEY_ TASK_DEF_KEY,
+         B.NAME_ TASK_NAME,
+         T.ID AS REGISTER_ID,
+         h.title
+    FROM IPR_USER_REGISTER T
+    JOIN ACT_HI_PROCINST A ON A.PROC_INST_ID_ = T.PROC_INST_ID
+    JOIN ACT_RU_TASK B ON B.PROC_INST_ID_ = T.PROC_INST_ID
+    LEFT JOIN ACT_RU_IDENTITYLINK G ON B.ID_ = G.TASK_ID_
+    JOIN IPANTHER_USER C ON T.USER_ID = C.ID
+    JOIN ipanther_user_dept d ON c.id = d.user_id
+	JOIN ipanther_department e ON d.dept_id = e.id
+	JOIN ipanther_admin_regions f ON e.regions_code = f.regions_code
+	LEFT JOIN ipanther_user_staff h ON (c.id = h.user_id AND h.is_deleted = 'N')
+	JOIN ACT_RE_PROCDEF I ON A.PROC_DEF_ID_ = I.ID_
+   WHERE T.IS_DELETED = 'N' AND C.IS_DELETED = 'N' AND e.IS_DELETED = 'N' AND f.IS_DELETED = 'N'
+   AND I.KEY_ IN ('TEACHER_FLOW_DEPT','TEACHER_FLOW_USER')
+   <if test="paramMap.realName!=null and paramMap.realName!=''">
+<!--     	AND c.real_name like '%'||#{paramMap.realName,jdbcType=VARCHAR}||'%' -->
+    	AND c.real_name like CONCAT('%',#{paramMap.realName,jdbcType=VARCHAR},'%')
+   </if>
+   <if test="paramMap.regionsCode!=null and paramMap.regionsCode!=''">
+    	AND e.REGIONS_CODE=#{paramMap.regionsCode,jdbcType=VARCHAR}
+   </if>
+   <if test="paramMap.deptName!=null and paramMap.deptName!=''">
+    	AND e.dept_name like CONCAT('%',#{paramMap.deptName,jdbcType=VARCHAR},'%')
+   </if>
+   <if test="paramMap.deptId!=null and paramMap.deptId!=''">
+    	AND e.id = #{paramMap.deptId,jdbcType=VARCHAR}
+   </if>
+   <!-- 职称过滤 -->
+   <if test="paramMap.title!=null and paramMap.title!=''">
+<!--    		AND h.title like '%'||#{paramMap.title,jdbcType=VARCHAR}||'%' -->
+   		AND h.title like CONCAT('%',#{paramMap.title,jdbcType=VARCHAR},'%')
+   </if>
+    <!-- 处理角色过滤 -->
+   <choose>
+   		<when test="paramMap.roles != null">
+   			and G.GROUP_ID_ IN
+   			<foreach collection="paramMap.roles" item="role" separator="," open="(" close=")">
+		      	#{role,jdbcType=VARCHAR}
+		    </foreach>
+   		</when>
+   		<otherwise>
+   			AND 1=2
+   		</otherwise>
+   </choose> 
+   
+   ) tct
+   where 1=1
+    <if test="paramMap.ageMin != null and paramMap.ageMin!=''" >
+    	and tct.age >= #{paramMap.ageMin,jdbcType=DECIMAL}
+    </if>
+    <if test="paramMap.ageMax != null and paramMap.ageMax!=''" >
+    	and tct.age &lt;= #{paramMap.ageMax,jdbcType=DECIMAL}
+    </if>
+   ORDER BY tct.SORT_TIME DESC
+  </select>
+  
+  <select id="selectTeacherDone" resultMap="BaseResultMap" parameterType="searchParam" >
+  	select UST.* from (
+  	SELECT   C.*,T.CREATE_TIME AS SORT_TIME,
+  		 e.id dept_id,e.dept_name,f.regions_code,f.regions_name,h.research_field,
+<!--   		 CEIL(SUBDATE(SYSDATE(),IF(c.born_date='',SYSDATE(),str_to_date(c.born_date,'yyyy-mm')))/12) as AGE, -->
+<!--   		 CEIL(SUBDATE(SYSDATE(),if(c.born_date='',SYSDATE(),str_to_date(c.born_date,'yyyy-mm')))/12) as AGE, -->
+<!-- (YEAR(CURDATE())-YEAR(if(c.born_date='',SYSDATE())))-(RIGHT(CURDATE(),5) as AGE, -->
+	 (YEAR(CURDATE())-YEAR(STR_TO_DATE(IFNULL(c.born_date,NOW()),'%Y-%m-%d')))-(RIGHT(CURDATE(),5)&lt;RIGHT(STR_TO_DATE(IFNULL(c.born_date,NOW()),'%Y-%m-%d'),5)) as AGE,
+	
+	A.PROC_INST_ID_ PROC_INST_ID,
+	A.PROC_DEF_ID_ PROC_DEF_ID,
+	B.ID_ TASK_ID,
+	B.TASK_DEF_KEY_ TASK_DEF_KEY,
+	IFNULL(B.NAME_,'结束') TASK_NAME,
+	T.ID AS REGISTER_ID,
+	h.title
+	FROM IPR_USER_REGISTER T
+	JOIN ACT_HI_PROCINST A ON A.PROC_INST_ID_ = T.PROC_INST_ID
+	LEFT JOIN ACT_RU_TASK B ON B.PROC_INST_ID_ = T.PROC_INST_ID
+	JOIN IPANTHER_USER C ON T.USER_ID = C.ID
+	JOIN ipanther_user_dept d ON c.id = d.user_id
+	JOIN ipanther_department e ON
+	d.dept_id = e.id
+	JOIN ipanther_admin_regions f ON e.regions_code =
+	f.regions_code
+	LEFT JOIN ipanther_user_staff h ON (c.id = h.user_id AND
+	h.is_deleted = 'N')
+	JOIN ACT_RE_PROCDEF I ON A.PROC_DEF_ID_ = I.ID_
+	WHERE T.IS_DELETED = 'N' AND C.IS_DELETED = 'N' AND e.IS_DELETED = 'N'
+	AND f.IS_DELETED = 'N'
+	AND I.KEY_ IN ('TEACHER_FLOW_DEPT','TEACHER_FLOW_USER')
+   <if test="paramMap.realName!=null and paramMap.realName!=''">
+    	AND c.real_name like CONCAT('%',#{paramMap.realName,jdbcType=VARCHAR},'%')
+   </if>
+   <if test="paramMap.regionsCode!=null and paramMap.regionsCode!=''">
+    	AND e.REGIONS_CODE=#{paramMap.regionsCode,jdbcType=VARCHAR}
+   </if>
+   <if test="paramMap.deptName!=null and paramMap.deptName!=''">
+    	AND e.dept_name like CONCAT('%',#{paramMap.deptName,jdbcType=VARCHAR},'%')
+   </if>
+   <!-- 职称过滤 -->
+   <if test="paramMap.title!=null and paramMap.title!=''">
+   		AND h.title like CONCAT('%',#{paramMap.title,jdbcType=VARCHAR},'%')
+   </if>
+     AND (
+         EXISTS (SELECT 1
+            FROM ACT_HI_TASKINST H
+           WHERE H.PROC_INST_ID_ = A.ID_
+             AND H.ASSIGNEE_ =#{paramMap.userId ,jdbcType=VARCHAR})
+         OR 
+         T.CREATOR =#{paramMap.userId ,jdbcType=VARCHAR}
+     )
+     ) UST
+     where 1=1
+    <if test="paramMap.ageMin != null and paramMap.ageMin!=''" >
+    	and UST.age >= #{paramMap.ageMin,jdbcType=DECIMAL}
+    </if>
+    <if test="paramMap.ageMax != null and paramMap.ageMax!=''" >
+    	and UST.age &lt;= #{paramMap.ageMax,jdbcType=DECIMAL}
+    </if>
+   ORDER BY UST.SORT_TIME DESC
+  </select>
+  
+  <!-- 学生用户审核列表 -->
+  <select id="selectAuditStudent" resultMap="BaseResultMap" parameterType="searchParam" >
+  select * from 
+  (
+    SELECT t.*,b.id dept_id,b.dept_name,c.regions_code,c.regions_name,
+    e.task_id,e.task_name,
+<!--     ROW_NUMBER() OVER(PARTITION BY T.ID ORDER BY E.CREATE_TIME DESC) AS SORT_NO	FROM ipanther_user t -->
+    COUNT(DISTINCT t.id) AS SORT_NO FROM ipanther_user t
+<!-- (SELECT count(DISTINCT t.id) FROM ipanther_user t JOIN IPR_USER_REGISTER_FLOW e ON t.id=e.user_id  GROUP BY t.id ORDER BY e.CREATE_TIME DESC) AS SORT_NO	FROM ipanther_user t -->
+	  JOIN ipanther_user_dept a
+	    ON t.id = a.user_id
+	  JOIN ipanther_department b
+	    ON a.dept_id = b.id
+	  JOIN ipanther_admin_regions c
+	    ON b.regions_code = c.regions_code
+	  LEFT JOIN ipanther_user_staff d
+	  	ON (t.id = d.user_id AND d.is_deleted = 'N')
+	  LEFT JOIN IPR_USER_REGISTER_FLOW E
+	  	on (e.user_id = t.id and E.is_deleted = 'N')
+	 WHERE t.is_deleted = 'N'
+	   AND a.is_deleted = 'N'
+	   AND b.is_deleted = 'N'
+	   AND c.is_deleted = 'N'
+    <if test="paramMap.regionsCode!=null and paramMap.regionsCode!=''">
+    	AND B.REGIONS_CODE=#{paramMap.regionsCode,jdbcType=VARCHAR}
+    </if>
+    <if test="paramMap.regionsCodeChildSearch!=null and paramMap.regionsCodeChildSearch!=''">
+    	AND B.REGIONS_CODE IN (<include refid="com.hcis.ipanther.common.regions.mapper.RegionsMapper.selectChildRegionsCode"/>)
+    </if>
+    <if test="paramMap.realName!=null and paramMap.realName!=''">
+<!--     	AND T.real_name like '%'||#{paramMap.realName,jdbcType=VARCHAR}||'%' -->
+    	AND T.real_name like CONCAT('%',#{paramMap.realName,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="paramMap.deptId!=null and paramMap.deptId!=''">
+    	AND B.id = #{paramMap.deptId,jdbcType=VARCHAR}
+    </if>
+    <if test="paramMap.deptName!=null and paramMap.deptName!=''">
+    	AND B.dept_name like CONCAT('%',#{paramMap.deptName,jdbcType=VARCHAR},'%')
+    </if>
+   	<!-- 人才类型过滤 -->
+   	<if test="paramMap.userTypes!=null">
+ 		<foreach collection="paramMap.userTypes" item="userType">
+ 			AND INSTR(D.USER_TYPE,#{userType,jdbcType=VARCHAR}) >0
+ 		</foreach>
+    </if>
+    
+    <if test="paramMap.type!=null">
+    	<!-- 待办理 -->
+    	<if test="paramMap.type=='Todo'">
+    		AND T.STUDENT_STATUS = '02'
+    	</if>
+    	<!-- 已办理 -->
+    	<if test="paramMap.type=='Done'">
+    		AND T.STUDENT_STATUS != '02'
+    		AND EXISTS (SELECT 1 FROM ipr_user_register_flow m where m.user_id = t.id )
+    	</if>
+    </if>
+    GROUP BY t.id ORDER BY e.CREATE_TIME DESC
+   ) x
+   where x.SORT_NO = 1
+    ORDER BY x.CREATE_TIME desc
+  </select>
+  
+  <!-- CMS展示培训师资信息 -->
+  <select id="selectTeacherForCMS" resultMap="BaseResultMap" parameterType="searchParam" >
+ 	  SELECT tu.*,
+ 	  TT.USER_ID, TT.USER_TYPE, TT.HIGH_DIPLOMA, TT.HIGH_SUBJECT, TT.HIGH_COLLEGE, TT.HIGH_DT, TT.HIGH_DEGREE,
+ 	  TT.HIGH_DEGREE_UNIT, TT.HIGH_DEGREE_DT, TT.FOREIGN_LANGUAGES, TT.FOREIGN_DEGREE, TT.FOREIGN_LEVEL, 
+ 	  TT.COMPUTER_LEVEL, TT.CHINESE_LEVEL, TT.PRO_NAME, TT.PRO_DT, TT.PRO_JOB, TT.EXPERT_TYPE,
+ 	  TT.EXPERT_LEVEL, TT.TITLE, TT.TITLE_DT, TT.RESEARCH_FIELD, TT.RESEARCH_SPECIAL, TT.TRAIN_DOMAIN, 
+ 	  TT.TRAIN_DIRECTION, TT.HAVE_EXP, TT.EXP_DESC, TT.MAIN_THESIS, TT.BANK_ACCOUNT,f.REGIONS_NAME,IDE.DEPT_NAME
+	  FROM ipanther_user tu
+	  join ipanther_user_dept iud on iud.user_id=tu.id and iud.is_deleted='N'
+	  join ipanther_department ide on iud.dept_id=ide.id and ide.is_deleted='N'
+	  JOIN ipanther_admin_regions f ON ide.regions_code = f.regions_code
+	  left join IPANTHER_USER_STAFF tt on tu.id=tt.user_id
+	  WHERE tu.IS_DELETED = 'N'
+	  <if test="paramMap.roleCodes != null" >
+	  	AND tu.role_code in
+	  	<foreach collection="paramMap.roleCodes" item="roleCode" separator="," open="(" close=")">
+      	#{roleCode,jdbcType=VARCHAR}
+      	</foreach>
+	  </if>
+	  <if test="paramMap.realName!=null and paramMap.realName!=''">
+	 	AND tu.real_name like CONCAT('%',#{paramMap.realName,jdbcType=VARCHAR},'%') 
+   	  </if>
+   	  <if test="paramMap.researchSpecial!=null and paramMap.researchSpecial!=''">
+    	AND tt.research_special like CONCAT('%',#{paramMap.researchSpecial,jdbcType=VARCHAR},'%')
+   	  </if>
+   	  <if test="paramMap.researchField!=null and paramMap.researchField!=''">
+    	AND tt.research_field like CONCAT('%',#{paramMap.researchField,jdbcType=VARCHAR},'%')
+   	  </if>
+   	   <if test="paramMap.expertType!=null and paramMap.expertType!=''">
+<!--     	AND instr(tt.expert_type,'"'||#{paramMap.expertType,jdbcType=VARCHAR}||'"')>0 -->
+    	AND instr(tt.expert_type,CONCAT('"',#{paramMap.expertType,jdbcType=VARCHAR},'"'))>0
+   	  </if>
+   	   <if test="paramMap.expertLevel!=null and paramMap.expertLevel!=''">
+    	AND instr(tt.expert_level,CONCAT('"',#{paramMap.expertLevel,jdbcType=VARCHAR},'"'))>0
+   	  </if>
+   	  <if test="paramMap.regions!=null and paramMap.regions!=''">
+    	AND ide.regions_code =#{paramMap.regions,jdbcType=VARCHAR}
+   	  </if>
+   	  <if test="paramMap.highCollege!=null and paramMap.highCollege!=''">
+    	AND TT.HIGH_COLLEGE =#{paramMap.highCollege,jdbcType=VARCHAR}
+   	  </if>
+   	  ORDER BY tu.create_time DESC
+  </select>
+  <select id="selectCountRegister" resultType="java.util.Map" parameterType="java.util.Map">
+  	SELECT  count(IU.ID) SUM_USER,MONTH_TEM.MONTH
+		FROM ipanther_user IU
+		JOIN IPANTHER_USER_DEPT IUD ON IU.ID = IUD.USER_ID AND IUD.IS_DELETED='N'
+		JOIN IPANTHER_DEPARTMENT ID ON IUD.DEPT_ID = ID.ID AND ID.IS_DELETED='N'
+		
+		<if test="deptId != null and deptId!=''" >
+	        AND ID.ID = #{deptId,jdbcType=VARCHAR}
+	      </if>
+		
+		RIGHT JOIN 
+		<foreach collection="months" open="(" close=")" separator="UNION ALL" item="trainMonth">
+			SELECT #{trainMonth,jdbcType=DECIMAL} MONTH FROM DUAL
+		</foreach>
+<!-- 		MONTH_TEM  ON MONTH_TEM.MONTH= to_char(IU.CREATE_TIME,'mm') AND　IU.IS_DELETED = 'N' -->
+		MONTH_TEM  ON MONTH_TEM.MONTH=date_format(IU.CREATE_TIME,'mm') AND IU.IS_DELETED ='N'
+		AND IU.ROLE_CODE IN (2,4,6)
+		 GROUP BY IU.ID,MONTH_TEM.MONTH
+		 ORDER BY MONTH_TEM.MONTH
+  </select>
+  <!-- 课程邮箱发送的人员 -->
+  <select id="selectUserSendEmail" parameterType="searchParam" resultMap="BaseResultMap">
+	select u.USER_NAME,u.email
+	from ipanther_user u
+	join ipanther_user_dept de
+	on u.id = de.user_id
+	join ipanther_department dd
+	on (dd.id = de.dept_id AND dd.is_deleted = 'N')
+	LEFT JOIN ipanther_user_staff d
+	ON (u.id = d.user_id AND d.is_deleted = 'N')
+	where dd.IS_DELETED = 'N'
+    
+    <!-- 学员类型过滤 -->
+   	<if test="paramMap.userTypes!=null and paramMap.userTypes!='' ">
+   	and(
+ 		<foreach collection="paramMap.userTypes" item="userType" separator="or">
+ 			 INSTR(D.USER_TYPE,#{userType,jdbcType=VARCHAR}) >0
+ 		</foreach>
+ 		)
+    </if>
+    <!-- 行业类型 -->
+    <if test="paramMap.industryType!=null and paramMap.industryType!='' ">
+    and (
+ 		<foreach collection="paramMap.industryType" item="industryType" separator="or">
+ 			 INSTR(dd.industry_type,#{industryType,jdbcType=VARCHAR}) >0
+ 		</foreach>
+ 		)
+    </if>
+  </select>
+  
+ 
+   
+   <!-- 根据传入的邮箱或手机判断该邮箱或手机是否已经注册过（用于注册验证码发送） -->  
+   <select id="selectByEmailOrPhone" resultType="String" parameterType="java.util.Map">
+   	  select 
+   	  	id
+   	  from 
+   	  	ipanther_user user
+   	  where user.IS_DELETED='N'
+   	  <if test="email!=null and email!=''">
+   	  	and user.EMAIL = #{email,jdbcType=VARCHAR}
+   	  </if>
+   	  <if test="mobilePhone!=null and mobilePhone!=''">
+   	  	and user.MOBILE_PHONE = #{mobilePhone,jdbcType=VARCHAR}
+   	  </if>
+   	  <if test="userId!=null and userId!=''">
+   	  	and user.ID != #{userId,jdbcType=VARCHAR}
+   	  </if>
+   </select>
+  <!--   专家列表 -->
+  <select id="selectExpertBySearchParam" resultMap="BaseResultMap" parameterType="searchParam" >
+  	SELECT t.ID,t.USER_NAME,t.PASSWORD,t.PASSWORD_PLAIN,t.ROLE_CODE,t.REAL_NAME,t.SEX,t.COUNTRY,t.NATION,t.HOMETOWN,t.HOMETOWN_PROVINCE,
+    t.HOMETOWN_CITY,t.HOMETOWN_COUNTIES,t.PAPERWORK_TYPE,t.PAPERWORK_NO,t.MARITAL_STATUS,t.POLITICS_ROLE,t.PASSWORD_ASK,t.PASSWORD_ANSWER,
+    t.BORN_DATE,t.WORK_DATE,t.JOB,t.EMAIL,t.MOBILE_PHONE,t.OFFICE_ADDRESS,t.OFFICE_PHONE,t.HOME_PHONE,t.HOME_ADDRESS,t.CORR_ADDRESS,
+    t.POST_CODE,t.HOME_PAGE,t.IM_NO,t.AVATAR,t.IS_ADMIN,t.ADMIN_LEVEL,t.ADMIN_START_DATE,t.ADMIN_END_DATE,t.START_TIME,t.END_TIME,
+    t.STATUS,t.CREATOR,t.CREATE_TIME,t.UPDATEDBY,t.UPDATE_TIME,t.IS_DELETED,t.VERSION,t.BELONG_DEPT_NAME,
+    (select regions_name from ipanther_admin_regions b where b.regions_code =t.CURRENT_PROVINCE)CURRENT_PROVINCE,
+    t.CURRENT_STREET,
+    (select regions_name from ipanther_admin_regions b where b.regions_code =t.CURRENT_CITY) CURRENT_CITY,
+    (select regions_name from ipanther_admin_regions b where b.regions_code =t.CURRENT_COUNTIES) CURRENT_COUNTIES,
+    t.TYPE,t.STUDENT_STATUS,t.TEACHER_STATUS,t.INTRODUCE,t.IS_PERSON,t.faxes,t.WECHAT_ID,t.WECHAT_NICKNAME,
+    p.HIGH_DIPLOMA,p.high_college,p.high_subject,p.high_degree
+	FROM ipanther_user t
+		left join ipanther_user_staff p
+		ON  t.id =p.user_id and p.is_deleted = 'N'
+		where t.is_deleted ='N' 
+    <if test="paramMap.realName!=null and paramMap.realName!=''">
+<!--     	AND T.real_name like '%'||#{paramMap.realName}||'%' -->
+    	AND T.real_name like CONCAT('%',#{paramMap.realName,jdbcType=VARCHAR},'%')
+    </if>
+
+    <!-- 角色过滤 -->
+    <if test="paramMap.roleCodes != null" >
+      AND  t.ROLE_CODE in 
+      <foreach collection="paramMap.roleCodes" item="roleCode" separator="," open="(" close=")">
+      	#{roleCode,jdbcType=VARCHAR}
+      </foreach>
+    </if>
+    <if test="paramMap.notRoleCodes != null" >
+      AND  
+      (
+      t.ROLE_CODE is null or
+      t.ROLE_CODE not in 
+      <foreach collection="paramMap.notRoleCodes" item="roleCode" separator="," open="(" close=")">
+      	#{roleCode,jdbcType=VARCHAR}
+      </foreach>
+      )
+    </if>
+    <!-- 身份过滤 -->
+    <if test="paramMap.types != null" >
+      AND  t.type in 
+      <foreach collection="paramMap.types" item="type" separator="," open="(" close=")">
+      	#{type,jdbcType=VARCHAR}
+      </foreach>
+    </if>
+    <if test="paramMap.notTypes != null" >
+      AND  
+      (
+      t.type is null or
+      t.type not in 
+      <foreach collection="paramMap.notTypes" item="type" separator="," open="(" close=")">
+      	#{type,jdbcType=VARCHAR}
+      </foreach>
+      )
+    </if>
+    <!-- ID过滤 -->
+    <if test="paramMap.notIds != null" >
+      AND  t.id not in 
+      <foreach collection="paramMap.notIds" item="notId" separator="," open="(" close=")">
+      	#{notId,jdbcType=VARCHAR}
+      </foreach>
+    </if>
+     <!-- 用户导出只导出所传的Ids -->
+    <if test="paramMap.userIds != null and paramMap.userIds != ''" >
+      AND  t.id in (${paramMap.userIds}) 
+    </if>
+    AND T.STATUS = '1'<!-- 只加载有效的用户，锁定和未验证的不加载 -->
+    <if test="paramMap.ageMin != null and paramMap.ageMin!=''" >
+    	and tyt.age >= #{paramMap.ageMin,jdbcType=DECIMAL}
+    </if>
+    <if test="paramMap.ageMax != null and paramMap.ageMax!=''" >
+    	and tyt.age &lt;= #{paramMap.ageMax,jdbcType=DECIMAL}
+    </if>
+     <if test="paramMap.email != null and paramMap.email!=''" >
+    	and tyt.email= #{paramMap.email,jdbcType=VARCHAR}
+    </if>
+    ORDER BY t.CREATE_TIME desc
+  </select>
+  
+</mapper>

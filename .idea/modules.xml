@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/ipbox_project.iml" filepath="$PROJECT_DIR$/ipbox_project.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ipbox_web/ipbox_web.iml" filepath="$PROJECT_DIR$/ipbox_web/ipbox_web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ipr_common/ipr_common.iml" filepath="$PROJECT_DIR$/ipr_common/ipr_common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ipbox_web/target/target.iml" filepath="$PROJECT_DIR$/ipbox_web/target/target.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	
+		<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	        <property name="host" >
+	        	<value>smtp.exmail.qq.com</value>
+	        </property>
+	        <property name="port" >
+	        	<value type="java.lang.Integer">465</value>
+	        </property>
+	        <property name="protocol">
+	        	<value>smtps</value>
+	        </property>
+	        <property name="username">
+	        	<value>IPBoxservice@gzhcis.com</value>
+	        </property>
+	        <property name="password">
+	        	<value>AEnP2MJTGK7rDYsp</value>
+	        </property>
+	        <!-- SMTP服务器验证 -->
+	        <property name="javaMailProperties">
+	            <props>
+	                <!-- 验证身份 -->
+	                <prop key="mail.smtps.auth">true</prop>
+	                <prop key="mail.smtp.ssl.enable">true</prop>
+					<prop key="mail.transport.protocol">smtps</prop>
+	           </props>
+	        </property>
+	    </bean>
+	    
+	    <bean id="mailFreeMarkerConfigurer" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		    <property name="templateLoaderPaths" value="/template/" /><!--模板路径位置 -->
+			<property name="freemarkerSettings">
+				<props>
+					<prop key="template_update_delay">1800</prop><!-- 模板更新延时 -->
+					<prop key="default_encoding">UTF-8</prop>
+					<prop key="locale">zh_CN</prop>
+				</props>
+			</property>
+		</bean>
+</beans>

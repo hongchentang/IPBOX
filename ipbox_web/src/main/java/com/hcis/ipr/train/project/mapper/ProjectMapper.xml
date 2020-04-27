@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcis.ipr.train.project.mapper.ProjectMapper" >
+  <resultMap id="BaseResultMap" type="com.hcis.ipr.train.project.entity.Project" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="PROC_INST_ID" property="procInstId" jdbcType="VARCHAR" />
+    <result column="PROJECT_CODE" property="projectCode" jdbcType="VARCHAR" />
+    <result column="PROJECT_NAME" property="projectName" jdbcType="VARCHAR" />
+    <result column="YEAR" property="year" jdbcType="VARCHAR" />
+    <result column="DECLARE_DEPT" property="declareDept" jdbcType="VARCHAR" />
+    <result column="DECLARE_USER" property="declareUser" jdbcType="VARCHAR" />
+    <result column="DECLARE_TIME" property="declareTime" jdbcType="TIMESTAMP" />
+    <result column="EXPERT_ID" property="expertId" jdbcType="VARCHAR" />
+    <result column="HEAD_ID" property="headId" jdbcType="VARCHAR" />
+    <result column="HEAD_UNIT" property="headUnit" jdbcType="VARCHAR" />
+    <result column="PROJECT_SUBJECT" property="projectSubject" jdbcType="VARCHAR" />
+    <result column="INDEX_OUT" property="indexOut" jdbcType="VARCHAR" />
+    <result column="INDEX_BENEFIT" property="indexBenefit" jdbcType="VARCHAR" />
+    <result column="INDEX_SATISFY" property="indexSatisfy" jdbcType="VARCHAR" />
+    <result column="CASH" property="cash" jdbcType="DECIMAL" />
+    <result column="CASH_FROM" property="cashFrom" jdbcType="VARCHAR" />
+    <result column="EVAL_PERFORM" property="evalPerform" jdbcType="DECIMAL" />
+    <result column="EVAL_SCORE" property="evalScore" jdbcType="DECIMAL" />
+    <result column="EVAL_RESULT" property="evalResult" jdbcType="VARCHAR" />
+    <result column="EVAL_REPORT" property="evalReport" jdbcType="VARCHAR" />
+    <result column="EVAL_STUDENT" property="evalStudent" jdbcType="VARCHAR" />
+    <result column="EVAL_EXPERT" property="evalExpert" jdbcType="VARCHAR" />
+    <result column="PROJECT_IMG" property="projectImg" jdbcType="VARCHAR" />
+    <result column="ATTACHMENT" property="attachment" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="CHAR" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+    <result column="PORJECT_INTRO" property="porjectIntro" jdbcType="VARCHAR" />
+    <result column="APPLY_COUNT" property="applyCount" jdbcType="DECIMAL" />
+    <result column="MAX_APPLY_COUNT" property="maxApplyCount" jdbcType="DECIMAL" />
+    <result column="IS_ADD" property="isAdd" jdbcType="DECIMAL" />
+    <result column="TRAIN_NUM" property="trainNum" jdbcType="DECIMAL" />
+    <result column="PLAN_HOURS" property="planHours" jdbcType="DECIMAL" />
+    <result column="IS_HIDDEN" property="isHidden" jdbcType="CHAR" />
+  </resultMap>
+    <resultMap type="java.util.Map" id="listTodo" extends="BaseResultMap">
+  		<result column="TASK_DEF_KEY_" property="taskDefKey" jdbcType="VARCHAR" />
+  		<result column="NAME_" property="taskName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, PROC_INST_ID, PROJECT_CODE, PROJECT_NAME, YEAR, DECLARE_DEPT, DECLARE_USER, DECLARE_TIME, 
+    EXPERT_ID, HEAD_ID, HEAD_UNIT, PROJECT_SUBJECT, INDEX_OUT, INDEX_BENEFIT, INDEX_SATISFY, 
+    CASH, CASH_FROM, EVAL_PERFORM, EVAL_SCORE, EVAL_RESULT, EVAL_REPORT, EVAL_STUDENT, 
+    EVAL_EXPERT, PROJECT_IMG, ATTACHMENT, STATUS, CREATOR, CREATE_TIME, UPDATEDBY, UPDATE_TIME, 
+    IS_DELETED, VERSION, PORJECT_INTRO,APPLY_COUNT,MAX_APPLY_COUNT,TRAIN_NUM,PLAN_HOURS,IS_HIDDEN
+  </sql>
+  <select id="selectBySearchParam" resultMap="BaseResultMap" parameterType="searchParam" >
+    select 
+    <include refid="Base_Column_List" />,
+    (select count(IPPT.ID) from ipbox_project_PERFORMANCE_TARGET IPPT where IPPT.PROJECT_ID=ID 
+    AND IPPT.IS_DELETED='N') IS_ADD
+    from ipbox_project where IS_DELETED='N'
+    <if test="paramMap.projectName!=null and paramMap.projectName!=''">
+<!--原oracle     	and PROJECT_NAME like '%'||#{paramMap.projectName,jdbcType=VARCHAR}||'%' -->
+    	and PROJECT_NAME like '%${paramMap.projectName}%'
+    </if>
+    <if test="paramMap.creator!=null and paramMap.creator!=''">
+    	and CREATOR =#{paramMap.creator,jdbcType=VARCHAR} and PROC_INST_ID is null
+    </if>
+    <if test="paramMap.status !=null and paramMap.status!=''">
+    	and STATUS=#{paramMap.status,jdbcType=VARCHAR}
+    </if>
+    <!-- ID过滤 -->
+    <if test="paramMap.notIds != null" >
+      AND id not in 
+      <foreach collection="paramMap.notIds" item="notId" separator="," open="(" close=")">
+      	#{notId,jdbcType=VARCHAR}
+      </foreach>
+    </if>
+    <if test="paramMap.declareDept!=null and paramMap.declareDept!=''">
+    	and DECLARE_DEPT =  #{paramMap.declareDept,jdbcType=VARCHAR}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ipbox_project
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+   <select id="listTodo" resultMap="listTodo" parameterType="searchParam" >
+   select  IPJ.*,art.task_def_key_,art.name_  from ipbox_project IPJ
+           join ACT_HI_PROCINST ahp on IPJ.PROC_INST_ID=ahp.proc_inst_id_ 
+              join ACT_RU_TASK art on IPJ.PROC_INST_ID=art.proc_inst_id_
+              join ACT_RU_IDENTITYLINK ari on ari.task_id_=art.id_ and ari.type_='candidate'
+              where IPJ.is_deleted='N'
+	    <if test="paramMap.candidateId != null and paramMap.candidateId!=''" >
+	       		and ari.group_id_ =#{paramMap.candidateId,jdbcType=VARCHAR}
+	      </if>
+	       <if test="paramMap.candidateIdList != null" >
+	       		and ari.group_id_ in 
+	       			<foreach collection="paramMap.candidateIdList" item="groupId" open="(" close=")" separator=",">
+	       				#{groupId}
+	       			</foreach>
+	      </if>
+	      <if test="paramMap.projectName != null and paramMap.projectName!=''" >
+<!-- 	       and IPJ.PROJECT_NAME like '%'|| #{paramMap.projectName,jdbcType=VARCHAR}||'%' -->
+	       and IPJ.PROJECT_NAME like '%${paramMap.projectName}%'
+	      </if>
+	      order by IPJ.create_time desc
+  </select>
+  <select id="listDone" resultMap="BaseResultMap" parameterType="searchParam" >
+  		select IPJ.* from ipbox_project IPJ  where IPJ.is_deleted='N'
+  		<if test="paramMap.userId!=null and paramMap.userId!=''">
+			and (exists(select 1 from ipbox_project_FLOW IPJF where IPJF.is_deleted='N' 
+			and IPJ.ID=IPJF.PROJECT_ID and IPJF.AUDIT_USER=#{paramMap.userId,jdbcType=VARCHAR})
+		          or IPJ.DECLARE_USER=#{paramMap.userId,jdbcType=VARCHAR}
+		      )
+		</if>
+		 <if test="paramMap.projectName != null and paramMap.projectName!=''" >
+<!-- 	       and IPJ.PROJECT_NAME like '%'|| #{paramMap.projectName,jdbcType=VARCHAR}||'%' -->
+	       and IPJ.PROJECT_NAME like '%${paramMap.projectName}%'
+	      </if>
+	      <if test="paramMap.status !=null and paramMap.status!=''">
+	       and IPJ.STATUS=#{paramMap.status,jdbcType=VARCHAR}
+	      </if>
+	       <if test="paramMap.isHidden !=null and paramMap.isHidden!=''">
+	       and IPJ.is_Hidden is null 
+	      </if>
+		order by IPJ.create_time desc
+  </select>
+  
+  <select id="listAll" resultMap="BaseResultMap" parameterType="searchParam" >
+  		select IPJ.* from ipbox_project IPJ  where IPJ.is_deleted='N'
+  		<if test="paramMap.userId!=null and paramMap.userId!=''">
+			and (exists(select 1 from ipbox_project_FLOW IPJF where IPJF.is_deleted='N' 
+			and IPJ.ID=IPJF.PROJECT_ID and IPJF.AUDIT_USER=#{paramMap.userId,jdbcType=VARCHAR})
+		          or IPJ.DECLARE_USER=#{paramMap.userId,jdbcType=VARCHAR}
+		      )
+		</if>
+		 <if test="paramMap.projectName != null and paramMap.projectName!=''" >
+	       and IPJ.PROJECT_NAME like '%${paramMap.projectName}%'
+	      </if>
+	      <if test="paramMap.status !=null and paramMap.status!=''">
+	       and IPJ.STATUS=#{paramMap.status,jdbcType=VARCHAR}
+	      </if>
+	       <if test="paramMap.isHidden !=null and paramMap.isHidden!=''">
+	       and IPJ.is_Hidden is null 
+	      </if>
+	      union
+	      select * from ipbox_project where IS_DELETED='N' and CREATOR =#{paramMap.userId,jdbcType=VARCHAR} and PROC_INST_ID is null 
+	      <if test="paramMap.projectName != null and paramMap.projectName!=''" >
+	       and PROJECT_NAME like '%${paramMap.projectName}%'
+	      </if>       
+		order by create_time desc
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ipbox_project
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hcis.ipr.train.project.entity.Project" >
+    insert into ipbox_project (ID, PROC_INST_ID, PROJECT_CODE, 
+      PROJECT_NAME, YEAR, DECLARE_DEPT, 
+      DECLARE_USER, DECLARE_TIME, EXPERT_ID, 
+      HEAD_ID, HEAD_UNIT, PROJECT_SUBJECT, 
+      INDEX_OUT, INDEX_BENEFIT, INDEX_SATISFY, 
+      CASH, CASH_FROM, EVAL_PERFORM, 
+      EVAL_SCORE, EVAL_RESULT, EVAL_REPORT, 
+      EVAL_STUDENT, EVAL_EXPERT, PROJECT_IMG, 
+      ATTACHMENT, STATUS, CREATOR, 
+      CREATE_TIME, UPDATEDBY, UPDATE_TIME, 
+      IS_DELETED, VERSION, PORJECT_INTRO,APPLY_COUNT,MAX_APPLY_COUNT,
+      TRAIN_NUM,PLAN_HOURS)
+    values (#{id,jdbcType=VARCHAR}, #{procInstId,jdbcType=VARCHAR}, #{projectCode,jdbcType=VARCHAR}, 
+      #{projectName,jdbcType=VARCHAR}, #{year,jdbcType=VARCHAR}, #{declareDept,jdbcType=VARCHAR}, 
+      #{declareUser,jdbcType=VARCHAR}, #{declareTime,jdbcType=TIMESTAMP}, #{expertId,jdbcType=VARCHAR}, 
+      #{headId,jdbcType=VARCHAR}, #{headUnit,jdbcType=VARCHAR}, #{projectSubject,jdbcType=VARCHAR}, 
+      #{indexOut,jdbcType=VARCHAR}, #{indexBenefit,jdbcType=VARCHAR}, #{indexSatisfy,jdbcType=VARCHAR}, 
+      #{cash,jdbcType=DECIMAL}, #{cashFrom,jdbcType=VARCHAR}, #{evalPerform,jdbcType=DECIMAL}, 
+      #{evalScore,jdbcType=DECIMAL}, #{evalResult,jdbcType=VARCHAR}, #{evalReport,jdbcType=VARCHAR}, 
+      #{evalStudent,jdbcType=VARCHAR}, #{evalExpert,jdbcType=VARCHAR}, #{projectImg,jdbcType=VARCHAR}, 
+      #{attachment,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updatedby,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{isDeleted,jdbcType=CHAR}, #{version,jdbcType=DECIMAL}, #{porjectIntro,jdbcType=VARCHAR}，
+      #{applyCount,jdbcType=DECIMAL},#{maxApplyCount,jdbcType=DECIMAL},#{trainNum,jdbcType=DECIMAL}
+      #{planHours,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hcis.ipr.train.project.entity.Project" >
+    insert into ipbox_project
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="procInstId != null" >
+        PROC_INST_ID,
+      </if>
+      <if test="projectCode != null" >
+        PROJECT_CODE,
+      </if>
+      <if test="projectName != null" >
+        PROJECT_NAME,
+      </if>
+      <if test="year != null" >
+        YEAR,
+      </if>
+      <if test="declareDept != null" >
+        DECLARE_DEPT,
+      </if>
+      <if test="declareUser != null" >
+        DECLARE_USER,
+      </if>
+      <if test="declareTime != null" >
+        DECLARE_TIME,
+      </if>
+      <if test="expertId != null" >
+        EXPERT_ID,
+      </if>
+      <if test="headId != null" >
+        HEAD_ID,
+      </if>
+      <if test="headUnit != null" >
+        HEAD_UNIT,
+      </if>
+      <if test="projectSubject != null" >
+        PROJECT_SUBJECT,
+      </if>
+      <if test="indexOut != null" >
+        INDEX_OUT,
+      </if>
+      <if test="indexBenefit != null" >
+        INDEX_BENEFIT,
+      </if>
+      <if test="indexSatisfy != null" >
+        INDEX_SATISFY,
+      </if>
+      <if test="cash != null" >
+        CASH,
+      </if>
+      <if test="cashFrom != null" >
+        CASH_FROM,
+      </if>
+      <if test="evalPerform != null" >
+        EVAL_PERFORM,
+      </if>
+      <if test="evalScore != null" >
+        EVAL_SCORE,
+      </if>
+      <if test="evalResult != null" >
+        EVAL_RESULT,
+      </if>
+      <if test="evalReport != null" >
+        EVAL_REPORT,
+      </if>
+      <if test="evalStudent != null" >
+        EVAL_STUDENT,
+      </if>
+      <if test="evalExpert != null" >
+        EVAL_EXPERT,
+      </if>
+      <if test="projectImg != null" >
+        PROJECT_IMG,
+      </if>
+      <if test="attachment != null" >
+        ATTACHMENT,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="creator != null" >
+        CREATOR,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+      <if test="porjectIntro != null" >
+        PORJECT_INTRO,
+      </if>
+      <if test="applyCount != null" >
+        APPLY_COUNT,
+      </if>
+      <if test="maxApplyCount != null" >
+        MAX_APPLY_COUNT,
+      </if>
+      <if test="trainNum != null" >
+        TRAIN_NUM,
+      </if>
+      <if test="planHours != null" >
+        PLAN_HOURS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="procInstId != null" >
+        #{procInstId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectCode != null" >
+        #{projectCode,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null" >
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="declareDept != null" >
+        #{declareDept,jdbcType=VARCHAR},
+      </if>
+      <if test="declareUser != null" >
+        #{declareUser,jdbcType=VARCHAR},
+      </if>
+      <if test="declareTime != null" >
+        #{declareTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expertId != null" >
+        #{expertId,jdbcType=VARCHAR},
+      </if>
+      <if test="headId != null" >
+        #{headId,jdbcType=VARCHAR},
+      </if>
+      <if test="headUnit != null" >
+        #{headUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="projectSubject != null" >
+        #{projectSubject,jdbcType=VARCHAR},
+      </if>
+      <if test="indexOut != null" >
+        #{indexOut,jdbcType=VARCHAR},
+      </if>
+      <if test="indexBenefit != null" >
+        #{indexBenefit,jdbcType=VARCHAR},
+      </if>
+      <if test="indexSatisfy != null" >
+        #{indexSatisfy,jdbcType=VARCHAR},
+      </if>
+      <if test="cash != null" >
+        #{cash,jdbcType=DECIMAL},
+      </if>
+      <if test="cashFrom != null" >
+        #{cashFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="evalPerform != null" >
+        #{evalPerform,jdbcType=DECIMAL},
+      </if>
+      <if test="evalScore != null" >
+        #{evalScore,jdbcType=DECIMAL},
+      </if>
+      <if test="evalResult != null" >
+        #{evalResult,jdbcType=VARCHAR},
+      </if>
+      <if test="evalReport != null" >
+        #{evalReport,jdbcType=VARCHAR},
+      </if>
+      <if test="evalStudent != null" >
+        #{evalStudent,jdbcType=VARCHAR},
+      </if>
+      <if test="evalExpert != null" >
+        #{evalExpert,jdbcType=VARCHAR},
+      </if>
+      <if test="projectImg != null" >
+        #{projectImg,jdbcType=VARCHAR},
+      </if>
+      <if test="attachment != null" >
+        #{attachment,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=CHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+      <if test="porjectIntro != null" >
+        #{porjectIntro,jdbcType=VARCHAR},
+      </if>
+       <if test="applyCount != null" >
+        #{applyCount,jdbcType=DECIMAL},
+      </if>
+      <if test="maxApplyCount != null" >
+        #{maxApplyCount,jdbcType=DECIMAL},
+      </if>
+      <if test="trainNum != null" >
+        #{trainNum,jdbcType=DECIMAL},
+      </if>
+      <if test="planHours != null" >
+        #{planHours,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hcis.ipr.train.project.entity.Project" >
+    update ipbox_project
+    <set >
+      <if test="procInstId != null" >
+        PROC_INST_ID = #{procInstId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectCode != null" >
+        PROJECT_CODE = #{projectCode,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null" >
+        PROJECT_NAME = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null" >
+        YEAR = #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="declareDept != null" >
+        DECLARE_DEPT = #{declareDept,jdbcType=VARCHAR},
+      </if>
+      <if test="declareUser != null" >
+        DECLARE_USER = #{declareUser,jdbcType=VARCHAR},
+      </if>
+      <if test="declareTime != null" >
+        DECLARE_TIME = #{declareTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expertId != null" >
+        EXPERT_ID = #{expertId,jdbcType=VARCHAR},
+      </if>
+      <if test="headId != null" >
+        HEAD_ID = #{headId,jdbcType=VARCHAR},
+      </if>
+      <if test="headUnit != null" >
+        HEAD_UNIT = #{headUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="projectSubject != null" >
+        PROJECT_SUBJECT = #{projectSubject,jdbcType=VARCHAR},
+      </if>
+      <if test="indexOut != null" >
+        INDEX_OUT = #{indexOut,jdbcType=VARCHAR},
+      </if>
+      <if test="indexBenefit != null" >
+        INDEX_BENEFIT = #{indexBenefit,jdbcType=VARCHAR},
+      </if>
+      <if test="indexSatisfy != null" >
+        INDEX_SATISFY = #{indexSatisfy,jdbcType=VARCHAR},
+      </if>
+      <if test="cash != null" >
+        CASH = #{cash,jdbcType=DECIMAL},
+      </if>
+      <if test="cashFrom != null" >
+        CASH_FROM = #{cashFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="evalPerform != null" >
+        EVAL_PERFORM = #{evalPerform,jdbcType=DECIMAL},
+      </if>
+      <if test="evalScore != null" >
+        EVAL_SCORE = #{evalScore,jdbcType=DECIMAL},
+      </if>
+      <if test="evalResult != null" >
+        EVAL_RESULT = #{evalResult,jdbcType=VARCHAR},
+      </if>
+      <if test="evalReport != null" >
+        EVAL_REPORT = #{evalReport,jdbcType=VARCHAR},
+      </if>
+      <if test="evalStudent != null" >
+        EVAL_STUDENT = #{evalStudent,jdbcType=VARCHAR},
+      </if>
+      <if test="evalExpert != null" >
+        EVAL_EXPERT = #{evalExpert,jdbcType=VARCHAR},
+      </if>
+      <if test="projectImg != null" >
+        PROJECT_IMG = #{projectImg,jdbcType=VARCHAR},
+      </if>
+      <if test="attachment != null" >
+        ATTACHMENT = #{attachment,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      </if>
+      VERSION = VERSION+1,
+      <if test="porjectIntro != null" >
+        PORJECT_INTRO = #{porjectIntro,jdbcType=VARCHAR},
+      </if>
+       <if test="applyCount != null" >
+        APPLY_COUNT = #{applyCount,jdbcType=DECIMAL},
+      </if>
+      <if test="maxApplyCount != null" >
+        MAX_APPLY_COUNT = #{maxApplyCount,jdbcType=DECIMAL},
+      </if>
+      <if test="trainNum != null" >
+        TRAIN_NUM = #{trainNum,jdbcType=DECIMAL},
+      </if>
+      <if test="planHours != null" >
+        PLAN_HOURS = #{planHours,jdbcType=DECIMAL},
+      </if>
+       <if test="isHidden != null" >
+        IS_HIDDEN = #{isHidden,jdbcType=CHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hcis.ipr.train.project.entity.Project" >
+    update ipbox_project
+    set PROC_INST_ID = #{procInstId,jdbcType=VARCHAR},
+      PROJECT_CODE = #{projectCode,jdbcType=VARCHAR},
+      PROJECT_NAME = #{projectName,jdbcType=VARCHAR},
+      YEAR = #{year,jdbcType=VARCHAR},
+      DECLARE_DEPT = #{declareDept,jdbcType=VARCHAR},
+      DECLARE_USER = #{declareUser,jdbcType=VARCHAR},
+      DECLARE_TIME = #{declareTime,jdbcType=TIMESTAMP},
+      EXPERT_ID = #{expertId,jdbcType=VARCHAR},
+      HEAD_ID = #{headId,jdbcType=VARCHAR},
+      HEAD_UNIT = #{headUnit,jdbcType=VARCHAR},
+      PROJECT_SUBJECT = #{projectSubject,jdbcType=VARCHAR},
+      INDEX_OUT = #{indexOut,jdbcType=VARCHAR},
+      INDEX_BENEFIT = #{indexBenefit,jdbcType=VARCHAR},
+      INDEX_SATISFY = #{indexSatisfy,jdbcType=VARCHAR},
+      CASH = #{cash,jdbcType=DECIMAL},
+      CASH_FROM = #{cashFrom,jdbcType=VARCHAR},
+      EVAL_PERFORM = #{evalPerform,jdbcType=DECIMAL},
+      EVAL_SCORE = #{evalScore,jdbcType=DECIMAL},
+      EVAL_RESULT = #{evalResult,jdbcType=VARCHAR},
+      EVAL_REPORT = #{evalReport,jdbcType=VARCHAR},
+      EVAL_STUDENT = #{evalStudent,jdbcType=VARCHAR},
+      EVAL_EXPERT = #{evalExpert,jdbcType=VARCHAR},
+      PROJECT_IMG = #{projectImg,jdbcType=VARCHAR},
+      ATTACHMENT = #{attachment,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      CREATOR = #{creator,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      VERSION = VERSION+1,
+      PORJECT_INTRO = #{porjectIntro,jdbcType=VARCHAR},
+      TRAIN_NUM= #{trainNum,jdbcType=VARCHAR},
+      PLAN_HOURS = #{planHours,jdbcType=DECIMAL
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="deleteByLogic" parameterType="com.hcis.ipr.train.project.entity.Project" >
+    update ipbox_project 
+    <set >
+      <if test="creator != null" >
+       CREATOR = #{creator,jdbcType=VARCHAR}
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR}, 
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}, 
+      </if>
+        IS_DELETED ='Y',
+       VERSION = VERSION+1
+      
+    </set>
+    where ID = #{id,jdbcType=VARCHAR} 
+    
+  </update>
+  <update id="deleteAll" parameterType="com.hcis.ipr.train.project.entity.Project" >
+    update ipbox_project ip join IPR_TRAIN it on it.PROJECT_ID=ip.ID
+    <set >
+      <if test="creator != null" >
+        ip.CREATOR = #{creator,jdbcType=VARCHAR},it.CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        ip.CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},it.CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        ip.UPDATEDBY = #{updatedby,jdbcType=VARCHAR}, it.UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        ip.UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}, it.UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+        ip.IS_DELETED ='Y',it.IS_DELETED ='Y',
+        ip.VERSION = ip.VERSION+1,it.VERSION = it.VERSION+1
+      
+    </set>
+    where ip.ID = #{id,jdbcType=VARCHAR} 
+    and it.PROJECT_ID = #{id,jdbcType=VARCHAR} 
+  </update>
+</mapper>

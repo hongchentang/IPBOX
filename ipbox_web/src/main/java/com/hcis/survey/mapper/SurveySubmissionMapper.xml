@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hcis.survey.mapper.SurveySubmissionMapper" >
+  <resultMap id="BaseResultMap" type="com.hcis.survey.entity.SurveySubmission" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="RESPONSE" property="response" jdbcType="VARCHAR" />
+    <result column="SCORE" property="score" jdbcType="FLOAT" />
+    <result column="SURVEY_USER_ID" property="surveyUserId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, RESPONSE, SCORE, SURVEY_USER_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from IMS_SURVEY_SUBMISSION
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <insert id="insertSelective" parameterType="com.hcis.survey.entity.SurveySubmission" >
+    insert into IMS_SURVEY_SUBMISSION
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="response != null" >
+        RESPONSE,
+      </if>
+      <if test="score != null" >
+        SCORE,
+      </if>
+      <if test="surveyUserId != null" >
+        SURVEY_USER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="response != null" >
+        #{response,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=FLOAT},
+      </if>
+      <if test="surveyUserId != null" >
+        #{surveyUserId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hcis.survey.entity.SurveySubmission" >
+    update IMS_SURVEY_SUBMISSION
+    <set >
+      <if test="response != null" >
+        RESPONSE = #{response,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        SCORE = #{score,jdbcType=FLOAT},
+      </if>
+      <if test="surveyUserId != null" >
+        SURVEY_USER_ID = #{surveyUserId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <delete id="deleteByPhysics" parameterType="com.hcis.survey.entity.SurveySubmission">
+  	delete from IMS_SURVEY_SUBMISSION
+  	<where>
+  		<choose>
+  		<when test="surveyUserId!=null and surveyUserId!=''">
+  			SURVEY_USER_ID=#{surveyUserId,jdbcType=VARCHAR}
+  			<if test="id!=null and id!=''">
+  				AND ID=#{id,jdbcType=VARCHAR}
+  			</if>
+  		</when>
+  		<otherwise>
+  			ID=#{id,jdbcType=VARCHAR}
+  		</otherwise>
+  		</choose>
+  	</where>
+  </delete>
+  
+  <select id="selectBySearchParam" parameterType="searchParam" resultMap="BaseResultMap">
+  	SELECT a.*
+	  FROM ims_survey_submission a
+	  JOIN ims_survey_question b
+	    ON a.id = b.id
+      JOIN ims_survey_user c
+        ON c.id = a.survey_user_id
+	 WHERE 1=1
+	 <if test="paramMap.quesType != null and paramMap.quesType != ''" >
+    	and b.ques_type = #{paramMap.quesType,jdbcType=VARCHAR}
+     </if>
+	 <if test="paramMap.questionId!= null and paramMap.questionId != ''" >
+    	and b.id = #{paramMap.questionId,jdbcType=VARCHAR}
+     </if>
+     <if test="paramMap.status != null and paramMap.status != ''" >
+    	and c.completion_status = #{paramMap.status,jdbcType=VARCHAR}
+     </if>
+  </select>
+</mapper>

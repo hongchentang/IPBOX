@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="ipr_common-20150209">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/ipr_common/target/ipr_common-20150209.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,66 @@
+@charset "utf-8";
+/* CSS Document */
+.c-black{color:#000;}/* 黑色 */
+.c-white{color:#fff;}/* 白色 */
+.c-blue{color:blue;}/* 蓝色 */
+.c-blue1{color:#b6fffd;}
+.c-blue2{color:#428bca}
+.c-blue3{color:#0068b7}
+.c-green{color:green;}/* 绿色 */
+.c-green1{color:#68a623;}
+.wrap c-green1:hover{color:#15caa5;}
+.c-green1:hover{color:#447d2d;}
+.c-green2{color:#10b695;}
+.c-green3{color:#17cfaa;}
+.c-green4{color:#075f5a;}
+.c-green5{color:#1d9d74;}
+.c-purple{color:purple;}/* 紫色 */
+.c-purple1{color:#9900ff;}
+.c-yellow{color:yellow;}/* 黄色 */
+.c-yellow1{color:#fff100;}
+.c-yellow2{color:#dfc512;}
+.c-red{color:red;}/* 红色 */
+.c-pink{color:pink;}/* 粉红色 */
+.c-palegreen{color:palegreen;}/* 苍绿色 */ 
+.c-gray{color:grey;}/* 灰色 */
+.c-gray1{color:#3e3a39;}
+.c-gray2{color:#898989;}
+.c-gray3{color:#333;}
+.c-gray4{color:#444;}
+.c-gray5{color:#555;}
+.c-gray6{color:#666;}
+.c-gray9{color:#999;}
+.c-gray10{color:#ccc;}
+.c-gray11{color:#e5e5e5;}
+.c-orange{color:orange;}
+.c-orange1{color:#ec6941;}
+
+.font12{font-size:12px;}
+.font14{font-size:14px;}
+.font16{font-size:16px;}
+.font18{font-size:18px;}
+.font22{font-size:22px;}
+.font24{font-size:24px;}
+
+.bg-white{background:#fff;}
+.bg-red{background:#e28971;}
+.bg-red2{background:#ff5825;}
+.bg-yellow{background:#ddca74;}
+.bg-yellow2{background:#dfc512;}
+.bg-green{background:#76d488;}
+.bg-green1{background:#f3fdfb;}
+.bg-green2{background:#418d66;}
+.bg-green3{background:#47c1a8;}
+.bg-blue{background:#95b2ed;}
+.bg-blue1{background:#f1fbff;}
+
+.bg-orange{background:#d99e64;}
+.bg-cyan{background:#afd3ce;}
+.bg-purple{background:#938ee8;}
+.bg-gray1{background:#f9f9f9;}
+.bg-gray2{background:#f4f4f4;}
+.bg-gray3{background:#dee0e5;}
+
+
+
+

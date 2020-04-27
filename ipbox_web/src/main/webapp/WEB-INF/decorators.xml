@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<decorators defaultdir="/decorators">
+	<!--无封套 -->
+    <excludes>
+		<pattern>/space/**/noskin/*</pattern>
+    </excludes>
+
+    <excludes>
+        <pattern>/site/register/*</pattern>
+    </excludes>
+
+    <excludes>
+        <pattern>/attachment/*</pattern>
+    </excludes>
+
+	<!-- 个人端封套 -->
+	<decorator name="space" page="/themes/skin/space/skin/index.jsp">
+        <pattern>/space/*</pattern>
+    </decorator>
+    
+    <!-- CMS封套 -->
+<!-- 	<decorator name="site" page="/themes/skin/cms/skin/index.jsp">
+        <pattern>/site/*</pattern>
+    </decorator> -->
+	
+    <!-- 微信端 -->
+    <decorator name="wechat" page="/themes/skin/wechat/skin.jsp">
+        <pattern>/wechat/*</pattern>
+    </decorator>
+	
+</decorators>

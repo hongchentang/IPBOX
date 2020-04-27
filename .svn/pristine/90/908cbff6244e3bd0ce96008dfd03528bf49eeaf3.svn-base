@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		xmlns:aop="http://www.springframework.org/schema/aop" 
+		xmlns:context="http://www.springframework.org/schema/context" 
+		xmlns:task="http://www.springframework.org/schema/task"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans
+							http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+							http://www.springframework.org/schema/context
+							http://www.springframework.org/schema/context/spring-context-3.2.xsd
+							http://www.springframework.org/schema/aop
+							http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+							http://www.springframework.org/schema/task  
+							http://www.springframework.org/schema/task/spring-task-3.2.xsd">
+	
+	<!-- 解决内部调用不通过代理导致无法启用注解缓存问题 -->
+	<aop:aspectj-autoproxy expose-proxy="true"/>
+	<!-- 引入属性文件 -->
+	<context:property-placeholder order="1" location="classpath:config.properties" ignore-unresolvable="true" />
+
+	<!-- 对模型视图名称的解析，即在模型视图名称添加前后缀 -->
+
+	
+	<task:annotation-driven/>  
+	
+	<context:annotation-config/>  
+    		<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>  
+    <context:component-scan base-package="com.hcis.ipanther.common.task"/>  
+
+	<import resource="classpath*:spring/common/spring-*.xml" />
+	<!-- <import resource="classpath:spring-mybatis.xml" /> -->
+	<!-- <import resource="classpath:spring-shiro.xml" /> -->
+	<!-- <import resource="classpath:spring-memcached.xml" />   -->
+
+	<!-- 扫描的包路径 去掉mvc的注解-->
+	<context:component-scan base-package="com.hcis">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+		<context:exclude-filter type="regex" expression="com.hcis.ipanther.common.privilege.*"/>
+	</context:component-scan>
+
+	<bean id="beanLocator" class="com.hcis.ipanther.core.utils.BeanLocator"></bean>
+	
+	<bean id="propertiesLoader" class="com.hcis.ipanther.core.utils.PropertiesLoader" scope="singleton">
+		<constructor-arg index="0" value="common.properties">
+		</constructor-arg>
+	</bean>
+	
+</beans>
