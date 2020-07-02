@@ -32,7 +32,7 @@
 		<druid.version>1.0.26</druid.version>
 		<activiti.version>5.16.4</activiti.version>
 		<hibernate.version>3.6.10.Final</hibernate.version>
-		<mysql.version>5.1.35</mysql.version>
+		<mysql.version>8.0.16</mysql.version>
 		<jedis.version>2.6.0</jedis.version>
 		<sitemesh.version>2.4.2</sitemesh.version>
 		<servlet-api.version>2.5</servlet-api.version>
